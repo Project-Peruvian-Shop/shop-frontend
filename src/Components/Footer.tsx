@@ -11,26 +11,26 @@ function Footer() {
 
                 <p>Acerca de</p>
                 <Link to={routes.about}>Nuestra empresa</Link>
-                <Link to="/">Contáctenos</Link>
-                <Link to="/">Preguntas Frecuentes</Link>
+                <Link to={routes.contact}>Contáctenos</Link>
+                <Link to={routes.questions}>Preguntas Frecuentes</Link>
             
 
                 <p>Productos</p>
                 <Link to={routes.about}>Alcantarillado</Link>
-                <Link to="/">Desagüe</Link>
-                <Link to="/">Instalaciones eléctricas</Link>
+                <Link to={""}>Desagüe</Link>
+                <Link to={""}>Instalaciones eléctricas</Link>
 
 
                 <p>Politicas de empresa</p>
-                <Link to={routes.about}>Politica de privacidad</Link>
-                <Link to="/">Libro de reclamaciones</Link>
-                <Link to="/">Términos y condiciones</Link>
-                <Link to="/"><img src={logoBook} alt="Libro de reclamaciones" /></Link>
+                <Link to={routes.privacy_policy}>Politica de privacidad</Link>
+                <Link to={routes.complaints_book}>Libro de reclamaciones</Link>
+                <Link to={routes.tyc}>Términos y condiciones</Link>
+                <Link to={routes.complaints_book}><img src={logoBook} alt="Libro de reclamaciones" /></Link>
 
                 <p>Redes sociales</p>
-                <Link to={routes.about}><img src={logoTiktok} alt="Tiktok" />Tiktok</Link>
-                <Link to="/"><img src={logoInstagram} alt="Instagram" />Instagram</Link>
-                <Link to="/"><img src={logoWhatsApp} alt="WhatsApp" />WhatsApp</Link>
+                <Link to={""}><img src={logoTiktok} alt="Tiktok" />Tiktok</Link>
+                <Link to={""}><img src={logoInstagram} alt="Instagram" />Instagram</Link>
+                <Link to={""}><img src={logoWhatsApp} alt="WhatsApp" />WhatsApp</Link>
             </div>
             <div></div>
             <div>
@@ -39,4 +39,4 @@ function Footer() {
         </footer>
     );
 };
-export default Footer
+export default Footer;

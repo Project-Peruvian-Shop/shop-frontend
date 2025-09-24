@@ -1,8 +1,9 @@
-export default function Notfound() {
-    
+const Notfound = () => {
     return (
-        <div>
-            <h1>Welcome to the Home Page</h1>
-        </div>
+    <div>
+            <h1>404 - Not Found</h1>
+    </div>
     )
-};
+}
+
+export default Notfound;

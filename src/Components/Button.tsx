@@ -1,15 +1,13 @@
-import React from "react";
 
 type ButtonProps = {
-    children: React.ReactNode;
+    text: string;
     onClick: () => void;
     css: string;
 };
-
-const Button: React.FC<ButtonProps> = ({ children, onClick, css }) => {
+const Button = ({ text, onClick, css }: ButtonProps) => {
     return (
-    <button onClick={onClick} className={`btn ${css}`}>
-        {children}
+    <button onClick={onClick} className={css}>
+        {text}
     </button>
     );
 };
