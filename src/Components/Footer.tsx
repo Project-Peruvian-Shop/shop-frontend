@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { routes } from "../utils/routes";
-import logoTiktok from '../assets/react.svg'
-import logoInstagram from '../assets/react.svg'
-import logoWhatsApp from '../assets/react.svg'
-import logoBook from '../assets/react.svg'
+import logoTiktok from '../Icons/tik-tok.png';
+import logoInstagram from '../Icons/instagram.png';
+import logoWhatsApp from '../Icons/whatsapp.png';
+import logoBook from '../Icons/Libro.avif';
 function Footer() {
     return (
         <footer>
@@ -15,9 +15,9 @@ function Footer() {
                 <Link to={routes.questions}>Preguntas Frecuentes</Link>
             
 
-                <p>Productos</p>
                 <Link to={routes.about}>Alcantarillado</Link>
                 <Link to={""}>Desagüe</Link>
+                <p>Productos</p>
                 <Link to={""}>Instalaciones eléctricas</Link>
 
 
