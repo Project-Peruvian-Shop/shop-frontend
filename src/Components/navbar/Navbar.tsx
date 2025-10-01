@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { routes } from "../../utils/routes.ts";
-import Button from "../Button.tsx";
 import logo from "../../Icons/Logo-HD.png";
 import styles from "./Navbar.module.css";
+import ButtonPrimary from "../buttons/ButtonPrimary.tsx";
 
 const Navbar = () => {
   // Verifica si tiene token
@@ -37,15 +37,14 @@ const Navbar = () => {
       </div>
 
       {hasTokens ? (
-        <Button
-          text="Contáctenos"
-          onClick={() => alert("Contact us form coming soon!")}
-          css="btn-primary"
-        />
-      ) : (
         <div className={styles.authButtons}>
-          <Link to={routes.login}>Iniciar sesión</Link>
+          <div>Componente Sesion</div>
         </div>
+      ) : (
+        <ButtonPrimary
+          text="Contáctenos"
+          click={() => alert("Contact us form coming soon!")}
+        />
       )}
     </nav>
   );
