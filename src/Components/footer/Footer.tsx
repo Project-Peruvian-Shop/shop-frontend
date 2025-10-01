@@ -41,26 +41,44 @@ function Footer() {
 
         <div className={styles.columna}>
           <p className={styles.title}>Redes sociales</p>
-          <Link to={RRSS.tiktok} className={styles.linkRRSS}>
+
+          <a
+            href={RRSS.tiktok}
+            className={styles.linkRRSS}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={logoTiktok} alt="Tiktok" className={styles.iconRRSS} />
             Tiktok
-          </Link>
-          <Link to={RRSS.instagram} className={styles.linkRRSS}>
+          </a>
+
+          <a
+            href={RRSS.instagram}
+            className={styles.linkRRSS}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src={logoInstagram}
               alt="Instagram"
               className={styles.iconRRSS}
             />
             Instagram
-          </Link>
-          <Link to={RRSS.whatsapp} className={styles.linkRRSS}>
+          </a>
+
+          <a
+            href={RRSS.whatsapp}
+            className={styles.linkRRSS}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src={logoWhatsApp}
               alt="WhatsApp"
               className={styles.iconRRSS}
             />
             WhatsApp
-          </Link>
+          </a>
         </div>
       </div>
 
