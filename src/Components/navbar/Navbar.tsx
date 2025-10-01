@@ -25,13 +25,13 @@ const Navbar = () => {
         <Link to={routes.about}>¿Quiénes somos?</Link>
         <Link to={routes.shop}>Tienda</Link>
         <div className={styles.dropdown}>
-          <button className={styles.dropbtn}>Servicio ▾</button>
+          <button className={styles.dropbtn}>Ayuda ▾</button>
           <div className={styles.dropdownContent}>
-            <Link to="/libro-reclamaciones">Libro de Reclamaciones</Link>
-            <Link to="/politica-privacidad">Política de Privacidad</Link>
-            <Link to="/terminos-condiciones">Términos y Condiciones</Link>
-            <Link to="/faq">Preguntas Frecuentes</Link>
-            <Link to="/contacto">Contáctenos</Link>
+            <Link to={routes.complaints_book}>Libro de Reclamaciones</Link>
+            <Link to={routes.privacy_policy}>Política de Privacidad</Link>
+            <Link to={routes.tyc}>Términos y Condiciones</Link>
+            <Link to={routes.questions}>Preguntas Frecuentes</Link>
+            <Link to={routes.contact}>Contáctenos</Link>
           </div>
         </div>
       </div>
