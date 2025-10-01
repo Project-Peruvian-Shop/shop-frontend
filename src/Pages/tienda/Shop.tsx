@@ -5,10 +5,12 @@ import SubHeader from "../../Components/shop/subheader/SubHeader";
 import { mockSidebar } from "../../utils/mock";
 import styles from "./Shop.module.css";
 import { getPaginatedProductos } from "../../services/producto.service";
-import type { ProductoDTO } from "../../services/producto.service";
+import type { PaginatedProductoResponseDTO } from "../../models/Producto/Producto_response_dto";
 
 const Shop = () => {
-  const [productos, setProductos] = useState<ProductoDTO[]>([]);
+  const [productos, setProductos] = useState<PaginatedProductoResponseDTO[]>(
+    []
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

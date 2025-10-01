@@ -1,6 +1,6 @@
 export interface PaginatedProductoResponseDTO {
-    id: number;
-    nombre: string;
-    imagenUrl: string;
-    imagenAlt: string;
+  id: number;
+  nombre: string;
+  imagenUrl: string;
+  imagenAlt: string;
 }
