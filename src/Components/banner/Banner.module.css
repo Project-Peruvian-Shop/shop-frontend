@@ -1,0 +1,10 @@
+.title {
+  padding: 20px 0;
+  color: white;
+  background-color: var(--secondary-color);
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  font-size: 28px;
+  text-align: center;
+}

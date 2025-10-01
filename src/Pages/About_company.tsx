@@ -1,4 +1,4 @@
-import Banner from "../Components/Banner";
+import Banner from "../Components/banner/Banner";
 import About from "../Icons/About_company/user_icon.png";
 import Compromiso from "../Icons/About_company/compromiso.png";
 import Responsabilidad from "../Icons/About_company/responsabilidad.png";

@@ -1,4 +1,4 @@
-import Banner from "../Components/Banner";
+import Banner from "../Components/banner/Banner";
 import Form from "../Components/Form";
 import logoTiktok from '../Icons/tik-tok.png';
 import logoInstagram from '../Icons/instagram.png';

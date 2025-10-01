@@ -1,4 +1,4 @@
-import Banner from "../Components/Banner";
+import Banner from "../Components/banner/Banner";
 import Card from "../Components/Card";
 import { routes } from "../utils/routes";
 import shop from "../Icons/Home/shop.png";
@@ -17,7 +17,7 @@ const Home = () => {
     <main>
       <Hero />
 
-      <Banner title="Especialidades" />
+      <Banner title="ESPECIALIDADES" />
 
       <div>
         <Card
