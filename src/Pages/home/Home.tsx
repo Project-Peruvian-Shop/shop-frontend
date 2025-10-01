@@ -46,7 +46,7 @@ const Home = () => {
 
       <Banner title="Nuestros Productos" />
 
-      <div>
+      <div className={styles.containerProductos}>
         {/* Cambiar las rutas de las categorias por las correctas */}
         <Card
           img={alcantarillado}
@@ -69,6 +69,9 @@ const Home = () => {
           link={routes.shop}
           visible={false}
         />
+      </div>
+
+      <div className={styles.containerProductos}>
         <Card
           img={fluidoapresionSP}
           title="Fluido a presión SP"
