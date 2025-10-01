@@ -1,9 +1,6 @@
 import Banner from "../Components/Banner";
 import Card from "../Components/Card";
 import { routes } from "../utils/routes";
-import Home1 from "../Images/Landing/Home-1.jpeg";
-import Home2 from "../Images/Landing/Home-2.jpg";
-import Home3 from "../Images/Landing/Home-3.jpg";
 import shop from "../Icons/Home/shop.png";
 import document from "../Icons/Home/document.png";
 import questions from "../Icons/Home/questions.png";
@@ -13,20 +10,15 @@ import fluidoapresionUF from "../Icons/Home/Fluidos_a_presion_UF.png";
 import fluidoapresionSP from "../Icons/Home/Fluidos_a_presion_SP.png";
 import fluidoapresionUR from "../Icons/Home/Fluidos_a_presion_UR.png";
 import instalacioneselectricas from "../Icons/Home/Instalaciones_electricas.png";
+import Hero from "../Components/home/hero/Hero";
 
 const Home = () => {
   return (
     <main>
-      <div>
-        <img src={Home1} alt="Banner 1" />
-        <img src={Home2} alt="Banner 2" />
-        <img src={Home3} alt="Banner 3" />
-      </div>
-      <div>
-        <h1>Tuberias Peruanito S.A.C.</h1>
-        <span>Fluye con confianza, nuestros tubos lo garantizan.</span>
-      </div>
+      <Hero />
+
       <Banner title="Especialidades" />
+
       <div>
         <Card
           img={shop}
@@ -50,7 +42,9 @@ const Home = () => {
           visible={false}
         />
       </div>
+
       <Banner title="Nuestros Productos" />
+
       <div>
         {/* Cambiar las rutas de las categorias por las correctas */}
         <Card
