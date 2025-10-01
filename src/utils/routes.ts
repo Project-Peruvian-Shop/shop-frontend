@@ -15,7 +15,7 @@ export const routes = {
 
   // Public - Shop
   shop: "/tienda",
-  product: "/producto/:id",
+  product: "/producto/",
   shop_cart: "/carrito",
 
   // Private - Shop & User profile

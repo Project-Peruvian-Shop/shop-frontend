@@ -12,6 +12,7 @@ import Notfound from "./Pages/Notfound.tsx";
 import TermsAndConditions from "./Pages/TermsAndConditions.tsx";
 import Contact from "./Pages/Contact.tsx";
 import Complaints_book from "./Pages/Complaints_book.tsx";
+import Producto from "./Pages/producto/Producto.tsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path={routes.privacy_policy} element={<Policity />} />
         {/*Shop Pages*/}
         <Route path={routes.shop} element={<Shop />} />
+        <Route path={`${routes.product}:id`} element={<Producto />} />
       </Routes>
       <Footer />
     </>
