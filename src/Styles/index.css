@@ -1,11 +1,15 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: poppins, cursive;
   line-height: 1.5;
   font-weight: 400;
   text-align: center;
+  --primary-color: #FB2343;
+  --secondary-color: #1B2F33;
 }
+
 body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
+  font-family: "Poppins", sans-serif;
 }

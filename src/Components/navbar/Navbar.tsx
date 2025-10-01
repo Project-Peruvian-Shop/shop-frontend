@@ -24,7 +24,16 @@ const Navbar = () => {
         <Link to={routes.home}>Inicio</Link>
         <Link to={routes.about}>¿Quiénes somos?</Link>
         <Link to={routes.shop}>Tienda</Link>
-        <Link to={""}>Servicio</Link>
+        <div className={styles.dropdown}>
+          <button className={styles.dropbtn}>Servicio ▾</button>
+          <div className={styles.dropdownContent}>
+            <Link to="/libro-reclamaciones">Libro de Reclamaciones</Link>
+            <Link to="/politica-privacidad">Política de Privacidad</Link>
+            <Link to="/terminos-condiciones">Términos y Condiciones</Link>
+            <Link to="/faq">Preguntas Frecuentes</Link>
+            <Link to="/contacto">Contáctenos</Link>
+          </div>
+        </div>
       </div>
 
       {hasTokens ? (
@@ -34,7 +43,7 @@ const Navbar = () => {
           css="btn-primary"
         />
       ) : (
-        <div className="auth-buttons">
+        <div className={styles.authButtons}>
           <Link to={routes.login}>Iniciar sesión</Link>
         </div>
       )}

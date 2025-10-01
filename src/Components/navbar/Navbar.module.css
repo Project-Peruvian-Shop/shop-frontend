@@ -1,11 +1,10 @@
 .navbar {
-  width: 100%;
-  min-height: 120px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
   align-items: center;
-  background-color: #ffff;
+  align-content: stretch;
 }
 
 .logo {
@@ -14,14 +13,75 @@
 }
 
 .links {
-  display: flex;
-  flex-direction: row;
-  gap: 50px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .links a {
   text-decoration: none;
   color: black;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.authButtons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  font-family: inherit;
   font-weight: 600;
-  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 12px;
+}
+
+.dropdownContent {
+  padding: 10px 0;
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 300px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius: 6px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.dropdownContent a {
+  color: black;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownContent a:hover {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
 }
