@@ -7,7 +7,7 @@ const BASE_URL = URL_API + "/producto";
 
 export async function getPaginatedProductos(
   page: number = 0,
-  size: number = 9
+  size: number = 10
 ): Promise<PaginatedResponse<PaginatedProductoResponseDTO>> {
   const url = `${BASE_URL}/paginated?page=${page}&size=${size}`;
 
