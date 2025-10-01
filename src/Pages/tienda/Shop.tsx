@@ -7,6 +7,7 @@ import styles from "./Shop.module.css";
 import { getPaginatedProductos } from "../../services/producto.service";
 import type { PaginatedResponse } from "../../services/global.interfaces";
 import type { PaginatedProductoResponseDTO } from "../../models/Producto/Producto_response_dto";
+import Pagination from "../../Components/pagination/Pagination";
 
 const Shop = () => {
   const [pageData, setPageData] =
@@ -44,25 +45,12 @@ const Shop = () => {
             <>
               {pageData && <Products result={pageData.content} />}
 
-              {/* 🔹 Paginador abajo */}
               {pageData && (
-                <div className={styles.pagination}>
-                  <button
-                    disabled={pageData.first}
-                    onClick={() => setPage((p) => p - 1)}
-                  >
-                    Anterior
-                  </button>
-                  <span>
-                    Página {pageData.number + 1} de {pageData.totalPages}
-                  </span>
-                  <button
-                    disabled={pageData.last}
-                    onClick={() => setPage((p) => p + 1)}
-                  >
-                    Siguiente
-                  </button>
-                </div>
+                <Pagination
+                  currentPage={pageData.number}
+                  totalPages={pageData.totalPages}
+                  onPageChange={(newPage) => setPage(newPage)}
+                />
               )}
             </>
           )}
