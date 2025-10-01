@@ -2,33 +2,9 @@
   margin: 0 auto;
   text-align: center;
 }
-.Container{
+.Container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 20px;
   padding: 20px;
-}
-.logo{
-  width: 200px;
-  height: auto;
-}
-.navbar{
-  width: 100%;
-  min-height: 120px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #ffff;
-}
-.links{
-  display: flex;
-  flex-direction: row;
-  gap: 50px;
-}
-.navbar a{
-  text-decoration: none;
-  color: black;
-  font-weight: 600;
-  font-size: 18px;
 }
