@@ -1,6 +1,6 @@
 .sidebarContainer {
   width: 350px;
-  padding: 48px;
+  padding: 48px 140px;
 }
 
 .title {
@@ -14,7 +14,7 @@
 }
 
 .divisor {
-  width: 100%;
+  width: 70%;
   height: 1px;
   background: #e0e0e0;
   margin: 16px 0;
