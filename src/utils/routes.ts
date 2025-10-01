@@ -1,54 +1,56 @@
 export const routes = {
-    //Principal Pages
-    NotFound: '*',
-    home: '/',
-    about: '/about',
-    questions: '/questions',
-    contact: '/contact',
-    complaints_book: '/complaints_book',
-    tyc: '/terms_conditions',
-    privacy_policy: '/privacy_policy',
+  // Public - Landing
+  home: "/",
+  about: "/about",
+  questions: "/preguntas-frecuentes",
+  contact: "/contacto",
+  complaints_book: "/libro-reclamaciones",
+  tyc: "/terminos-condiciones",
+  privacy_policy: "/politica-privacidad",
+  NotFound: "*",
 
-    //Shop Pages
-    shop: '/shop',
-    product: '/product/:id',
-    shop_cart: '/shop_cart',
-    checkout: '/checkout',
-    thank_you: '/thank_you',
+  // Public - Auth
+  login: "/login",
+  register: "/registro",
 
-    //User Pages
-    login: '/login',
-    register: '/register',
-    profile_user: '/profile_user',
-    profile_cotization: '/profile_cotizations/:id',
+  // Public - Shop
+  shop: "/tienda",
+  product: "/producto/:id",
+  shop_cart: "/carrito",
 
-    //Admin Pages
-    dashboard: '/dashboard',
-    dashboard_profile: '/dashboard_profile',
-    
-    // Products Management
-    dashboard_products: '/dashboard_products',
-    dashboard_product: '/dashboard_product/:id',
-    dashboard_product_new: '/dashboard_product_new',
-    dashboard_product_edit: '/dashboard_product_edit/:id',
+  // Private - Shop & User profile
+  checkout: "/checkout",
+  thank_you: "/thank-you",
+  profile_user: "/perfil/usuario",
+  profile_cotization: "/perfil/cotizaciones/:id",
 
-    // Categories Management
-    dashboard_categories: '/dashboard_categories',
-    dashboard_category: '/dashboard_category/:id',
-    dashboard_category_new: '/dashboard_category_new',
-    dashboard_category_edit: '/dashboard_category_edit/:id',
+  //Admin Pages
+  dashboard: "/dashboard",
+  dashboard_profile: "/dashboard/profile",
 
-    // Cotizations Management
-    dashboard_cotizations: '/dashboard_cotizations',
-    dashboard_cotization: '/dashboard_cotization/:id',
+  // Products Management
+  dashboard_products: "/dashboard/products",
+  dashboard_product: "/dashboard/product/:id",
+  dashboard_product_new: "/dashboard/product/new",
+  dashboard_product_edit: "/dashboard/product/edit/:id",
 
-    // Users Management
-    dashboard_users: '/dashboard_users',
-    dashboard_user: '/dashboard_user/:id',
-    dashboard_user_new: '/dashboard_user_new',
-    dashboard_user_edit: '/dashboard_user_edit/:id',
+  // Categories Management
+  dashboard_categories: "/dashboard/categories",
+  dashboard_category: "/dashboard/category/:id",
+  dashboard_category_new: "/dashboard/category/new",
+  dashboard_category_edit: "/dashboard/category/edit/:id",
 
-    // Messages Management
-    dashboard_messages: '/dashboard_messages',
-    dashboard_message: '/dashboard_message/:id',
-}
+  // Cotizations Management
+  dashboard_cotizations: "/dashboard/cotizaciones",
+  dashboard_cotization: "/dashboard/cotizacion/:id",
+
+  // Users Management
+  dashboard_users: "/dashboard/usuarios",
+  dashboard_user: "/dashboard/usuario/:id",
+  dashboard_user_new: "/dashboard/usuario/nuevo",
+  dashboard_user_edit: "/dashboard/usuario/edit/:id",
+
+  // Messages Management
+  dashboard_messages: "/dashboard/mensajes",
+  dashboard_message: "/dashboard/mensaje/:id",
+};
