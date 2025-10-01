@@ -4,7 +4,7 @@ import Home from "./Pages/home/Home.tsx";
 import AboutCompany from "./Pages/About_company.tsx";
 import Shop from "./Pages/Shop.tsx";
 import Navbar from "./Components/navbar/Navbar.tsx";
-import Footer from "./Components/Footer.tsx";
+import Footer from "./Components/footer/Footer.tsx";
 import { routes } from "./utils/routes.ts";
 import Questions_frecuenly from "./Pages/Questions_frecuenly.tsx";
 import Policity from "./Pages/Policity.tsx";
