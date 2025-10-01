@@ -1,7 +1,7 @@
 import Products from "../../Components/shop/products/Products";
 import Sidebar from "../../Components/shop/sidebar/Sidebar";
 import SubHeader from "../../Components/shop/subheader/SubHeader";
-import { mockSidebar } from "../../utils/mock";
+import { mockProducts, mockSidebar } from "../../utils/mock";
 import styles from "./Shop.module.css";
 
 const Shop = () => {
@@ -12,7 +12,9 @@ const Shop = () => {
       <div className={styles.shopContainer}>
         <Sidebar arrayCategories={mockSidebar.arrayCategories} />
 
-        <Products />
+        <div className={styles.productsSection}>
+          <Products result={mockProducts} />
+        </div>
       </div>
     </>
   );

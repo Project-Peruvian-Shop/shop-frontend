@@ -1,0 +1,18 @@
+.productsContainer {
+  width: 100%;
+}
+
+.productsCount {
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+.productsList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: stretch;
+  gap: 24px;
+}
