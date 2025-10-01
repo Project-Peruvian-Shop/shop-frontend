@@ -1,10 +1,31 @@
+import { useEffect, useState } from "react";
 import Products from "../../Components/shop/products/Products";
 import Sidebar from "../../Components/shop/sidebar/Sidebar";
 import SubHeader from "../../Components/shop/subheader/SubHeader";
-import { mockProducts, mockSidebar } from "../../utils/mock";
+import { mockSidebar } from "../../utils/mock";
 import styles from "./Shop.module.css";
+import { getPaginatedProductos } from "../../services/producto.service";
+import type { ProductoDTO } from "../../services/producto.service";
 
 const Shop = () => {
+  const [productos, setProductos] = useState<ProductoDTO[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProductos = async () => {
+      try {
+        const response = await getPaginatedProductos(0, 10);
+        setProductos(response.content);
+      } catch (err) {
+        console.error("Error cargando productos:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductos();
+  }, []);
+
   return (
     <>
       <SubHeader />
@@ -13,7 +34,11 @@ const Shop = () => {
         <Sidebar arrayCategories={mockSidebar.arrayCategories} />
 
         <div className={styles.productsSection}>
-          <Products result={mockProducts} />
+          {loading ? (
+            <p>Cargando productos...</p>
+          ) : (
+            <Products result={productos} />
+          )}
         </div>
       </div>
     </>

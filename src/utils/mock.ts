@@ -1,5 +1,5 @@
 import type { SidebarProps } from "../Components/shop/sidebar/Sidebar";
-import type { PaginatedProductoResponseDTO } from "../Dashboard/models/Producto/Producto_response_dto";
+import type { PaginatedProductoResponseDTO } from "../models/Producto/Producto_response_dto";
 
 export const mockSidebar: SidebarProps = {
   arrayCategories: [

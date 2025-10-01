@@ -1,4 +1,4 @@
-import type { PaginatedProductoResponseDTO } from "../../../Dashboard/models/Producto/Producto_response_dto";
+import type { PaginatedProductoResponseDTO } from "../../../models/Producto/Producto_response_dto";
 import ProductCard from "../card/ProductCard";
 import styles from "./Products.module.css";
 
