@@ -1,7 +1,10 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
-import type { PaginatedProductoResponseDTO } from "../models/Producto/Producto_response_dto";
+import type {
+  PaginatedProductoResponseDTO,
+  ProductoDTO,
+} from "../models/Producto/Producto_response_dto";
 
 const BASE_URL = URL_API + "/producto";
 
@@ -14,6 +17,14 @@ export async function getPaginatedProductos(
   const res = await axios.get<
     ApiResponse<PaginatedResponse<PaginatedProductoResponseDTO>>
   >(url);
+
+  return res.data.data;
+}
+
+export async function getProductoById(id: number): Promise<ProductoDTO> {
+  const url = `${BASE_URL}/${id}`;
+
+  const res = await axios.get<ApiResponse<ProductoDTO>>(url);
 
   return res.data.data;
 }
