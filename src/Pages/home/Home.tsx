@@ -44,7 +44,7 @@ const Home = () => {
         />
       </div>
 
-      <Banner title="Nuestros Productos" />
+      <Banner title="NUESTROS PRODUCTOS" />
 
       <div className={styles.containerProductos}>
         {/* Cambiar las rutas de las categorias por las correctas */}
