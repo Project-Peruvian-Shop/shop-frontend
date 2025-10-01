@@ -1,0 +1,39 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  gap: 20px;
+
+  width: 414px;
+  height: 410px;
+  border-radius: 25px;
+
+  background-color: #50566d0d;
+  text-decoration: none;
+  color: #000000;
+}
+
+.imgContainer {
+  width: 179px;
+  height: 160px;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.title {
+  font-family: Poppins;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-decoration: none;
+}

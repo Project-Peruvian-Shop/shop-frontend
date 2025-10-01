@@ -1,5 +1,5 @@
 import Banner from "../Components/banner/Banner";
-import Card from "../Components/Card";
+import Card from "../Components/home/card/Card";
 import Form from "../Components/Form";
 import logoTiktok from '../Icons/tik-tok.png';
 import logoInstagram from '../Icons/instagram.png';
