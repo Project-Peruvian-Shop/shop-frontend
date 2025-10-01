@@ -1,9 +1,15 @@
+import SubHeader from "../../Components/shop/subheader/SubHeader";
+
 const Shop = () => {
-    return (
-        <div>
-            <h1>Welcome to the Shop Page</h1>
-        </div>
-    )
-}
+  return (
+    <>
+      <SubHeader />
+      
+      <div>Lineas</div>
+
+      <div>Productos</div>
+    </>
+  );
+};
 
 export default Shop;
