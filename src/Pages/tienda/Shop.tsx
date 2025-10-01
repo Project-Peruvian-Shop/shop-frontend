@@ -1,11 +1,13 @@
+import Sidebar from "../../Components/shop/sidebar/Sidebar";
 import SubHeader from "../../Components/shop/subheader/SubHeader";
+import { mockSidebar } from "../../utils/mock";
 
 const Shop = () => {
   return (
     <>
       <SubHeader />
-      
-      <div>Lineas</div>
+
+      <Sidebar arrayCategories={mockSidebar.arrayCategories} />
 
       <div>Productos</div>
     </>
