@@ -37,10 +37,9 @@ function Login() {
           title: "¡Inicio de sesión exitoso!",
           text: `Bienvenido, ${response.nombre}`,
           confirmButtonText: "Continuar",
+        }).then(() => {
+          navigate(routes.shop_cart);
         });
-
-        // Redirigir a carrito
-        navigate(routes.shop_cart);
       } else {
         alert("Usuario o contraseña incorrectos");
       }
