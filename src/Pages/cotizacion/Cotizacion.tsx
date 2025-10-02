@@ -6,12 +6,19 @@ import { useEffect, useState } from "react";
 import type { CotizacionFullDTO } from "../../models/Cotizacion/Cotizacion_response_dto";
 import { getCotizacionById } from "../../services/cotizacion.service";
 import InfoCard from "../../Components/dashboard/infocard/InfoCard";
+// import ProductListCard from "../../Components/dashboard/productlistcard/ProductListCard";
+// import type { ProductoResponseDTO } from "../../models/Categoria/Categoria_response";
+// import type { PaginatedResponse } from "../../services/global.interfaces";
 
 function Cotizacion() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [cotizacion, setCotizacion] = useState<CotizacionFullDTO | null>(null);
+  // const [productosData, setProductosData] =
+  //   useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const pageSize = 6;
 
   useEffect(() => {
     if (!id) {
@@ -23,6 +30,7 @@ function Cotizacion() {
       try {
         const data = await getCotizacionById(Number(id));
         setCotizacion(data);
+        // setProductosData(data.productos);
       } catch (error) {
         console.error("Error al obtener la cotización:", error);
         navigate(routes.profile_user);
@@ -88,6 +96,14 @@ function Cotizacion() {
         </div>
 
         <div className={styles.right}>
+          {/* <ProductListCard
+            title="Productos de la categoría"
+            items={productosData?.content || []}
+            currentPage={productosData?.number || 0}
+            totalPages={productosData?.totalPages || 1}
+            onPageChange={(page) => setCurrentPage(page)}
+          /> */}
+
           <div className={styles.card}>
             <div className={styles.title}>Productos de la cotización</div>
 
