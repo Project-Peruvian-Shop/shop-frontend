@@ -12,3 +12,10 @@ export interface CategoriaDashboardDTO {
   imagenEnlace: string;
   imagenAlt: string;
 }
+
+export interface ProductoResponseDTO {
+  id: number;
+  nombre: string;
+  imagenUrl: string;
+  imagenAlt: string;
+}

@@ -4,6 +4,7 @@ import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type {
   AllAndQuantityResponseDTO,
   CategoriaDashboardDTO,
+  ProductoResponseDTO,
 } from "../models/Categoria/Categoria_response";
 
 const BASE_URL = URL_API + "/categoria";
@@ -37,6 +38,20 @@ export async function getCategoryById(
   const url = `${BASE_URL}/${id}`;
 
   const res = await axios.get<ApiResponse<CategoriaDashboardDTO>>(url);
+
+  return res.data.data;
+}
+
+export async function getProductosByCategoryId(
+  categoryId: number,
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedResponse<ProductoResponseDTO>> {
+  const url = `${BASE_URL}/productos/${categoryId}?page=${page}&size=${size}`;
+
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<ProductoResponseDTO>>
+  >(url);
 
   return res.data.data;
 }
