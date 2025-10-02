@@ -4,6 +4,7 @@ import styles from "./ProductoDetalle.module.css";
 import { useEffect, useState } from "react";
 import { getProductoById } from "../../../services/producto.service";
 import { routes } from "../../../utils/routes";
+import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
 
 function ProductoDetalle() {
   const { id } = useParams<{ id: string }>();
@@ -32,12 +33,22 @@ function ProductoDetalle() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>
-          Producto {producto?.nombre}
-        </div>
+        <div className={styles.title}>Producto {producto?.nombre}</div>
         <div className={styles.actions}>
-          <button className={styles.editButton}>Editar</button>
-          <button className={styles.deleteButton}>Eliminar</button>
+          <ButtonHeader
+            title="Editar"
+            onClick={() => console.log("Acciones")}
+            icon="edit-secondary"
+            size={24}
+            style="secondary-outline"
+          />
+          <ButtonHeader
+            title="Eliminar"
+            onClick={() => console.log("Acciones")}
+            icon="delete-primary"
+            size={24}
+            style="primary-outline"
+          />
         </div>
       </div>
 

@@ -30,41 +30,6 @@
   gap: 10px;
 }
 
-.editButton,
-.deleteButton {
-  font-family: "Poppins", sans-serif;
-  padding: 8px 14px;
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.editButton {
-  border: 1px solid var(--secondary-color);
-}
-
-.editButton {
-  background-color: white;
-  color: var(--secondary-color);
-}
-
-.editButton:hover {
-  background-color: var(--secondary-color);
-  color: #fff;
-}
-
-.deleteButton {
-  background-color: white;
-  color: var(--primary-color);
-}
-
-.deleteButton:hover {
-  background-color: var(--primary-color);
-  color: #fff;
-}
-
 /* Contenido principal */
 .content {
   margin-top: 40px;
