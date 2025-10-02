@@ -38,13 +38,6 @@
   font-style: Bold;
   font-size: 20px;
 }
-.titlePDF {
-  color: var(--primary-color);
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  font-style: Bold;
-  font-size: 20px;
-}
 
 .rowcontent {
   display: flex;
@@ -71,6 +64,16 @@
   font-size: 16px;
 }
 
+.titlePDF {
+  margin-top: 16px;
+  margin-bottom: 12px;
+  color: var(--primary-color);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+}
+
 .pdfButton {
   margin-right: 10px;
   padding: 10px 20px;
@@ -79,6 +82,8 @@
   border: 1px solid var(--primary-color);
   border-radius: 8px;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .pdfButton:hover {
