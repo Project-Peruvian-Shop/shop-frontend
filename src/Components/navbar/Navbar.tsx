@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes.ts";
 import logo from "../../Icons/Logo-HD.png";
 import styles from "./Navbar.module.css";
 import ButtonPrimary from "../buttons/ButtonPrimary.tsx";
+import { obtenerUsuario } from "../../utils/auth.ts";
 
 const Navbar = () => {
   // Verifica si tiene token
-  const hasTokens = false;
+  const usuario = obtenerUsuario();
+  const hasTokens = usuario !== null;
+  const navigate = useNavigate();
 
   return (
     <nav className={styles.navbar}>
@@ -37,9 +40,10 @@ const Navbar = () => {
       </div>
 
       {hasTokens ? (
-        <div className={styles.authButtons}>
-          <div>Componente Sesion</div>
-        </div>
+        <ButtonPrimary
+          text={usuario?.nombre || "Usuario"}
+          click={() => navigate(routes.profile_user)}
+        />
       ) : (
         <ButtonPrimary
           text="Contáctenos"

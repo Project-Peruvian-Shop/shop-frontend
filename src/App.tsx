@@ -17,6 +17,7 @@ import Carrito from "./Pages/carrito/Carrito.tsx";
 import Login from "./Pages/login/Login.tsx";
 import Register from "./Pages/register/Register.tsx";
 import Checkout from "./Pages/checkout/Checkout.tsx";
+import Profile from "./Pages/profile/Profile.tsx";
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,9 @@ function App() {
         {/* Auth Pages */}
         <Route path={routes.login} element={<Login />} />
         <Route path={routes.register} element={<Register />} />
+
+        {/* User Pages */}
+        <Route path={routes.profile_user} element={<Profile />} />
       </Routes>
 
       {showNavbar && <Footer />}
