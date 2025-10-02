@@ -2,7 +2,9 @@
   font-family: poppins, cursive;
   text-align: center;
   --primary-color: #fb2343;
+  --primary-color-dark: #fb234378;
   --secondary-color: #1b2f33;
+  --secondary-color-dark: #1b2f3378;
   --gray-color: #c7c7c728;
   --white-color: #ffffff;
 }

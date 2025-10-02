@@ -16,7 +16,7 @@
 }
 
 .primary:hover {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color-dark);
   color: white;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .primary-outline:hover {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color-dark);
   color: white;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .secondary:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color-dark);
   color: white;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .secondary-outline:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color-dark);
   color: white;
 }
 
