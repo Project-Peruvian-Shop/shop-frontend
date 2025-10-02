@@ -5,13 +5,26 @@ import {
   getLastCotizaciones,
   getMensajesPendientes,
   getProductosTopMes,
+  getCotizacionesMes,
 } from "../../../services/dashboard.service";
 import type {
   DashboardCategoriaDTO,
   DashboardLastCotizacionDTO,
   DashboardMensajeDTO,
   DashboardProductoDTO,
+  DashboardCotizacionDTO,
 } from "../../../models/dashboard/DashboardResponse";
+
+// 📊 Recharts
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
 
 function Dashboard() {
   const [categorias, setCategorias] = useState<DashboardCategoriaDTO[]>([]);
@@ -20,8 +33,57 @@ function Dashboard() {
   >([]);
   const [mensajes, setMensajes] = useState<DashboardMensajeDTO[]>([]);
   const [productos, setProductos] = useState<DashboardProductoDTO[]>([]);
+  const [cotizacionesMes, setCotizacionesMes] = useState<
+    DashboardCotizacionDTO[]
+  >([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const lastYear = currentYear - 1;
+
+        const months: { mes: number; year: number }[] = [];
+        for (let y = lastYear; y <= currentYear; y++) {
+          for (let m = 1; m <= 12; m++) {
+            if (y === currentYear && m > now.getMonth() + 1) break;
+            months.push({ mes: m, year: y });
+          }
+        }
+
+        const results: DashboardCotizacionDTO[] = [];
+        for (const { mes, year } of months) {
+          try {
+            const data = await getCotizacionesMes(mes, year);
+            if (data && data.length > 0) {
+              results.push({
+                cotizacionesNombreMes: `${data[0].cotizacionesNombreMes} ${year}`,
+                cotizacionesCantidadMes: data[0].cotizacionesCantidadMes,
+              });
+            } else {
+              const monthName = new Date(year, mes - 1).toLocaleString(
+                "es-ES",
+                {
+                  month: "long",
+                }
+              );
+              results.push({
+                cotizacionesNombreMes: `${monthName} ${year}`,
+                cotizacionesCantidadMes: 0,
+              });
+            }
+          } catch (err) {
+            console.error("Error cargando mes:", mes, year, err);
+          }
+        }
+
+        setCotizacionesMes(results);
+      } catch (error) {
+        console.error("Error preparando cotizaciones por mes:", error);
+      }
+    };
+
     const fetchCategorias = async () => {
       try {
         const data = await getCotizacionesLineaMes(
@@ -68,16 +130,16 @@ function Dashboard() {
     fetchLastCotizaciones();
     fetchMensajes();
     fetchProductos();
+    fetchData();
   }, []);
 
-  // Mapeo de estado de cotización
+  // mapeos
   const estadoMapper: Record<number, string> = {
     0: "Pendiente",
     1: "Aceptada",
     2: "Rechazada",
   };
 
-  // Mapeo de tipo de mensaje
   const tipoMapper: Record<number, string> = {
     0: "Queja",
     1: "Sugerencia",
@@ -87,11 +149,23 @@ function Dashboard() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+        {/* 📊 Gráfico de barras */}
         <div className={styles.graphic}>
           <div className={styles.title}>Total de cotizaciones por mes</div>
-          <div className={styles.chart}></div>
+          <div className={styles.chart}>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={cotizacionesMes}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="cotizacionesNombreMes" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="cotizacionesCantidadMes" fill="#0073e6" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
+        {/* Mensajes y productos */}
         <div className={styles.messageProducts}>
           <div className={styles.messages}>
             <div className={styles.title}>Mensajes Pendientes</div>
@@ -134,6 +208,7 @@ function Dashboard() {
       </div>
 
       <div className={styles.right}>
+        {/* Últimas cotizaciones */}
         <div className={styles.lastCotizaciones}>
           <div className={styles.title}>Últimas cotizaciones</div>
           <ul className={styles.list}>
@@ -157,6 +232,7 @@ function Dashboard() {
           </ul>
         </div>
 
+        {/* Categorías más cotizadas */}
         <div className={styles.topCategorias}>
           <div className={styles.title}>Categorías más cotizadas</div>
           <ul className={styles.list}>
