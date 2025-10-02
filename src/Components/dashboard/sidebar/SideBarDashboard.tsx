@@ -1,19 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./SideBarDashboard.module.css";
-import logo from "../../Icons/Logo-HD.png";
-import categoria from "../../Icons/dashboard/categoria.svg";
-import cotizacion from "../../Icons/dashboard/cotizacion.svg";
-import dashboard from "../../Icons/dashboard/dashboard.svg";
-import mensaje from "../../Icons/dashboard/mensaje.svg";
-import producto from "../../Icons/dashboard/producto.svg";
-import usuarioIcon from "../../Icons/dashboard/usuario.svg";
-import usuarioCircle from "../../Icons/dashboard/user-circle.svg";
-import usuarioIc from "../../Icons/dashboard/user.svg";
-import logout from "../../Icons/dashboard/logout.svg";
-import { eliminarUsuario, obtenerUsuario } from "../../utils/auth";
-import { routes } from "../../utils/routes";
+import logo from "../../../Icons/Logo-HD.png";
+import { eliminarUsuario, obtenerUsuario } from "../../../utils/auth";
+import { routes } from "../../../utils/routes";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import IconSVG from "../../../Icons/IconSVG";
 
 export default function SideBarDashboard() {
   const usuario = obtenerUsuario();
@@ -60,7 +52,7 @@ export default function SideBarDashboard() {
 
       {/* Usuario */}
       <div className={styles.userInfo}>
-        <img src={usuarioCircle} alt="Usuario" className={styles.userIcon} />
+        <IconSVG name="usuarioCircle" size={20} className={styles.userIcon} />
         <div>
           <p className={styles.userName}>{usuario?.nombre}</p>
           <span className={styles.userRole}>
@@ -74,27 +66,27 @@ export default function SideBarDashboard() {
       {/* Menú principal */}
       <nav className={styles.menu}>
         <Link to={routes.dashboard} className={styles.menuItem}>
-          <img src={dashboard} alt="Dashboard" className={styles.icon} />
+          <IconSVG name="dashboard" size={20} className={styles.icon} />
           Dashboard
         </Link>
         <Link to={routes.dashboard_products} className={styles.menuItem}>
-          <img src={producto} alt="Productos" className={styles.icon} />
+          <IconSVG name="producto" size={20} className={styles.icon} />
           Productos
         </Link>
         <Link to={routes.dashboard_categories} className={styles.menuItem}>
-          <img src={categoria} alt="Categorías" className={styles.icon} />
+          <IconSVG name="categoria" size={20} className={styles.icon} />
           Categorías
         </Link>
         <Link to={routes.dashboard_cotizations} className={styles.menuItem}>
-          <img src={cotizacion} alt="Cotizaciones" className={styles.icon} />
+          <IconSVG name="cotizacion" size={20} className={styles.icon} />
           Cotizaciones
         </Link>
         <Link to={routes.dashboard_users} className={styles.menuItem}>
-          <img src={usuarioIcon} alt="Usuarios" className={styles.icon} />
+          <IconSVG name="usuarioIcon" size={20} className={styles.icon} />
           Usuarios
         </Link>
         <Link to={routes.dashboard_messages} className={styles.menuItem}>
-          <img src={mensaje} alt="Mensajes" className={styles.icon} />
+          <IconSVG name="mensaje" size={20} className={styles.icon} />
           Mensajes
         </Link>
       </nav>
@@ -104,11 +96,11 @@ export default function SideBarDashboard() {
       {/* Parte inferior */}
       <div className={styles.bottomMenu}>
         <Link to={routes.profile_user} className={styles.menuItem}>
-          <img src={usuarioIc} alt="Mi cuenta" className={styles.icon} />
+          <IconSVG name="usuarioIc" size={20} className={styles.icon} />
           Mi cuenta
         </Link>
         <button className={styles.logoutButton} onClick={handleCerrarSesion}>
-          <img src={logout} alt="Cerrar sesión" className={styles.icon} />
+          <IconSVG name="logout" size={20} className={styles.icon} />
           Cerrar Sesión
         </button>
       </div>
