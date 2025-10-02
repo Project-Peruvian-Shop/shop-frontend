@@ -3,6 +3,7 @@ export interface PaginatedProductoResponseDTO {
   nombre: string;
   imagenUrl: string;
   imagenAlt: string;
+  categoriaNombre: string;
 }
 
 export interface ProductoDTO {
