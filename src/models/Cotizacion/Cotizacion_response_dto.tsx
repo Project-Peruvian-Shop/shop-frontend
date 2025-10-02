@@ -77,5 +77,5 @@ export interface CotizacionUserDTO {
   id: number;
   numero: string;
   creacion: string;
-  estado: number;
+  status: number;
 }
