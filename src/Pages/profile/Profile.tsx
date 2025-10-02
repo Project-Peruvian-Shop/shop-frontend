@@ -1,26 +1,46 @@
 import styles from "./Profile.module.css";
-import { eliminarUsuario } from "../../utils/auth";
+import { eliminarUsuario, obtenerUsuario } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Header from "../../Components/header/Header";
-import user from "../../Icons/user.svg";
+import userIcon from "../../Icons/user.svg";
 import { useEffect, useState } from "react";
+import { getProfile } from "../../services/usuario.service";
+import type { UsuarioProfileDTO } from "../../models/Usuario/Usuario_response_dto";
 
 function Profile() {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
 
   const [fechaHora, setFechaHora] = useState(new Date());
+  const [usuario, setUsuario] = useState<UsuarioProfileDTO | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFechaHora(new Date());
-    }, 1000);
-
-    return () => clearInterval(interval); // limpiar al desmontar
+    // Actualizar fecha y hora cada segundo
+    const interval = setInterval(() => setFechaHora(new Date()), 1000);
+    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const localUser = obtenerUsuario(); // trae usuario desde localStorage
+    if (!localUser) {
+      navigate(routes.login);
+      return;
+    }
+
+    // Obtener datos completos desde el backend
+    getProfile(localUser.id)
+      .then((data) => setUsuario(data))
+      .catch(() => {
+        MySwal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo cargar la información del perfil",
+        });
+      });
+  }, [navigate]);
 
   const handleCerrarSesion = () => {
     MySwal.fire({
@@ -32,14 +52,14 @@ function Profile() {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        eliminarUsuario(); // eliminar del localStorage
+        eliminarUsuario();
         MySwal.fire({
           icon: "success",
           title: "Sesión cerrada",
           text: "Tu sesión ha sido cerrada.",
           confirmButtonText: "Aceptar",
         }).then(() => {
-          navigate(routes.login); // redirigir al login
+          navigate(routes.login);
         });
       }
     });
@@ -55,19 +75,23 @@ function Profile() {
             <div className={styles.title}>Mi Usuario</div>
 
             <div className={styles.nameContainer}>
-              <img src={user} alt="logo-img" className={styles.logo} />
+              <img src={userIcon} alt="logo-img" className={styles.logo} />
               <div className={styles.textContainer}>
-                <span className={styles.name}>Nombre de Usuario</span>
-                <span className={styles.tipo}>Tipo de usuario</span>
+                <span className={styles.name}>
+                  {usuario ? usuario.nombre : "Cargando..."}
+                </span>
+                <span className={styles.tipo}>
+                  {usuario ? usuario.rol : "Cargando..."}
+                </span>
               </div>
             </div>
 
             <div className={styles.datetime}>
               <span className={styles.date}>
-                {fechaHora.toLocaleDateString()} {/* Fecha */}
+                {fechaHora.toLocaleDateString()}
               </span>
               <span className={styles.time}>
-                {fechaHora.toLocaleTimeString()} {/* Hora */}
+                {fechaHora.toLocaleTimeString()}
               </span>
             </div>
           </div>
@@ -77,18 +101,23 @@ function Profile() {
 
             <div>
               <div className={styles.label}>Correo Electrónico</div>
-              <div className={styles.email}>email@mail.com</div>
+              <div className={styles.email}>
+                {usuario ? usuario.email : "Cargando..."}
+              </div>
             </div>
 
             <div>
               <div className={styles.label}>Teléfono</div>
-              <div className={styles.phone}>+34 123 456 789</div>
+              <div className={styles.phone}>
+                {usuario ? usuario.telefono : "Cargando..."}
+              </div>
             </div>
           </div>
         </div>
 
         <div className={styles.right}>
           <div className={styles.title}>Cotizaciones anteriores</div>
+          {/* Aquí puedes agregar un componente para listar las cotizaciones */}
         </div>
       </div>
 
