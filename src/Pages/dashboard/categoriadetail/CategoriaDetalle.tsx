@@ -10,9 +10,10 @@ import type {
   CategoriaDashboardDTO,
   ProductoResponseDTO,
 } from "../../../models/Categoria/Categoria_response";
-import Pagination from "../../../Components/pagination/Pagination";
 import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
+import ProductListCard from "../../../Components/dashboard/productlistcard/ProductListCard";
+import type { PaginatedResponse } from "../../../services/global.interfaces";
 
 function CategoriaDetalle() {
   const { id } = useParams<{ id: string }>();
@@ -21,9 +22,9 @@ function CategoriaDetalle() {
   const [categoria, setCategoria] = useState<CategoriaDashboardDTO | null>(
     null
   );
-  const [productos, setProductos] = useState<ProductoResponseDTO[]>([]);
+  const [productosData, setProductosData] =
+    useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
   const pageSize = 6;
 
   useEffect(() => {
@@ -51,8 +52,7 @@ function CategoriaDetalle() {
     const fetchProductos = async (page: number) => {
       try {
         const data = await getProductosByCategoryId(Number(id), page, pageSize);
-        setProductos(data.content); // suponiendo que tu respuesta tiene `content`
-        setTotalPages(data.totalPages); // suponiendo que tu respuesta tiene `totalPages`
+        setProductosData(data);
       } catch (error) {
         console.error("Error cargando productos:", error);
       }
@@ -95,29 +95,13 @@ function CategoriaDetalle() {
             ]}
           />
 
-          <div className={styles.card}>
-            <div className={styles.subtitle}>Productos de la categoría</div>
-
-            <div className={styles.productsContainer}>
-              {productos.map((prod) => (
-                <div key={prod.id} className={styles.productItem}>
-                  <img
-                    src={prod.imagenUrl}
-                    alt={prod.imagenAlt || prod.nombre}
-                    className={styles.productImage}
-                    width={50}
-                  />
-                  <div className={styles.productName}>{prod.nombre}</div>
-                </div>
-              ))}
-            </div>
-
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
-          </div>
+          <ProductListCard
+            title="Productos de la categoría"
+            items={productosData?.content || []}
+            currentPage={productosData?.number || 0}
+            totalPages={productosData?.totalPages || 1}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
         </div>
 
         <div className={styles.right}>
