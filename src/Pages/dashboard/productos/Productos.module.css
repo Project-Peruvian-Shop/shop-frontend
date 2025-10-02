@@ -21,7 +21,7 @@
 .table th {
   background-color: #f3f4f6;
   padding: 12px;
-  text-align: left;
+  text-align: center;
   font-weight: 600;
   color: #374151;
   border-bottom: 2px solid #e5e7eb;
@@ -65,33 +65,6 @@
   cursor: pointer;
   border: none;
   transition: background 0.2s ease, transform 0.1s ease;
-}
-
-/* Botón ver */
-.view {
-  background: #e0f2fe;
-  color: #0369a1;
-}
-.view:hover {
-  background: #bae6fd;
-}
-
-/* Botón editar */
-.edit {
-  background: #fef9c3;
-  color: #a16207;
-}
-.edit:hover {
-  background: #fde68a;
-}
-
-/* Botón eliminar */
-.delete {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-.delete:hover {
-  background: #fca5a5;
 }
 
 /* Paginación */

@@ -3,6 +3,9 @@ import styles from "./Productos.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { ProductoDashboardDTO } from "../../../models/Producto/Producto_response_dto";
 import { getAllProductos } from "../../../services/producto.service";
+import viewIcon from "../../../Icons/view-db.svg";
+import editIcon from "../../../Icons/edit-db.svg";
+import trashIcon from "../../../Icons/trash-db.svg";
 
 export default function ProductosTable() {
   const [productos, setProductos] = useState<ProductoDashboardDTO[]>([]);
@@ -49,9 +52,15 @@ export default function ProductosTable() {
               <td>{p.categoriaNombre}</td>
               <td>{p.descripcion}</td>
               <td>
-                <button className={styles.view}>👁️</button>
-                <button className={styles.edit}>✏️</button>
-                <button className={styles.delete}>🗑️</button>
+                <button className={styles.view}>
+                  <img src={viewIcon} alt="Ver" />
+                </button>
+                <button className={styles.edit}>
+                  <img src={editIcon} alt="Editar" />
+                </button>
+                <button className={styles.delete}>
+                  <img src={trashIcon} alt="Eliminar" />
+                </button>
               </td>
             </tr>
           ))}
