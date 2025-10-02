@@ -1,16 +1,17 @@
-.deleteButton {
-  background-color: #ff1e44;
-  color: white;
-  padding: 10px 20px;
+.logoutButton {
+  margin-top: 16px;
+  background: #fb2343;
+  color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s;
+  transition: background 0.2s;
 }
 
-.deleteButton:hover {
-  background-color: #e0173a;
+.logoutButton:hover {
+  background: #d11b35;
 }
 
 .content {
@@ -29,8 +30,9 @@
 }
 
 .right {
+  overflow: auto;
   width: 45%;
-  height: 45vh;
+  height: 51vh;
   padding: 40px;
   padding-bottom: 14px;
   display: flex;

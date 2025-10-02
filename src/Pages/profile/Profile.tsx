@@ -153,6 +153,14 @@ function Profile() {
                 {fechaHora.toLocaleTimeString()}
               </span>
             </div>
+
+            {/* Botón de Cerrar Sesión dentro de esta sección */}
+            <button
+              className={styles.logoutButton}
+              onClick={handleCerrarSesion}
+            >
+              Cerrar Sesión
+            </button>
           </div>
 
           <div className={styles.personal}>
