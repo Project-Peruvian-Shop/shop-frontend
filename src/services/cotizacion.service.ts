@@ -1,9 +1,10 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
-import type { ApiResponse } from "./global.interfaces";
+import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type { CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
 import type {
   CotizacionCreateResponseDTO,
+  CotizacionDashboardDTO,
   CotizacionFullDTO,
   CotizacionUserDTO,
 } from "../models/Cotizacion/Cotizacion_response_dto";
@@ -39,6 +40,19 @@ export async function getCotizacionById(
   const url = `${BASE_URL}/${id}`;
 
   const res = await axios.get<ApiResponse<CotizacionFullDTO>>(url);
+
+  return res.data.data;
+}
+
+export async function getAllCotizaciones(
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedResponse<CotizacionDashboardDTO>> {
+  const url = `${BASE_URL}/dashboard-paginated?page=${page}&size=${size}`;
+
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<CotizacionDashboardDTO>>
+  >(url);
 
   return res.data.data;
 }

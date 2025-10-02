@@ -95,3 +95,13 @@ export interface CotizacionFullDTO {
   observaciones: string;
   cotizacionEnlace: string | null;
 }
+
+export interface CotizacionDashboardDTO {
+  id: number;
+  numeroCotizacion: string;
+  clienteNombre: string;
+  clienteDocumento: string;
+  creacion: string;
+  estado: string;
+  observaciones: number;
+}
