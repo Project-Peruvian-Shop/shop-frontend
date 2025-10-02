@@ -42,23 +42,27 @@
 }
 
 .editButton {
+  border: 1px solid var(--secondary-color);
+}
+
+.editButton {
   background-color: white;
-  color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .editButton:hover {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   color: #fff;
 }
 
 .deleteButton {
-  background-color: var(--primary-color);
-  color: #fff;
+  background-color: white;
+  color: var(--primary-color);
 }
 
 .deleteButton:hover {
-  background-color: white;
-  color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
 /* Contenido principal */

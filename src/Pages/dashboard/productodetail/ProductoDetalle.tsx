@@ -13,7 +13,7 @@ function ProductoDetalle() {
 
   useEffect(() => {
     if (!id) {
-      navigate(routes.shop);
+      navigate(routes.dashboard);
       return;
     }
 
@@ -23,7 +23,7 @@ function ProductoDetalle() {
         setProducto(data);
       } catch (error) {
         console.error("Error al obtener el producto:", error);
-        navigate(routes.profile_user);
+        navigate(routes.dashboard_products);
       }
     };
 
