@@ -82,3 +82,29 @@
   margin-bottom: 10px;
   color: #333;
 }
+
+/* Categorias */
+.topCategorias .list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.topCategorias .item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.topCategorias .nombre {
+  font-weight: 500;
+}
+
+.topCategorias .cantidad {
+  font-weight: bold;
+  color: var(--primary-color);
+}

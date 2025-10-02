@@ -3,3 +3,10 @@ export interface DashboardCategoriaDTO {
   categoriaNombre: string;
   categoriaCantidad: number;
 }
+
+export interface DashboardLastCotizacionDTO {
+  id: number;
+  numero: string;
+  totalItems: number;
+  estado: number;
+}
