@@ -79,3 +79,19 @@ export interface CotizacionUserDTO {
   creacion: string;
   status: number;
 }
+
+export interface CotizacionFullDTO {
+  id: number;
+  numero: string;
+  estado: string;
+  creacion: string;
+  comentario: string;
+  productos: { name: string; cantidad: number }[];
+  tipoDocumento: string;
+  documento: string;
+  cliente: string;
+  email: string;
+  telefono: string;
+  observaciones: string;
+  cotizacionEnlace: string | null;
+}

@@ -4,6 +4,7 @@ import type { ApiResponse } from "./global.interfaces";
 import type { CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
 import type {
   CotizacionCreateResponseDTO,
+  CotizacionFullDTO,
   CotizacionUserDTO,
 } from "../models/Cotizacion/Cotizacion_response_dto";
 
@@ -28,6 +29,16 @@ export async function getCotizacionesByUser(
   const url = `${BASE_URL}/by-usuario/${id}`;
 
   const res = await axios.get<ApiResponse<CotizacionUserDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getCotizacionById(
+  id: number
+): Promise<CotizacionFullDTO> {
+  const url = `${BASE_URL}/${id}`;
+
+  const res = await axios.get<ApiResponse<CotizacionFullDTO>>(url);
 
   return res.data.data;
 }
