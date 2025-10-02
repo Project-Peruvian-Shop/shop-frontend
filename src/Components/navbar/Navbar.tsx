@@ -40,10 +40,19 @@ const Navbar = () => {
       </div>
 
       {hasTokens ? (
-        <ButtonPrimary
-          text={usuario?.nombre || "Usuario"}
-          click={() => navigate(routes.profile_user)}
-        />
+        <div className={styles.userSection}>
+          {usuario?.rol === "ROLE_ADMIN" && (
+            <ButtonPrimary
+              text="Dashboard"
+              click={() => navigate(routes.dashboard)}
+            />
+          )}
+          
+          <ButtonPrimary
+            text={usuario?.nombre || "Usuario"}
+            click={() => navigate(routes.profile_user)}
+          />
+        </div>
       ) : (
         <ButtonPrimary
           text="Contáctenos"
