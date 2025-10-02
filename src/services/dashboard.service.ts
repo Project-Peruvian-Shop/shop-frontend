@@ -5,6 +5,7 @@ import type {
   DashboardCategoriaDTO,
   DashboardLastCotizacionDTO,
   DashboardMensajeDTO,
+  DashboardProductoDTO,
 } from "../models/dashboard/DashboardResponse";
 
 const BASE_URL = URL_API + "/cotizacion";
@@ -34,6 +35,17 @@ export async function getMensajesPendientes(): Promise<DashboardMensajeDTO[]> {
   const url = `${BASE_URL}/mensajes-mes`;
 
   const res = await axios.get<ApiResponse<DashboardMensajeDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getProductosTopMes(
+  mes: number,
+  year: number
+): Promise<DashboardProductoDTO[]> {
+  const url = `${BASE_URL}/productos-top?mes=${mes}&year=${year}`;
+
+  const res = await axios.get<ApiResponse<DashboardProductoDTO[]>>(url);
 
   return res.data.data;
 }

@@ -16,3 +16,8 @@ export interface DashboardMensajeDTO {
   mensaje: string;
   tipo: number;
 }
+
+export interface DashboardProductoDTO {
+  producto_nombre: string;
+  producto_cantidad_mes: number;
+}
