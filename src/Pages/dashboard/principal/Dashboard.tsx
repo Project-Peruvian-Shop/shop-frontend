@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
-import { getCotizacionesLineaMes } from "../../../services/dashboard.service";
-import type { DashboardCategoriaDTO } from "../../../models/dashboard/DashboardResponse";
+import {
+  getCotizacionesLineaMes,
+  getLastCotizaciones,
+} from "../../../services/dashboard.service";
+import type {
+  DashboardCategoriaDTO,
+  DashboardLastCotizacionDTO,
+} from "../../../models/dashboard/DashboardResponse";
 
 function Dashboard() {
   const [categorias, setCategorias] = useState<DashboardCategoriaDTO[]>([]);
+  const [lastCotizaciones, setLastCotizaciones] = useState<
+    DashboardLastCotizacionDTO[]
+  >([]);
 
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -19,8 +28,25 @@ function Dashboard() {
       }
     };
 
+    const fetchLastCotizaciones = async () => {
+      try {
+        const data = await getLastCotizaciones();
+        setLastCotizaciones(data);
+      } catch (error) {
+        console.error("Error cargando últimas cotizaciones:", error);
+      }
+    };
+
     fetchCategorias();
+    fetchLastCotizaciones();
   }, []);
+
+  // Mapeo de estado
+  const estadoMapper: Record<number, string> = {
+    0: "Pendiente",
+    1: "Aceptada",
+    2: "Rechazada",
+  };
 
   return (
     <div className={styles.container}>
@@ -44,6 +70,25 @@ function Dashboard() {
       <div className={styles.right}>
         <div className={styles.lastCotizaciones}>
           <div className={styles.title}>Últimas cotizaciones</div>
+          <ul className={styles.list}>
+            {lastCotizaciones.length > 0 ? (
+              lastCotizaciones.map((cot) => (
+                <li key={cot.id} className={styles.item}>
+                  <div>
+                    <span className={styles.numero}>{cot.numero}</span>{" "}
+                    <span className={styles.estado}>
+                      ({estadoMapper[cot.estado] ?? "Desconocido"})
+                    </span>
+                  </div>
+                  <div className={styles.totalItems}>
+                    Items: {cot.totalItems}
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li className={styles.item}>No hay datos</li>
+            )}
+          </ul>
         </div>
 
         <div className={styles.topCategorias}>

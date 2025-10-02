@@ -108,3 +108,36 @@
   font-weight: bold;
   color: var(--primary-color);
 }
+
+/* Ultimas Cotizaciones */
+.lastCotizaciones .list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.lastCotizaciones .item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #fff5f5;
+  border: 1px solid #f0d6d6;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.lastCotizaciones .numero {
+  font-weight: 600;
+}
+
+.lastCotizaciones .estado {
+  font-size: 12px;
+  margin-left: 6px;
+  color: #666;
+}
+
+.lastCotizaciones .totalItems {
+  font-size: 12px;
+  color: #444;
+}
