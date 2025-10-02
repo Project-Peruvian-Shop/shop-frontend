@@ -10,3 +10,9 @@ export interface DashboardLastCotizacionDTO {
   totalItems: number;
   estado: number;
 }
+
+export interface DashboardMensajeDTO {
+  id: number;
+  mensaje: string;
+  tipo: number;
+}

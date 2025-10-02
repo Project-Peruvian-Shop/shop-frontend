@@ -4,6 +4,7 @@ import type { ApiResponse } from "./global.interfaces";
 import type {
   DashboardCategoriaDTO,
   DashboardLastCotizacionDTO,
+  DashboardMensajeDTO,
 } from "../models/dashboard/DashboardResponse";
 
 const BASE_URL = URL_API + "/cotizacion";
@@ -25,6 +26,14 @@ export async function getLastCotizaciones(): Promise<
   const url = `${BASE_URL}/last-cotizaciones`;
 
   const res = await axios.get<ApiResponse<DashboardLastCotizacionDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getMensajesPendientes(): Promise<DashboardMensajeDTO[]> {
+  const url = `${BASE_URL}/mensajes-mes`;
+
+  const res = await axios.get<ApiResponse<DashboardMensajeDTO[]>>(url);
 
   return res.data.data;
 }
