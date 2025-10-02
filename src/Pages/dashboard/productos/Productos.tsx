@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { ProductoDashboardDTO } from "../../../models/Producto/Producto_response_dto";
 import { getAllProductos } from "../../../services/producto.service";
-import styles from "./Productos.module.css";
 import viewIcon from "../../../Icons/view-db.svg";
 import editIcon from "../../../Icons/edit-db.svg";
 import trashIcon from "../../../Icons/trash-db.svg";
@@ -76,15 +75,13 @@ export default function ProductosTable() {
   ];
 
   return (
-    <div className={styles.container}>
-      <DashboardTable
-        columns={columns}
-        data={productos}
-        actions={actions}
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
-      />
-    </div>
+    <DashboardTable
+      columns={columns}
+      data={productos}
+      actions={actions}
+      currentPage={page}
+      totalPages={totalPages}
+      onPageChange={setPage}
+    />
   );
 }
