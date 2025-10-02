@@ -1,13 +1,12 @@
 export interface UsuarioRequestDto {
-    nombre: string;
-    apellidos: string;
-    email: string;
-    telefono: string;
-    passwordd: string;
-    rol: "ADMIN" | "USER" | "MANAGER";
+  nombre: string;
+  apellidos: string;
+  email: string;
+  telefono: string;
+  passwordd: string;
 }
-//Request for Login
+
 export interface LoginRequestDto {
-    email: string;
-    passwordd: string;
+  email: string;
+  passwordd: string;
 }
