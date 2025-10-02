@@ -49,7 +49,24 @@ export default function CartTable() {
                 >
                   -
                 </button>
-                <span>{item.quantity}</span>
+                <input
+                  type="number"
+                  min={1}
+                  value={item.quantity}
+                  onChange={(e) => {
+                    const nuevaCantidad = Math.max(
+                      1,
+                      parseInt(e.target.value) || 1
+                    );
+                    actualizarCantidadEnCart(
+                      cart,
+                      setCart,
+                      item.id,
+                      nuevaCantidad - item.quantity
+                    );
+                  }}
+                  className={styles.quantityInput}
+                />{" "}
                 <button
                   className={styles.quantityButton}
                   onClick={() =>
@@ -75,11 +92,9 @@ export default function CartTable() {
       </table>
 
       <div className={styles.footer}>
-        <span>Total de productos: {totalProductos}</span>
-        <div className={styles.footerButtons}>
-          <button className={styles.btnWhite}>Volver a la tienda</button>
-          <button className={styles.btnBlue}>Solicitar cotización</button>
-        </div>
+        <div>Total de productos: {totalProductos}</div>
+        <button className={styles.btnWhite}>Volver a la tienda</button>
+        <button className={styles.btnBlue}>Solicitar cotización</button>
       </div>
     </div>
   );
