@@ -12,6 +12,10 @@ const SubHeader = () => {
           Inicio
         </Link>
 
+        <Link to={routes.shop_cart} className={styles.links}>
+          Carrito
+        </Link>
+
         <div className={styles.dropdown}>
           <button className={styles.dropbtn}>Ayuda ▾</button>
           <div className={styles.dropdownContent}>
