@@ -113,15 +113,34 @@ function Cotizacion() {
           <div className={styles.card}>
             <div className={styles.title}>Observaciones</div>
             <div className={styles.observations}>
-              Aquí puedes agregar cualquier observación adicional sobre la
-              cotización.
+              {cotizacion?.observaciones || "No hay observaciones."}
             </div>
 
-            <div className={styles.titlePDF}>PDF de la cotización</div>
-            <div className={styles.pdfContainer}>
-              <button className={styles.pdfButton}>Ver PDF</button>
-              <button className={styles.pdfButton}>Descargar PDF</button>
-            </div>
+            {cotizacion?.cotizacionEnlace && (
+              <>
+                <div className={styles.titlePDF}>PDF de la cotización</div>
+                <div className={styles.pdfContainer}>
+                  {/* Ver PDF en nueva pestaña */}
+                  <a
+                    href={cotizacion.cotizacionEnlace}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.pdfButton}
+                  >
+                    Ver PDF
+                  </a>
+
+                  {/* Descargar PDF directamente */}
+                  <a
+                    href={cotizacion.cotizacionEnlace}
+                    download={`cotizacion-${cotizacion.numero}.pdf`}
+                    className={styles.pdfButton}
+                  >
+                    Descargar PDF
+                  </a>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
