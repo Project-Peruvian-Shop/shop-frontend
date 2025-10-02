@@ -51,11 +51,8 @@ export async function getProductosTopMes(
   return res.data.data;
 }
 
-export async function getCotizacionesMes(
-  mes: number,
-  year: number
-): Promise<DashboardCotizacionDTO[]> {
-  const url = `${BASE_URL}/cotizaciones_year?mes=${mes}&year=${year}`;
+export async function getCotizacionesMes(): Promise<DashboardCotizacionDTO[]> {
+  const url = `${BASE_URL}/cotizaciones_year`;
 
   const res = await axios.get<ApiResponse<DashboardCotizacionDTO[]>>(url);
 

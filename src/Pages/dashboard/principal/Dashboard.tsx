@@ -38,49 +38,12 @@ function Dashboard() {
   >([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCotizaciones = async () => {
       try {
-        const now = new Date();
-        const currentYear = now.getFullYear();
-        const lastYear = currentYear - 1;
-
-        const months: { mes: number; year: number }[] = [];
-        for (let y = lastYear; y <= currentYear; y++) {
-          for (let m = 1; m <= 12; m++) {
-            if (y === currentYear && m > now.getMonth() + 1) break;
-            months.push({ mes: m, year: y });
-          }
-        }
-
-        const results: DashboardCotizacionDTO[] = [];
-        for (const { mes, year } of months) {
-          try {
-            const data = await getCotizacionesMes(mes, year);
-            if (data && data.length > 0) {
-              results.push({
-                cotizacionesNombreMes: `${data[0].cotizacionesNombreMes} ${year}`,
-                cotizacionesCantidadMes: data[0].cotizacionesCantidadMes,
-              });
-            } else {
-              const monthName = new Date(year, mes - 1).toLocaleString(
-                "es-ES",
-                {
-                  month: "long",
-                }
-              );
-              results.push({
-                cotizacionesNombreMes: `${monthName} ${year}`,
-                cotizacionesCantidadMes: 0,
-              });
-            }
-          } catch (err) {
-            console.error("Error cargando mes:", mes, year, err);
-          }
-        }
-
-        setCotizacionesMes(results);
+        const data = await getCotizacionesMes();
+        setCotizacionesMes(data);
       } catch (error) {
-        console.error("Error preparando cotizaciones por mes:", error);
+        console.error("Error cargando cotizaciones por mes:", error);
       }
     };
 
@@ -130,7 +93,7 @@ function Dashboard() {
     fetchLastCotizaciones();
     fetchMensajes();
     fetchProductos();
-    fetchData();
+    fetchCotizaciones();
   }, []);
 
   // mapeos
