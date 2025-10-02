@@ -33,7 +33,7 @@ const Producto = () => {
         setProducto(response);
       } catch (err) {
         console.error("Error cargando producto:", err);
-        navigate(routes.NotFound);
+        navigate(routes.shop);
       } finally {
         setLoading(false);
       }
