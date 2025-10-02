@@ -65,19 +65,13 @@ function ProductoDetalle() {
             ]}
           />
 
-          <div className={styles.card}>
-            <div className={styles.subtitle}>Detalles técnicos</div>
-
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Norma:</span>
-              <span className={styles.value}>{producto?.categoriaNombre}</span>
-            </div>
-
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Usos:</span>
-              <span className={styles.value}>{producto?.categoriaUsos}</span>
-            </div>
-          </div>
+          <InfoCard
+            title="Detalles técnicos"
+            items={[
+              { label: "Norma:", value: producto?.categoriaNombre || "" },
+              { label: "Usos:", value: producto?.categoriaUsos || "" },
+            ]}
+          />
         </div>
         <div className={styles.right}>
           <img
