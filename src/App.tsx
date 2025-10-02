@@ -24,7 +24,7 @@ import Productos from "./Pages/dashboard/productos/Productos.tsx";
 function App() {
   const location = useLocation();
 
-  const noNavbarRoutes = [routes.login, routes.register];
+  const noNavbarRoutes = [routes.login, routes.register, routes.dashboard_products];
 
   const showNavbar = !noNavbarRoutes.includes(location.pathname);
 
