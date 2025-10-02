@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "./Sidebar.module.css";
+import type { AllAndQuantityResponseDTO } from "../../../models/Categoria/Categoria_response";
 
 export interface SidebarProps {
-  arrayCategories: {
-    id: number;
-    name: string;
-    quantity: number;
-  }[];
+  arrayCategories: AllAndQuantityResponseDTO[];
 }
 
 function Sidebar(props: SidebarProps) {
@@ -19,7 +16,7 @@ function Sidebar(props: SidebarProps) {
       <div className={styles.listContainer}>
         {props.arrayCategories.map((category) => (
           <Link key={category.id} className={styles.categoryItem} to="#">
-            {category.name} ({category.quantity})
+            {category.nombre} ({category.cantidad})
           </Link>
         ))}
       </div>
