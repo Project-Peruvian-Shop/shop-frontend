@@ -17,3 +17,12 @@ export interface ProductoDTO {
   categoriaAlt: string;
   categoriaUsos: string;
 }
+
+export interface ProductoDashboardDTO {
+  id: number;
+  imagenEnlace: string;
+  imagenAlt: string;
+  nombre: string;
+  categoriaNombre: string;
+  descripcion: string;
+}
