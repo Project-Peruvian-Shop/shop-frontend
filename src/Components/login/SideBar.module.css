@@ -1,0 +1,56 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  padding: 0 80px;
+  background-color: var(--secondary-color);
+  color: white;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.logo {
+  width: 180px;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 48px;
+  line-height: 60px;
+}
+
+.subtitle {
+  margin: 20px 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.bulletIcon {
+  width: 16px;
+  height: 16px;
+}
