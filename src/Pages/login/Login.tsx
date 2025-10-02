@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../Components/login/SideBar";
 import styles from "./Login.module.css";
 import { routes } from "../../utils/routes";
+import { agregarUsuario } from "../../utils/auth";
 
 function Login() {
   const title = "Bienvenido de vuelta";
@@ -11,6 +12,13 @@ function Login() {
     "Historial de cotizaciones siempre disponible",
     "Cotiza en simples pasos",
   ];
+  const navigate = useNavigate();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    agregarUsuario();
+    navigate(routes.shop_cart);
+  };
 
   return (
     <div className={styles.container}>
@@ -25,7 +33,7 @@ function Login() {
           Ingresa tus credenciales para continuar
         </div>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label htmlFor="email" className={styles.label}>
               Correo Electrónico
@@ -60,7 +68,9 @@ function Login() {
         <div className={styles.footer}>
           <p className={styles.footerText}>
             ¿No tienes una cuenta?{" "}
-            <Link to={routes.register} className={styles.footerLink}>Regístrate gratis</Link>
+            <Link to={routes.register} className={styles.footerLink}>
+              Regístrate gratis
+            </Link>
           </p>
         </div>
       </div>
