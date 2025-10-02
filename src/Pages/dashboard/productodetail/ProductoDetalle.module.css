@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 12px;
+}
+
+/* Header con título y acciones */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  max-width: 70%;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.editButton,
+.deleteButton {
+  font-family: "Poppins", sans-serif;
+  padding: 8px 14px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.editButton {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+.editButton:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.deleteButton {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.deleteButton:hover {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+/* Contenido principal */
+.content {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Columna izquierda */
+.left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Datos básicos */
+.datos {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  min-height: 100px;
+}
+
+/* Detalles adicionales */
+.detalles {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  min-height: 150px;
+}
+
+/* Columna derecha */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.productImage {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
