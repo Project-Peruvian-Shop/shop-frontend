@@ -3,6 +3,10 @@ import SideBar from "../../Components/login/SideBar";
 import styles from "./Login.module.css";
 import { routes } from "../../utils/routes";
 import { agregarUsuario } from "../../utils/auth";
+import { useState } from "react";
+import { login } from "../../services/auht.service";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Login() {
   const title = "Bienvenido de vuelta";
@@ -13,11 +17,47 @@ function Login() {
     "Cotiza en simples pasos",
   ];
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [passwordd, setPassword] = useState("");
+  const MySwal = withReactContent(Swal);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    agregarUsuario();
-    navigate(routes.shop_cart);
+
+    try {
+      const body = { email, passwordd };
+      const response = await login(body);
+
+      if (response) {
+        // Guardar usuario en localStorage o como lo tengas implementado
+        agregarUsuario(response);
+
+        MySwal.fire({
+          icon: "success",
+          title: "¡Inicio de sesión exitoso!",
+          text: `Bienvenido, ${response.nombre}`,
+          confirmButtonText: "Continuar",
+        });
+
+        // Redirigir a carrito
+        navigate(routes.shop_cart);
+      } else {
+        alert("Usuario o contraseña incorrectos");
+      }
+    } catch (error: unknown) {
+      let mensaje;
+      if (error instanceof Error) {
+        mensaje = error.message;
+      } else {
+        mensaje = String(error);
+      }
+      MySwal.fire({
+        icon: "error",
+        title: "Error al iniciar sesión",
+        text: mensaje,
+        confirmButtonText: "Intentar de nuevo",
+      });
+    }
   };
 
   return (
@@ -44,6 +84,8 @@ function Login() {
               className={styles.input}
               placeholder="ejemplo@dominio.com"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -57,6 +99,8 @@ function Login() {
               className={styles.input}
               placeholder="Ingresa tu contraseña"
               required
+              value={passwordd}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
