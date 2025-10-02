@@ -20,17 +20,26 @@ import Checkout from "./Pages/checkout/Checkout.tsx";
 import Profile from "./Pages/profile/Profile.tsx";
 import Cotizacion from "./Pages/cotizacion/Cotizacion.tsx";
 import Productos from "./Pages/dashboard/productos/Productos.tsx";
+import SideBarDashboard from "./Components/dashboard/SideBarDashboard.tsx";
 
 function App() {
   const location = useLocation();
 
-  const noNavbarRoutes = [routes.login, routes.register, routes.dashboard_products];
+  const noNavbarRoutes = [
+    routes.login,
+    routes.register,
+    routes.dashboard_products,
+  ];
+
+  const dashboardRoutes = [routes.dashboard_products];
 
   const showNavbar = !noNavbarRoutes.includes(location.pathname);
+  const showDashboardNavbar = dashboardRoutes.includes(location.pathname);
 
   return (
     <>
       {showNavbar && <Navbar />}
+      {showDashboardNavbar && <SideBarDashboard />}
 
       <Routes>
         {/* Principal Pages */}
