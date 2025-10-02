@@ -11,6 +11,7 @@ import type {
   ProductoResponseDTO,
 } from "../../../models/Categoria/Categoria_response";
 import Pagination from "../../../Components/pagination/Pagination";
+import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
 
 function CategoriaDetalle() {
   const { id } = useParams<{ id: string }>();
@@ -64,8 +65,20 @@ function CategoriaDetalle() {
       <div className={styles.header}>
         <div className={styles.title}>Categoría {categoria?.norma}</div>
         <div className={styles.actions}>
-          <button className={styles.editButton}>Editar</button>
-          <button className={styles.deleteButton}>Eliminar</button>
+          <ButtonHeader
+            title="Editar"
+            onClick={() => console.log("Acciones")}
+            icon="edit-secondary"
+            size={24}
+            style="secondary-outline"
+          />
+          <ButtonHeader
+            title="Eliminar"
+            onClick={() => console.log("Acciones")}
+            icon="delete-primary"
+            size={24}
+            style="primary-outline"
+          />
         </div>
       </div>
 

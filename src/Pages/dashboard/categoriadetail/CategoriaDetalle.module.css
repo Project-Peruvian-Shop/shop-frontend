@@ -112,7 +112,7 @@
 }
 
 .label {
-  width: 50%;
+  width: 25%;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-style: Regular;
@@ -120,7 +120,7 @@
 }
 
 .value {
-  width: 50%;
+  width: 75%;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-style: SemiBold;
