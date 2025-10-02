@@ -12,11 +12,15 @@ const SubHeader = () => {
           Inicio
         </Link>
 
+        <Link to={routes.profile_user} className={styles.links}>
+          Mi Perfil
+        </Link>
+
         <Link to={routes.shop_cart} className={styles.links}>
           Carrito
         </Link>
 
-        <div className={styles.dropdown}>
+        {/* <div className={styles.dropdown}>
           <button className={styles.dropbtn}>Ayuda ▾</button>
           <div className={styles.dropdownContent}>
             <Link to={routes.complaints_book}>Libro de Reclamaciones</Link>
@@ -25,11 +29,11 @@ const SubHeader = () => {
             <Link to={routes.questions}>Preguntas Frecuentes</Link>
             <Link to={routes.contact}>Contáctenos</Link>
           </div>
-        </div>
+        </div> */}
 
-        <Link to={routes.about} className={styles.links}>
+        {/* <Link to={routes.about} className={styles.links}>
           ¿Quiénes somos?
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
