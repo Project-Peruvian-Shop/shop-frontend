@@ -3,7 +3,6 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import viewIcon from "../../../Icons/view-db.svg";
-import editIcon from "../../../Icons/edit-db.svg";
 import { useEffect, useState } from "react";
 import { getAllMensajes } from "../../../services/mensajes.services";
 import type { MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
@@ -89,11 +88,6 @@ function Mensajes() {
       label: "Ver",
       icon: <img src={viewIcon} alt="Ver" />,
       onClick: (row) => console.log("Ver producto", row),
-    },
-    {
-      label: "Eliminar",
-      icon: <img src={editIcon} alt="Eliminar" />,
-      onClick: (row) => console.log("Eliminar producto", row),
     },
   ];
 
