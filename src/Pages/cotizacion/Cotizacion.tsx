@@ -46,7 +46,7 @@ function Cotizacion() {
 
   return (
     <div className={styles.container}>
-      <Header nombre="Perfil de Usuario" />
+      <Header nombre={`Cotización ${cotizacion?.numero}`} />
 
       <div className={styles.content}>
         <div className={styles.left}>
