@@ -90,13 +90,13 @@ function Cotizaciones() {
   return (
     <div>
       <div className={styles.dashboardHeader}>
-        <div className={styles.title}>Productos</div>
+        <div className={styles.title}>Cotizaciones</div>
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            Total: {"cantidad"} Productos
+            Total: {"cantidad"} Cotizaciones
           </div>
-          <button className={styles.addButton}>+ Añadir Producto</button>
+          <button className={styles.addButton}>+ Añadir Cotización</button>
         </div>
       </div>
 
