@@ -10,11 +10,13 @@ import DashboardTable, {
   type Column,
 } from "../../../Components/table/DashboardTable";
 import styles from "./Productos.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductosTable() {
   const [productos, setProductos] = useState<ProductoDashboardDTO[]>([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadProductos(page);
@@ -61,7 +63,10 @@ export default function ProductosTable() {
     {
       label: "Ver",
       icon: <img src={viewIcon} alt="Ver" />,
-      onClick: (row) => console.log("Ver producto", row),
+      onClick: (row) => {
+        navigate(`/dashboard/product/${row.id}`);
+        console.log("Ver producto", row);
+      },
     },
     {
       label: "Editar",
@@ -81,7 +86,9 @@ export default function ProductosTable() {
         <div className={styles.title}>Productos</div>
 
         <div className={styles.headerActions}>
-          <div className={styles.totalProducts}>Total: {"cantidad"} Productos</div>
+          <div className={styles.totalProducts}>
+            Total: {"cantidad"} Productos
+          </div>
           <button className={styles.addButton}>+ Añadir Producto</button>
         </div>
       </div>

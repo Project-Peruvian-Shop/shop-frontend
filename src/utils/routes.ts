@@ -30,7 +30,7 @@ export const routes = {
 
   // Products Management
   dashboard_products: "/dashboard/products",
-  dashboard_product: "/dashboard/product/:id",
+  dashboard_product: "/dashboard/product/",
   dashboard_product_new: "/dashboard/product/new",
   dashboard_product_edit: "/dashboard/product/edit/:id",
 
