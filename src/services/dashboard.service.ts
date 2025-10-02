@@ -3,6 +3,7 @@ import { URL_API } from "../utils/constants";
 import type { ApiResponse } from "./global.interfaces";
 import type {
   DashboardCategoriaDTO,
+  DashboardCotizacionDTO,
   DashboardLastCotizacionDTO,
   DashboardMensajeDTO,
   DashboardProductoDTO,
@@ -46,6 +47,17 @@ export async function getProductosTopMes(
   const url = `${BASE_URL}/productos_mes?mes=${mes}&year=${year}`;
 
   const res = await axios.get<ApiResponse<DashboardProductoDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getCotizacionesMes(
+  mes: number,
+  year: number
+): Promise<DashboardCotizacionDTO[]> {
+  const url = `${BASE_URL}/cotizaciones_year?mes=${mes}&year=${year}`;
+
+  const res = await axios.get<ApiResponse<DashboardCotizacionDTO[]>>(url);
 
   return res.data.data;
 }

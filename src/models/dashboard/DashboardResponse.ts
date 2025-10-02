@@ -21,3 +21,8 @@ export interface DashboardProductoDTO {
   producto_nombre: string;
   producto_cantidad_mes: number;
 }
+
+export interface DashboardCotizacionDTO {
+  cotizacionesNombreMes: string;
+  cotizacionesCantidadMes: number;
+}
