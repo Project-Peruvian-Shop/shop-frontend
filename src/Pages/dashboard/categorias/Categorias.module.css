@@ -1,0 +1,63 @@
+/* Contenedor principal */
+.container {
+  padding: 48px 140px;
+  background-color: #f9fafb; /* gris muy claro */
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px;
+}
+
+.title {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 24px;
+}
+
+/* Título estilo "botón" con línea roja */
+.totalProducts {
+  padding: 8px 16px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 6px;
+  background-color: #fff;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+/* Contenedor de las acciones */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #444;
+}
+
+/* Botón de agregar */
+.addButton {
+  height: 45px;
+  background-color: var(--primary-color);
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  font-weight: 600;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.addButton:hover {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+.tableContainer {
+  margin: 0 40px 40px 40px;
+}
