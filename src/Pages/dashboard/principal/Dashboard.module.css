@@ -141,3 +141,30 @@
   font-size: 12px;
   color: #444;
 }
+
+/* Mensajes */
+.messages .list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.messages .item {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9f9f9;
+  font-size: 14px;
+}
+
+.messages .tipo {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+}
+
+.messages .mensaje {
+  font-size: 13px;
+  color: #333;
+}

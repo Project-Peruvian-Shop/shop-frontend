@@ -3,10 +3,12 @@ import styles from "./Dashboard.module.css";
 import {
   getCotizacionesLineaMes,
   getLastCotizaciones,
+  getMensajesPendientes,
 } from "../../../services/dashboard.service";
 import type {
   DashboardCategoriaDTO,
   DashboardLastCotizacionDTO,
+  DashboardMensajeDTO,
 } from "../../../models/dashboard/DashboardResponse";
 
 function Dashboard() {
@@ -14,6 +16,7 @@ function Dashboard() {
   const [lastCotizaciones, setLastCotizaciones] = useState<
     DashboardLastCotizacionDTO[]
   >([]);
+  const [mensajes, setMensajes] = useState<DashboardMensajeDTO[]>([]);
 
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -37,15 +40,32 @@ function Dashboard() {
       }
     };
 
+    const fetchMensajes = async () => {
+      try {
+        const data = await getMensajesPendientes();
+        setMensajes(data);
+      } catch (error) {
+        console.error("Error cargando mensajes pendientes:", error);
+      }
+    };
+
     fetchCategorias();
     fetchLastCotizaciones();
+    fetchMensajes();
   }, []);
 
-  // Mapeo de estado
+  // Mapeo de estado de cotización
   const estadoMapper: Record<number, string> = {
     0: "Pendiente",
     1: "Aceptada",
     2: "Rechazada",
+  };
+
+  // Mapeo de tipo de mensaje
+  const tipoMapper: Record<number, string> = {
+    0: "Queja",
+    1: "Sugerencia",
+    2: "Contáctenos",
   };
 
   return (
@@ -59,6 +79,20 @@ function Dashboard() {
         <div className={styles.messageProducts}>
           <div className={styles.messages}>
             <div className={styles.title}>Mensajes Pendientes</div>
+            <ul className={styles.list}>
+              {mensajes.length > 0 ? (
+                mensajes.map((msg) => (
+                  <li key={msg.id} className={styles.item}>
+                    <div className={styles.tipo}>
+                      {tipoMapper[msg.tipo] ?? "Desconocido"}
+                    </div>
+                    <div className={styles.mensaje}>{msg.mensaje}</div>
+                  </li>
+                ))
+              ) : (
+                <li className={styles.item}>No hay mensajes pendientes</li>
+              )}
+            </ul>
           </div>
 
           <div className={styles.productos}>
