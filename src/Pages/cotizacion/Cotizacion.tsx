@@ -108,6 +108,17 @@ function Cotizacion() {
         <div className={styles.right}>
           <div className={styles.card}>
             <div className={styles.title}>Productos de la cotización</div>
+
+            <div className={styles.productsList}>
+              {cotizacion?.productos.map((producto, i) => (
+                <div key={i} className={styles.productRow}>
+                  <div className={styles.productName}>{producto.name}</div>
+                  <div className={styles.productDetails}>
+                    {producto.cantidad} u
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className={styles.card}>
