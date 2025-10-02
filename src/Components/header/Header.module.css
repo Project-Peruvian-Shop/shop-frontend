@@ -1,0 +1,12 @@
+.container {
+  padding: 16px 155px;
+  text-align: left;
+  background-color: var(--secondary-color);
+  color: white;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 36px;
+  line-height: 60px;
+}
