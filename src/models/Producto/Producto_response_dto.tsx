@@ -11,7 +11,7 @@ export interface ProductoDTO {
   descripcion: string;
   productoEnlace: string;
   productoAlt: string;
-  categoria: string;
+  categoriaNombre: string;
   categoriaEnlace: string;
   categoriaAlt: string;
   categoriaUsos: string;
