@@ -1,0 +1,84 @@
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Columna izquierda */
+.left {
+  flex: 2; /* ocupa más espacio */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Gráfico principal */
+.graphic {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  flex: 1; /* se expande */
+  display: flex;
+  flex-direction: column;
+}
+
+.graphic .chart {
+  flex: 1;
+  margin-top: 10px;
+  background: #f8f9fa; /* placeholder */
+  border-radius: 8px;
+}
+
+/* Mensajes + productos lado a lado */
+.messageProducts {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Caja mensajes */
+.messages {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Caja productos */
+.productos {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Columna derecha */
+.right {
+  flex: 1; /* más angosto */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Cotizaciones recientes */
+.topClients,
+.topSellers {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Títulos uniformes */
+.title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
