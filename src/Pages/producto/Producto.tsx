@@ -28,8 +28,13 @@ const Producto = () => {
       icon: "success",
       title: "¡Producto agregado!",
       text: `Se agregó ${cantidad} unidad(es) al carrito.`,
-      timer: 2000,
-      showConfirmButton: false,
+      showCancelButton: true,
+      confirmButtonText: "Ir al carrito",
+      cancelButtonText: "Seguir comprando",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(routes.shop_cart);
+      }
     });
   };
 
