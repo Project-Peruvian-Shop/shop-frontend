@@ -19,6 +19,7 @@ import Register from "./Pages/register/Register.tsx";
 import Checkout from "./Pages/checkout/Checkout.tsx";
 import Profile from "./Pages/profile/Profile.tsx";
 import Cotizacion from "./Pages/cotizacion/Cotizacion.tsx";
+import Productos from "./Pages/dashboard/productos/Productos.tsx";
 
 function App() {
   const location = useLocation();
@@ -58,6 +59,9 @@ function App() {
           path={`${routes.profile_cotization}:id`}
           element={<Cotizacion />}
         />
+
+        {/* Dashboard Pages */}
+        <Route path={routes.dashboard_products} element={<Productos />} />
       </Routes>
 
       {showNavbar && <Footer />}
