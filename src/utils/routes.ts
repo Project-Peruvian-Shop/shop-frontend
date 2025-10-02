@@ -22,7 +22,7 @@ export const routes = {
   checkout: "/checkout",
   thank_you: "/thank-you",
   profile_user: "/perfil/usuario",
-  profile_cotization: "/perfil/cotizaciones/:id",
+  profile_cotization: "/perfil/cotizaciones/",
 
   //Admin Pages
   dashboard: "/dashboard",

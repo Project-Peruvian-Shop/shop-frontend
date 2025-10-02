@@ -202,7 +202,7 @@ function Profile() {
                     </td>
                     {/* icono que envia a /cotizacion/:id */}
                     <td>
-                      <Link to={`/cotizacion/${c.id}`}>
+                      <Link to={`${routes.profile_cotization}${c.id}`}>
                         <img src={view} alt="Ver" />
                       </Link>
                     </td>

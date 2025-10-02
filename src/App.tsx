@@ -18,6 +18,7 @@ import Login from "./Pages/login/Login.tsx";
 import Register from "./Pages/register/Register.tsx";
 import Checkout from "./Pages/checkout/Checkout.tsx";
 import Profile from "./Pages/profile/Profile.tsx";
+import Cotizacion from "./Pages/cotizacion/Cotizacion.tsx";
 
 function App() {
   const location = useLocation();
@@ -53,6 +54,10 @@ function App() {
 
         {/* User Pages */}
         <Route path={routes.profile_user} element={<Profile />} />
+        <Route
+          path={`${routes.profile_cotization}:id`}
+          element={<Cotizacion />}
+        />
       </Routes>
 
       {showNavbar && <Footer />}
