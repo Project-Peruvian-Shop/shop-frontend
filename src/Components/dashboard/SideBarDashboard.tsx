@@ -103,7 +103,7 @@ export default function SideBarDashboard() {
 
       {/* Parte inferior */}
       <div className={styles.bottomMenu}>
-        <Link to="/mi-cuenta" className={styles.menuItem}>
+        <Link to={routes.profile_user} className={styles.menuItem}>
           <img src={usuarioIc} alt="Mi cuenta" className={styles.icon} />
           Mi cuenta
         </Link>
