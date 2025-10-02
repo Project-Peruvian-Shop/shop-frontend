@@ -5,6 +5,7 @@ import Header from "../../Components/header/Header";
 import { useEffect, useState } from "react";
 import type { CotizacionFullDTO } from "../../models/Cotizacion/Cotizacion_response_dto";
 import { getCotizacionById } from "../../services/cotizacion.service";
+import InfoCard from "../../Components/dashboard/infocard/InfoCard";
 
 function Cotizacion() {
   const { id } = useParams<{ id: string }>();
@@ -50,59 +51,40 @@ function Cotizacion() {
 
       <div className={styles.content}>
         <div className={styles.left}>
-          <div className={styles.card}>
-            <div className={styles.title}>Datos de la cotización</div>
+          <InfoCard
+            title="Datos de la Cotización"
+            items={[
+              {
+                label: "Número de cotización:",
+                value: cotizacion?.numero || "",
+              },
+              {
+                label: "Estado:",
+                value: mapperEstado(cotizacion?.estado || "").label,
+              },
+              {
+                label: "Fecha de cotización:",
+                value: cotizacion?.creacion || "",
+              },
+              { label: "Comentario:", value: cotizacion?.comentario || "" },
+            ]}
+          />
 
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Número de cotización:</div>
-              <div className={styles.value}>{cotizacion?.numero}</div>
-            </div>
-
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Estado:</div>
-              <div
-                className={`${styles.value} ${
-                  mapperEstado(cotizacion?.estado || "").className
-                }`}
-              >
-                {mapperEstado(cotizacion?.estado || "").label}
-              </div>
-            </div>
-
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Fecha de cotización:</div>
-              <div className={styles.value}>{cotizacion?.creacion}</div>
-            </div>
-
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Comentario:</div>
-              <div className={styles.value}>{cotizacion?.comentario}</div>
-            </div>
-          </div>
-
-          <div className={styles.card}>
-            <div className={styles.title}>Datos de contacto</div>
-
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Número de documento:</div>
-              <div className={styles.value}>{cotizacion?.documento}</div>
-            </div>
-
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Cliente:</div>
-              <div className={styles.value}>{cotizacion?.cliente}</div>
-            </div>
-
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Correo electrónico:</div>
-              <div className={styles.value}>{cotizacion?.email}</div>
-            </div>
-
-            <div className={styles.rowcontent}>
-              <div className={styles.label}>Número de teléfono:</div>
-              <div className={styles.value}>{cotizacion?.telefono}</div>
-            </div>
-          </div>
+          <InfoCard
+            title="Datos de contacto"
+            items={[
+              {
+                label: "Nº documento:",
+                value: cotizacion?.documento || "",
+              },
+              { label: "Cliente:", value: cotizacion?.cliente || "" },
+              { label: "Email:", value: cotizacion?.email || "" },
+              {
+                label: "Teléfono:",
+                value: cotizacion?.telefono || "",
+              },
+            ]}
+          />
         </div>
 
         <div className={styles.right}>
