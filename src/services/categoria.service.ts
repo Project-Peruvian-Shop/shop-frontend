@@ -30,3 +30,13 @@ export async function getAllCategories(
 
   return res.data.data;
 }
+
+export async function getCategoryById(
+  id: number
+): Promise<CategoriaDashboardDTO> {
+  const url = `${BASE_URL}/${id}`;
+
+  const res = await axios.get<ApiResponse<CategoriaDashboardDTO>>(url);
+
+  return res.data.data;
+}

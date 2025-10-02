@@ -8,11 +8,13 @@ import DashboardTable from "../../../Components/table/DashboardTable";
 import viewIcon from "../../../Icons/view-db.svg";
 import editIcon from "../../../Icons/edit-db.svg";
 import trashIcon from "../../../Icons/trash-db.svg";
+import { useNavigate } from "react-router-dom";
 
 function Categorias() {
   const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadCategorias(page);
@@ -59,7 +61,10 @@ function Categorias() {
     {
       label: "Ver",
       icon: <img src={viewIcon} alt="Ver" />,
-      onClick: (row) => console.log("Ver categoria", row),
+      onClick: (row) => {
+        console.log("Ver categoria", row);
+        navigate(`/dashboard/category/${row.id}`);
+      },
     },
     {
       label: "Editar",

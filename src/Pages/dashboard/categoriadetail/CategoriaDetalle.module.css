@@ -1,0 +1,146 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Header con título y acciones */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  max-width: 70%;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.editButton,
+.deleteButton {
+  font-family: "Poppins", sans-serif;
+  padding: 8px 14px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.editButton {
+  border: 1px solid var(--secondary-color);
+}
+
+.editButton {
+  background-color: white;
+  color: var(--secondary-color);
+}
+
+.editButton:hover {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+.deleteButton {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+.deleteButton:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Contenido principal */
+.content {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Columna izquierda */
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  margin-bottom: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  background-color: white;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+}
+
+.label {
+  width: 50%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+}
+
+.value {
+  width: 50%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 16px;
+}
+
+/* Columna derecha */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.categoriaImage {
+  width: 100%;
+  /* max-width: 300px; */
+  border-radius: 12px;
+  object-fit: contain;
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}

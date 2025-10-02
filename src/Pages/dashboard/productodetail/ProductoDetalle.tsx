@@ -33,7 +33,7 @@ function ProductoDetalle() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>
-          Producto {"Tuberias para Alcantarillado 110mm UF"}
+          Producto {producto?.nombre}
         </div>
         <div className={styles.actions}>
           <button className={styles.editButton}>Editar</button>
