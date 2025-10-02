@@ -72,10 +72,52 @@ function Cotizacion() {
         <div className={styles.left}>
           <div className={styles.card}>
             <div className={styles.title}>Datos de la cotización</div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Número de cotización:</div>
+              <div className={styles.value}>#123456</div>
+            </div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Estado:</div>
+              <div className={styles.value}>Enviado</div>
+            </div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Fecha de cotización:</div>
+              <div className={styles.value}>17/10/2023</div>
+            </div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Comentario:</div>
+              <div className={styles.value}>
+                Este es un comentario de prueba.
+              </div>
+            </div>
           </div>
 
           <div className={styles.card}>
             <div className={styles.title}>Datos de contacto</div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Número de documento:</div>
+              <div className={styles.value}>RUC - 12345678901</div>
+            </div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Cliente:</div>
+              <div className={styles.value}>Juan Pérez</div>
+            </div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Correo electrónico:</div>
+              <div className={styles.value}>juan.perez@example.com</div>
+            </div>
+
+            <div className={styles.rowcontent}>
+              <div className={styles.label}>Número de teléfono:</div>
+              <div className={styles.value}>+51 987 654 321</div>
+            </div>
           </div>
         </div>
 
@@ -86,6 +128,16 @@ function Cotizacion() {
 
           <div className={styles.card}>
             <div className={styles.title}>Observaciones</div>
+            <div className={styles.observations}>
+              Aquí puedes agregar cualquier observación adicional sobre la
+              cotización.
+            </div>
+
+            <div className={styles.titlePDF}>PDF de la cotización</div>
+            <div className={styles.pdfContainer}>
+              <button className={styles.pdfButton}>Ver PDF</button>
+              <button className={styles.pdfButton}>Descargar PDF</button>
+            </div>
           </div>
         </div>
       </div>
