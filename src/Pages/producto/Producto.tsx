@@ -45,6 +45,7 @@ const Producto = () => {
   return (
     <>
       <SubHeader />
+
       <div className={styles.productoContainer}>
         {loading ? (
           <p>Cargando producto...</p>
@@ -109,7 +110,7 @@ const Producto = () => {
               </div>
             </div>
 
-            <div className={styles.descripcion}>
+            <div className={styles.descripcionContainer}>
               <div className={styles.subtitle}>Descripción</div>
               <img
                 src={producto.categoriaEnlace}
@@ -118,7 +119,7 @@ const Producto = () => {
               />
             </div>
 
-            <div className={styles.usos}>
+            <div className={styles.usosContainer}>
               <div className={styles.subtitle}>
                 Usos comunes de {producto.categoriaNombre}:
               </div>
