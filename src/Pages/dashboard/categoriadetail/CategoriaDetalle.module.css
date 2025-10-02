@@ -144,3 +144,41 @@
   padding: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Productos de la categoría */
+.productsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.productItem {
+  background: #f1f8ff;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.productItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.productImage {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.productName {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
