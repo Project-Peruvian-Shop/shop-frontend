@@ -2,10 +2,10 @@ import styles from "./Mensajes.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
-import viewIcon from "../../../Icons/view-db.svg";
 import { useEffect, useState } from "react";
 import { getAllMensajes } from "../../../services/mensajes.services";
 import type { MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
+import IconSVG from "../../../Icons/IconSVG";
 
 function Mensajes() {
   const [mensajes, setMensajes] = useState<MensajeDashboardDTO[]>([]);
@@ -86,7 +86,7 @@ function Mensajes() {
   const actions: Action<MensajeDashboardDTO>[] = [
     {
       label: "Ver",
-      icon: <img src={viewIcon} alt="Ver" />,
+      icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => console.log("Ver producto", row),
     },
   ];

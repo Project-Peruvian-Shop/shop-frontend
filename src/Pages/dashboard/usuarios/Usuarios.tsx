@@ -2,11 +2,10 @@ import styles from "./Usuarios.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
-import viewIcon from "../../../Icons/view-db.svg";
-import editIcon from "../../../Icons/edit-db.svg";
 import { useEffect, useState } from "react";
 import { getAllUsuarios } from "../../../services/usuario.service";
 import type { UsuarioDashboardDTO } from "../../../models/Usuario/Usuario_response_dto";
+import IconSVG from "../../../Icons/IconSVG";
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState<UsuarioDashboardDTO[]>([]);
@@ -66,12 +65,12 @@ function Usuarios() {
   const actions: Action<UsuarioDashboardDTO>[] = [
     {
       label: "Ver",
-      icon: <img src={viewIcon} alt="Ver" />,
+      icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => console.log("Ver producto", row),
     },
     {
       label: "Eliminar",
-      icon: <img src={editIcon} alt="Eliminar" />,
+      icon: <IconSVG name="delete-primary" size={20} />,
       onClick: (row) => console.log("Eliminar producto", row),
     },
   ];

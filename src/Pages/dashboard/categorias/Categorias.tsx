@@ -5,10 +5,8 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import { getAllCategories } from "../../../services/categoria.service";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
-import viewIcon from "../../../Icons/view-db.svg";
-import editIcon from "../../../Icons/edit-db.svg";
-import trashIcon from "../../../Icons/trash-db.svg";
 import { useNavigate } from "react-router-dom";
+import IconSVG from "../../../Icons/IconSVG";
 
 function Categorias() {
   const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
@@ -60,7 +58,7 @@ function Categorias() {
   const actions: Action<CategoriaDashboardDTO>[] = [
     {
       label: "Ver",
-      icon: <img src={viewIcon} alt="Ver" />,
+      icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => {
         console.log("Ver categoria", row);
         navigate(`/dashboard/category/${row.id}`);
@@ -68,12 +66,12 @@ function Categorias() {
     },
     {
       label: "Editar",
-      icon: <img src={editIcon} alt="Editar" />,
+      icon: <IconSVG name="edit-secondary" size={20} />,
       onClick: (row) => console.log("Editar categoria", row),
     },
     {
       label: "Eliminar",
-      icon: <img src={trashIcon} alt="Eliminar" />,
+      icon: <IconSVG name="delete-secondary" size={20} />,
       onClick: (row) => console.log("Eliminar categoria", row),
     },
   ];

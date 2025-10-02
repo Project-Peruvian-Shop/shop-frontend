@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { ProductoDashboardDTO } from "../../../models/Producto/Producto_response_dto";
 import { getAllProductos } from "../../../services/producto.service";
-import viewIcon from "../../../Icons/view-db.svg";
-import editIcon from "../../../Icons/edit-db.svg";
-import trashIcon from "../../../Icons/trash-db.svg";
 import DashboardTable, {
   type Action,
   type Column,
 } from "../../../Components/table/DashboardTable";
 import styles from "./Productos.module.css";
 import { useNavigate } from "react-router-dom";
+import IconSVG from "../../../Icons/IconSVG";
 
 export default function ProductosTable() {
   const [productos, setProductos] = useState<ProductoDashboardDTO[]>([]);
@@ -62,7 +60,7 @@ export default function ProductosTable() {
   const actions: Action<ProductoDashboardDTO>[] = [
     {
       label: "Ver",
-      icon: <img src={viewIcon} alt="Ver" />,
+      icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => {
         navigate(`/dashboard/product/${row.id}`);
         console.log("Ver producto", row);
@@ -70,12 +68,12 @@ export default function ProductosTable() {
     },
     {
       label: "Editar",
-      icon: <img src={editIcon} alt="Editar" />,
+      icon: <IconSVG name="edit-secondary" size={20} />,
       onClick: (row) => console.log("Editar producto", row),
     },
     {
       label: "Eliminar",
-      icon: <img src={trashIcon} alt="Eliminar" />,
+      icon: <IconSVG name="delete-secondary" size={20} />,
       onClick: (row) => console.log("Eliminar producto", row),
     },
   ];

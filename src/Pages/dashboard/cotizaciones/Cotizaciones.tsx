@@ -3,10 +3,9 @@ import styles from "./Cotizaciones.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
-import viewIcon from "../../../Icons/view-db.svg";
-import editIcon from "../../../Icons/edit-db.svg";
 import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import { getAllCotizaciones } from "../../../services/cotizacion.service";
+import IconSVG from "../../../Icons/IconSVG";
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] = useState<CotizacionDashboardDTO[]>(
@@ -36,7 +35,14 @@ function Cotizaciones() {
       header: "Número",
       accessor: "numeroCotizacion",
       render: (_, row) => (
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontWeight: 'bold' }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            fontWeight: "bold",
+          }}
+        >
           <span>{row.numeroCotizacion}</span>
         </div>
       ),
@@ -77,12 +83,12 @@ function Cotizaciones() {
   const actions: Action<CotizacionDashboardDTO>[] = [
     {
       label: "Ver",
-      icon: <img src={viewIcon} alt="Ver" />,
+      icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => console.log("Ver producto", row),
     },
     {
       label: "Editar",
-      icon: <img src={editIcon} alt="Editar" />,
+      icon: <IconSVG name="edit-secondary" size={20} />,
       onClick: (row) => console.log("Editar producto", row),
     },
   ];
