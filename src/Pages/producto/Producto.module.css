@@ -1,0 +1,91 @@
+.banner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+
+  margin: 20px 0;
+  width: 100%;
+}
+
+.bannerLeft {
+  width: 100%;
+}
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 36px;
+  line-height: 60px;
+}
+
+.descripcion {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 60px;
+}
+
+.categoria {
+  margin: 20px 0;
+}
+
+.cantidadContainer button {
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 800;
+  border: none;
+  background-color: #f7f8fa;
+}
+
+.cantidadContainer button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.9s ease;
+}
+
+.cantidadContainer input {
+  width: 100px;
+  padding: 22px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  border: 1px solid #f7f8fa;
+  border-radius: 4px;
+  margin: 0 10px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button.addToCartButton {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  margin-left: 20px;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.categoriaNombre {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.bannerRight {
+  width: 100%;
+  text-align: left;
+}
