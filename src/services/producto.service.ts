@@ -33,10 +33,12 @@ export async function getProductoById(id: number): Promise<ProductoDTO> {
 export async function getAllProductos(
   page: number = 0,
   size: number = 10
-): Promise<ProductoDashboardDTO[]> {
+): Promise<PaginatedResponse<ProductoDashboardDTO>> {
   const url = `${BASE_URL}/dashboard-paginated?page=${page}&size=${size}`;
 
-  const res = await axios.get<ApiResponse<ProductoDashboardDTO[]>>(url);
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<ProductoDashboardDTO>>
+  >(url);
 
   return res.data.data;
 }
