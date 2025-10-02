@@ -3,14 +3,26 @@ import { saveProductoToCart } from "../../../utils/localStorage";
 import { routes } from "../../../utils/routes";
 import ProductCard from "../card/ProductCard";
 import styles from "./Products.module.css";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 interface ProductsProps {
   result: PaginatedProductoResponseDTO[];
 }
 
 const addToCart = (producto: PaginatedProductoResponseDTO) => {
+  const MySwal = withReactContent(Swal);
+
   console.log(`Producto ${producto.id} añadido al carrito`);
   saveProductoToCart(producto, 1);
+
+  MySwal.fire({
+    icon: "success",
+    title: "¡Producto agregado!",
+    text: `Se agregó 1 unidad al carrito.`,
+    timer: 2000,
+    showConfirmButton: false,
+  });
 };
 
 function Products(props: ProductsProps) {
