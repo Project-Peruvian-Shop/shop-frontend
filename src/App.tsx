@@ -13,6 +13,7 @@ import TermsAndConditions from "./Pages/TermsAndConditions.tsx";
 import Contact from "./Pages/Contact.tsx";
 import Complaints_book from "./Pages/Complaints_book.tsx";
 import Producto from "./Pages/producto/Producto.tsx";
+import Carrito from "./Pages/carrito/Carrito.tsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         {/*Shop Pages*/}
         <Route path={routes.shop} element={<Shop />} />
         <Route path={`${routes.product}:id`} element={<Producto />} />
+        <Route path={routes.shop_cart} element={<Carrito />} />
       </Routes>
       <Footer />
     </>
