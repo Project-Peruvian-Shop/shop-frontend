@@ -9,6 +9,7 @@ import {
 } from "../../utils/localStorage";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes";
+import { obtenerUsuario } from "../../utils/auth";
 
 export default function CartTable() {
   const [cart, setCart] = useState<CartProductoDTO[]>([]);
@@ -19,6 +20,15 @@ export default function CartTable() {
   }, []);
 
   const totalProductos = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  const handleCheckout = () => {
+    const usuario = obtenerUsuario();
+    if (!usuario) {
+      navigate(routes.login);
+    } else {
+      navigate(routes.checkout);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -102,7 +112,9 @@ export default function CartTable() {
         >
           Volver a la tienda
         </button>
-        <button className={styles.btnBlue}>Solicitar cotización</button>
+        <button className={styles.btnBlue} onClick={handleCheckout}>
+          Solicitar cotización
+        </button>
       </div>
     </div>
   );

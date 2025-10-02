@@ -16,6 +16,7 @@ import Producto from "./Pages/producto/Producto.tsx";
 import Carrito from "./Pages/carrito/Carrito.tsx";
 import Login from "./Pages/login/Login.tsx";
 import Register from "./Pages/register/Register.tsx";
+import Checkout from "./Pages/checkout/Checkout.tsx";
 
 function App() {
   const location = useLocation();
@@ -43,6 +44,7 @@ function App() {
         <Route path={routes.shop} element={<Shop />} />
         <Route path={`${routes.product}:id`} element={<Producto />} />
         <Route path={routes.shop_cart} element={<Carrito />} />
+        <Route path={routes.checkout} element={<Checkout />} />
 
         {/* Auth Pages */}
         <Route path={routes.login} element={<Login />} />
