@@ -5,6 +5,7 @@ import { getProductoById } from "../../services/producto.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import type { ProductoDTO } from "../../models/Producto/Producto_response_dto";
+import { saveProductoToCart } from "../../utils/localStorage";
 
 const Producto = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +19,7 @@ const Producto = () => {
     console.log(
       `Agregando producto ${productoId} con cantidad ${cantidad} al carrito`
     );
+    saveProductoToCart(producto as ProductoDTO, cantidad);
   };
 
   useEffect(() => {
