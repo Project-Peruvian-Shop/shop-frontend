@@ -3,8 +3,10 @@ import Header from "../../Components/header/Header";
 import styles from "./Checkout.module.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { getCartFromLocalStorage } from "../../utils/localStorage";
+import { clearCart, getCartFromLocalStorage } from "../../utils/localStorage";
 import { obtenerUsuario } from "../../utils/auth";
+import { postCotizacion } from "../../services/cotizacion.service";
+import type { CotizacionRequestDTO } from "../../models/Cotizacion/Cotizacion_request_dto";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -20,7 +22,7 @@ function Checkout() {
     setAcceptedTerms(event.target.checked);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!acceptedTerms) {
@@ -52,10 +54,10 @@ function Checkout() {
       return;
     }
 
-    const body = {
+    const body: CotizacionRequestDTO = {
       usuarioID: usuario.id,
       nombre,
-      tipoDocumento,
+      tipoDocumento: tipoDocumento ? parseInt(tipoDocumento) : -1,
       documento: numeroDocumento,
       telefono,
       email,
@@ -63,7 +65,29 @@ function Checkout() {
       productos: products,
     };
 
-    console.log(body);
+    try {
+      const response = await postCotizacion(body);
+      MySwal.fire({
+        title: "Éxito",
+        text: "La cotización se ha enviado correctamente.",
+        icon: "success",
+      });
+      console.log("Respuesta backend:", response);
+      setNombre("");
+      setTipoDocumento("");
+      setNumeroDocumento("");
+      setTelefono("");
+      setEmail("");
+      setComentarios("");
+      clearCart();
+    } catch (error) {
+      console.error(error);
+      MySwal.fire({
+        title: "Error",
+        text: "Ocurrió un problema al enviar la cotización.",
+        icon: "error",
+      });
+    }
   };
 
   return (
@@ -94,6 +118,7 @@ function Checkout() {
             />
             <input
               className={styles.input}
+              type="email"
               placeholder="Correo Electrónico *"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -113,9 +138,9 @@ function Checkout() {
               <option value="" disabled>
                 Tipo de Documento *
               </option>
-              <option value="0">DNI</option>
-              <option value="1">RUC</option>
-              <option value="2">PASAPORTE</option>
+              <option value="1">DNI</option>
+              <option value="2">RUC</option>
+              <option value="3">PASAPORTE</option>
             </select>
             <input
               className={styles.input}
