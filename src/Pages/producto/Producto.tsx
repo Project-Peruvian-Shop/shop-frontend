@@ -6,10 +6,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import type { ProductoDTO } from "../../models/Producto/Producto_response_dto";
 import { saveProductoToCart } from "../../utils/localStorage";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Producto = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
 
   const [producto, setProducto] = useState<ProductoDTO | null>(null);
   const [loading, setLoading] = useState(true);
@@ -20,6 +23,14 @@ const Producto = () => {
       `Agregando producto ${productoId} con cantidad ${cantidad} al carrito`
     );
     saveProductoToCart(producto as ProductoDTO, cantidad);
+
+    MySwal.fire({
+      icon: "success",
+      title: "¡Producto agregado!",
+      text: `Se agregó ${cantidad} unidad(es) al carrito.`,
+      timer: 2000,
+      showConfirmButton: false,
+    });
   };
 
   useEffect(() => {
