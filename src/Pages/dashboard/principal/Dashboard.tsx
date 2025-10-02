@@ -21,11 +21,11 @@ function Dashboard() {
       </div>
 
       <div className={styles.right}>
-        <div className={styles.topClients}>
+        <div className={styles.lastCotizaciones}>
           <div className={styles.title}>Últimas cotizaciones</div>
         </div>
 
-        <div className={styles.topSellers}>
+        <div className={styles.topCategorias}>
           <div className={styles.title}>Categorías más cotizadas</div>
         </div>
       </div>

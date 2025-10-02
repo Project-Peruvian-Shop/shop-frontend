@@ -65,8 +65,8 @@
 }
 
 /* Cotizaciones recientes */
-.topClients,
-.topSellers {
+.lastCotizaciones,
+.topCategorias {
   background: #fff;
   border-radius: 12px;
   padding: 16px;
