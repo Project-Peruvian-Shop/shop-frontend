@@ -7,6 +7,8 @@ import { clearCart, getCartFromLocalStorage } from "../../utils/localStorage";
 import { obtenerUsuario } from "../../utils/auth";
 import { postCotizacion } from "../../services/cotizacion.service";
 import type { CotizacionRequestDTO } from "../../models/Cotizacion/Cotizacion_request_dto";
+import { routes } from "../../utils/routes";
+import { Link } from "react-router-dom";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -171,8 +173,8 @@ function Checkout() {
             onChange={handleCheckboxChange}
           />
           <label htmlFor="terms">
-            Acepto los <a href="#">términos y condiciones</a> y la{" "}
-            <a href="#">política de privacidad</a>
+            Acepto los <Link to={routes.tyc}>términos y condiciones</Link> y la{" "}
+            <Link to={routes.privacy_policy}>política de privacidad</Link>
           </label>
         </div>
 
