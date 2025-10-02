@@ -9,6 +9,7 @@ import DashboardTable, {
   type Action,
   type Column,
 } from "../../../Components/table/DashboardTable";
+import styles from "./Productos.module.css";
 
 export default function ProductosTable() {
   const [productos, setProductos] = useState<ProductoDashboardDTO[]>([]);
@@ -75,13 +76,26 @@ export default function ProductosTable() {
   ];
 
   return (
-    <DashboardTable
-      columns={columns}
-      data={productos}
-      actions={actions}
-      currentPage={page}
-      totalPages={totalPages}
-      onPageChange={setPage}
-    />
+    <div>
+      <div className={styles.dashboardHeader}>
+        <div className={styles.title}>Productos</div>
+
+        <div className={styles.headerActions}>
+          <div className={styles.totalProducts}>Total: {"cantidad"} Productos</div>
+          <button className={styles.addButton}>+ Añadir Producto</button>
+        </div>
+      </div>
+
+      <div className={styles.tableContainer}>
+        <DashboardTable
+          columns={columns}
+          data={productos}
+          actions={actions}
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      </div>
+    </div>
   );
 }
