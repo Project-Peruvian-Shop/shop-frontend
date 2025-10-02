@@ -88,11 +88,11 @@ function Profile() {
   const mapperRol = (rol: string) => {
     switch (rol) {
       case "ROLE_ADMIN":
-        return "Administrador";
+        return "Propietario";
       case "ROLE_USER":
         return "Usuario";
       case "ROLE_MANAGER":
-        return "Gerente";
+        return "Administrador";
       default:
         return "Desconocido";
     }

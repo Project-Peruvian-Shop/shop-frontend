@@ -21,9 +21,9 @@ export default function SideBarDashboard() {
   const navigate = useNavigate();
 
   const mapperRol = {
-    ROLE_ADMIN: "Administrador",
+    ROLE_ADMIN: "Propietario",
     ROLE_USER: "Usuario",
-    ROLE_MANAGER: "Gerente",
+    ROLE_MANAGER: "Administrador",
   };
 
   const handleCerrarSesion = () => {
