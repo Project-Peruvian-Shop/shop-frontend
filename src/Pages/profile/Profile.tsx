@@ -9,6 +9,8 @@ import userIcon from "../../Icons/user.svg";
 import { useEffect, useState } from "react";
 import { getProfile } from "../../services/usuario.service";
 import type { UsuarioProfileDTO } from "../../models/Usuario/Usuario_response_dto";
+import type { CotizacionUserDTO } from "../../models/Cotizacion/Cotizacion_response_dto";
+import { getCotizacionesByUser } from "../../services/cotizacion.service";
 
 function Profile() {
   const navigate = useNavigate();
@@ -16,6 +18,9 @@ function Profile() {
 
   const [fechaHora, setFechaHora] = useState(new Date());
   const [usuario, setUsuario] = useState<UsuarioProfileDTO | null>(null);
+  const [cotizaciones, setCotizaciones] = useState<CotizacionUserDTO[] | null>(
+    null
+  );
 
   useEffect(() => {
     // Actualizar fecha y hora cada segundo
@@ -38,6 +43,17 @@ function Profile() {
           icon: "error",
           title: "Error",
           text: "No se pudo cargar la información del perfil",
+        });
+      });
+
+    // Obtener cotizaciones del usuario
+    getCotizacionesByUser(localUser.id)
+      .then((data) => setCotizaciones(data))
+      .catch(() => {
+        MySwal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudieron cargar las cotizaciones",
         });
       });
   }, [navigate]);
@@ -130,7 +146,30 @@ function Profile() {
 
         <div className={styles.right}>
           <div className={styles.title}>Cotizaciones anteriores</div>
-          {/* Aquí puedes agregar un componente para listar las cotizaciones */}
+          {cotizaciones && cotizaciones.length > 0 ? (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Número</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cotizaciones.map((c) => (
+                  <tr key={c.id}>
+                    <td>{c.id}</td>
+                    <td>{c.numero}</td>
+                    <td>{new Date(c.creacion).toLocaleDateString()}</td>
+                    <td>{c.estado}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No tienes cotizaciones registradas.</p>
+          )}
         </div>
       </div>
 

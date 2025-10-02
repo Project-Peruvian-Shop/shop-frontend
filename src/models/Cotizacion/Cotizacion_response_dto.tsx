@@ -71,3 +71,11 @@ export interface CotizacionYearDTO {
   cotizacionNombreMes: string;
   cotizacionCantidadMes: number;
 }
+
+// Cotizacion del usuario
+export interface CotizacionUserDTO {
+  id: number;
+  numero: string;
+  creacion: string;
+  estado: number;
+}
