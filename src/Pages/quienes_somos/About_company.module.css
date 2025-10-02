@@ -1,0 +1,104 @@
+.containerPadre{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:center;
+  align-items: center;
+  align-content: stretch;
+  margin: 40px;
+  gap: 20px;
+}
+.containerPadre img{
+  width: 180px;
+  margin-right: 24px;
+}
+.containerTexto{
+    background-color: var(--gray-color);
+    border-radius: 20px;
+    padding: 30px;
+    width: 500px;
+    font-size: 14px;
+    text-align: justify;
+}
+.containerValores{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-color);
+    font-size: 30px;
+    height: 327px;
+}
+.containerValores h2{
+    color: var(--white-color);
+}
+.valoresGrid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 100px;
+}
+.containerValor{
+    border-radius: 20px;
+    padding: 0px 20px 20px 0px;
+    font-size: 16px;
+    color: var(--white-color);
+}
+.containerValores img{
+    width: 80px;
+    margin: 0;
+}
+.containerMision{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;  
+    align-items: center;      
+    gap: 80px;
+    margin-top: 50px;               
+}
+.containerMision img{
+    width: 140px;
+}
+.containerTextoMision{
+    background-color: var(--gray-color);
+    border-radius: 20px;
+    padding: 24px;
+    margin: 0px 20px;
+    font-size: 14px;
+    text-align: justify;
+    max-width: 500px; 
+}
+.containerTextoMision h4{
+    font-size: 32px;
+    margin: 0px;
+    color: var(--secondary-color);
+    text-align: justify;
+}
+.containerVision{
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    flex-direction: row-reverse;
+    flex-wrap: wrap;               
+    gap: 80px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.containerVision img{
+    width: 140px;
+}
+.containerTextoVision{
+    background-color: var(--gray-color);
+    border-radius: 20px;
+    padding: 24px;
+    font-size: 14px;
+    text-align: justify;
+    max-width: 500px; 
+}
+.containerTextoVision h4{
+    font-size: 32px;
+    margin: 0px;
+    color: var(--secondary-color);
+    text-align: justify;
+}

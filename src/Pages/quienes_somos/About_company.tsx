@@ -1,19 +1,20 @@
-import Banner from "../Components/banner/Banner";
-import About from "../Icons/About_company/user_icon.png";
-import Compromiso from "../Icons/About_company/compromiso.png";
-import Responsabilidad from "../Icons/About_company/responsabilidad.png";
-import Excelencia from "../Icons/About_company/excelencia.png";
-import Trabajo_en_equipo from "../Icons/About_company/trabajo_en_equipo.png";
-import Innovacion from "../Icons/About_company/Innovación.png";
-import Mision from "../Icons/About_company/mision.png";
-import Vision from "../Icons/About_company/vision.png";
+import Banner from "../../Components/banner/Banner";
+import About from "../../Icons/About_company/user_icon.png";
+import Compromiso from "../../Icons/About_company/compromiso.png";
+import Responsabilidad from "../../Icons/About_company/responsabilidad.png";
+import Excelencia from "../../Icons/About_company/excelencia.png";
+import Trabajo_en_equipo from "../../Icons/About_company/trabajo_en_equipo.png";
+import Innovacion from "../../Icons/About_company/Innovación.png";
+import Mision from "../../Icons/About_company/mision.png";
+import Vision from "../../Icons/About_company/vision.png";
+import styles from "./About_company.module.css";
 const About_company = () => {
     return (
         <main>
             <Banner title="¿Quiénes somos?" />
-            <div>
+            <div className={styles.containerPadre}>
                 <img src={About} alt="About Us" />
-                <div>
+                <div className={styles.containerTexto}>
                     <p>
                         En <b>Tuberías Peruanito S.A.C.</b> nos especializamos en ofrecer soluciones en tuberías de alta calidad, innovadoras y sostenibles, 
                         orientadas a satisfacer las necesidades de sectores clave como la construcción, el saneamiento y la industria. 
@@ -38,43 +39,43 @@ const About_company = () => {
                     </p>
                 </div>
             </div>
-            <div>
+            <div className={styles.containerValores}>
                 <h2>Valores</h2>
-                <div>
-                    <div>
+                <div className={styles.valoresGrid}>
+                    <div className={styles.containerValor}>
                         <img src={Compromiso} alt="Valores" />
                         <h3>Compromiso</h3>
                     </div>
-                    <div>
+                    <div className={styles.containerValor}>
                         <img src={Responsabilidad} alt="Valores" />
                         <h3>Responsabilidad</h3>
                     </div>
-                    <div>
+                    <div className={styles.containerValor}>
                         <img src={Excelencia} alt="Valores" />
                         <h3>Excelencia</h3>
                     </div>
-                    <div>
+                    <div className={styles.containerValor}>
                         <img src={Trabajo_en_equipo} alt="Valores" />
                         <h3>Trabajo en equipo</h3>
                     </div>
-                    <div>
+                    <div className={styles.containerValor}>
                         <img src={Innovacion} alt="Valores" />
                         <h3>Innovación</h3>
                     </div>
                 </div>
             </div>
-            <div>
+            <div className={styles.containerMision}>
                 <img src={Mision} alt="Misión" />
-                <div>
+                <div className={styles.containerTextoMision}>
                     <h4>Misión</h4>
                     <p>Ofrecer una amplia gama de tuberías de alta calidad, diseñadas para satisfacer las necesidades de diversos sectores, 
                         desde la construcción hasta la industria. Nos comprometemos a brindar productos duraderos, 
                         con precios competitivos y un servicio excepcional que garantice la satisfacción y confianza de nuestros clientes. </p>
                 </div>
             </div>
-            <div>
+            <div className={styles.containerVision}>
                 <img src={Vision} alt="Visión" />
-                <div>
+                <div className={styles.containerTextoVision}>
                     <h4>Visión</h4>
                     <p>Ser la empresa de referencia en soluciones de tuberías, destacando por la innovación, 
                         calidad y sostenibilidad en cada uno de nuestros productos, contribuyendo al desarrollo 

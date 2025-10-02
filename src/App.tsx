@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./Styles/App.css";
 import Home from "./Pages/home/Home.tsx";
-import AboutCompany from "./Pages/About_company.tsx";
+import AboutCompany from "./Pages/quienes_somos/About_company.tsx";
 import Shop from "./Pages/tienda/Shop.tsx";
 import Navbar from "./Components/navbar/Navbar.tsx";
 import Footer from "./Components/footer/Footer.tsx";
