@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getProductoById } from "../../../services/producto.service";
 import { routes } from "../../../utils/routes";
 import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
+import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
 
 function ProductoDetalle() {
   const { id } = useParams<{ id: string }>();
@@ -54,28 +55,15 @@ function ProductoDetalle() {
 
       <div className={styles.content}>
         <div className={styles.left}>
-          <div className={styles.card}>
-            <div className={styles.subtitle}>Datos del Producto</div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>ID:</span>
-              <span className={styles.value}>{producto?.id}</span>
-            </div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Nombre:</span>
-              <span className={styles.value}>{producto?.nombre}</span>
-            </div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Categoría:</span>
-              <span className={styles.value}>{producto?.categoriaNombre}</span>
-            </div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Descripción:</span>
-              <span className={styles.value}>
-                {producto?.descripcion}
-                duradera.
-              </span>
-            </div>
-          </div>
+          <InfoCard
+            title="Datos del Producto"
+            items={[
+              { label: "ID:", value: producto?.id || "0" },
+              { label: "Nombre:", value: producto?.nombre || "" },
+              { label: "Categoría:", value: producto?.categoriaNombre || "" },
+              { label: "Descripción:", value: producto?.descripcion || "" },
+            ]}
+          />
 
           <div className={styles.card}>
             <div className={styles.subtitle}>Detalles técnicos</div>

@@ -1,0 +1,40 @@
+.card {
+  margin-bottom: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  background-color: white;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.label {
+  width: 30%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.value {
+  width: 70%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
