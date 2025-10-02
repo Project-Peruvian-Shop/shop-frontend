@@ -7,9 +7,12 @@ import {
   getCartFromLocalStorage,
   type CartProductoDTO,
 } from "../../utils/localStorage";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../utils/routes";
 
 export default function CartTable() {
   const [cart, setCart] = useState<CartProductoDTO[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setCart(getCartFromLocalStorage());
@@ -93,7 +96,12 @@ export default function CartTable() {
 
       <div className={styles.footer}>
         <div>Total de productos: {totalProductos}</div>
-        <button className={styles.btnWhite}>Volver a la tienda</button>
+        <button
+          className={styles.btnWhite}
+          onClick={() => navigate(routes.shop)}
+        >
+          Volver a la tienda
+        </button>
         <button className={styles.btnBlue}>Solicitar cotización</button>
       </div>
     </div>
