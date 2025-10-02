@@ -1,0 +1,58 @@
+.card {
+  margin-bottom: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  background-color: white;
+  text-align: left;
+}
+
+.subtitle {
+  margin-bottom: 16px;
+  color: var(--primary-color);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* Contenedor de productos */
+.productList {
+  display: flex;
+  flex-direction: column; /* cada producto en su línea */
+  gap: 8px; /* espacio entre filas */
+}
+
+.productItem {
+  display: flex;
+  flex-direction: row; /* imagen + nombre + cantidad en horizontal */
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.productImage {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.productName {
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+  flex: 1; /* ocupa el espacio disponible */
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+}
+
+.productCantidad {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--primary-color);
+}
