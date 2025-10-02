@@ -12,3 +12,93 @@
 .deleteButton:hover {
   background-color: #e0173a;
 }
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: baseline;
+  align-items: center;
+  align-content: stretch;
+  margin: 40px 0;
+  padding: 16px 140px;
+}
+
+.left {
+  width: 45%;
+}
+
+.right {
+  width: 45%;
+}
+
+.title {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+}
+
+.personal {
+  margin: 20px 0;
+  padding: 40px;
+  padding-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+}
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.tipo {
+  font-size: 14px;
+  color: #666;
+}
+
+.datetime {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #333;
+  text-align: right;
+}
+
+.label {
+  margin-top: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.email,
+.phone {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.phone {
+  margin-bottom: 20px;
+}
