@@ -12,6 +12,7 @@ import type {
 } from "../../../models/Categoria/Categoria_response";
 import Pagination from "../../../Components/pagination/Pagination";
 import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
+import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
 
 function CategoriaDetalle() {
   const { id } = useParams<{ id: string }>();
@@ -84,25 +85,15 @@ function CategoriaDetalle() {
 
       <div className={styles.content}>
         <div className={styles.left}>
-          <div className={styles.card}>
-            <div className={styles.subtitle}>Datos de la Categoría</div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>ID:</span>
-              <span className={styles.value}>{categoria?.id}</span>
-            </div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Nombre:</span>
-              <span className={styles.value}>{categoria?.nombre}</span>
-            </div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Norma:</span>
-              <span className={styles.value}>{categoria?.norma}</span>
-            </div>
-            <div className={styles.infoRow}>
-              <span className={styles.label}>Usos:</span>
-              <span className={styles.value}>{categoria?.usos} duradera.</span>
-            </div>
-          </div>
+          <InfoCard
+            title="Datos de la Categoría"
+            items={[
+              { label: "ID:", value: categoria?.id || "0" },
+              { label: "Nombre:", value: categoria?.nombre || "" },
+              { label: "Norma:", value: categoria?.norma || "" },
+              { label: "Usos:", value: categoria?.usos || "" },
+            ]}
+          />
 
           <div className={styles.card}>
             <div className={styles.subtitle}>Productos de la categoría</div>
