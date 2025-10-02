@@ -65,6 +65,19 @@ function Profile() {
     });
   };
 
+  const mapperRol = (rol: string) => {
+    switch (rol) {
+      case "ROLE_ADMIN":
+        return "Administrador";
+      case "ROLE_USER":
+        return "Usuario";
+      case "ROLE_MANAGER":
+        return "Gerente";
+      default:
+        return "Desconocido";
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Header nombre="Perfil de Usuario" />
@@ -81,7 +94,7 @@ function Profile() {
                   {usuario ? usuario.nombre : "Cargando..."}
                 </span>
                 <span className={styles.tipo}>
-                  {usuario ? usuario.rol : "Cargando..."}
+                  {usuario ? mapperRol(usuario.rol) : "Cargando..."}
                 </span>
               </div>
             </div>
