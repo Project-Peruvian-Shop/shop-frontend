@@ -19,7 +19,7 @@ export default function CartTable() {
     setCart(getCartFromLocalStorage());
   }, []);
 
-  const totalProductos = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalProductos = cart.reduce((acc, item) => acc + item.cantidad, 0);
 
   const handleCheckout = () => {
     const usuario = obtenerUsuario();
@@ -65,7 +65,7 @@ export default function CartTable() {
                 <input
                   type="number"
                   min={1}
-                  value={item.quantity}
+                  value={item.cantidad}
                   onChange={(e) => {
                     const nuevaCantidad = Math.max(
                       1,
@@ -75,7 +75,7 @@ export default function CartTable() {
                       cart,
                       setCart,
                       item.id,
-                      nuevaCantidad - item.quantity
+                      nuevaCantidad - item.cantidad
                     );
                   }}
                   className={styles.quantityInput}
