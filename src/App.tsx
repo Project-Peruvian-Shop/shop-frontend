@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./Styles/App.css";
 import Home from "./Pages/home/Home.tsx";
 import AboutCompany from "./Pages/About_company.tsx";
@@ -14,13 +14,22 @@ import Contact from "./Pages/Contact.tsx";
 import Complaints_book from "./Pages/Complaints_book.tsx";
 import Producto from "./Pages/producto/Producto.tsx";
 import Carrito from "./Pages/carrito/Carrito.tsx";
+import Login from "./Pages/login/Login.tsx";
+import Register from "./Pages/register/Register.tsx";
 
 function App() {
+  const location = useLocation();
+
+  const noNavbarRoutes = [routes.login, routes.register];
+
+  const showNavbar = !noNavbarRoutes.includes(location.pathname);
+
   return (
     <>
-      <Navbar />
+      {showNavbar && <Navbar />}
+
       <Routes>
-        {/*Principal Pages*/}
+        {/* Principal Pages */}
         <Route path={routes.NotFound} element={<Notfound />} />
         <Route path={routes.home} element={<Home />} />
         <Route path={routes.about} element={<AboutCompany />} />
@@ -29,13 +38,20 @@ function App() {
         <Route path={routes.complaints_book} element={<Complaints_book />} />
         <Route path={routes.tyc} element={<TermsAndConditions />} />
         <Route path={routes.privacy_policy} element={<Policity />} />
-        {/*Shop Pages*/}
+
+        {/* Shop Pages */}
         <Route path={routes.shop} element={<Shop />} />
         <Route path={`${routes.product}:id`} element={<Producto />} />
         <Route path={routes.shop_cart} element={<Carrito />} />
+
+        {/* Auth Pages */}
+        <Route path={routes.login} element={<Login />} />
+        <Route path={routes.register} element={<Register />} />
       </Routes>
-      <Footer />
+
+      {showNavbar && <Footer />}
     </>
   );
 }
+
 export default App;
