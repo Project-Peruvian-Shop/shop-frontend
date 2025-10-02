@@ -1,4 +1,5 @@
 import type { PaginatedProductoResponseDTO } from "../../../models/Producto/Producto_response_dto";
+import { saveProductoToCart } from "../../../utils/localStorage";
 import { routes } from "../../../utils/routes";
 import ProductCard from "../card/ProductCard";
 import styles from "./Products.module.css";
@@ -6,6 +7,11 @@ import styles from "./Products.module.css";
 interface ProductsProps {
   result: PaginatedProductoResponseDTO[];
 }
+
+const addToCart = (producto: PaginatedProductoResponseDTO) => {
+  console.log(`Producto ${producto.id} añadido al carrito`);
+  saveProductoToCart(producto, 1);
+};
 
 function Products(props: ProductsProps) {
   return (
@@ -22,7 +28,7 @@ function Products(props: ProductsProps) {
             img={producto.imagenUrl}
             title={producto.nombre}
             alt={producto.imagenAlt}
-            click={() => alert("Funcionalidad en desarrollo")}
+            click={() => addToCart(producto)}
           />
         ))}
       </div>
