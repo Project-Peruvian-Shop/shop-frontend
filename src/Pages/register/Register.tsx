@@ -1,8 +1,12 @@
-import styles from "./Register.module.css";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../Components/login/SideBar";
+import styles from "./Register.module.css";
 import { routes } from "../../utils/routes";
 import { agregarUsuario } from "../../utils/auth";
+import { register } from "../../services/auht.service";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Register() {
   const title = "Únete a nosotros";
@@ -12,13 +16,62 @@ function Register() {
     "Datos protegidos y seguros",
     "Cotiza en simples pasos",
   ];
-  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
+
+  // Estados para inputs
+  const [nombre, setNombre] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [passwordd, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    agregarUsuario();
-    navigate(routes.shop_cart);
+
+    // Validar contraseñas
+    if (passwordd !== confirmPassword) {
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Las contraseñas no coinciden",
+        confirmButtonText: "Intentar de nuevo",
+      });
+      return;
+    }
+
+    try {
+      const body = { nombre, apellidos, email, telefono, passwordd };
+      const response = await register(body);
+
+      if (response) {
+        agregarUsuario(response); // guardar usuario completo en localStorage
+        MySwal.fire({
+          icon: "success",
+          title: "¡Registro exitoso!",
+          text: `Bienvenido, ${response.nombre}`,
+          confirmButtonText: "Continuar",
+        });
+        navigate(routes.shop_cart);
+      }
+    } catch (error: unknown) {
+      let mensaje;
+      if (error instanceof Error) {
+        mensaje = error.message;
+      } else {
+        mensaje = String(error);
+      }
+      MySwal.fire({
+        icon: "error",
+        title: "Error al registrarse",
+        text: mensaje,
+        confirmButtonText: "Intentar de nuevo",
+      });
+    }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -27,7 +80,6 @@ function Register() {
 
       <div className={styles.right}>
         <div className={styles.loginTitle}>Crear Cuenta</div>
-
         <div className={styles.loginSubtitle}>
           Completa tus datos para registrarte
         </div>
@@ -35,7 +87,7 @@ function Register() {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputColumnGroup}>
             <div className={styles.inputGroup}>
-              <label htmlFor="text" className={styles.label}>
+              <label htmlFor="nombre" className={styles.label}>
                 Nombre
               </label>
               <input
@@ -44,11 +96,13 @@ function Register() {
                 className={styles.input}
                 placeholder="Tu nombre"
                 required
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
               />
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="text" className={styles.label}>
+              <label htmlFor="apellidos" className={styles.label}>
                 Apellidos
               </label>
               <input
@@ -57,6 +111,8 @@ function Register() {
                 className={styles.input}
                 placeholder="Tus apellidos"
                 required
+                value={apellidos}
+                onChange={(e) => setApellidos(e.target.value)}
               />
             </div>
           </div>
@@ -71,6 +127,8 @@ function Register() {
               className={styles.input}
               placeholder="ejemplo@dominio.com"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -84,6 +142,8 @@ function Register() {
               className={styles.input}
               placeholder="+51 999 999 999"
               required
+              value={telefono}
+              onChange={(e) => setTelefono(e.target.value)}
             />
           </div>
 
@@ -97,6 +157,8 @@ function Register() {
               className={styles.input}
               placeholder="Ingresa tu contraseña"
               required
+              value={passwordd}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -110,6 +172,8 @@ function Register() {
               className={styles.input}
               placeholder="Confirma tu contraseña"
               required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
 
