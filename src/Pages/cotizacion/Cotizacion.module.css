@@ -85,3 +85,23 @@
   background-color: var(--primary-color);
   color: white;
 }
+
+.estado {
+  font-weight: bold;
+}
+
+.sinAtender {
+  color: #d9e004;
+}
+
+.enviada {
+  color: #01d20c;
+}
+
+.cerrada {
+  color: #931919;
+}
+
+.desconocido {
+  color: #ffffff;
+}

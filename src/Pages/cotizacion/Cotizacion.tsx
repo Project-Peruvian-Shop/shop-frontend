@@ -1,68 +1,48 @@
 import styles from "./Cotizacion.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import Header from "../../Components/header/Header";
-import userIcon from "../../Icons/user.svg";
 import { useEffect, useState } from "react";
-import { getProfile } from "../../services/usuario.service";
-import type { UsuarioProfileDTO } from "../../models/Usuario/Usuario_response_dto";
-import type { CotizacionUserDTO } from "../../models/Cotizacion/Cotizacion_response_dto";
-import view from "../../Icons/view.svg";
+import type { CotizacionFullDTO } from "../../models/Cotizacion/Cotizacion_response_dto";
+import { getCotizacionById } from "../../services/cotizacion.service";
 
 function Cotizacion() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [fechaHora, setFechaHora] = useState(new Date());
-  const [cotizacion, setCotizacion] = useState<CotizacionUserDTO | null>(null);
+  const [cotizacion, setCotizacion] = useState<CotizacionFullDTO | null>(null);
 
   useEffect(() => {
-    // Actualizar fecha y hora cada segundo
-    const interval = setInterval(() => setFechaHora(new Date()), 1000);
-    return () => clearInterval(interval);
-  }, []);
+    if (!id) {
+      navigate(routes.shop);
+      return;
+    }
 
-  useEffect(() => {
-    // Obtener datos completos desde el backend
-  }, [navigate]);
+    const fetchCotizacion = async (id: string) => {
+      try {
+        const data = await getCotizacionById(Number(id));
+        setCotizacion(data);
+      } catch (error) {
+        console.error("Error al obtener la cotización:", error);
+        navigate(routes.profile_user);
+      }
+    };
 
-  const mapperRol = (rol: string) => {
-    switch (rol) {
-      case "ROLE_ADMIN":
-        return "Administrador";
-      case "ROLE_USER":
-        return "Usuario";
-      case "ROLE_MANAGER":
-        return "Gerente";
+    fetchCotizacion(id);
+  }, [id, navigate]);
+
+  const mapperEstado = (estado: string) => {
+    switch (estado) {
+      case "0":
+        return { label: "Sin atender", className: styles.sinAtender };
+      case "1":
+        return { label: "Enviada", className: styles.enviada };
+      case "2":
+        return { label: "Cerrada", className: styles.cerrada };
       default:
-        return "Desconocido";
+        return { label: "Desconocido", className: styles.desconocido };
     }
   };
-
-  // const mapperEstado = (estado: string) => {
-  //   switch (estado) {
-  //     case "0":
-  //       return "Sin atender";
-  //     case "1":
-  //       return "Enviada";
-  //     case "2":
-  //       return "Cerrada";
-  //     default:
-  //       return "Desconocido";
-  //   }
-  // };
-
-  // const getStatusClass = (status: string) => {
-  //   switch (status) {
-  //     case "0":
-  //       return styles.sinAtender; // define en CSS color rojo o lo que quieras
-  //     case "1":
-  //       return styles.enviada; // color azul
-  //     case "2":
-  //       return styles.cerrada; // color verde
-  //     default:
-  //       return styles.desconocido; // gris u otro color
-  //   }
-  // };
 
   return (
     <div className={styles.container}>
@@ -75,24 +55,28 @@ function Cotizacion() {
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Número de cotización:</div>
-              <div className={styles.value}>#123456</div>
+              <div className={styles.value}>{cotizacion?.numero}</div>
             </div>
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Estado:</div>
-              <div className={styles.value}>Enviado</div>
+              <div
+                className={`${styles.value} ${
+                  mapperEstado(cotizacion?.estado || "").className
+                }`}
+              >
+                {mapperEstado(cotizacion?.estado || "").label}
+              </div>
             </div>
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Fecha de cotización:</div>
-              <div className={styles.value}>17/10/2023</div>
+              <div className={styles.value}>{cotizacion?.creacion}</div>
             </div>
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Comentario:</div>
-              <div className={styles.value}>
-                Este es un comentario de prueba.
-              </div>
+              <div className={styles.value}>{cotizacion?.comentario}</div>
             </div>
           </div>
 
@@ -101,22 +85,22 @@ function Cotizacion() {
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Número de documento:</div>
-              <div className={styles.value}>RUC - 12345678901</div>
+              <div className={styles.value}>{cotizacion?.documento}</div>
             </div>
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Cliente:</div>
-              <div className={styles.value}>Juan Pérez</div>
+              <div className={styles.value}>{cotizacion?.cliente}</div>
             </div>
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Correo electrónico:</div>
-              <div className={styles.value}>juan.perez@example.com</div>
+              <div className={styles.value}>{cotizacion?.email}</div>
             </div>
 
             <div className={styles.rowcontent}>
               <div className={styles.label}>Número de teléfono:</div>
-              <div className={styles.value}>+51 987 654 321</div>
+              <div className={styles.value}>{cotizacion?.telefono}</div>
             </div>
           </div>
         </div>
