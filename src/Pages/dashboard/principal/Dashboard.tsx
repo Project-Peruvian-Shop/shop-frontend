@@ -159,7 +159,7 @@ function Dashboard() {
                 <XAxis dataKey="cotizacionesNombreMes" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="cotizacionesCantidadMes" fill="#0073e6" />
+                <Bar dataKey="cotizacionesCantidadMes" fill="#fb2343" />
               </BarChart>
             </ResponsiveContainer>
           </div>
