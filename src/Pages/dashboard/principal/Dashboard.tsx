@@ -25,6 +25,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import { PieChart, Pie, Cell, Legend } from "recharts";
 
 function Dashboard() {
   const [categorias, setCategorias] = useState<DashboardCategoriaDTO[]>([]);
@@ -36,6 +37,9 @@ function Dashboard() {
   const [cotizacionesMes, setCotizacionesMes] = useState<
     DashboardCotizacionDTO[]
   >([]);
+
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#FB2343"];
+  const getColor = (index: number) => COLORS[index % COLORS.length];
 
   useEffect(() => {
     const fetchCotizaciones = async () => {
@@ -198,6 +202,29 @@ function Dashboard() {
         {/* Categorías más cotizadas */}
         <div className={styles.topCategorias}>
           <div className={styles.title}>Categorías más cotizadas</div>
+
+          {/* Gráfico de torta */}
+          {categorias.length > 0 && (
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={categorias}
+                  dataKey="categoriaCantidad"
+                  nameKey="categoriaNombre"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                >
+                  {categorias.map((_, index) => (
+                    <Cell key={index} fill={getColor(index)} />
+                  ))}
+                </Pie>
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
+
+          {/* Lista */}
           <ul className={styles.list}>
             {categorias.length > 0 ? (
               categorias.map((cat) => (
