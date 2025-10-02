@@ -21,20 +21,19 @@ import Profile from "./Pages/profile/Profile.tsx";
 import Cotizacion from "./Pages/cotizacion/Cotizacion.tsx";
 import Productos from "./Pages/dashboard/productos/Productos.tsx";
 import SideBarDashboard from "./Components/dashboard/SideBarDashboard.tsx";
+import Categorias from "./Pages/dashboard/categorias/Categorias.tsx";
+import Mensajes from "./Pages/dashboard/mensajes/Mensajes.tsx";
+import Cotizaciones from "./Pages/dashboard/cotizaciones/Cotizaciones.tsx";
+import Usuarios from "./Pages/dashboard/usuarios/Usuarios.tsx";
+import Dashboard from "./Pages/dashboard/principal/Dashboard.tsx";
 
 function App() {
   const location = useLocation();
 
-  const noNavbarRoutes = [
-    routes.login,
-    routes.register,
-    routes.dashboard_products,
-  ];
-
-  const dashboardRoutes = [routes.dashboard_products];
-
-  const showNavbar = !noNavbarRoutes.includes(location.pathname);
-  const showDashboardNavbar = dashboardRoutes.includes(location.pathname);
+  const showNavbar =
+    !location.pathname.startsWith("/dashboard") &&
+    ![routes.login, routes.register].includes(location.pathname);
+  const showDashboardNavbar = location.pathname.startsWith("/dashboard");
 
   return (
     <>
@@ -70,7 +69,12 @@ function App() {
         />
 
         {/* Dashboard Pages */}
+        <Route path={routes.dashboard} element={<Dashboard />} />
         <Route path={routes.dashboard_products} element={<Productos />} />
+        <Route path={routes.dashboard_categories} element={<Categorias />} />
+        <Route path={routes.dashboard_messages} element={<Mensajes />} />
+        <Route path={routes.dashboard_cotizations} element={<Cotizaciones />} />
+        <Route path={routes.dashboard_users} element={<Usuarios />} />
       </Routes>
 
       {showNavbar && <Footer />}
