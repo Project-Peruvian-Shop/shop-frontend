@@ -8,7 +8,7 @@ import { obtenerUsuario } from "../../utils/auth";
 import { postCotizacion } from "../../services/cotizacion.service";
 import type { CotizacionRequestDTO } from "../../models/Cotizacion/Cotizacion_request_dto";
 import { routes } from "../../utils/routes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -19,6 +19,7 @@ function Checkout() {
   const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [comentarios, setComentarios] = useState("");
+  const navigate = useNavigate();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAcceptedTerms(event.target.checked);
@@ -82,6 +83,7 @@ function Checkout() {
       setEmail("");
       setComentarios("");
       clearCart();
+      navigate(routes.profile_user);
     } catch (error) {
       console.error(error);
       MySwal.fire({
