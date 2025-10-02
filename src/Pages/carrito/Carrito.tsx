@@ -1,10 +1,15 @@
+import CartTable from "../../Components/cart/CartTable";
 import Header from "../../Components/header/Header";
 import styles from "./Carrito.module.css";
 
 function Carrito() {
   return (
-    <div className={styles.carritoContainer}>
+    <div>
       <Header nombre="Carrito de productos" />
+
+      <div className={styles.content}>
+        <CartTable />
+      </div>
     </div>
   );
 }

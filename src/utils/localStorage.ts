@@ -5,6 +5,11 @@ export interface CartProductoDTO extends PaginatedProductoResponseDTO {
   quantity: number;
 }
 
+export const getCartFromLocalStorage = (): CartProductoDTO[] => {
+  const cart = localStorage.getItem("cart");
+  return cart ? JSON.parse(cart) : [];
+};
+
 export const saveProductoToCart = (
   producto: ProductoDTO | PaginatedProductoResponseDTO,
   quantity: number = 1
@@ -34,7 +39,27 @@ export const saveProductoToCart = (
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
-export const getCartFromLocalStorage = (): CartProductoDTO[] => {
-  const cart = localStorage.getItem("cart");
-  return cart ? JSON.parse(cart) : [];
+export const actualizarCantidadEnCart = (
+  cart: CartProductoDTO[],
+  setCart: (cart: CartProductoDTO[]) => void,
+  id: number,
+  delta: number
+) => {
+  const updatedCart = cart
+    .map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + delta } : item
+    )
+    .filter((item) => item.quantity > 0);
+  setCart(updatedCart);
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
+};
+
+export const eliminarProductoDelCart = (
+  cart: CartProductoDTO[],
+  setCart: (cart: CartProductoDTO[]) => void,
+  id: number
+) => {
+  const updatedCart = cart.filter((item) => item.id !== id);
+  setCart(updatedCart);
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
 };
