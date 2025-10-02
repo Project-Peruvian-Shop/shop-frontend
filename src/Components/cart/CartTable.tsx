@@ -10,10 +10,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import { obtenerUsuario } from "../../utils/auth";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function CartTable() {
   const [cart, setCart] = useState<CartProductoDTO[]>([]);
   const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     setCart(getCartFromLocalStorage());
@@ -22,6 +25,16 @@ export default function CartTable() {
   const totalProductos = cart.reduce((acc, item) => acc + item.cantidad, 0);
 
   const handleCheckout = () => {
+    if (cart.length === 0) {
+      MySwal.fire({
+        icon: "warning",
+        title: "Carrito vacío",
+        text: "No tienes productos en el carrito. Agrega productos antes de continuar.",
+        confirmButtonText: "Aceptar",
+      });
+      return;
+    }
+
     const usuario = obtenerUsuario();
     if (!usuario) {
       navigate(routes.login);
