@@ -4,11 +4,13 @@ import {
   getCotizacionesLineaMes,
   getLastCotizaciones,
   getMensajesPendientes,
+  getProductosTopMes,
 } from "../../../services/dashboard.service";
 import type {
   DashboardCategoriaDTO,
   DashboardLastCotizacionDTO,
   DashboardMensajeDTO,
+  DashboardProductoDTO,
 } from "../../../models/dashboard/DashboardResponse";
 
 function Dashboard() {
@@ -17,6 +19,7 @@ function Dashboard() {
     DashboardLastCotizacionDTO[]
   >([]);
   const [mensajes, setMensajes] = useState<DashboardMensajeDTO[]>([]);
+  const [productos, setProductos] = useState<DashboardProductoDTO[]>([]);
 
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -49,9 +52,22 @@ function Dashboard() {
       }
     };
 
+    const fetchProductos = async () => {
+      try {
+        const data = await getProductosTopMes(
+          new Date().getMonth() + 1,
+          new Date().getFullYear()
+        );
+        setProductos(data);
+      } catch (error) {
+        console.error("Error cargando productos:", error);
+      }
+    };
+
     fetchCategorias();
     fetchLastCotizaciones();
     fetchMensajes();
+    fetchProductos();
   }, []);
 
   // Mapeo de estado de cotización
@@ -97,6 +113,22 @@ function Dashboard() {
 
           <div className={styles.productos}>
             <div className={styles.title}>Productos más cotizados del mes</div>
+            <ul className={styles.list}>
+              {productos.length > 0 ? (
+                productos.map((prod, idx) => (
+                  <li key={idx} className={styles.item}>
+                    <span className={styles.nombre}>
+                      {prod.producto_nombre}
+                    </span>
+                    <span className={styles.cantidad}>
+                      {prod.producto_cantidad_mes}
+                    </span>
+                  </li>
+                ))
+              ) : (
+                <li className={styles.item}>No hay datos</li>
+              )}
+            </ul>
           </div>
         </div>
       </div>

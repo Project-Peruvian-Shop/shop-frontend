@@ -43,7 +43,7 @@ export async function getProductosTopMes(
   mes: number,
   year: number
 ): Promise<DashboardProductoDTO[]> {
-  const url = `${BASE_URL}/productos-top?mes=${mes}&year=${year}`;
+  const url = `${BASE_URL}/productos_mes?mes=${mes}&year=${year}`;
 
   const res = await axios.get<ApiResponse<DashboardProductoDTO[]>>(url);
 

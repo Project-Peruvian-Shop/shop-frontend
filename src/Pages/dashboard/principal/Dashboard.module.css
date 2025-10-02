@@ -168,3 +168,30 @@
   font-size: 13px;
   color: #333;
 }
+
+/* Productos */
+.productos .list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.productos .item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #f1f8ff;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.productos .nombre {
+  font-weight: 500;
+  color: #333;
+}
+
+.productos .cantidad {
+  font-weight: bold;
+  color: var(--primary-color);
+}
