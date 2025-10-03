@@ -6,6 +6,7 @@ import DashboardTable from "../../../Components/table/DashboardTable";
 import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import { getAllCotizaciones } from "../../../services/cotizacion.service";
 import IconSVG from "../../../Icons/IconSVG";
+import { useNavigate } from "react-router-dom";
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] = useState<CotizacionDashboardDTO[]>(
@@ -13,6 +14,7 @@ function Cotizaciones() {
   );
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadProductos(page);
@@ -84,7 +86,10 @@ function Cotizaciones() {
     {
       label: "Ver",
       icon: <IconSVG name="view-secondary" size={20} />,
-      onClick: (row) => console.log("Ver producto", row),
+      onClick: (row) => {
+        console.log("Ver producto", row);
+        navigate(`/dashboard/cotizacion/${row.id}`);
+      },
     },
     {
       label: "Editar",
