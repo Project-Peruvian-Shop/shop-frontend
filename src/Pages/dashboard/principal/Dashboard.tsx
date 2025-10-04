@@ -112,6 +112,10 @@ function Dashboard() {
     1: "Sugerencia",
     2: "Contáctenos",
   };
+  const chartCategorias = categorias.map((c) => ({
+    name: c.categoriaNombre,
+    value: c.categoriaCantidad,
+  }));
 
   return (
     <div className={styles.container}>
@@ -208,9 +212,9 @@ function Dashboard() {
             <ResponsiveContainer width="100%" height={250}>
               <PieChart>
                 <Pie
-                  data={categorias}
-                  dataKey="categoriaCantidad"
-                  nameKey="categoriaNombre"
+                  data={chartCategorias}
+                  dataKey="value"
+                  nameKey="name"
                   cx="50%"
                   cy="50%"
                   outerRadius={80}
