@@ -1,0 +1,65 @@
+
+.containerPadre {
+    margin: 80px auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    border-radius: 20px;
+    border: solid 1px #ccc;
+}
+.containerFlex{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+.containerTerminos{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    font-size: 18px;
+}
+.containerTerminos p{
+    font-size: 16px;
+    text-align: justify;
+}
+.numero {
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--white-color);
+    width: 50px;      
+    height: 50px;     
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%; 
+    background-color: var(--primary-color);
+}
+
+.headerTerminos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.bodyTerminos{
+    width: 90%;
+}
+.containerRedes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+}
+.containerRedes p{
+    margin-left: 10px;
+    font-size: 14px;
+}
+.containerRedes img{
+    width: 32px;
+    height: 32px;
+}
