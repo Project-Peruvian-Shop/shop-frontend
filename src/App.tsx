@@ -10,7 +10,7 @@ import Questions_frecuenly from "./Pages/preguntas_frecuentes/Questions_frecuenl
 import Policity from "./Pages/politica_de_privacidad/Policity.tsx";
 import Notfound from "./Pages/Notfound.tsx";
 import TermsAndConditions from "./Pages/terminos_y_condiciones/TermsAndConditions.tsx";
-import Contact from "./Pages/Contact.tsx";
+import Contact from "./Pages/Contacto/Contact.tsx";
 import Complaints_book from "./Pages/Complaints_book.tsx";
 import Producto from "./Pages/producto/Producto.tsx";
 import Carrito from "./Pages/carrito/Carrito.tsx";

@@ -1,5 +1,5 @@
 import Banner from "../Components/banner/Banner";
-import Form from "../Components/Form";
+import Form from "../Components/Form/Form";
 import logoTiktok from '../Icons/tik-tok.png';
 import logoInstagram from '../Icons/instagram.png';
 import logoWhatsApp from '../Icons/whatsapp.png';
