@@ -1,69 +1,107 @@
 import style from "./FormContactenos.module.css";
 import { Link } from "react-router-dom";
 import { routes } from "../../utils/routes";
+import { obtenerUsuario } from "../../utils/auth";
 
 const FormContactenos = () => {
+  // verificar si hay usuario, sino enviar a null en usuario_id
+  const usuario = obtenerUsuario();
+  const usuario_id = usuario ? usuario.id : null;
+
   return (
     <div className={style.containerFormulario}>
       <form>
+        <input type="hidden" name="tipo" value="CONTACTENOS" />
+        <input type="hidden" name="usuario_id" value={usuario_id} />
+
         <h3>Datos personales</h3>
         <div className={style.inputGroup}>
           <div className={style.inputWrapper}>
-            <label htmlFor="fullName">Nombre Completo / Razón Social*</label>
+            <label htmlFor="nombre">Nombre Completo / Razón Social *</label>
             <input
               type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="Ingrese su nombre completo o de la empresa"
+              id="nombre"
+              name="nombre"
+              placeholder="Ingrese el nombre"
               required
             />
           </div>
+
           <div className={style.inputWrapper}>
-            <label htmlFor="documentType">Tipo de documento*</label>
-            <select id="documentType" name="documentType" required>
-              <option value="">Seleccione</option>
-              <option value="dni">DNI</option>
-              <option value="ruc">RUC</option>
+            <label htmlFor="tipoDocumento">Tipo de documento *</label>
+            <select id="tipoDocumento" name="tipoDocumento" required>
+              <option disabled>Seleccione</option>
+              <option value="DNI">DNI</option>
+              <option value="RUC">RUC</option>
+              <option value="Pasaporte">Pasaporte</option>
+              <option value="Otro">Otro</option>
             </select>
           </div>
+
           <div className={style.inputWrapper}>
-            <label htmlFor="documentNumber">Número de documento*</label>
+            <label htmlFor="documento">Número de documento *</label>
             <input
               type="number"
-              id="documentNumber"
-              name="documentNumber"
-              placeholder="Ingrese su número de documento"
+              id="documento"
+              name="documento"
+              placeholder="Ingrese el número de documento"
               required
             />
           </div>
+
           <div className={style.inputWrapper}>
-            <label htmlFor="phoneNumber">Teléfono / Celular*</label>
+            <label htmlFor="telefono">Teléfono / Celular *</label>
             <input
               type="number"
-              id="phoneNumber"
-              name="phoneNumber"
+              id="telefono"
+              name="telefono"
               placeholder="Ingrese su número de teléfono o celular"
               required
             />
           </div>
-        </div>
-        <div className={style.textareaGroup}>
+
           <div className={style.inputWrapper}>
-            <label htmlFor="message">Comentario o mensaje*</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Describa de manera clara su consulta para poder atenderlo de forma eficiente..."
+            <label htmlFor="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Ingrese su correo electrónico"
               required
             />
           </div>
         </div>
+
+        <div className={style.textareaGroup}>
+          <div className={style.inputWrapper}>
+            <label htmlFor="contenido">Comentario o mensaje *</label>
+            <textarea
+              id="contenido"
+              name="contenido"
+              placeholder="Describa de manera clara su consulta para poder atenderlo de forma eficiente."
+              required
+            />
+          </div>
+        </div>
+
         <div className={style.termsBox}>
           <input type="checkbox" id="terms" required />
+
           <label htmlFor="terms">
-            Acepto los <Link to={routes.tyc}>términos y condiciones</Link> y la{" "}
-            <Link to={routes.privacy_policy}>política de privacidad</Link>
+            Acepto los{" "}
+            <Link to={routes.tyc} target="_blank" rel="noopener noreferrer">
+              términos y condiciones
+            </Link>{" "}
+            y la{" "}
+            <Link
+              to={routes.privacy_policy}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              política de privacidad
+            </Link>
           </label>
+
           <button type="submit" className={style.btnPrimary}>
             Enviar mensaje
           </button>
