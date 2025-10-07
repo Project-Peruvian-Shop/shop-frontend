@@ -1,12 +1,10 @@
 import style from "./FormLibro.module.css";
 
 const FormLibro = () => {
-
   return (
     <div className={style.containerFormulario}>
-      <h3>Libro de Reclamaciones</h3>
-      <form >
-          <h3>Datos personales</h3>
+      <form>
+        <h3>Datos personales</h3>
         <div className={style.inputGroup}>
           <div className={style.inputWrapper}>
             <label htmlFor="fullName">Nombre Completo / Razón Social*</label>
@@ -20,17 +18,13 @@ const FormLibro = () => {
           </div>
           <div className={style.inputWrapper}>
             <label htmlFor="documentType">Tipo de documento*</label>
-            <select
-              id="documentType"
-              name="documentType"
-              required
-            >
+            <select id="documentType" name="documentType" required>
               <option value="">Seleccione</option>
               <option value="dni">DNI</option>
               <option value="ruc">RUC</option>
             </select>
           </div>
-            <div className={style.inputWrapper}>
+          <div className={style.inputWrapper}>
             <label htmlFor="documentNumber">Número de documento*</label>
             <input
               type="number"
@@ -60,7 +54,7 @@ const FormLibro = () => {
                   type="radio"
                   name="tipoReclamo"
                   value="reclamo"
-                    className={style.radioInput}
+                  className={style.radioInput}
                   required
                 />
                 <span className={style.radioTitle}>Reclamo</span>
@@ -86,25 +80,25 @@ const FormLibro = () => {
             </label>
           </div>
         </div>
-      <div className={style.textareaGroup}>
-        <div className={style.inputWrapper}>
-          <label htmlFor="message">Detalle de la reclamación</label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Describa de manera clara y detallada los hechos que motivan su reclamo o queja..."
-            required
+        <div className={style.textareaGroup}>
+          <div className={style.inputWrapper}>
+            <label htmlFor="message">Detalle de la reclamación</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Describa de manera clara y detallada los hechos que motivan su reclamo o queja..."
+              required
             />
-        </div>
+          </div>
         </div>
         <div className={style.termsBox}>
-            <input type="checkbox" id="terms" required />
-            <label htmlFor="terms">
-              Confirmo que la información proporcionada es verídica.
-            </label>
-            <button type="submit" className={style.btnPrimary}>
-              Enviar reclamación
-            </button>
+          <input type="checkbox" id="terms" required />
+          <label htmlFor="terms">
+            Confirmo que la información proporcionada es verídica.
+          </label>
+          <button type="submit" className={style.btnPrimary}>
+            Enviar reclamación
+          </button>
         </div>
       </form>
     </div>
