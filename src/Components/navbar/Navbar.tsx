@@ -56,7 +56,7 @@ const Navbar = () => {
       ) : (
         <ButtonPrimary
           text="Contáctenos"
-          click={() => alert("Contact us form coming soon!")}
+          click={() => navigate(routes.contact)}
         />
       )}
     </nav>

@@ -1,0 +1,58 @@
+.faqCard {
+	position: relative;
+	background: white;
+	border: 2px solid #e5e7eb;
+	border-radius: 0.75rem;
+	padding: 2rem;
+	transition: all 0.3s ease;
+	text-align: center;
+}
+
+.faqCard.hovered {
+	border-color: #fb2343;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.faqCardBar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 4px;
+	width: 100%;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.3s ease;
+}
+
+.faqCardIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	border-radius: 0.75rem;
+	margin: 0 auto 1rem; /* 🔑 centra horizontalmente */
+	transition: all 0.3s ease;
+	background-size: 80%; /* imagen más pequeña dentro del contenedor */
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.faqCard.hovered .faqCardIcon {
+	background-size: 50%;
+	padding: 12px;
+	background-color: #fb2343;
+}
+
+.faqCardTitle {
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: #1b2f33;
+	margin-bottom: 0.75rem;
+}
+
+.faqCardDesc {
+	color: #6b7280;
+	line-height: 1.6;
+	text-align: justify;
+}
