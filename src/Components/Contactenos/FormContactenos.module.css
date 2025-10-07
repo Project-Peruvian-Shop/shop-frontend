@@ -47,7 +47,6 @@
 	margin: 50px 0px 0px 0px;
 	padding-left: 20px;
 }
-
 .textareaGroup::before {
 	content: "";
 	position: absolute;
@@ -57,6 +56,11 @@
 	height: 100%;
 	background-color: var(--primary-color);
 	border-radius: 4px;
+}
+.textareaGroup .inputWrapper label {
+	text-align: start;
+	font-weight: 700;
+	font-size: 2rem;             
 }
 
 .inputWrapper {
@@ -69,7 +73,7 @@
 .inputWrapper label {
     text-align: start;
 	font-weight: 600;
-	font-size: 0.95rem;
+	font-size: 1rem;
 	color: #1b2f33;
 	margin-bottom: 6px;
 }
@@ -99,6 +103,76 @@
 .inputWrapper textarea {
 	min-height: 240px;
 	resize: vertical;
+}
+.radioGroup {
+	position: relative;
+	padding-left: 1rem;
+	margin: 2rem 0;
+}
+
+.radioGroup::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 6px;
+	height: 100%;
+	background-color: var(--primary-color);
+	border-radius: 4px;
+}
+
+.radioContainer {
+	display: flex;
+	gap: 10px;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+.radioCard {
+	display: flex;
+	flex-direction: column;
+	min-width: 250px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 1rem;
+	text-align: center;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.radioCard:hover {
+	border-color: var(--primary-color);
+	background: #f9f9f9;
+}
+
+.radioLabel{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+}
+
+.radioInput {
+	accent-color: var(--primary-color);
+	transform: scale(1.3);
+}
+
+.radioTitle {
+	font-weight: 700;
+	margin-top: 0.3rem;
+}
+
+.radioDescription {
+	font-size: 0.9rem;
+	color: #555;
+	margin-top: 0.3rem;
+}
+.radioGroupTitle {
+	font-weight: 700;
+	font-size: 1rem;
+	margin-bottom: 1rem;
+	text-align: start;
+	color: var(--text-color);
 }
 
 .termsBox {

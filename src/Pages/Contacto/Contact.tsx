@@ -1,6 +1,5 @@
 import Banner from "../../Components/banner/Banner";
 import Card from "../../Components/home/card/Card";
-import Form from "../../Components/Form/Form";
 import logoTiktok from '../../Icons/tik-tok.png';
 import logoInstagram from '../../Icons/instagram.png';
 import logoWhatsApp from '../../Icons/whatsapp.png';
@@ -10,6 +9,7 @@ import emailIcon from '../../Icons/Contact/email_contact.svg';
 import locationIcon from '../../Icons/Contact/location_contact.png';
 import style from './Contact.module.css';
 import {routes} from '../../utils/routes'
+import FormContactenos from "../../Components/Contactenos/FormContactenos";
 const Contact = () => {
     return (
     <main>
@@ -31,48 +31,7 @@ const Contact = () => {
                 <span><a href="http://" target="_blank" rel="noopener noreferrer"><img src={logoTiktok} alt="tiktok" /></a></span>
             </div>
         </div>
-        <div>
-            <Form
-            title="Datos Personales"
-            buttonText="Enviar consulta"
-            fields={[
-                {
-                    label: "Nombre Completo/Razón Social*",
-                    type: "text",
-                    id: "fullName",
-                    placeholder: "Ingrese su nombre completo o de la empresa",
-                },
-                {
-                    label: "Tipo de documento*",
-                    type: "select",
-                    id: "documentType",
-                    options: [
-                        { value: "dni", label: "DNI" },
-                        { value: "ruc", label: "RUC" },
-                    ],
-                },
-                {
-                    label: "Número de documento*",
-                    type: "number",
-                    id: "documentNumber",
-                    placeholder: "Ingrese su número de documento",
-                },
-                {
-                    label: "Teléfono/Celular*",
-                    type: "number",
-                    id: "phoneNumber",
-                    placeholder: "Ingrese su número de teléfono o celular",
-                },
-                {
-                    label: "Comentario o Mensaje*",
-                    type: "textarea", 
-                    id: "message",
-                    placeholder:
-                    "Describa de manera clara y detallada su consulta o requerimiento",
-                },
-                ]}
-            />
-        </div>
+        <FormContactenos/>
         <Banner title="Canales de atención"/>
         <div className={style.containerCanales}>
                 <Card img={phoneIcon} title={<><span>Teléfono</span><br /><span>+51 922 723 633</span></>} alt="phone-icon" link={routes.contact} visible={false}/>
