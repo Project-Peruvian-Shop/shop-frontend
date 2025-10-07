@@ -150,37 +150,41 @@ const FormLibro = () => {
           <div className={style.radioContainer}>
             <label className={style.radioLabel}>
               <div className={style.radioCard}>
-                <input
-                  type="radio"
-                  name="tipo"
-                  value="RECLAMO"
-                  className={style.radioInput}
-                  required
-                  checked={tipo === "RECLAMO"}
-                  onChange={(e) => setTipo(e.target.value)}
-                />
                 <span className={style.radioTitle}>Reclamo</span>
-                <span className={style.radioDescription}>
-                  Disconformidad relacionada a los productos
-                </span>
+                <div className={style.radioCardContent}>
+                  <input
+                    type="radio"
+                    name="tipo"
+                    value="RECLAMO"
+                    className={style.radioInput}
+                    required
+                    checked={tipo === "RECLAMO"}
+                    onChange={(e) => setTipo(e.target.value)}
+                  />
+                  <span className={style.radioDescription}>
+                    Disconformidad relacionada a los productos
+                  </span>
+                </div>
               </div>
             </label>
 
             <label className={style.radioLabel}>
               <div className={style.radioCard}>
-                <input
-                  type="radio"
-                  name="tipo"
-                  value="QUEJA"
-                  className={style.radioInput}
-                  required
-                  checked={tipo === "QUEJA"}
-                  onChange={(e) => setTipo(e.target.value)}
-                />
                 <span className={style.radioTitle}>Queja</span>
-                <span className={style.radioDescription}>
-                  Disconformidad no relacionada a los productos
-                </span>
+                <div className={style.radioCardContent}>
+                  <input
+                    type="radio"
+                    name="tipo"
+                    value="QUEJA"
+                    className={style.radioInput}
+                    required
+                    checked={tipo === "QUEJA"}
+                    onChange={(e) => setTipo(e.target.value)}
+                  />
+                  <span className={style.radioDescription}>
+                    Disconformidad no relacionada a los productos
+                  </span>
+                </div>
               </div>
             </label>
           </div>

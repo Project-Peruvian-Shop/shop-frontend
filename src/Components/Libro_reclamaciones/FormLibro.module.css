@@ -106,7 +106,7 @@
 .radioGroup {
   position: relative;
   padding-left: 1rem;
-  margin: 2rem 0;
+  margin: 3rem 0;
 }
 
 .radioGroup::before {
@@ -118,6 +118,17 @@
   height: 100%;
   background-color: var(--primary-color);
   border-radius: 4px;
+}
+
+.radioCardContent {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  gap: 20px;
 }
 
 .radioContainer {
@@ -136,6 +147,7 @@
   padding: 1rem;
   transition: all 0.2s ease;
   cursor: pointer;
+  background-color: white;
 }
 
 .radioCard:hover {
