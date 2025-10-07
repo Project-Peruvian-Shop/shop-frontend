@@ -3,7 +3,7 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import { useEffect, useState } from "react";
-import { getAllMensajes } from "../../../services/mensajes.services";
+import { getAllMensajes } from "../../../services/mensajes.service";
 import type { MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
 
