@@ -1,7 +1,11 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
-import type { MensajeDashboardDTO } from "../models/Mensaje/Mensaje_response_dto";
+import type { MensajeRequestDTO } from "../models/Mensaje/Mensaje_request_dto";
+import type {
+  MensajeCreateResponseDTO,
+  MensajeDashboardDTO,
+} from "../models/Mensaje/Mensaje_response_dto";
 
 const BASE_URL = URL_API + "/mensaje";
 
@@ -14,6 +18,19 @@ export async function getAllMensajes(
   const res = await axios.get<
     ApiResponse<PaginatedResponse<MensajeDashboardDTO>>
   >(url);
+
+  return res.data.data;
+}
+
+export async function createContactenos(
+  body: MensajeRequestDTO
+): Promise<MensajeCreateResponseDTO> {
+  const url = `${BASE_URL}/contactenos`;
+
+  const res = await axios.post<ApiResponse<MensajeCreateResponseDTO>>(
+    url,
+    body
+  );
 
   return res.data.data;
 }
