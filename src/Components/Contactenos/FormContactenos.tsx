@@ -41,6 +41,7 @@ const FormContactenos = () => {
         MySwal.fire({
           icon: "success",
           title: "¡Consulta enviada!",
+          text: "Le agradecemos por contactarnos. Su consulta ha sido recibida y será atendida a la brevedad.",
         });
       }
 
