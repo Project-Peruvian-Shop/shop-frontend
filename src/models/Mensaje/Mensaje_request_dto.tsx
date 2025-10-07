@@ -1,14 +1,14 @@
 export interface ChangeStateMensajeRequestDTO {
-    new_state: number;
+  new_state: number;
 }
 
-//Mensaje request
-
 export interface MensajeRequestDTO {
-    mensaje_nombre: string;
-    mensaje_tipo_documento: number;
-    mensaje_documento: string;
-    mensaje_telefono: string;
-    mensaje_email: string;
-    mensaje_contenido: string;
+  nombre: string;
+  tipoDocumento: string;
+  documento: string;
+  telefono: string;
+  email: string;
+  contenido: string;
+  tipo: string;
+  usuario_id: number | null;
 }

@@ -29,3 +29,11 @@ export interface MensajeDashboardDTO {
   creacion: string;
   estado: number;
 }
+
+export interface MensajeCreateResponseDTO {
+  id: number;
+  contenido: string;
+  tipo: string;
+  estado: string;
+  creacion: Date;
+}
