@@ -41,7 +41,7 @@ const FormContactenos = () => {
           <div className={style.inputWrapper}>
             <label htmlFor="documento">Número de documento *</label>
             <input
-              type="number"
+              type="string"
               id="documento"
               name="documento"
               placeholder="Ingrese el número de documento"
