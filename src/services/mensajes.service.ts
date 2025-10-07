@@ -34,3 +34,16 @@ export async function createContactenos(
 
   return res.data.data;
 }
+
+export async function createLibroReclamaciones(
+  body: MensajeRequestDTO
+): Promise<MensajeCreateResponseDTO> {
+  const url = `${BASE_URL}/reclamaciones`;
+
+  const res = await axios.post<ApiResponse<MensajeCreateResponseDTO>>(
+    url,
+    body
+  );
+
+  return res.data.data;
+}
