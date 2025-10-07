@@ -2,15 +2,72 @@ import style from "./FormContactenos.module.css";
 import { Link } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import { obtenerUsuario } from "../../utils/auth";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { useState } from "react";
+import { createContactenos } from "../../services/mensajes.service";
 
 const FormContactenos = () => {
-  // verificar si hay usuario, sino enviar a null en usuario_id
   const usuario = obtenerUsuario();
   const usuario_id = usuario ? usuario.id : null;
 
+  const MySwal = withReactContent(Swal);
+
+  // Estados para inputs
+  const [nombre, setNombre] = useState("");
+  const [tipoDocumento, setTipoDocumento] = useState("");
+  const [documento, setDocumento] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [email, setEmail] = useState("");
+  const [contenido, setContenido] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const body = {
+        nombre,
+        tipoDocumento,
+        documento,
+        telefono,
+        email,
+        contenido,
+        tipo: "CONTACTENOS",
+        usuario_id,
+      };
+      const response = await createContactenos(body);
+
+      if (response) {
+        MySwal.fire({
+          icon: "success",
+          title: "¡Consulta enviada!",
+        });
+      }
+
+      setNombre("");
+      setTipoDocumento("");
+      setDocumento("");
+      setTelefono("");
+      setEmail("");
+      setContenido("");
+    } catch (error: unknown) {
+      let mensaje;
+      if (error instanceof Error) {
+        mensaje = error.message;
+      } else {
+        mensaje = String(error);
+      }
+      MySwal.fire({
+        icon: "error",
+        title: "Error al enviar la consulta",
+        text: mensaje,
+      });
+    }
+  };
+
   return (
     <div className={style.containerFormulario}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input type="hidden" name="tipo" value="CONTACTENOS" />
         <input type="hidden" name="usuario_id" value={usuario_id} />
 
@@ -24,13 +81,36 @@ const FormContactenos = () => {
               name="nombre"
               placeholder="Ingrese el nombre"
               required
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+          </div>
+
+          <div className={style.inputWrapper}>
+            <label htmlFor="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Ingrese su correo electrónico"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className={style.inputWrapper}>
             <label htmlFor="tipoDocumento">Tipo de documento *</label>
-            <select id="tipoDocumento" name="tipoDocumento" required>
-              <option disabled>Seleccione</option>
+            <select
+              id="tipoDocumento"
+              name="tipoDocumento"
+              required
+              value={tipoDocumento}
+              onChange={(e) => setTipoDocumento(e.target.value)}
+            >
+              <option value="" disabled>
+                Seleccione
+              </option>
               <option value="DNI">DNI</option>
               <option value="RUC">RUC</option>
               <option value="Pasaporte">Pasaporte</option>
@@ -46,6 +126,8 @@ const FormContactenos = () => {
               name="documento"
               placeholder="Ingrese el número de documento"
               required
+              value={documento}
+              onChange={(e) => setDocumento(e.target.value)}
             />
           </div>
 
@@ -57,17 +139,8 @@ const FormContactenos = () => {
               name="telefono"
               placeholder="Ingrese su número de teléfono o celular"
               required
-            />
-          </div>
-
-          <div className={style.inputWrapper}>
-            <label htmlFor="email">Email *</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Ingrese su correo electrónico"
-              required
+              value={telefono}
+              onChange={(e) => setTelefono(e.target.value)}
             />
           </div>
         </div>
@@ -80,6 +153,8 @@ const FormContactenos = () => {
               name="contenido"
               placeholder="Describa de manera clara su consulta para poder atenderlo de forma eficiente."
               required
+              value={contenido}
+              onChange={(e) => setContenido(e.target.value)}
             />
           </div>
         </div>
