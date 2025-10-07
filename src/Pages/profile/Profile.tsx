@@ -60,7 +60,7 @@ function Profile() {
           text: "No se pudieron cargar las cotizaciones",
         });
       });
-  }, [navigate]);
+  }, [navigate, MySwal]);
 
   const handleCerrarSesion = () => {
     MySwal.fire({
@@ -100,12 +100,14 @@ function Profile() {
 
   const mapperEstado = (estado: string) => {
     switch (estado) {
-      case "0":
-        return "Sin atender";
-      case "1":
-        return "Enviada";
-      case "2":
+      case "PENDIENTE":
+        return "Pendiente";
+      case "EN_PROCESO":
+        return "En proceso";
+      case "CERRADA":
         return "Cerrada";
+      case "RESPONDIDA":
+        return "Respondida";
       default:
         return "Desconocido";
     }
@@ -113,11 +115,13 @@ function Profile() {
 
   const getStatusClass = (status: string) => {
     switch (status) {
-      case "0":
+      case "PENDIENTE":
         return styles.sinAtender; // define en CSS color rojo o lo que quieras
-      case "1":
+      case "EN_PROCESO":
         return styles.enviada; // color azul
-      case "2":
+      case "RESPONDIDA":
+        return styles.cerrada; // color verde
+      case "CERRADA":
         return styles.cerrada; // color verde
       default:
         return styles.desconocido; // gris u otro color
@@ -203,10 +207,10 @@ function Profile() {
                     <td>{new Date(c.creacion).toLocaleDateString()}</td>
                     <td
                       className={`${styles.estado} ${getStatusClass(
-                        c.status.toString()
+                        c.estado.toString()
                       )}`}
                     >
-                      {mapperEstado(c.status.toString())}
+                      {mapperEstado(c.estado)}
                     </td>
                     {/* icono que envia a /cotizacion/:id */}
                     <td>
@@ -223,10 +227,6 @@ function Profile() {
           )}
         </div>
       </div>
-
-      <button className={styles.deleteButton} onClick={handleCerrarSesion}>
-        Cerrar Sesión
-      </button>
     </div>
   );
 }
