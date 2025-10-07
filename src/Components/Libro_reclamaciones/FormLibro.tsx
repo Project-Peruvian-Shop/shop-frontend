@@ -5,6 +5,7 @@ const FormLibro = () => {
     <div className={style.containerFormulario}>
       <form>
         <h3>Datos personales</h3>
+
         <div className={style.inputGroup}>
           <div className={style.inputWrapper}>
             <label htmlFor="fullName">Nombre Completo / Razón Social*</label>
@@ -45,6 +46,7 @@ const FormLibro = () => {
             />
           </div>
         </div>
+
         <div className={style.radioGroup}>
           <h3 className={style.radioGroupTitle}>Tipo de solicitud</h3>
           <div className={style.radioContainer}>
@@ -80,9 +82,12 @@ const FormLibro = () => {
             </label>
           </div>
         </div>
+
         <div className={style.textareaGroup}>
           <div className={style.inputWrapper}>
-            <label htmlFor="message">Detalle de la reclamación</label>
+            <label htmlFor="message" className={style.radioGroupTitle}>
+              Detalle de la reclamación
+            </label>
             <textarea
               id="message"
               name="message"
@@ -91,6 +96,7 @@ const FormLibro = () => {
             />
           </div>
         </div>
+
         <div className={style.termsBox}>
           <input type="checkbox" id="terms" required />
           <label htmlFor="terms">
