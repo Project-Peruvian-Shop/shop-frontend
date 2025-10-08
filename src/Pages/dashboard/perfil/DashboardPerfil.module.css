@@ -22,12 +22,12 @@
   align-items: flex-start;
   align-content: stretch;
   margin: 40px 0;
-  padding: 16px 140px;
+  padding: 16px 80px;
 }
 
 .left,
 .right {
-  width: 45%;
+  width: 48%;
 }
 
 .title {
@@ -37,6 +37,7 @@
 }
 
 .personal {
+  height: 28vh;
   margin-bottom: 20px;
   padding: 40px;
   padding-bottom: 14px;
