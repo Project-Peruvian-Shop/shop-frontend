@@ -113,10 +113,10 @@ function Mensajes() {
         <div className={styles.title}>Usuarios</div>
 
         <div className={styles.headerActions}>
-          <div className={styles.totalProducts}>
+          <div className={styles.totalCount}>
             Mensajes del mes: {cantidad?.mensaje_response_count_mes}
           </div>
-          <div className={styles.totalProducts}>
+          <div className={styles.totalSecondaryCount}>
             Mensajes por responder: {cantidad?.mensaje_pending_count_mes}
           </div>
         </div>

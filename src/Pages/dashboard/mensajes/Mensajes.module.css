@@ -22,13 +22,22 @@
 }
 
 /* Título estilo "botón" con línea roja */
-.totalProducts {
+.totalCount {
   padding: 8px 16px;
   border: 2px solid var(--secondary-color);
   border-radius: 6px;
   background-color: #fff;
   font-weight: 600;
   color: var(--secondary-color);
+}
+
+.totalSecondaryCount {
+  padding: 8px 16px;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+  background-color: #fff;
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
 /* Contenedor de las acciones */
