@@ -1,17 +1,17 @@
 import styles from "./Profile.module.css";
-import { eliminarUsuario, obtenerUsuario } from "../../utils/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { routes } from "../../utils/routes";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import Header from "../../Components/header/Header";
 import userIcon from "../../Icons/user.svg";
 import { useEffect, useState } from "react";
-import { getProfile } from "../../services/usuario.service";
-import type { UsuarioProfileDTO } from "../../models/Usuario/Usuario_response_dto";
-import type { CotizacionUserDTO } from "../../models/Cotizacion/Cotizacion_response_dto";
-import { getCotizacionesByUser } from "../../services/cotizacion.service";
 import view from "../../Icons/view.svg";
+import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
+import type { CotizacionUserDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
+import { eliminarUsuario, obtenerUsuario } from "../../../utils/auth";
+import { getProfile } from "../../../services/usuario.service";
+import { getCotizacionesByUser } from "../../../services/cotizacion.service";
+import { routes } from "../../../utils/routes";
+import Header from "../../../Components/header/Header";
 
 function Profile() {
   const navigate = useNavigate();
