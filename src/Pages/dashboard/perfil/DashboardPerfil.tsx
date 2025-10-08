@@ -9,8 +9,13 @@ import userIcon from "../../../Icons/user.svg";
 import { obtenerUsuario } from "../../../utils/auth";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import Pagination from "../../../Components/pagination/Pagination";
+import ButtonCard from "../../../Components/dashboard/buttoncard/ButtonCard";
+import { useNavigate } from "react-router-dom";
+import { useLogout } from "../../../hooks/useLogout";
 
 function DashboardPerfil() {
+  const navigate = useNavigate();
+
   const [usuario, setUsuario] = useState<UsuarioProfileDTO | null>(null);
   const [trabajadores, setTrabajadores] = useState<TrabajadoresDTO[]>([]);
   const [page, setPage] = useState(0);
@@ -60,6 +65,41 @@ function DashboardPerfil() {
         return "Desconocido";
     }
   };
+
+  const openLink = (url: string, external: boolean = false) => {
+    if (external || url.startsWith("http")) {
+      window.open(url, "_blank");
+    } else {
+      navigate(url);
+    }
+  };
+
+  const buttonData = [
+    {
+      icon: "/path/to/icon.svg",
+      text: "Outlook",
+      bgColor: "#f0f0f0",
+      onClick: () => openLink("https://outlook.office.com/mail/", true),
+    },
+    {
+      icon: "/path/to/icon.svg",
+      text: "Whatsapp",
+      bgColor: "#f0f0f0",
+      onClick: () => openLink("https://web.whatsapp.com/", true),
+    },
+    {
+      icon: "/path/to/icon.svg",
+      text: "Cotizaciones",
+      bgColor: "#f0f0f0",
+      onClick: () => openLink("/dashboard/cotizaciones"),
+    },
+    {
+      icon: "/path/to/icon.svg",
+      text: "Cerrar Sesión",
+      onClick: useLogout(),
+      bgColor: "#f0f0f0",
+    },
+  ];
 
   return (
     <div className={styles.container}>
@@ -119,7 +159,9 @@ function DashboardPerfil() {
                   <div className={styles.productName}>
                     {item.nombreCompleto}
                   </div>
-                  <div className={styles.productDetails}>{mapperRol(item.role)}</div>
+                  <div className={styles.productDetails}>
+                    {mapperRol(item.role)}
+                  </div>
                 </div>
               ))}
             </div>
@@ -133,7 +175,17 @@ function DashboardPerfil() {
             </div>
           </div>
 
-          <div className={styles.personal}>Botones</div>
+          <div className={styles.personal + " " + styles.buttonsGrid}>
+            {buttonData.map((btn, index) => (
+              <ButtonCard
+                key={index}
+                icon={btn.icon}
+                text={btn.text}
+                bgColor={btn.bgColor}
+                onClick={btn.onClick}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
