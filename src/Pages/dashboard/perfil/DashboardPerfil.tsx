@@ -86,7 +86,7 @@ function DashboardPerfil() {
       onClick: () => openLink("https://outlook.office.com/mail/", true),
     },
     {
-      icon: Icons.whatsapp,
+      icon: Icons.whatsappSec,
       text: "Whatsapp",
       variant: "secondary",
       onClick: () => openLink("https://web.whatsapp.com/", true),
