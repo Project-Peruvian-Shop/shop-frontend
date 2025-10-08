@@ -28,6 +28,13 @@
 	gap: 1.5rem;
 }
 
+a.linkWhatsapp {
+	color: #25d366;
+	text-decoration: none;
+	font-weight: 600;
+	font-weight: 800;
+}
+
 @media (min-width: 768px) {
 	.questionsGrid {
 		grid-template-columns: repeat(2, 1fr);

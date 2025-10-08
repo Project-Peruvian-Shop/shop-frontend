@@ -10,7 +10,6 @@ import Questions_frecuenly from "./Pages/landing/preguntas_frecuentes/Questions_
 import Policity from "./Pages/landing/politica_de_privacidad/Policity.tsx";
 import Notfound from "./Pages/Notfound.tsx";
 import TermsAndConditions from "./Pages/landing/terminos_y_condiciones/TermsAndConditions.tsx";
-import Contact from "./Pages/Contacto/Contact.tsx";
 import Complaints_book from "./Pages/landing/Libro_reclamaciones/Complaints_book.tsx";
 import Producto from "./Pages/producto/Producto.tsx";
 import Carrito from "./Pages/carrito/Carrito.tsx";
@@ -30,6 +29,7 @@ import ProductoDetalle from "./Pages/dashboard/productodetail/ProductoDetalle.ts
 import CategoriaDetalle from "./Pages/dashboard/categoriadetail/CategoriaDetalle.tsx";
 import CotizacionDetalle from "./Pages/dashboard/cotizaciondetail/CotizacionDetalle.tsx";
 import DashboardPerfil from "./Pages/dashboard/perfil/DashboardPerfil.tsx";
+import Contact from "./Pages/landing/Contacto/Contact.tsx";
 
 function App() {
   const location = useLocation();

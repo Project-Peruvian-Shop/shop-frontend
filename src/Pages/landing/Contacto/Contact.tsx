@@ -1,10 +1,10 @@
-import Card from "../../Components/home/card/Card";
-import locationIcon from "../../Icons/Contact/location_contact.png";
+import FormContactenos from "../../../Components/Contactenos/FormContactenos";
+import Header from "../../../Components/header/Header";
+import Card from "../../../Components/home/card/Card";
+import { Icons } from "../../../Icons/icons";
+import { routes } from "../../../utils/routes";
+import locationIcon from "../../../Icons/Contact/location_contact.png";
 import style from "./Contact.module.css";
-import { routes } from "../../utils/routes";
-import FormContactenos from "../../Components/Contactenos/FormContactenos";
-import Header from "../../Components/header/Header";
-import { Icons } from "../../Icons/icons";
 
 const Contact = () => {
   return (
@@ -29,7 +29,7 @@ const Contact = () => {
           </span>
           <span>
             <a href="http://" target="_ blank" rel="noopener noreferrer">
-              <img src={Icons.whatsappSec} alt="whatsapp" />
+              <img src={Icons.whatsappPri} alt="whatsapp" />
             </a>
           </span>
           <span>

@@ -8,7 +8,7 @@ import Header from "../../../Components/header/Header";
 function linkWhatsapp(text: string) {
   return text.replace(/(\+51\s?\d{9})/g, (match) => {
     const num = match.replace(/\D/g, "");
-    return `<a href="https://api.whatsapp.com/send/?phone=${num}&text=Hola+Tuber%C3%ADas+Peruanito%2C+vengo+de+la+p%C3%A1gina+web%2C+tengo+una+consulta+&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">${match}</a>`;
+    return `${" "}<a class="linkWhatsapp" href="https://api.whatsapp.com/send/?phone=${num}&text=Hola+Tuber%C3%ADas+Peruanito%2C+vengo+de+la+p%C3%A1gina+web%2C+tengo+una+consulta+&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">${match}</a>`;
   });
 }
 

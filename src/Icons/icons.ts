@@ -19,6 +19,7 @@ import cotizacionesD from "./cotizacionesD.svg";
 
 import about from "./About_company/user_icon.png";
 
+import whatsappPri from "./rrss/whatsapp-primary.svg";
 import whatsappSec from "./rrss/whatsapp-secondary.svg";
 import outlook from "./rrss/outlook.svg";
 import email from "./rrss/email.svg";
@@ -53,6 +54,7 @@ export const Icons = {
   tiktok,
   facebook,
   instagram,
+  whatsappPri,
 };
 
 export type IconName = keyof typeof Icons;
