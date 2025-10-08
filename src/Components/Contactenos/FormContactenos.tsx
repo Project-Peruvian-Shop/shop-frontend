@@ -114,8 +114,8 @@ const FormContactenos = () => {
               </option>
               <option value="DNI">DNI</option>
               <option value="RUC">RUC</option>
-              <option value="Pasaporte">Pasaporte</option>
-              <option value="Otro">Otro</option>
+              <option value="PASAPORTE">Pasaporte</option>
+              <option value="OTRO">Otro</option>
             </select>
           </div>
 
@@ -153,6 +153,8 @@ const FormContactenos = () => {
               id="contenido"
               name="contenido"
               placeholder="Describa de manera clara su consulta para poder atenderlo de forma eficiente."
+              minLength={10}
+              maxLength={500}
               required
               value={contenido}
               onChange={(e) => setContenido(e.target.value)}
