@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import Products from "../../Components/shop/products/Products";
-import Sidebar from "../../Components/shop/sidebar/Sidebar";
-import SubHeader from "../../Components/shop/subheader/SubHeader";
+import Products from "../../../Components/shop/products/Products";
+import Sidebar from "../../../Components/shop/sidebar/Sidebar";
+import SubHeader from "../../../Components/shop/subheader/SubHeader";
 import styles from "./Shop.module.css";
-import { getPaginatedProductos } from "../../services/producto.service";
-import type { PaginatedResponse } from "../../services/global.interfaces";
-import type { PaginatedProductoResponseDTO } from "../../models/Producto/Producto_response_dto";
-import Pagination from "../../Components/pagination/Pagination";
-import type { AllAndQuantityResponseDTO } from "../../models/Categoria/Categoria_response";
-import { getCategoriaAllQuantity } from "../../services/categoria.service";
+import { getPaginatedProductos } from "../../../services/producto.service";
+import type { PaginatedResponse } from "../../../services/global.interfaces";
+import type { PaginatedProductoResponseDTO } from "../../../models/Producto/Producto_response_dto";
+import Pagination from "../../../Components/pagination/Pagination";
+import type { AllAndQuantityResponseDTO } from "../../../models/Categoria/Categoria_response";
+import { getCategoriaAllQuantity } from "../../../services/categoria.service";
 
 const Shop = () => {
   const [pageData, setPageData] =

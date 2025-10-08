@@ -1,12 +1,12 @@
 import styles from "./Cotizacion.module.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { routes } from "../../utils/routes";
-import Header from "../../Components/header/Header";
+import { routes } from "../../../utils/routes";
+import Header from "../../../Components/header/Header";
 import { useEffect, useState } from "react";
-import type { CotizacionFullDTO } from "../../models/Cotizacion/Cotizacion_response_dto";
-import { getCotizacionById } from "../../services/cotizacion.service";
-import InfoCard from "../../Components/dashboard/infocard/InfoCard";
-import ButtonPrimary from "../../Components/buttons/ButtonPrimary";
+import type { CotizacionFullDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
+import { getCotizacionById } from "../../../services/cotizacion.service";
+import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
+import ButtonPrimary from "../../../Components/buttons/ButtonPrimary";
 // import ProductListCard from "../../Components/dashboard/productlistcard/ProductListCard";
 // import type { ProductoResponseDTO } from "../../models/Categoria/Categoria_response";
 // import type { PaginatedResponse } from "../../services/global.interfaces";
