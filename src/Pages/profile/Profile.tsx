@@ -60,7 +60,7 @@ function Profile() {
           text: "No se pudieron cargar las cotizaciones",
         });
       });
-  }, [navigate, MySwal]);
+  }, [navigate]);
 
   const handleCerrarSesion = () => {
     MySwal.fire({
