@@ -25,22 +25,9 @@
   padding: 16px 140px;
 }
 
-.left {
-  width: 45%;
-}
-
+.left,
 .right {
-  overflow: auto;
   width: 45%;
-  height: 51vh;
-  padding: 40px;
-  padding-bottom: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  text-align: left;
-  border: 1px solid #ddd;
-  border-radius: 16px;
 }
 
 .title {
