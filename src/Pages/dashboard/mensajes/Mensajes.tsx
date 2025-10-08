@@ -3,17 +3,22 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import { useEffect, useState } from "react";
-import { getAllMensajes } from "../../../services/mensajes.service";
+import {
+  getAllMensajes,
+  getQuantityMensajes,
+} from "../../../services/mensajes.service";
 import type { MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
 
 function Mensajes() {
   const [mensajes, setMensajes] = useState<MensajeDashboardDTO[]>([]);
+  const [cantidad, setCantidad] = useState<MensajeDashboardDTO>();
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     loadMensajes(page);
+    loadCantidadMensajes();
   }, [page]);
 
   const loadMensajes = async (page: number) => {
@@ -26,6 +31,17 @@ function Mensajes() {
       setTotalPages(res.totalPages);
     } catch (error) {
       console.error("Error cargando mensajes:", error);
+    }
+  };
+
+  const loadCantidadMensajes = async () => {
+    try {
+      const cantidadMensajes = await getQuantityMensajes(
+        new Date().getMonth() + 1
+      );
+      setCantidad(cantidadMensajes);
+    } catch (error) {
+      console.error("Error cargando cantidad de mensajes:", error);
     }
   };
 
@@ -98,9 +114,11 @@ function Mensajes() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            Total: {"cantidad"} Usuarios
+            Mensajes del mes: {cantidad?.mensaje_response_count_mes}
           </div>
-          <button className={styles.addButton}>+ Añadir Usuario</button>
+          <div className={styles.totalProducts}>
+            Mensajes por responder: {cantidad?.mensaje_pending_count_mes}
+          </div>
         </div>
       </div>
 
