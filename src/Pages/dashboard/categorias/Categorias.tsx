@@ -20,7 +20,7 @@ function Categorias() {
 
   useEffect(() => {
     loadCategorias(page);
-    loadCantidadProductos();
+    loadCantidadCategorias();
   }, [page]);
 
   const loadCategorias = async (page: number) => {
@@ -34,12 +34,12 @@ function Categorias() {
     }
   };
 
-  const loadCantidadProductos = async () => {
+  const loadCantidadCategorias = async () => {
     try {
-      const cantidadProductos = await getQuantityCategorias();
-      setCantidad(cantidadProductos);
+      const cantidadCategorias = await getQuantityCategorias();
+      setCantidad(cantidadCategorias);
     } catch (error) {
-      console.error("Error cargando cantidad de productos:", error);
+      console.error("Error cargando cantidad de categorias:", error);
     }
   };
 

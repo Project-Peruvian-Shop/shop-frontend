@@ -4,7 +4,10 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
-import { getAllCotizaciones } from "../../../services/cotizacion.service";
+import {
+  getAllCotizaciones,
+  getQuantityCotizaciones,
+} from "../../../services/cotizacion.service";
 import IconSVG from "../../../Icons/IconSVG";
 import { useNavigate } from "react-router-dom";
 
@@ -12,12 +15,14 @@ function Cotizaciones() {
   const [cotizaciones, setCotizaciones] = useState<CotizacionDashboardDTO[]>(
     []
   );
+  const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     loadProductos(page);
+    loadCantidadCotizaciones();
   }, [page]);
 
   const loadProductos = async (page: number) => {
@@ -28,6 +33,15 @@ function Cotizaciones() {
       setTotalPages(res.totalPages);
     } catch (error) {
       console.error("Error cargando productos:", error);
+    }
+  };
+
+  const loadCantidadCotizaciones = async () => {
+    try {
+      const cantidadCotizaciones = await getQuantityCotizaciones();
+      setCantidad(cantidadCotizaciones);
+    } catch (error) {
+      console.error("Error cargando cantidad de cotizaciones:", error);
     }
   };
 
@@ -105,7 +119,7 @@ function Cotizaciones() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            Total: {"cantidad"} Cotizaciones
+            Total: {cantidad} Cotizaciones
           </div>
           <button className={styles.addButton}>+ Añadir Cotización</button>
         </div>
