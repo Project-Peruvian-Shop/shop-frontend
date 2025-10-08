@@ -9,12 +9,16 @@ import userIcon from "../../../Icons/user.svg";
 import { obtenerUsuario } from "../../../utils/auth";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import Pagination from "../../../Components/pagination/Pagination";
-import ButtonCard from "../../../Components/dashboard/buttoncard/ButtonCard";
+import ButtonCard, {
+  type VariantType,
+} from "../../../Components/dashboard/buttoncard/ButtonCard";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../../hooks/useLogout";
+import { Icons } from "../../../Icons/icons";
 
 function DashboardPerfil() {
   const navigate = useNavigate();
+  const logout = useLogout();
 
   const [usuario, setUsuario] = useState<UsuarioProfileDTO | null>(null);
   const [trabajadores, setTrabajadores] = useState<TrabajadoresDTO[]>([]);
@@ -76,28 +80,28 @@ function DashboardPerfil() {
 
   const buttonData = [
     {
-      icon: "/path/to/icon.svg",
+      icon: Icons.outlook,
       text: "Outlook",
-      bgColor: "#f0f0f0",
+      variant: "primary",
       onClick: () => openLink("https://outlook.office.com/mail/", true),
     },
     {
-      icon: "/path/to/icon.svg",
+      icon: Icons.whatsapp,
       text: "Whatsapp",
-      bgColor: "#f0f0f0",
+      variant: "secondary",
       onClick: () => openLink("https://web.whatsapp.com/", true),
     },
     {
-      icon: "/path/to/icon.svg",
+      icon: Icons.cotizacionesD,
       text: "Cotizaciones",
-      bgColor: "#f0f0f0",
+      variant: "secondary",
       onClick: () => openLink("/dashboard/cotizaciones"),
     },
     {
-      icon: "/path/to/icon.svg",
+      icon: Icons.logout,
       text: "Cerrar Sesión",
-      onClick: useLogout(),
-      bgColor: "#f0f0f0",
+      variant: "logout",
+      onClick: logout,
     },
   ];
 
@@ -181,7 +185,7 @@ function DashboardPerfil() {
                 key={index}
                 icon={btn.icon}
                 text={btn.text}
-                bgColor={btn.bgColor}
+                variant={btn.variant as VariantType}
                 onClick={btn.onClick}
               />
             ))}
