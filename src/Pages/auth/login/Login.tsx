@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import SideBar from "../../Components/login/SideBar";
+import SideBar from "../../../Components/login/SideBar";
 import styles from "./Login.module.css";
-import { routes } from "../../utils/routes";
-import { agregarUsuario } from "../../utils/auth";
+import { routes } from "../../../utils/routes";
+import { agregarUsuario } from "../../../utils/auth";
 import { useState } from "react";
-import { login } from "../../services/auht.service";
+import { login } from "../../../services/auht.service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 

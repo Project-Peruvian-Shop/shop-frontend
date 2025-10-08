@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { faqs } from "./data";
-import { FAQCard } from "../../Components/FAQ/FAQ_card";
 import styles from "./Questions_frecuenly.module.css";
 import { Link } from "react-router-dom";
-import Header from "../../Components/header/Header";
+import { FAQCard } from "../../../Components/FAQ/FAQ_card";
+import Header from "../../../Components/header/Header";
 
 function linkWhatsapp(text: string) {
   return text.replace(/(\+51\s?\d{9})/g, (match) => {

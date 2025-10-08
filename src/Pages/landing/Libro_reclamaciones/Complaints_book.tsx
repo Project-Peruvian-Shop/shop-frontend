@@ -1,9 +1,8 @@
-import logoTiktok from "../../Icons/tik-tok.png";
-import logoInstagram from "../../Icons/instagram.png";
-import logoWhatsApp from "../../Icons/whatsapp.png";
 import style from "./Complaints_book.module.css";
-import FormLibro from "../../Components/Libro_reclamaciones/FormLibro";
-import Header from "../../Components/header/Header";
+import Header from "../../../Components/header/Header";
+import FormLibro from "../../../Components/Libro_reclamaciones/FormLibro";
+import { Icons } from "../../../Icons/icons";
+
 const Complaints_book = () => {
   return (
     <main>
@@ -32,17 +31,17 @@ const Complaints_book = () => {
           <p>Redes Sociales</p>
           <span>
             <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={logoWhatsApp} alt="whatsapp" />
+              <img src={Icons.whatsappSec} alt="whatsapp" />
             </a>
           </span>
           <span>
             <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={logoInstagram} alt="instagram" />
+              <img src={Icons.instagram} alt="instagram" />
             </a>
           </span>
           <span>
             <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={logoTiktok} alt="tiktok" />
+              <img src={Icons.tiktok} alt="tiktok" />
             </a>
           </span>
         </div>

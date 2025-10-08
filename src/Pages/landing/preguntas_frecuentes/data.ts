@@ -1,8 +1,8 @@
-import icon1 from "../../Icons/FAQ/icon_one_question.png";
-import icon2 from "../../Icons/FAQ/icon_two_question.png";
-import icon3 from "../../Icons/FAQ/icon_three_question.png";
-import icon4 from "../../Icons/FAQ/icon_four_question.png";
-import icon5 from "../../Icons/FAQ/icon_five_question.png";
+import icon1 from "../../../Icons/FAQ/icon_one_question.png";
+import icon2 from "../../../Icons/FAQ/icon_two_question.png";
+import icon3 from "../../../Icons/FAQ/icon_three_question.png";
+import icon4 from "../../../Icons/FAQ/icon_four_question.png";
+import icon5 from "../../../Icons/FAQ/icon_five_question.png";
 
 export const faqs = [
     {

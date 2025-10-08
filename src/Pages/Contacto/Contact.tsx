@@ -1,15 +1,10 @@
 import Card from "../../Components/home/card/Card";
-import logoTiktok from "../../Icons/tik-tok.png";
-import logoInstagram from "../../Icons/instagram.png";
-import logoWhatsApp from "../../Icons/whatsapp.png";
-import logoFacebook from "../../Icons/TYC/facebook.svg";
-import phoneIcon from "../../Icons/Contact/phone_contact.svg";
-import emailIcon from "../../Icons/Contact/email_contact.svg";
 import locationIcon from "../../Icons/Contact/location_contact.png";
 import style from "./Contact.module.css";
 import { routes } from "../../utils/routes";
 import FormContactenos from "../../Components/Contactenos/FormContactenos";
 import Header from "../../Components/header/Header";
+import { Icons } from "../../Icons/icons";
 
 const Contact = () => {
   return (
@@ -29,22 +24,22 @@ const Contact = () => {
           <p>Redes Sociales</p>
           <span>
             <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={logoFacebook} alt="facebook" />
+              <img src={Icons.facebook} alt="facebook" />
             </a>
           </span>
           <span>
             <a href="http://" target="_ blank" rel="noopener noreferrer">
-              <img src={logoWhatsApp} alt="whatsapp" />
+              <img src={Icons.whatsappSec} alt="whatsapp" />
             </a>
           </span>
           <span>
             <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={logoInstagram} alt="instagram" />
+              <img src={Icons.instagram} alt="instagram" />
             </a>
           </span>
           <span>
             <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={logoTiktok} alt="tiktok" />
+              <img src={Icons.tiktok} alt="tiktok" />
             </a>
           </span>
         </div>
@@ -56,7 +51,7 @@ const Contact = () => {
 
       <div className={style.containerCanales}>
         <Card
-          img={phoneIcon}
+          img={Icons.phone}
           title={
             <>
               <span>Teléfono</span>
@@ -69,7 +64,7 @@ const Contact = () => {
           visible={false}
         />
         <Card
-          img={emailIcon}
+          img={Icons.email}
           title={
             <>
               <span>Correo</span>

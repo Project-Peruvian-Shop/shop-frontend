@@ -1,20 +1,21 @@
-import About from "../../Icons/About_company/user_icon.png";
-import Compromiso from "../../Icons/About_company/compromiso.png";
-import Responsabilidad from "../../Icons/About_company/responsabilidad.png";
-import Excelencia from "../../Icons/About_company/excelencia.png";
-import Trabajo_en_equipo from "../../Icons/About_company/trabajo_en_equipo.png";
-import Innovacion from "../../Icons/About_company/Innovación.png";
-import Mision from "../../Icons/About_company/mision.png";
-import Vision from "../../Icons/About_company/vision.png";
+import Compromiso from "../../../Icons/About_company/compromiso.png";
+import Responsabilidad from "../../../Icons/About_company/responsabilidad.png";
+import Excelencia from "../../../Icons/About_company/excelencia.png";
+import Trabajo_en_equipo from "../../../Icons/About_company/trabajo_en_equipo.png";
+import Innovacion from "../../../Icons/About_company/Innovación.png";
+import Mision from "../../../Icons/About_company/mision.png";
+import Vision from "../../../Icons/About_company/vision.png";
 import styles from "./About_company.module.css";
-import Header from "../../Components/header/Header";
+import Header from "../../../Components/header/Header";
+import { Icons } from "../../../Icons/icons";
+
 const About_company = () => {
   return (
     <main>
       <Header nombre="¿Quiénes somos?" />
 
       <div className={styles.containerPadre}>
-        <img src={About} alt="About Us" />
+        <img src={Icons.about} alt="About Us" />
         <div className={styles.containerTexto}>
           <p>
             En <b>Tuberías Peruanito S.A.C.</b> nos especializamos en ofrecer

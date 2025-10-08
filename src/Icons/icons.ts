@@ -15,9 +15,17 @@ import usuarioCircle from "./dashboard/user-circle.svg";
 import usuarioIc from "./dashboard/user.svg";
 import logout from "./dashboard/logout.svg";
 import logoutWhite from "./logout-white.svg";
-import outlook from "./rrss/outlook.svg";
-import whatsapp from "./rrss/whatsapp.svg";
 import cotizacionesD from "./cotizacionesD.svg";
+
+import about from "./About_company/user_icon.png";
+
+import whatsappSec from "./rrss/whatsapp-secondary.svg";
+import outlook from "./rrss/outlook.svg";
+import email from "./rrss/email.svg";
+import phone from "./rrss/phone.svg";
+import tiktok from "./rrss/tiktok.svg";
+import facebook from "./rrss/facebook.svg";
+import instagram from "./rrss/instagram.svg";
 
 export const Icons = {
   // "view-primary": view1,
@@ -36,9 +44,15 @@ export const Icons = {
   usuarioIc,
   logout,
   outlook,
-  whatsapp,
+  whatsappSec,
   cotizacionesD,
   logoutWhite,
+  about,
+  email,
+  phone,
+  tiktok,
+  facebook,
+  instagram,
 };
 
 export type IconName = keyof typeof Icons;
