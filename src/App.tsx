@@ -29,6 +29,7 @@ import DashboardLayout from "./Pages/dashboard/layout/Layout.tsx";
 import ProductoDetalle from "./Pages/dashboard/productodetail/ProductoDetalle.tsx";
 import CategoriaDetalle from "./Pages/dashboard/categoriadetail/CategoriaDetalle.tsx";
 import CotizacionDetalle from "./Pages/dashboard/cotizaciondetail/CotizacionDetalle.tsx";
+import DashboardPerfil from "./Pages/dashboard/perfil/DashboardPerfil.tsx";
 
 function App() {
   const location = useLocation();
@@ -81,6 +82,8 @@ function App() {
           <Route path="product/:id" element={<ProductoDetalle />} />
           <Route path="category/:id" element={<CategoriaDetalle />} />
           <Route path="cotizacion/:id" element={<CotizacionDetalle />} />
+
+          <Route path="profile" element={<DashboardPerfil />} />
         </Route>
       </Routes>
 
