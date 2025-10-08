@@ -1,5 +1,5 @@
-import CartTable from "../../Components/cart/CartTable";
-import Header from "../../Components/header/Header";
+import CartTable from "../../../Components/cart/CartTable";
+import Header from "../../../Components/header/Header";
 import styles from "./Carrito.module.css";
 
 function Carrito() {
