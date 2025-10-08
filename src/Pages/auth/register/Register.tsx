@@ -48,13 +48,23 @@ function Register() {
 
       if (response) {
         agregarUsuario(response); // guardar usuario completo en localStorage
-        MySwal.fire({
-          icon: "success",
-          title: "¡Registro exitoso!",
-          text: `Bienvenido, ${response.nombre}`,
-          confirmButtonText: "Continuar",
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
         });
-        navigate(routes.shop_cart);
+        navigate(routes.profile_user);
+        Toast.fire({
+          icon: "success",
+          title: "Registro exitoso",
+        });
       }
     } catch (error: unknown) {
       let mensaje;
@@ -154,6 +164,7 @@ function Register() {
             <input
               type="password"
               id="password"
+              minLength={8}
               className={styles.input}
               placeholder="Ingresa tu contraseña"
               required
@@ -169,6 +180,7 @@ function Register() {
             <input
               type="password"
               id="confirm-password"
+              minLength={8}
               className={styles.input}
               placeholder="Confirma tu contraseña"
               required

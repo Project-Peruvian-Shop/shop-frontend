@@ -32,13 +32,21 @@ function Login() {
         // Guardar usuario en localStorage o como lo tengas implementado
         agregarUsuario(response);
 
-        MySwal.fire({
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        navigate(routes.profile_user);
+        Toast.fire({
           icon: "success",
-          title: "¡Inicio de sesión exitoso!",
-          text: `Bienvenido, ${response.nombre}`,
-          confirmButtonText: "Continuar",
-        }).then(() => {
-          navigate(routes.shop_cart);
+          title: "Inicio de sesión exitoso",
         });
       } else {
         alert("Usuario o contraseña incorrectos");

@@ -73,13 +73,23 @@ function Profile() {
     }).then((result) => {
       if (result.isConfirmed) {
         eliminarUsuario();
-        MySwal.fire({
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        navigate(routes.login);
+        Toast.fire({
           icon: "success",
-          title: "Sesión cerrada",
-          text: "Tu sesión ha sido cerrada.",
-          confirmButtonText: "Aceptar",
-        }).then(() => {
-          navigate(routes.login);
+          title: "Sesión cerrada exitosamente",
         });
       }
     });
