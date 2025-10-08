@@ -103,6 +103,7 @@ function Login() {
             <input
               type="password"
               id="password"
+              minLength={8}
               className={styles.input}
               placeholder="Ingresa tu contraseña"
               required
