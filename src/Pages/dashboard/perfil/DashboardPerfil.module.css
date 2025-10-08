@@ -169,4 +169,9 @@
   justify-content: center;
   align-items: center;
   align-content: stretch;
+  padding: 16px;
+}
+
+.buttonWrapper {
+  width: 48%;
 }

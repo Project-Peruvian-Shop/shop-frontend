@@ -98,7 +98,7 @@ function DashboardPerfil() {
       onClick: () => openLink("/dashboard/cotizaciones"),
     },
     {
-      icon: Icons.logout,
+      icon: Icons.logoutWhite,
       text: "Cerrar Sesión",
       variant: "logout",
       onClick: logout,
@@ -181,13 +181,15 @@ function DashboardPerfil() {
 
           <div className={styles.personal + " " + styles.buttonsGrid}>
             {buttonData.map((btn, index) => (
-              <ButtonCard
-                key={index}
-                icon={btn.icon}
-                text={btn.text}
-                variant={btn.variant as VariantType}
-                onClick={btn.onClick}
-              />
+              <div className={styles.buttonWrapper} key={index}>
+                <ButtonCard
+                  key={index}
+                  icon={btn.icon}
+                  text={btn.text}
+                  variant={btn.variant as VariantType}
+                  onClick={btn.onClick}
+                />
+              </div>
             ))}
           </div>
         </div>
