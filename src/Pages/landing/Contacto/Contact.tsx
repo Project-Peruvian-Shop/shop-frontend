@@ -23,13 +23,13 @@ const Contact = () => {
         <div className={style.containerRedes}>
           <p>Redes Sociales</p>
           <span>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={Icons.facebook} alt="facebook" />
+            <a href="http://" target="_ blank" rel="noopener noreferrer">
+              <img src={Icons.whatsappPri} alt="whatsapp" />
             </a>
           </span>
           <span>
-            <a href="http://" target="_ blank" rel="noopener noreferrer">
-              <img src={Icons.whatsappPri} alt="whatsapp" />
+            <a href="http://" target="_blank" rel="noopener noreferrer">
+              <img src={Icons.facebook} alt="facebook" />
             </a>
           </span>
           <span>
