@@ -42,11 +42,13 @@ function Cotizacion() {
 
   const mapperEstado = (estado: string) => {
     switch (estado) {
-      case "0":
-        return { label: "Sin atender", className: styles.sinAtender };
-      case "1":
-        return { label: "Enviada", className: styles.enviada };
-      case "2":
+      case "PENDIENTE":
+        return { label: "Pendiente", className: styles.sinAtender };
+      case "EN_PROCESO":
+        return { label: "En proceso", className: styles.enviada };
+      case "RESPONDIDA":
+        return { label: "Respondida", className: styles.enviada };
+      case "CERRADA":
         return { label: "Cerrada", className: styles.cerrada };
       default:
         return { label: "Desconocido", className: styles.desconocido };
