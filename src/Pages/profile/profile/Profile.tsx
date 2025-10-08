@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useEffect, useState } from "react";
-import view from "../../Icons/view.svg";
 import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
 import type { CotizacionUserDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import { eliminarUsuario, obtenerUsuario } from "../../../utils/auth";
@@ -229,7 +228,7 @@ function Profile() {
                     {/* icono que envia a /cotizacion/:id */}
                     <td>
                       <Link to={`${routes.profile_cotization}${c.id}`}>
-                        <img src={view} alt="Ver" />
+                        <img src={Icons.view} alt="Ver" />
                       </Link>
                     </td>
                   </tr>
