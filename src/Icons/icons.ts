@@ -14,6 +14,9 @@ import usuarioIcon from "./dashboard/usuario.svg";
 import usuarioCircle from "./dashboard/user-circle.svg";
 import usuarioIc from "./dashboard/user.svg";
 import logout from "./dashboard/logout.svg";
+import outlook from "./rrss/outlook.svg";
+import whatsapp from "./rrss/whatsapp.svg";
+import cotizacionesD from "./cotizacionesD.svg";
 
 export const Icons = {
   // "view-primary": view1,
@@ -31,6 +34,9 @@ export const Icons = {
   usuarioCircle,
   usuarioIc,
   logout,
+  outlook,
+  whatsapp,
+  cotizacionesD,
 };
 
 export type IconName = keyof typeof Icons;
