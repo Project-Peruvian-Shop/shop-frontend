@@ -1,14 +1,17 @@
 import { useState } from "react";
-import Header from "../../Components/header/Header";
 import styles from "./Checkout.module.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { clearCart, getCartFromLocalStorage } from "../../utils/localStorage";
-import { obtenerUsuario } from "../../utils/auth";
-import { postCotizacion } from "../../services/cotizacion.service";
-import type { CotizacionRequestDTO } from "../../models/Cotizacion/Cotizacion_request_dto";
-import { routes } from "../../utils/routes";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  clearCart,
+  getCartFromLocalStorage,
+} from "../../../utils/localStorage";
+import { obtenerUsuario } from "../../../utils/auth";
+import type { CotizacionRequestDTO } from "../../../models/Cotizacion/Cotizacion_request_dto";
+import { postCotizacion } from "../../../services/cotizacion.service";
+import Header from "../../../Components/header/Header";
+import { routes } from "../../../utils/routes";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
