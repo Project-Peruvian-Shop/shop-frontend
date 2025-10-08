@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { ProductoDashboardDTO } from "../../../models/Producto/Producto_response_dto";
-import { getAllProductos } from "../../../services/producto.service";
+import {
+  getAllProductos,
+  getQuantityProductos,
+} from "../../../services/producto.service";
 import DashboardTable, {
   type Action,
   type Column,
@@ -12,12 +15,14 @@ import IconSVG from "../../../Icons/IconSVG";
 
 export default function ProductosTable() {
   const [productos, setProductos] = useState<ProductoDashboardDTO[]>([]);
+  const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     loadProductos(page);
+    loadCantidadProductos();
   }, [page]);
 
   const loadProductos = async (page: number) => {
@@ -28,6 +33,15 @@ export default function ProductosTable() {
       setTotalPages(res.totalPages);
     } catch (error) {
       console.error("Error cargando productos:", error);
+    }
+  };
+
+  const loadCantidadProductos = async () => {
+    try {
+      const cantidadProductos = await getQuantityProductos();
+      setCantidad(cantidadProductos);
+    } catch (error) {
+      console.error("Error cargando cantidad de productos:", error);
     }
   };
 
@@ -85,7 +99,7 @@ export default function ProductosTable() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            Total: {"cantidad"} Productos
+            Total: {cantidad} Productos
           </div>
           <button className={styles.addButton}>+ Añadir Producto</button>
         </div>
