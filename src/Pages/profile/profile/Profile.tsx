@@ -2,7 +2,6 @@ import styles from "./Profile.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import userIcon from "../../Icons/user.svg";
 import { useEffect, useState } from "react";
 import view from "../../Icons/view.svg";
 import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
@@ -12,6 +11,7 @@ import { getProfile } from "../../../services/usuario.service";
 import { getCotizacionesByUser } from "../../../services/cotizacion.service";
 import { routes } from "../../../utils/routes";
 import Header from "../../../Components/header/Header";
+import { Icons } from "../../../Icons/icons";
 
 function Profile() {
   const navigate = useNavigate();
@@ -148,7 +148,11 @@ function Profile() {
             <div className={styles.title}>Mi Usuario</div>
 
             <div className={styles.nameContainer}>
-              <img src={userIcon} alt="logo-img" className={styles.logo} />
+              <img
+                src={Icons.userIcon}
+                alt="logo-img"
+                className={styles.logo}
+              />
               <div className={styles.textContainer}>
                 <span className={styles.name}>
                   {usuario ? usuario.nombre : "Cargando..."}

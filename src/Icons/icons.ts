@@ -17,6 +17,8 @@ import logout from "./dashboard/logout.svg";
 import logoutWhite from "./logout-white.svg";
 import cotizacionesD from "./cotizacionesD.svg";
 
+import userIcon from "./user.svg";
+
 import about from "./About_company/user_icon.png";
 
 import whatsappPri from "./rrss/whatsapp-primary.svg";
@@ -55,6 +57,7 @@ export const Icons = {
   facebook,
   instagram,
   whatsappPri,
+  userIcon
 };
 
 export type IconName = keyof typeof Icons;
