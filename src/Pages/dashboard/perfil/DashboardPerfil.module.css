@@ -147,3 +147,32 @@
   color: #ffffff;
   background-color: #7f8c8d; /* gris */
 }
+
+/* Trabajadores */
+.productsList {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.productRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.productName {
+  font-size: 14px;
+  color: #333;
+  flex: 1;
+}
+
+.productDetails {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary-color);
+  white-space: nowrap;
+}

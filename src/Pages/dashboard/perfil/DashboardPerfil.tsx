@@ -1,19 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./DashboardPerfil.module.css";
 import { useEffect, useState } from "react";
-import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
-import { getProfile } from "../../../services/usuario.service";
+import type {
+  TrabajadoresDTO,
+  UsuarioProfileDTO,
+} from "../../../models/Usuario/Usuario_response_dto";
+import { getTrabajadores } from "../../../services/usuario.service";
 import userIcon from "../../../Icons/user.svg";
 import { obtenerUsuario } from "../../../utils/auth";
-import { routes } from "../../../utils/routes";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import type { PaginatedResponse } from "../../../services/global.interfaces";
+import Pagination from "../../../Components/pagination/Pagination";
 
 function DashboardPerfil() {
-  const navigate = useNavigate();
-  const MySwal = withReactContent(Swal);
-
   const [usuario, setUsuario] = useState<UsuarioProfileDTO | null>(null);
+  const [trabajadores, setTrabajadores] = useState<TrabajadoresDTO[]>([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [fechaHora, setFechaHora] = useState(new Date());
 
   useEffect(() => {
@@ -24,21 +25,28 @@ function DashboardPerfil() {
 
   useEffect(() => {
     const localUser = obtenerUsuario(); // trae usuario desde localStorage
-    if (!localUser) {
-      navigate(routes.login);
-      return;
+
+    if (localUser && localUser.id) {
+      setUsuario(localUser);
     }
 
-    getProfile(localUser.id)
-      .then((data) => setUsuario(data))
-      .catch(() => {
-        MySwal.fire({
-          icon: "error",
-          title: "Error",
-          text: "No se pudo cargar la información del perfil",
-        });
-      });
-  }, []);
+    loadTrabajadores(Number(localUser.id), page);
+  }, [page]);
+
+  const loadTrabajadores = async (userId: number, page: number) => {
+    try {
+      const res: PaginatedResponse<TrabajadoresDTO> = await getTrabajadores(
+        userId,
+        page,
+        4
+      );
+
+      setTrabajadores(res.content);
+      setTotalPages(res.totalPages);
+    } catch (error) {
+      console.error("Error cargando productos:", error);
+    }
+  };
 
   const mapperRol = (rol: string) => {
     switch (rol) {
@@ -104,6 +112,25 @@ function DashboardPerfil() {
         <div className={styles.right}>
           <div className={styles.personal}>
             <div className={styles.title}>Usuarios</div>
+
+            <div className={styles.productsList}>
+              {trabajadores.map((item, i) => (
+                <div key={i} className={styles.productRow}>
+                  <div className={styles.productName}>
+                    {item.nombreCompleto}
+                  </div>
+                  <div className={styles.productDetails}>{mapperRol(item.role)}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.pagination}>
+              <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+              />
+            </div>
           </div>
 
           <div className={styles.personal}>Botones</div>

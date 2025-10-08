@@ -23,3 +23,9 @@ export interface UsuarioDashboardDTO {
   telefono: string;
   rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER";
 }
+
+export interface TrabajadoresDTO {
+  id: number;
+  nombreCompleto: string;
+  role: string;
+}
