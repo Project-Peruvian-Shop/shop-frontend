@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import SubHeader from "../../Components/shop/subheader/SubHeader";
 import styles from "./Producto.module.css";
-import { getProductoById } from "../../services/producto.service";
 import { useNavigate, useParams } from "react-router-dom";
-import { routes } from "../../utils/routes";
-import type { ProductoDTO } from "../../models/Producto/Producto_response_dto";
-import { saveProductoToCart } from "../../utils/localStorage";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import type { ProductoDTO } from "../../../models/Producto/Producto_response_dto";
+import { saveProductoToCart } from "../../../utils/localStorage";
+import { routes } from "../../../utils/routes";
+import { getProductoById } from "../../../services/producto.service";
+import SubHeader from "../../../Components/shop/subheader/SubHeader";
 
 const Producto = () => {
   const { id } = useParams<{ id: string }>();
