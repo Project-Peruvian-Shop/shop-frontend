@@ -11,12 +11,8 @@ import Policity from "./Pages/landing/politica_de_privacidad/Policity.tsx";
 import Notfound from "./Pages/Notfound.tsx";
 import TermsAndConditions from "./Pages/landing/terminos_y_condiciones/TermsAndConditions.tsx";
 import Complaints_book from "./Pages/landing/Libro_reclamaciones/Complaints_book.tsx";
-import Producto from "./Pages/producto/Producto.tsx";
-import Carrito from "./Pages/carrito/Carrito.tsx";
 import Login from "./Pages/auth/login/Login.tsx";
 import Register from "./Pages/auth/register/Register.tsx";
-import Checkout from "./Pages/checkout/Checkout.tsx";
-import Profile from "./Pages/profile/Profile.tsx";
 import Cotizacion from "./Pages/profile/cotizacion/Cotizacion.tsx";
 import Productos from "./Pages/dashboard/productos/Productos.tsx";
 import Categorias from "./Pages/dashboard/categorias/Categorias.tsx";
@@ -30,6 +26,10 @@ import CategoriaDetalle from "./Pages/dashboard/categoriadetail/CategoriaDetalle
 import CotizacionDetalle from "./Pages/dashboard/cotizaciondetail/CotizacionDetalle.tsx";
 import DashboardPerfil from "./Pages/dashboard/perfil/DashboardPerfil.tsx";
 import Contact from "./Pages/landing/Contacto/Contact.tsx";
+import Producto from "./Pages/cart/producto/Producto.tsx";
+import Carrito from "./Pages/cart/carrito/Carrito.tsx";
+import Checkout from "./Pages/cart/checkout/Checkout.tsx";
+import Profile from "./Pages/profile/profile/Profile.tsx";
 
 function App() {
   const location = useLocation();
