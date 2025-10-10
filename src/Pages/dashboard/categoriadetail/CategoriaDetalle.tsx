@@ -5,6 +5,7 @@ import { routes } from "../../../utils/routes";
 import {
   getCategoryById,
   getProductosByCategoryId,
+  updateCategoria,
 } from "../../../services/categoria.service";
 import type {
   CategoriaDashboardDTO,
@@ -14,6 +15,10 @@ import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeade
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
 import ProductListCard from "../../../Components/dashboard/productlistcard/ProductListCard";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { createImagen } from "../../../services/imagen.service";
+import ModalCategoriaEdit from "../../../Components/dashboard/Modals/Categoria/ModalCategoriaEdit";
 
 function CategoriaDetalle() {
   const { id } = useParams<{ id: string }>();
@@ -24,8 +29,10 @@ function CategoriaDetalle() {
   );
   const [productosData, setProductosData] =
     useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 6;
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     if (!id) {
@@ -61,6 +68,71 @@ function CategoriaDetalle() {
     fetchProductos(currentPage);
   }, [id, currentPage]);
 
+   const uploadImagen = async (file: File | null, defaultID = 2): Promise<number> => {
+      if (!file) return categoria?.imagenId ?? defaultID;
+  
+      const enlace = URL.createObjectURL(file);
+      const imagenData = {
+        enlace,
+        nombre: file.name,
+        alt: file.name.replace(/\s+/g, "-"),
+      };
+  
+      const imagenResponse = await createImagen(imagenData);
+      return imagenResponse.id;
+    };
+  const handleEditCategoria = async (data:{
+        nombre: string;
+        norma: string;
+        usos: string;
+        imagenFile: File | null;
+  }) => {
+      if (!categoria) return;
+  
+      // Verificación si hay cambios
+      if (
+        data.nombre === categoria.nombre &&
+        data.norma === categoria.norma &&
+        data.usos === categoria.usos &&
+        data.imagenFile === null
+      ) {
+        MySwal.fire({
+          icon: "info",
+          title: "Sin cambios",
+          text: "No has realizado ninguna modificación.",
+        });
+        return;
+      }
+      try {
+            const imagenID = await uploadImagen(data.imagenFile);
+            const body = {
+              nombre: data.nombre,
+              norma: data.norma,
+              usos: data.usos,
+              imagenId: imagenID,
+            };
+            const response = await updateCategoria(categoria.id, body);
+            if (response) {
+              MySwal.fire({
+                icon: "success",
+                title: "¡Categoría editada!",
+                text: "La categoría ha sido editada exitosamente.",
+              });
+              const updatedCategoria = await getCategoryById(categoria.id);
+              setCategoria(updatedCategoria);
+              setShowEditModal(false);
+            }
+          } catch (error: unknown) {
+            const mensaje = error instanceof Error ? error.message : String(error);
+            MySwal.fire({
+              icon: "error",
+              title: "Error al editar la categoría",
+              text: mensaje,
+            });
+          }
+    }
+  
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -68,7 +140,7 @@ function CategoriaDetalle() {
         <div className={styles.actions}>
           <ButtonHeader
             title="Editar"
-            onClick={() => console.log("Acciones")}
+            onClick={() => setShowEditModal(true)}
             icon="edit-secondary"
             size={24}
             style="secondary-outline"
@@ -112,6 +184,13 @@ function CategoriaDetalle() {
           />
         </div>
       </div>
+      {showEditModal && categoria && (
+        <ModalCategoriaEdit
+          categoria={categoria}
+          onClose={() => setShowEditModal(false)}
+          onSubmit={handleEditCategoria}
+        />
+      )}
     </div>
   );
 }
