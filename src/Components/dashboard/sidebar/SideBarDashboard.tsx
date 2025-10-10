@@ -1,44 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./SideBarDashboard.module.css";
 import logo from "../../../Icons/Logo-HD.png";
-import { eliminarUsuario, obtenerUsuario } from "../../../utils/auth";
+import { obtenerUsuario } from "../../../utils/auth";
 import { routes } from "../../../utils/routes";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import IconSVG from "../../../Icons/IconSVG";
+import { useLogout } from "../../../hooks/useLogout";
 
 export default function SideBarDashboard() {
   const usuario = obtenerUsuario();
-  const MySwal = withReactContent(Swal);
-  const navigate = useNavigate();
+  const logout = useLogout();
 
   const mapperRol = {
     ROLE_ADMIN: "Propietario",
     ROLE_USER: "Usuario",
     ROLE_MANAGER: "Administrador",
-  };
-
-  const handleCerrarSesion = () => {
-    MySwal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción cerrará tu sesión.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, cerrar sesión",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        eliminarUsuario();
-        MySwal.fire({
-          icon: "success",
-          title: "Sesión cerrada",
-          text: "Tu sesión ha sido cerrada.",
-          confirmButtonText: "Aceptar",
-        }).then(() => {
-          navigate(routes.login);
-        });
-      }
-    });
   };
 
   return (
@@ -99,7 +74,7 @@ export default function SideBarDashboard() {
           <IconSVG name="usuarioIc" size={20} className={styles.icon} />
           Mi cuenta
         </Link>
-        <button className={styles.logoutButton} onClick={handleCerrarSesion}>
+        <button className={styles.logoutButton} onClick={logout}>
           <IconSVG name="logout" size={20} className={styles.icon} />
           Cerrar Sesión
         </button>

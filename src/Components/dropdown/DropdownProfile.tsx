@@ -7,7 +7,6 @@ import { useLogout } from "../../hooks/useLogout";
 interface UserDropdownClassicProps {
   userName: string;
   userAvatar?: string;
-  handleLogout: () => void;
 }
 
 export default function DropdownProfile({

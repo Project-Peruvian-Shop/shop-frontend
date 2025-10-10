@@ -1,15 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
-import { routes } from "../../utils/routes.ts";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { publicRoutes, routes } from "../../utils/routes.ts";
 import logo from "../../Icons/Logo-HD.png";
 import styles from "./Navbar.module.css";
 import ButtonPrimary from "../buttons/ButtonPrimary.tsx";
 import { obtenerUsuario } from "../../utils/auth.ts";
+import DropdownProfile from "../dropdown/DropdownProfile.tsx";
 
 const Navbar = () => {
   // Verifica si tiene token
   const usuario = obtenerUsuario();
-  const hasTokens = usuario !== null;
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const currentPath = location.pathname;
+  const showLandingButtons = publicRoutes.includes(currentPath);
 
   return (
     <nav className={styles.navbar}>
@@ -39,24 +43,26 @@ const Navbar = () => {
         </div>
       </div>
 
-      {hasTokens ? (
-        <div className={styles.userSection}>
-          {usuario?.rol === "ROLE_ADMIN" && (
-            <ButtonPrimary
-              text="Dashboard"
-              click={() => navigate(routes.dashboard)}
-            />
-          )}
-          
-          <ButtonPrimary
-            text={usuario?.nombre || "Usuario"}
-            click={() => navigate(routes.profile_user)}
-          />
-        </div>
-      ) : (
+      {showLandingButtons && (
         <ButtonPrimary
           text="Contáctenos"
           click={() => navigate(routes.contact)}
+        />
+      )}
+
+      {!showLandingButtons && usuario && (
+        <div className={styles.userSection}>
+          <DropdownProfile
+            userName={usuario.nombre}
+            userAvatar={usuario.avatar}
+          />
+        </div>
+      )}
+
+      {!showLandingButtons && !usuario && (
+        <ButtonPrimary
+          text="Iniciar sesión"
+          click={() => navigate(routes.login)}
         />
       )}
     </nav>
