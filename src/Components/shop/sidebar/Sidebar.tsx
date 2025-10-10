@@ -25,6 +25,12 @@ function Sidebar(props: SidebarProps) {
             {category.nombre} ({category.cantidad})
           </button>
         ))}
+        <button
+          className={styles.categoryItem}
+          onClick={() => onCategoryClick?.(null)}
+        >
+          Todas ({arrayCategories.reduce((sum, cat) => sum + cat.cantidad, 0)})
+        </button>
       </div>
     </div>
   );
