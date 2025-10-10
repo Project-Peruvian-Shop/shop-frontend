@@ -9,6 +9,7 @@ export interface CategoriaDashboardDTO {
   nombre: string;
   usos: string;
   norma: string;
+  imagenId: number;
   imagenEnlace: string;
   imagenAlt: string;
 }

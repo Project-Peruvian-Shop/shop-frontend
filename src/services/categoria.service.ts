@@ -75,3 +75,13 @@ export async function createCategoria(
 
   return res.data.data;
 }
+export async function updateCategoria(
+  id: number,
+  body: CategoriaRequestDTO
+): Promise<CategoriaCreateResponseDTO> {
+  const url = `${BASE_URL}/${id}`;
+
+  const res = await axios.put<ApiResponse<CategoriaCreateResponseDTO>>(url, body);
+
+  return res.data.data;
+}

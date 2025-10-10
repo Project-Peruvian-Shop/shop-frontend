@@ -2,49 +2,45 @@ import { useState, useEffect } from "react";
 import styles from "./ModalCategoriaEdit.module.css";
 import upload from "../../../../Icons/Modal_producto/upload_icon.svg";
 import add_img from "../../../../Icons/Modal_producto/add_img.svg";
-import type { ProductoDTO } from "../../../../models/Producto/Producto_response_dto";
+import type { CategoriaDashboardDTO } from "../../../../models/Categoria/Categoria_response";
 
-interface ModalProductoEditProps {
-	producto: ProductoDTO;
-	categorias: { id: number; nombre: string }[];
+interface ModalCategoriaEditProps {
+	categoria: CategoriaDashboardDTO;
 	onClose: () => void;
 	onSubmit: (data: {
 		nombre: string;
-		descripcion: string;
-		categoriaID: number;
+		norma: string;
+		usos: string;
 		imagenFile: File | null;
 	}) => void;
 }
 
-export default function ModalProductoEdit({
-	producto,
-	categorias,
+export default function ModalCategoriaEdit({
+	categoria,
 	onClose,
 	onSubmit,
-}: ModalProductoEditProps) {
-	const [nombre, setNombre] = useState(producto.nombre);
-	const [descripcion, setDescripcion] = useState(producto.descripcion);
-	const [categoriaID, setCategoriaID] = useState<number | string>(
-		producto.categoriaId
-	);
+}: ModalCategoriaEditProps) {
+	const [nombre, setNombre] = useState(categoria.nombre);
+	const [norma, setNorma] = useState(categoria.norma);
+	const [usos, setUsos] = useState(categoria.usos);
 	const [imagenFile, setImagenFile] = useState<File | null>(null);
 	const [imagenPreview, setImagenPreview] = useState<string | null>(
-		producto.productoEnlace
+		categoria.imagenEnlace
 	);
 
 	useEffect(() => {
-		setNombre(producto.nombre);
-		setDescripcion(producto.descripcion);
-		setCategoriaID(producto.categoriaId);
-		setImagenPreview(producto.productoEnlace);
-	}, [producto]);
+		setNombre(categoria.nombre);
+		setNorma(categoria.norma);
+		setUsos(categoria.usos);
+		setImagenPreview(categoria.imagenEnlace);
+	}, [categoria]);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		onSubmit({
 			nombre,
-			descripcion,
-			categoriaID: Number(categoriaID),
+			norma,
+			usos,
 			imagenFile,
 		});
 	};
@@ -116,25 +112,19 @@ export default function ModalProductoEdit({
 								/>
 							</label>
 							<label>
-								Categoría
-								<select
-									value={categoriaID}
-									onChange={(e) => setCategoriaID(e.target.value)}
+								Norma
+								<input
+									type="text"
+									value={norma}
+									onChange={(e) => setNorma(e.target.value)}
 									required
-								>
-									<option value="">Selecciona una categoría</option>
-									{categorias.map((cat) => (
-										<option key={cat.id} value={cat.id}>
-											{cat.nombre}
-										</option>
-									))}
-								</select>
+								/>
 							</label>
 							<label>
-								Descripción
+								Usos
 								<textarea
-									value={descripcion}
-									onChange={(e) => setDescripcion(e.target.value)}
+									value={usos}
+									onChange={(e) => setUsos(e.target.value)}
 									required
 								/>
 							</label>

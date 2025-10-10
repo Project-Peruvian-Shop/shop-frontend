@@ -5,6 +5,7 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import {
   createCategoria,
   getAllCategories,
+  getCategoryById,
   getQuantityCategorias,
 } from "../../../services/categoria.service";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
@@ -12,8 +13,10 @@ import DashboardTable from "../../../Components/table/DashboardTable";
 import { useNavigate } from "react-router-dom";
 import IconSVG from "../../../Icons/IconSVG";
 import ModalCategoriaCreate from "../../../Components/dashboard/Modals/Categoria/ModalCategoriaCreate";
+import ModalCategoriaEdit from "../../../Components/dashboard/Modals/Categoria/ModalCategoriaEdit";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { updateCategoria } from "../../../services/categoria.service";
 import { createImagen } from "../../../services/imagen.service";
 function Categorias() {
   const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
@@ -25,7 +28,7 @@ function Categorias() {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
-  //const[categoriaSeleccionada, setCategoriaSeleccionada] = useState<CategoriaDashboardDTO | null>(null);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<CategoriaDashboardDTO | null>(null);
   
   const MySwal = withReactContent(Swal);
 
@@ -60,7 +63,7 @@ function Categorias() {
     imagenFile: File | null;
   }
   const uploadImagen = async (file: File | null, defaultID = 2): Promise<number> => {
-		if (!file) return defaultID;
+		if (!file) return categoriaSeleccionada?.imagenId ?? defaultID;
 
 		const enlace = URL.createObjectURL(file);
 		const imagenData = {
@@ -98,6 +101,51 @@ function Categorias() {
           MySwal.fire({
             icon: "error",
             title: "Error al crear el producto",
+            text: mensaje,
+          });
+        }
+  }
+  const handleEditCategoria = async (data: CategoriaFormData) => {
+    if (!categoriaSeleccionada) return;
+
+    // Verificación si hay cambios
+		if (
+			data.nombre === categoriaSeleccionada.nombre &&
+			data.norma === categoriaSeleccionada.norma &&
+			data.usos === categoriaSeleccionada.usos &&
+			data.imagenFile === null
+		) {
+			MySwal.fire({
+				icon: "info",
+				title: "Sin cambios",
+				text: "No has realizado ninguna modificación.",
+			});
+			return;
+		}
+    try {
+          const imagenID = await uploadImagen(data.imagenFile);
+          const body = {
+            nombre: data.nombre,
+            norma: data.norma,
+            usos: data.usos,
+            imagenId: imagenID,
+          };
+          const response = await updateCategoria(categoriaSeleccionada.id, body);
+          if (response) {
+            MySwal.fire({
+              icon: "success",
+              title: "¡Categoría editada!",
+              text: "La categoría ha sido editada exitosamente.",
+            });
+            setShowEditModal(false);
+            await loadCategorias(page);
+            await loadCantidadCategorias();
+          }
+        } catch (error: unknown) {
+          const mensaje = error instanceof Error ? error.message : String(error);
+          MySwal.fire({
+            icon: "error",
+            title: "Error al editar la categoría",
             text: mensaje,
           });
         }
@@ -142,8 +190,8 @@ function Categorias() {
       label: "Editar",
       icon: <IconSVG name="edit-secondary" size={20} />,
       onClick: async (row) => {
-        const producto = (row.id);
-        console.log(producto);
+        const categoria = await getCategoryById(row.id);
+        setCategoriaSeleccionada(categoria);
         setShowEditModal(true);
       },
     },
@@ -185,8 +233,12 @@ function Categorias() {
           onSubmit={handleAddCategoria}
         />
       )}
-      {showEditModal && (
-        <p>owo</p>
+      {showEditModal && categoriaSeleccionada && (
+        <ModalCategoriaEdit
+          categoria={categoriaSeleccionada}
+          onClose={() => setShowEditModal(false)}
+          onSubmit={handleEditCategoria}
+        />
         )}
     </div>
   );
