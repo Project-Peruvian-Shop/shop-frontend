@@ -1,0 +1,12 @@
+.container {
+  padding: 16px 140px;
+}
+
+.subtitle {
+  margin-bottom: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 36px;
+  text-align: left;
+}
