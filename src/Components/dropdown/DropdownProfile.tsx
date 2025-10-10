@@ -1,0 +1,91 @@
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import styles from "./DropdownProfile.module.css";
+
+interface UserDropdownClassicProps {
+  userName: string;
+  userAvatar?: string;
+  handleLogout: () => void;
+}
+
+export default function DropdownProfile({
+  userName,
+  userAvatar,
+  handleLogout,
+}: UserDropdownClassicProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Cerrar dropdown al hacer click fuera
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className={styles.dropdownWrapper} ref={dropdownRef}>
+      {/* Botón trigger */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={styles.dropdownButton}
+      >
+        {userAvatar ? (
+          <img src={userAvatar} alt={userName} className={styles.avatar} />
+        ) : (
+          <div className={styles.avatarPlaceholder}>
+            {userName.charAt(0).toUpperCase()}
+          </div>
+        )}
+        <span className={styles.userName}>{userName}</span>
+        {/* <ChevronDown
+          className={`${styles.chevron} ${isOpen ? styles.rotate : ""}`}
+        /> */}
+      </button>
+
+      {/* Dropdown menu */}
+      {isOpen && (
+        <div className={styles.dropdownMenu}>
+          <Link
+            to="/perfil"
+            className={styles.menuItem}
+            onClick={() => setIsOpen(false)}
+          >
+            {/* <User className={styles.icon} /> */}
+            <span>Mi perfil</span>
+          </Link>
+
+          <Link
+            to="/mis-cotizaciones"
+            className={styles.menuItem}
+            onClick={() => setIsOpen(false)}
+          >
+            {/* <FileText className={styles.icon} /> */}
+            <span>Mis cotizaciones</span>
+          </Link>
+
+          <div className={styles.divider} />
+
+          <button
+            onClick={() => {
+              handleLogout();
+              setIsOpen(false);
+            }}
+            className={`${styles.menuItem} ${styles.logout}`}
+          >
+            {/* <LogOut className={styles.icon} /> */}
+            <span>Cerrar sesión</span>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
