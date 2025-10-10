@@ -19,3 +19,12 @@ export interface ProductoResponseDTO {
   imagenUrl: string;
   imagenAlt: string;
 }
+export interface CategoriaCreateResponseDTO {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  usos: string;
+  norma: string;
+  imagenEnlace: string;
+  imagenAlt: string;
+}
