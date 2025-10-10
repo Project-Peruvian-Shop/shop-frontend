@@ -54,3 +54,13 @@ export const routes = {
   dashboard_messages: "/dashboard/mensajes",
   dashboard_message: "/dashboard/mensaje/:id",
 };
+
+export const publicRoutes = [
+  routes.home,
+  routes.about,
+  routes.questions,
+  routes.contact,
+  routes.complaints_book,
+  routes.tyc,
+  routes.privacy_policy,
+];
