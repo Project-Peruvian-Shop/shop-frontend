@@ -19,12 +19,14 @@ export async function getPaginatedProductos(
   const res = await axios.get<
     ApiResponse<PaginatedResponse<PaginatedProductoResponseDTO>>
   >(url);
+
   return res.data.data;
 }
 
 export async function getProductoById(id: number): Promise<ProductoDTO> {
   const url = `${BASE_URL}/${id}`;
   const res = await axios.get<ApiResponse<ProductoDTO>>(url);
+
   return res.data.data;
 }
 
@@ -36,6 +38,7 @@ export async function getAllProductos(
   const res = await axios.get<
     ApiResponse<PaginatedResponse<ProductoDashboardDTO>>
   >(url);
+
   return res.data.data;
 }
 
@@ -43,7 +46,11 @@ export async function createProducto(
   body: ProductoRequestDTO
 ): Promise<ProductoCreateResponseDTO> {
   const url = `${BASE_URL}/`;
-  const res = await axios.post<ApiResponse<ProductoCreateResponseDTO>>(url, body);
+  const res = await axios.post<ApiResponse<ProductoCreateResponseDTO>>(
+    url,
+    body
+  );
+
   return res.data.data;
 }
 
@@ -52,12 +59,27 @@ export async function updateProducto(
   body: ProductoRequestDTO
 ): Promise<ProductoCreateResponseDTO> {
   const url = `${BASE_URL}/${id}`;
-  const res = await axios.put<ApiResponse<ProductoCreateResponseDTO>>(url, body);
+  const res = await axios.put<ApiResponse<ProductoCreateResponseDTO>>(
+    url,
+    body
+  );
+
   return res.data.data;
 }
 
 export async function getQuantityProductos(): Promise<number> {
   const url = `${BASE_URL}/dashboard-quantity`;
   const res = await axios.get<ApiResponse<number>>(url);
+
+  return res.data.data;
+}
+
+export async function getSugeridos(
+  producto: number,
+  categoria: number
+): Promise<PaginatedProductoResponseDTO[]> {
+  const url = `${BASE_URL}/sugeridos?producto=${producto}&categoria=${categoria}`;
+  const res = await axios.get<ApiResponse<PaginatedProductoResponseDTO[]>>(url);
+
   return res.data.data;
 }
