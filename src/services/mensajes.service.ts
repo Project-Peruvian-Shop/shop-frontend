@@ -47,3 +47,13 @@ export async function createLibroReclamaciones(
 
   return res.data.data;
 }
+
+export async function getQuantityMensajes(
+  mes: number,
+): Promise<MensajeDashboardDTO> {
+  const url = `${BASE_URL}/dashboard-quantity/${mes}`;
+
+  const res = await axios.get<ApiResponse<MensajeDashboardDTO>>(url);
+
+  return res.data.data;
+}

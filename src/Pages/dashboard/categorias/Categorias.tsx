@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import type { CategoriaDashboardDTO } from "../../../models/Categoria/Categoria_response";
 import styles from "./Categorias.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
-import { getAllCategories } from "../../../services/categoria.service";
+import {
+  getAllCategories,
+  getQuantityCategorias,
+} from "../../../services/categoria.service";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +13,14 @@ import IconSVG from "../../../Icons/IconSVG";
 
 function Categorias() {
   const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
+  const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     loadCategorias(page);
+    loadCantidadCategorias();
   }, [page]);
 
   const loadCategorias = async (page: number) => {
@@ -26,6 +31,15 @@ function Categorias() {
       setTotalPages(res.totalPages);
     } catch (error) {
       console.error("Error cargando categorias:", error);
+    }
+  };
+
+  const loadCantidadCategorias = async () => {
+    try {
+      const cantidadCategorias = await getQuantityCategorias();
+      setCantidad(cantidadCategorias);
+    } catch (error) {
+      console.error("Error cargando cantidad de categorias:", error);
     }
   };
 
@@ -83,7 +97,7 @@ function Categorias() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            Total: {"cantidad"} Categorías
+            Total: {cantidad} Categorías
           </div>
           <button className={styles.addButton}>+ Añadir Categoría</button>
         </div>

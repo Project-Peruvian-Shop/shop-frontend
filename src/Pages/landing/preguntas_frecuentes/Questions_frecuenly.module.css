@@ -1,0 +1,84 @@
+.questionsContainer {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 6rem 2rem;
+}
+
+.questionsHeader {
+	text-align: center;
+	margin-bottom: 4rem;
+}
+
+.questionsHeader h1 {
+	font-size: 3rem;
+	font-weight: bold;
+	color: #1b2f33;
+	margin-bottom: 1rem;
+}
+
+.questionsHeader p {
+	font-size: 1.125rem;
+	color: #6b7280;
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+.questionsGrid {
+	display: grid;
+	gap: 1.5rem;
+}
+
+a.linkWhatsapp {
+	color: #25d366;
+	text-decoration: none;
+	font-weight: 600;
+	font-weight: 800;
+}
+
+@media (min-width: 768px) {
+	.questionsGrid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 1024px) {
+	.questionsGrid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.questionsFooter {
+	text-align: center;
+	margin-top: 4rem;
+}
+
+.footerBox {
+	display: inline-flex;
+	align-items: center;
+	gap: 1rem;
+	border: 2px solid #fb2343;
+	border-radius: 9999px;
+	background: white;
+	padding: 0.75rem 1.5rem;
+}
+
+.footerBox span {
+	font-weight: 600;
+	color: #1b2f33;
+}
+
+.footerBox button {
+	background: #fb2343;
+	border: none;
+	border-radius: 9999px;
+	padding: 0.5rem 1.25rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: white;
+	cursor: pointer;
+	transition: background 0.3s ease;
+}
+
+.footerBox button:hover {
+	background: #d91d38;
+}

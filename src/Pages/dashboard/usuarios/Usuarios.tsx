@@ -3,17 +3,22 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import { useEffect, useState } from "react";
-import { getAllUsuarios } from "../../../services/usuario.service";
+import {
+  getAllUsuarios,
+  getQuantityUsuarios,
+} from "../../../services/usuario.service";
 import type { UsuarioDashboardDTO } from "../../../models/Usuario/Usuario_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState<UsuarioDashboardDTO[]>([]);
+  const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     loadUsuarios(page);
+    loadCantidadUsuarios();
   }, [page]);
 
   const loadUsuarios = async (page: number) => {
@@ -26,6 +31,15 @@ function Usuarios() {
       setTotalPages(res.totalPages);
     } catch (error) {
       console.error("Error cargando productos:", error);
+    }
+  };
+
+  const loadCantidadUsuarios = async () => {
+    try {
+      const cantidadUsuarios = await getQuantityUsuarios();
+      setCantidad(cantidadUsuarios);
+    } catch (error) {
+      console.error("Error cargando cantidad de usuarios:", error);
     }
   };
 
@@ -81,9 +95,7 @@ function Usuarios() {
         <div className={styles.title}>Usuarios</div>
 
         <div className={styles.headerActions}>
-          <div className={styles.totalProducts}>
-            Total: {"cantidad"} Usuarios
-          </div>
+          <div className={styles.totalProducts}>Total: {cantidad} Usuarios</div>
           <button className={styles.addButton}>+ Añadir Usuario</button>
         </div>
       </div>

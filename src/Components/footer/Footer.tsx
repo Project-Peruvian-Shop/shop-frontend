@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import { routes } from "../../utils/routes";
-import logoTiktok from "../../Icons/tik-tok.png";
-import logoInstagram from "../../Icons/instagram.png";
-import logoWhatsApp from "../../Icons/whatsapp.png";
 import logoBook from "../../Icons/Libro.avif";
 import styles from "./Footer.module.css";
 import { RRSS } from "../../utils/links";
+import { Icons } from "../../Icons/icons";
 
 function Footer() {
   return (
@@ -48,7 +46,7 @@ function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src={logoTiktok} alt="Tiktok" className={styles.iconRRSS} />
+            <img src={Icons.tiktok} alt="Tiktok" className={styles.iconRRSS} />
             Tiktok
           </a>
 
@@ -59,7 +57,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <img
-              src={logoInstagram}
+              src={Icons.instagram}
               alt="Instagram"
               className={styles.iconRRSS}
             />
@@ -73,7 +71,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <img
-              src={logoWhatsApp}
+              src={Icons.whatsappSec}
               alt="WhatsApp"
               className={styles.iconRRSS}
             />

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { ProductoDashboardDTO, ProductoDTO } from "../../../models/Producto/Producto_response_dto";
-import { createProducto, getAllProductos, getProductoById, updateProducto } from "../../../services/producto.service";
+import {
+	createProducto,
+	getAllProductos,
+	getProductoById,
+	updateProducto,
+	getQuantityProductos,
+} from "../../../services/producto.service";
 import { getAllCategories } from "../../../services/categoria.service";
-import DashboardTable, {
-	type Action,
-	type Column,
-} from "../../../Components/table/DashboardTable";
+import DashboardTable, { type Action, type Column } from "../../../Components/table/DashboardTable";
 import styles from "./Productos.module.css";
 import { useNavigate } from "react-router-dom";
 import IconSVG from "../../../Icons/IconSVG";
@@ -19,31 +22,32 @@ import ModalProductoEdit from "../../../Components/Producto/ModalProductoEdit";
 
 export default function ProductosTable() {
 	const [productos, setProductos] = useState<ProductoDashboardDTO[]>([]);
+	const [cantidad, setCantidad] = useState<number>(0);
 	const [page, setPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
 
 	const navigate = useNavigate();
 
-	//Cargamos las categorías para el select
+	// Categorías
 	const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
 
-	const [productoSeleccionado, setProductoSeleccionado] = useState<ProductoDTO | null>(null);
-
-	//Control de los modales
+	// Control de modales
 	const [showModal, setShowModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
+
+	const [productoSeleccionado, setProductoSeleccionado] = useState<ProductoDTO | null>(null);
 
 	const MySwal = withReactContent(Swal);
 
 	useEffect(() => {
 		loadProductos(page);
 		loadCategorias();
+		loadCantidadProductos();
 	}, [page]);
 
 	const loadProductos = async (page: number) => {
 		try {
-			const res: PaginatedResponse<ProductoDashboardDTO> =
-				await getAllProductos(page, 10);
+			const res: PaginatedResponse<ProductoDashboardDTO> = await getAllProductos(page, 10);
 			setProductos(res.content);
 			setTotalPages(res.totalPages);
 		} catch (error) {
@@ -57,6 +61,15 @@ export default function ProductosTable() {
 			setCategorias(res.content);
 		} catch (error) {
 			console.error("Error al cargar categorías:", error);
+		}
+	};
+
+	const loadCantidadProductos = async () => {
+		try {
+			const cantidadProductos = await getQuantityProductos();
+			setCantidad(cantidadProductos);
+		} catch (error) {
+			console.error("Error cargando cantidad de productos:", error);
 		}
 	};
 
@@ -99,6 +112,7 @@ export default function ProductosTable() {
 					text: "El producto ha sido creado exitosamente.",
 				});
 				loadProductos(page);
+				loadCantidadProductos();
 				setShowModal(false);
 			}
 		} catch (error: unknown) {
@@ -114,6 +128,7 @@ export default function ProductosTable() {
 	const handleEditProduct = async (data: ProductoFormData) => {
 		if (!productoSeleccionado) return;
 
+		// Verificación si hay cambios
 		if (
 			data.nombre === productoSeleccionado.nombre &&
 			data.descripcion === productoSeleccionado.descripcion &&
@@ -157,7 +172,6 @@ export default function ProductosTable() {
 		}
 	};
 
-
 	// Definición de columnas
 	const columns: Column<ProductoDashboardDTO>[] = [
 		{
@@ -183,25 +197,20 @@ export default function ProductosTable() {
 		{ header: "Descripción", accessor: "descripcion" },
 	];
 
-	// Acciones con iconos
 	const actions: Action<ProductoDashboardDTO>[] = [
 		{
 			label: "Ver",
 			icon: <IconSVG name="view-secondary" size={20} />,
 			onClick: (row) => {
 				navigate(`/dashboard/product/${row.id}`);
-				console.log("Ver producto", row);
 			},
 		},
 		{
 			label: "Editar",
 			icon: <IconSVG name="edit-secondary" size={20} />,
 			onClick: async (row) => {
-				//Buscamos el producto completo según el id
 				const producto = await getProductoById(row.id);
-				// Guardamos el producto completo en el estado para despues hacer el PUT
 				setProductoSeleccionado(producto);
-
 				setShowEditModal(true);
 			},
 		},
@@ -216,12 +225,13 @@ export default function ProductosTable() {
 		<div>
 			<div className={styles.dashboardHeader}>
 				<div className={styles.title}>Productos</div>
-
 				<div className={styles.headerActions}>
 					<div className={styles.totalProducts}>
-						Total: {"cantidad"} Productos
+						Total: {cantidad} Productos
 					</div>
-					<button className={styles.addButton} onClick={() => setShowModal(true)}>+ Añadir Producto</button>
+					<button className={styles.addButton} onClick={() => setShowModal(true)}>
+						+ Añadir Producto
+					</button>
 				</div>
 			</div>
 
@@ -252,7 +262,6 @@ export default function ProductosTable() {
 					onSubmit={handleEditProduct}
 				/>
 			)}
-
 		</div>
 	);
 }

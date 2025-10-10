@@ -1,0 +1,177 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: stretch;
+  margin: 40px 0;
+  padding: 16px 80px;
+}
+
+.left,
+.right {
+  width: 48%;
+}
+
+.title {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+}
+
+.personal {
+  height: 28vh;
+  margin-bottom: 20px;
+  padding: 40px;
+  padding-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+}
+
+.nameContainer {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.tipo {
+  font-size: 14px;
+  color: #666;
+}
+
+.datetime {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #333;
+  text-align: right;
+}
+
+.label {
+  margin-top: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.email,
+.phone {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.phone {
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate; /* para que se vea más espacioso */
+  border-spacing: 0 20px; /* espacio entre filas */
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+
+.table th {
+  color: #333;
+  font-weight: 600;
+  padding-left: 12px;
+  text-align: left;
+}
+
+.table td {
+  padding: 8px 20px;
+  text-align: left;
+}
+
+.estado {
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.sinAtender {
+  color: #d9e004;
+  background-color: #d9e0042e; /* naranja */
+}
+
+.enviada {
+  color: #01d20c;
+  background-color: #01d20c2e; /* azul */
+}
+
+.cerrada {
+  color: #931919;
+  background-color: #9319192e; /* verde */
+}
+
+.desconocido {
+  color: #ffffff;
+  background-color: #7f8c8d; /* gris */
+}
+
+/* Trabajadores */
+.productsList {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.productRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.productName {
+  font-size: 14px;
+  color: #333;
+  flex: 1;
+}
+
+.productDetails {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary-color);
+  white-space: nowrap;
+}
+
+.buttonsGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  padding: 16px;
+}
+
+.buttonWrapper {
+  width: 48%;
+}

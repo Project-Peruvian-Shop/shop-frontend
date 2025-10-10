@@ -55,3 +55,11 @@ export async function getProductosByCategoryId(
 
   return res.data.data;
 }
+
+export async function getQuantityCategorias(): Promise<number> {
+  const url = `${BASE_URL}/dashboard-quantity`;
+
+  const res = await axios.get<ApiResponse<number>>(url);
+
+  return res.data.data;
+}

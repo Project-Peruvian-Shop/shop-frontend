@@ -4,7 +4,7 @@ import { routes } from "../../utils/routes";
 import { obtenerUsuario } from "../../utils/auth";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContactenos } from "../../services/mensajes.service";
 
 const FormContactenos = () => {
@@ -20,6 +20,33 @@ const FormContactenos = () => {
   const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [contenido, setContenido] = useState("");
+
+  useEffect(() => {
+    if (usuario) {
+      // Cargar los valores del usuario en el formulario
+      setNombre(usuario.nombre || "");
+      setEmail(usuario.email || "");
+      setTipoDocumento(usuario.tipoDocumento || "");
+      setDocumento(usuario.documento || "");
+      setTelefono(usuario.telefono || "");
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Se han cargado tus datos personales",
+      });
+    }
+  }, [usuario]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -114,8 +141,8 @@ const FormContactenos = () => {
               </option>
               <option value="DNI">DNI</option>
               <option value="RUC">RUC</option>
-              <option value="Pasaporte">Pasaporte</option>
-              <option value="Otro">Otro</option>
+              <option value="PASAPORTE">Pasaporte</option>
+              <option value="OTRO">Otro</option>
             </select>
           </div>
 
@@ -153,6 +180,8 @@ const FormContactenos = () => {
               id="contenido"
               name="contenido"
               placeholder="Describa de manera clara su consulta para poder atenderlo de forma eficiente."
+              minLength={10}
+              maxLength={500}
               required
               value={contenido}
               onChange={(e) => setContenido(e.target.value)}

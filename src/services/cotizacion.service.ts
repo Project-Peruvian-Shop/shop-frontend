@@ -56,3 +56,11 @@ export async function getAllCotizaciones(
 
   return res.data.data;
 }
+
+export async function getQuantityCotizaciones(): Promise<number> {
+  const url = `${BASE_URL}/dashboard-quantity`;
+
+  const res = await axios.get<ApiResponse<number>>(url);
+
+  return res.data.data;
+}
