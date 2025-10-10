@@ -11,7 +11,6 @@ import type { CategoriaDashboardDTO } from "../../../models/Categoria/Categoria_
 import { getAllCategories } from "../../../services/categoria.service";
 import { updateProducto } from "../../../services/producto.service";
 import { createImagen } from "../../../services/imagen.service";
-import type { ImagenRequestDto } from "../../../models/Imagen/Imagen_request_dto";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -51,7 +50,19 @@ function ProductoDetalle() {
 
 		fetchProducto(id);
 	}, [id, navigate]);
+	const uploadImagen = async (file: File | null, defaultID = 2): Promise<number> => {
+		if (!file) return producto?.imagenId ?? defaultID;
 
+		const enlace = URL.createObjectURL(file);
+		const imagenData = {
+			enlace,
+			nombre: file.name,
+			alt: file.name.replace(/\s+/g, "-"),
+		};
+
+		const imagenResponse = await createImagen(imagenData);
+		return imagenResponse.id;
+	};
 	const handleEditProduct = async (data: {
 		nombre: string;
 		descripcion: string;
@@ -76,18 +87,8 @@ function ProductoDetalle() {
 		}
 
 		try {
-			// Si vas a subir imagen real, aquí iría tu lógica de uploadImagen
-			let imagenID = producto.imagenId;
-			if (data.imagenFile) {
-				const imagenRequest: ImagenRequestDto = {
-					nombre: data.imagenFile.name,
-					enlace: URL.createObjectURL(data.imagenFile), // o la URL real si ya subiste la imagen a un CDN
-					alt: data.imagenFile.name,
-				};
-				// ejemplo si tienes tu servicio de imagen ya listo:
-				const imagenRes = await createImagen(imagenRequest);
-				imagenID = imagenRes.id;
-			}
+			const imagenID = await uploadImagen(data.imagenFile);
+			
 
 			const body = {
 				nombre: data.nombre,
