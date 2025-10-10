@@ -5,9 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getSugeridos } from "../../services/producto.service";
 import type { PaginatedProductoResponseDTO } from "../../models/Producto/Producto_response_dto";
 import ProductCard from "../shop/card/ProductCard";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import { saveProductoToCart } from "../../utils/localStorage";
+import { addToCart } from "../../utils/cartUtils";
 
 interface ProductosSugeridosProps {
   producto: number;
@@ -22,27 +20,6 @@ function ProductosSugeridos(props: ProductosSugeridosProps) {
   const [productos, setProductos] = useState<PaginatedProductoResponseDTO[]>(
     []
   );
-
-  const addToCart = (producto: PaginatedProductoResponseDTO) => {
-    const MySwal = withReactContent(Swal);
-
-    console.log(`Producto ${producto.id} añadido al carrito`);
-    saveProductoToCart(producto, 1);
-
-    MySwal.fire({
-      icon: "success",
-      title: "¡Producto agregado!",
-      text: `Se agregó 1 unidad al carrito.`,
-      timer: 2000,
-      showCancelButton: true,
-      confirmButtonText: "Ir al carrito",
-      cancelButtonText: "Seguir comprando",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate(routes.shop_cart);
-      }
-    });
-  };
 
   useEffect(() => {
     if (!producto || !categoria) {
@@ -66,6 +43,14 @@ function ProductosSugeridos(props: ProductosSugeridosProps) {
     fetchProducto();
   }, [producto, categoria, navigate]);
 
+  const handleAddToCart = async (producto: PaginatedProductoResponseDTO) => {
+    const redirect = await addToCart(producto);
+
+    if (redirect) {
+      navigate(routes.shop_cart);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.usosContainer}>
@@ -83,7 +68,7 @@ function ProductosSugeridos(props: ProductosSugeridosProps) {
                 img={producto.imagenUrl}
                 title={producto.nombre}
                 alt={producto.imagenAlt}
-                click={() => addToCart(producto)}
+                click={() => handleAddToCart(producto)}
               />
             ))}
           </div>
