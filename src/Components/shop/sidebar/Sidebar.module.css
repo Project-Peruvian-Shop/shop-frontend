@@ -38,6 +38,9 @@
   color: #464646;
   font-weight: 400;
   font-size: 14px;
+
+  border: none;
+  background-color: white;
 }
 
 .categoryItem:hover {
