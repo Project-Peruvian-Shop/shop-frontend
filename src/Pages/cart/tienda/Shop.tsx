@@ -18,12 +18,13 @@ const Shop = () => {
   >([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchProductos = async () => {
       try {
         setLoading(true);
-        const response = await getPaginatedProductos(page, 9);
+        const response = await getPaginatedProductos(page, 9, selectedCategory);
         const responseCategories = await getCategoriaAllQuantity();
 
         setCategoriesData(responseCategories);
@@ -36,14 +37,22 @@ const Shop = () => {
     };
 
     fetchProductos();
-  }, [page]);
+  }, [page, selectedCategory]);
+
+  const handleCategoryClick = (categoryId: number | null) => {
+    setSelectedCategory(categoryId);
+    setPage(0);
+  };
 
   return (
     <>
       <SubHeader />
 
       <div className={styles.shopContainer}>
-        <Sidebar arrayCategories={categoriesData} />
+        <Sidebar
+          arrayCategories={categoriesData}
+          onCategoryClick={handleCategoryClick}
+        />
 
         <div className={styles.productsSection}>
           {loading ? (

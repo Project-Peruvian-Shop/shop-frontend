@@ -13,9 +13,19 @@ const BASE_URL = URL_API + "/producto";
 
 export async function getPaginatedProductos(
   page: number = 0,
-  size: number = 10
+  size: number = 10,
+  categoria: number | null = null
 ): Promise<PaginatedResponse<PaginatedProductoResponseDTO>> {
-  const url = `${BASE_URL}/paginated?page=${page}&size=${size}`;
+  const params = new URLSearchParams();
+  params.append("page", page.toString());
+  params.append("size", size.toString());
+  if (categoria !== null) {
+    params.append("categoria", categoria.toString());
+  }
+
+  console.log("Fetching products with params:", params.toString());
+  
+  const url = `${BASE_URL}/paginated?${params.toString()}`;
   const res = await axios.get<
     ApiResponse<PaginatedResponse<PaginatedProductoResponseDTO>>
   >(url);
