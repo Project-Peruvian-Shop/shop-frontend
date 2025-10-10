@@ -17,8 +17,8 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import type { CategoriaDashboardDTO } from "../../../models/Categoria/Categoria_response";
 import { createImagen } from "../../../services/imagen.service";
-import ModalProductoCreate from "../../../Components/Producto/ModalProductoCreate";
-import ModalProductoEdit from "../../../Components/Producto/ModalProductoEdit";
+import ModalProductoCreate from "../../../Components/dashboard/Modals/Producto/ModalProductoCreate";
+import ModalProductoEdit from "../../../Components/dashboard/Modals/Producto/ModalProductoEdit";
 
 export default function ProductosTable() {
 	const [productos, setProductos] = useState<ProductoDashboardDTO[]>([]);

@@ -6,7 +6,7 @@ import { getProductoById } from "../../../services/producto.service";
 import { routes } from "../../../utils/routes";
 import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
-import ModalProductoEdit from "../../../Components/Producto/ModalProductoEdit";
+import ModalProductoEdit from "../../../Components/dashboard/Modals/Producto/ModalProductoEdit";
 import type { CategoriaDashboardDTO } from "../../../models/Categoria/Categoria_response";
 import { getAllCategories } from "../../../services/categoria.service";
 import { updateProducto } from "../../../services/producto.service";
