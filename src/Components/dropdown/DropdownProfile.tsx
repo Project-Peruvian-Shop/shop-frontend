@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./DropdownProfile.module.css";
+import { routes } from "../../utils/routes";
+import { useLogout } from "../../hooks/useLogout";
 
 interface UserDropdownClassicProps {
   userName: string;
@@ -11,10 +13,10 @@ interface UserDropdownClassicProps {
 export default function DropdownProfile({
   userName,
   userAvatar,
-  handleLogout,
 }: UserDropdownClassicProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const logout = useLogout();
 
   // Cerrar dropdown al hacer click fuera
   useEffect(() => {
@@ -55,7 +57,16 @@ export default function DropdownProfile({
       {isOpen && (
         <div className={styles.dropdownMenu}>
           <Link
-            to="/perfil"
+            to={routes.dashboard}
+            className={styles.menuItem}
+            onClick={() => setIsOpen(false)}
+          >
+            {/* <User className={styles.icon} /> */}
+            <span>Dashboard</span>
+          </Link>
+
+          <Link
+            to={routes.profile_user}
             className={styles.menuItem}
             onClick={() => setIsOpen(false)}
           >
@@ -64,7 +75,7 @@ export default function DropdownProfile({
           </Link>
 
           <Link
-            to="/mis-cotizaciones"
+            to={routes.profile_cotization}
             className={styles.menuItem}
             onClick={() => setIsOpen(false)}
           >
@@ -75,10 +86,7 @@ export default function DropdownProfile({
           <div className={styles.divider} />
 
           <button
-            onClick={() => {
-              handleLogout();
-              setIsOpen(false);
-            }}
+            onClick={logout}
             className={`${styles.menuItem} ${styles.logout}`}
           >
             {/* <LogOut className={styles.icon} /> */}
