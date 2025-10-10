@@ -84,13 +84,13 @@ export default function DropdownProfile({
 
           <div className={styles.divider} />
 
-          <button
+          <div
             onClick={logout}
             className={`${styles.menuItem} ${styles.logout}`}
           >
             {/* <LogOut className={styles.icon} /> */}
             <span>Cerrar sesión</span>
-          </button>
+          </div>
         </div>
       )}
     </div>
