@@ -5,7 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { useEffect, useState } from "react";
 import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
 import type { CotizacionUserDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
-import { eliminarUsuario, obtenerUsuario } from "../../../utils/auth";
+import { obtenerUsuario } from "../../../utils/auth";
 import { getProfile } from "../../../services/usuario.service";
 import { getCotizacionesByUser } from "../../../services/cotizacion.service";
 import { routes } from "../../../utils/routes";
@@ -60,39 +60,6 @@ function Profile() {
         });
       });
   }, [navigate]);
-
-  const handleCerrarSesion = () => {
-    MySwal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción cerrará tu sesión.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, cerrar sesión",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        eliminarUsuario();
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-
-        navigate(routes.login);
-        Toast.fire({
-          icon: "success",
-          title: "Sesión cerrada exitosamente",
-        });
-      }
-    });
-  };
 
   const mapperRol = (rol: string) => {
     switch (rol) {
@@ -170,14 +137,6 @@ function Profile() {
                 {fechaHora.toLocaleTimeString()}
               </span>
             </div>
-
-            {/* Botón de Cerrar Sesión dentro de esta sección */}
-            <button
-              className={styles.logoutButton}
-              onClick={handleCerrarSesion}
-            >
-              Cerrar Sesión
-            </button>
           </div>
 
           <div className={styles.personal}>
