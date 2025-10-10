@@ -6,83 +6,183 @@ import { getProductoById } from "../../../services/producto.service";
 import { routes } from "../../../utils/routes";
 import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
+import ModalProductoEdit from "../../../Components/Producto/ModalProductoEdit";
+import type { CategoriaDashboardDTO } from "../../../models/Categoria/Categoria_response";
+import { getAllCategories } from "../../../services/categoria.service";
+import { updateProducto } from "../../../services/producto.service";
+import { createImagen } from "../../../services/imagen.service";
+import type { ImagenRequestDto } from "../../../models/Imagen/Imagen_request_dto";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function ProductoDetalle() {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+	const { id } = useParams<{ id: string }>();
+	const navigate = useNavigate();
 
-  const [producto, setProducto] = useState<ProductoDTO | null>(null);
+	const [producto, setProducto] = useState<ProductoDTO | null>(null);
+	const [showEditModal, setShowEditModal] = useState(false);
+	const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
+	const MySwal = withReactContent(Swal);
 
-  useEffect(() => {
-    if (!id) {
-      navigate(routes.dashboard);
-      return;
-    }
+	useEffect(() => {
+		const loadCategorias = async () => {
+			const res = await getAllCategories(0, 20);
+			setCategorias(res.content);
+		};
+		loadCategorias();
+	}, []);
 
-    const fetchProducto = async (id: string) => {
-      try {
-        const data = await getProductoById(Number(id));
-        setProducto(data);
-      } catch (error) {
-        console.error("Error al obtener el producto:", error);
-        navigate(routes.dashboard_products);
-      }
-    };
 
-    fetchProducto(id);
-  }, [id, navigate]);
-  return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.title}>Producto {producto?.nombre}</div>
-        <div className={styles.actions}>
-          <ButtonHeader
-            title="Editar"
-            onClick={() => console.log("Acciones")}
-            icon="edit-secondary"
-            size={24}
-            style="secondary-outline"
-          />
-          <ButtonHeader
-            title="Eliminar"
-            onClick={() => console.log("Acciones")}
-            icon="delete-primary"
-            size={24}
-            style="primary-outline"
-          />
-        </div>
-      </div>
+	useEffect(() => {
+		if (!id) {
+			navigate(routes.dashboard);
+			return;
+		}
 
-      <div className={styles.content}>
-        <div className={styles.left}>
-          <InfoCard
-            title="Datos del Producto"
-            items={[
-              { label: "ID:", value: producto?.id || "0" },
-              { label: "Nombre:", value: producto?.nombre || "" },
-              { label: "Categoría:", value: producto?.categoriaNombre || "" },
-              { label: "Descripción:", value: producto?.descripcion || "" },
-            ]}
-          />
+		const fetchProducto = async (id: string) => {
+			try {
+				const data = await getProductoById(Number(id));
+				setProducto(data);
+			} catch (error) {
+				console.error("Error al obtener el producto:", error);
+				navigate(routes.dashboard_products);
+			}
+		};
 
-          <InfoCard
-            title="Detalles técnicos"
-            items={[
-              { label: "Norma:", value: producto?.categoriaNombre || "" },
-              { label: "Usos:", value: producto?.categoriaUsos || "" },
-            ]}
-          />
-        </div>
-        <div className={styles.right}>
-          <img
-            src={producto?.productoEnlace}
-            alt={producto?.productoAlt}
-            className={styles.productImage}
-          />
-        </div>
-      </div>
-    </div>
-  );
+		fetchProducto(id);
+	}, [id, navigate]);
+
+	const handleEditProduct = async (data: {
+		nombre: string;
+		descripcion: string;
+		categoriaID: number;
+		imagenFile: File | null;
+	}) => {
+		if (!producto) return;
+
+		const noHayCambios =
+			data.nombre === producto.nombre &&
+			data.descripcion === producto.descripcion &&
+			data.categoriaID === producto.categoriaId && 
+			data.imagenFile === null;
+
+		if (noHayCambios) {
+			MySwal.fire({
+				icon: "info",
+				title: "Sin cambios",
+				text: "No se ha modificado ningún campo.",
+			});
+			return;
+		}
+
+		try {
+			// Si vas a subir imagen real, aquí iría tu lógica de uploadImagen
+			let imagenID = producto.imagenId;
+			if (data.imagenFile) {
+				const imagenRequest: ImagenRequestDto = {
+					nombre: data.imagenFile.name,
+					enlace: URL.createObjectURL(data.imagenFile), // o la URL real si ya subiste la imagen a un CDN
+					alt: data.imagenFile.name,
+				};
+				// ejemplo si tienes tu servicio de imagen ya listo:
+				const imagenRes = await createImagen(imagenRequest);
+				imagenID = imagenRes.id;
+			}
+
+			const body = {
+				nombre: data.nombre,
+				descripcion: data.descripcion,
+				categoriaID: data.categoriaID,
+				imagenID: imagenID,
+			};
+
+			await updateProducto(producto.id, body);
+			MySwal.fire({
+				icon: "success",
+				title: "Producto actualizado",
+				text: "Los cambios se guardaron correctamente.",
+			});
+
+			// Volver a traer los datos actualizados
+			const updated = await getProductoById(producto.id);
+			setProducto(updated);
+
+			setShowEditModal(false);
+		} catch (error) {
+			const mensaje = error instanceof Error ? error.message : String(error);
+			MySwal.fire({
+				icon: "error",
+				title: "Error al actualizar",
+				text: mensaje,
+			});
+		}
+	};
+	return (
+		<div className={styles.container}>
+			<div className={styles.header}>
+				<div className={styles.title}>Producto {producto?.nombre}</div>
+				<div className={styles.actions}>
+					<ButtonHeader
+						title="Editar"
+						onClick={() => {
+							console.log("Click en Editar");
+							setShowEditModal(true);
+						}}
+						icon="edit-secondary"
+						size={24}
+						style="secondary-outline"
+					/>
+					<ButtonHeader
+						title="Eliminar"
+						onClick={() => console.log("Acciones")}
+						icon="delete-primary"
+						size={24}
+						style="primary-outline"
+					/>
+				</div>
+			</div>
+
+			<div className={styles.content}>
+				<div className={styles.left}>
+					<InfoCard
+						title="Datos del Producto"
+						items={[
+							{ label: "ID:", value: producto?.id || "0" },
+							{ label: "Nombre:", value: producto?.nombre || "" },
+							{ label: "Categoría:", value: producto?.categoriaNombre || "" },
+							{ label: "Descripción:", value: producto?.descripcion || "" },
+						]}
+					/>
+
+					<InfoCard
+						title="Detalles técnicos"
+						items={[
+							{ label: "Norma:", value: producto?.categoriaNombre || "" },
+							{ label: "Usos:", value: producto?.categoriaUsos || "" },
+						]}
+					/>
+				</div>
+				<div className={styles.right}>
+					<img
+						src={producto?.productoEnlace}
+						alt={producto?.productoAlt}
+						className={styles.productImage}
+					/>
+				</div>
+			</div>
+			{showEditModal && producto && (
+				<>
+					{console.log("✅ Modal se está intentando renderizar")}
+					<ModalProductoEdit
+						producto={producto}
+						categorias={categorias}
+						onClose={() => setShowEditModal(false)}
+						onSubmit={handleEditProduct}
+					/>
+				</>
+			)}
+		</div>
+	);
 }
 
 export default ProductoDetalle;

@@ -3,9 +3,11 @@ import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type {
   PaginatedProductoResponseDTO,
+  ProductoCreateResponseDTO,
   ProductoDashboardDTO,
   ProductoDTO,
 } from "../models/Producto/Producto_response_dto";
+import type { ProductoRequestDTO } from "../models/Producto/Producto_request_dto";
 
 const BASE_URL = URL_API + "/producto";
 
@@ -39,6 +41,31 @@ export async function getAllProductos(
   const res = await axios.get<
     ApiResponse<PaginatedResponse<ProductoDashboardDTO>>
   >(url);
+
+  return res.data.data;
+}
+export async function createProducto(
+  body: ProductoRequestDTO
+): Promise<ProductoCreateResponseDTO> {
+  const url = `${BASE_URL}/`;
+
+  const res = await axios.post<ApiResponse<ProductoCreateResponseDTO>>(
+    url, 
+    body
+  );
+  
+  return res.data.data;
+
+}
+export async function updateProducto(
+  id: number, body: ProductoRequestDTO
+): Promise<ProductoCreateResponseDTO> {
+  const url = `${BASE_URL}/${id}`;
+  
+  const res = await axios.put<ApiResponse<ProductoCreateResponseDTO>>(
+    url,
+    body
+  );
 
   return res.data.data;
 }

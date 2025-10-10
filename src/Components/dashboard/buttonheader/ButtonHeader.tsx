@@ -12,7 +12,12 @@ interface ButtonHeaderProps {
 
 function ButtonHeader(props: ButtonHeaderProps) {
   return (
-    <div className={`${styles.button} ${styles[props.style]}`}>
+    <div
+      className={`${styles.button} ${styles[props.style]}`}
+      onClick={props.onClick} 
+      role="button"
+      tabIndex={0}
+    >
       <div className={styles.icon}>
         <IconSVG name={props.icon} size={props.size} />
       </div>
@@ -20,5 +25,6 @@ function ButtonHeader(props: ButtonHeaderProps) {
     </div>
   );
 }
+
 
 export default ButtonHeader;

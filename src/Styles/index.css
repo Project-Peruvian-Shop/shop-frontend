@@ -7,6 +7,8 @@
   --secondary-color-dark: #1b2f3378;
   --gray-color: #c7c7c728;
   --white-color: #ffffff;
+  --placeholder-color: #aaaaaa;
+  --border-input-color: #dddddd;
 }
 
 body {
