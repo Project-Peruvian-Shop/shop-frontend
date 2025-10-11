@@ -9,16 +9,22 @@ export default function SubHeader() {
   const [cantidadCarrito, setCantidadCarrito] = useState(0);
 
   useEffect(() => {
-    const items = getCartFromLocalStorage();
-    setCantidadCarrito(items.length);
-
-    const handleStorageChange = () => {
+    const updateCartCount = () => {
       const updatedItems = getCartFromLocalStorage();
       setCantidadCarrito(updatedItems.length);
     };
 
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    // Inicial
+    updateCartCount();
+
+    // Escucha cambios globales del carrito
+    window.addEventListener("cartUpdated", updateCartCount);
+    window.addEventListener("storage", updateCartCount); // por si se abre en otra pestaña
+
+    return () => {
+      window.removeEventListener("cartUpdated", updateCartCount);
+      window.removeEventListener("storage", updateCartCount);
+    };
   }, []);
 
   return (
