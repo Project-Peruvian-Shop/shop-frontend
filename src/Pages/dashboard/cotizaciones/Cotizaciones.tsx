@@ -12,6 +12,8 @@ import {
 import IconSVG from "../../../Icons/IconSVG";
 import { useNavigate } from "react-router-dom";
 import ModalObservacion from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservaciones";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] = useState<CotizacionDashboardDTO[]>(
@@ -23,7 +25,7 @@ function Cotizaciones() {
   const [showModal, setShowModal] = useState(false);
   const [selectedCotizacion, setSelectedCotizacion] =
     useState<CotizacionDashboardDTO | null>(null);
-
+  const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -143,11 +145,42 @@ function Cotizaciones() {
           onClose={() => setShowModal(false)}
           onSave={async (id, obs) => {
             try {
+              if (!selectedCotizacion) return;
+              if (obs.trim() === "") {
+                await MySwal.fire({
+                  icon: "warning",
+                  title: "Observación vacía",
+                  text: "Por favor, ingresa una observación.",
+                });
+                return;
+              }
+              if (
+                obs.trim() === (selectedCotizacion.observaciones || "").trim()
+              ) {
+                await MySwal.fire({
+                  icon: "info",
+                  title: "Sin cambios",
+                  text: "No se detectaron modificaciones en la observación.",
+                });
+                return;
+              }
               await updateObservacionCotizacion(id, obs);
+
+              await MySwal.fire({
+                icon: "success",
+                title: "¡Observación actualizada!",
+                text: "La observación ha sido modificada correctamente.",
+              });
+
               setShowModal(false);
               await loadCotizaciones(page);
             } catch (error) {
               console.error("Error al actualizar observaciones:", error);
+              MySwal.fire({
+                icon: "error",
+                title: "Error al actualizar",
+                text: "No se pudo guardar la observación.",
+              });
             }
           }}
         />

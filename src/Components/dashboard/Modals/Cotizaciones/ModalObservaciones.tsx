@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./ModalObservaciones.module.css";
 import type { CotizacionDashboardDTO } from "../../../../models/Cotizacion/Cotizacion_response_dto";
 
@@ -19,13 +19,13 @@ const ModalObservacion = ({
     cotizacion?.observaciones || ""
   );
 
-  if (!show || !cotizacion) return null;
-
-  const handleSave = async () => {
-    if (cotizacion.id) {
-      await onSave(cotizacion.id, observacion);
+  useEffect(() => {
+    if (cotizacion) {
+      setObservacion(cotizacion.observaciones || "");
     }
-  };
+  }, [cotizacion]);
+
+  if (!show || !cotizacion) return null;
 
   return (
     <div className={styles.modalOverlay}>
@@ -45,7 +45,10 @@ const ModalObservacion = ({
           <button onClick={onClose} className={styles.cancelButton}>
             Cancelar
           </button>
-          <button onClick={handleSave} className={styles.addButton}>
+          <button
+            onClick={() => onSave(cotizacion.id, observacion)}
+            className={styles.addButton}
+          >
             Guardar
           </button>
         </div>
