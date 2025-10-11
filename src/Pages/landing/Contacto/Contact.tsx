@@ -1,4 +1,4 @@
-import FormContactenos from "../../../Components/Contactenos/FormContactenos";
+import FormContactenos from "../../../Components/landing/Contactenos/FormContactenos";
 import Header from "../../../Components/header/Header";
 import Card from "../../../Components/home/card/Card";
 import { Icons } from "../../../Icons/icons";

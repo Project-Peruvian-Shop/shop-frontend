@@ -1,7 +1,7 @@
 import style from "./Complaints_book.module.css";
 import Header from "../../../Components/header/Header";
-import FormLibro from "../../../Components/Libro_reclamaciones/FormLibro";
 import { Icons } from "../../../Icons/icons";
+import FormLibro from "../../../Components/landing/Libro_reclamaciones/FormLibro";
 
 const Complaints_book = () => {
   return (
