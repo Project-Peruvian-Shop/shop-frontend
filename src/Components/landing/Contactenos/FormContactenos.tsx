@@ -1,11 +1,11 @@
 import style from "./FormContactenos.module.css";
 import { Link } from "react-router-dom";
-import { routes } from "../../utils/routes";
-import { obtenerUsuario } from "../../utils/auth";
+import { routes } from "../../../utils/routes";
+import { obtenerUsuario } from "../../../utils/auth";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
-import { createContactenos } from "../../services/mensajes.service";
+import { createContactenos } from "../../../services/mensajes.service";
 
 const FormContactenos = () => {
   const usuario = obtenerUsuario();
