@@ -61,7 +61,6 @@ const Contact = () => {
           }
           alt="phone-icon"
           link={routes.contact}
-          visible={false}
         />
         <Card
           img={Icons.email}
@@ -74,7 +73,6 @@ const Contact = () => {
           }
           alt="email-icon"
           link={routes.contact}
-          visible={false}
         />
         <Card
           img={locationIcon}
@@ -87,7 +85,6 @@ const Contact = () => {
           }
           alt="ubicacion-icon"
           link={routes.contact}
-          visible={false}
         />
       </div>
     </main>

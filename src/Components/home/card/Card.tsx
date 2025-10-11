@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Button from "../../Button";
 import type React from "react";
 import styles from "./Card.module.css";
 
@@ -8,10 +7,9 @@ type CardProps = {
   title: React.ReactNode;
   alt: string;
   link: string;
-  visible: boolean;
 };
 
-const Card = ({ img, title, alt, link, visible }: CardProps) => {
+const Card = ({ img, title, alt, link }: CardProps) => {
   return (
     <Link to={link} className={styles.card}>
       <div className={styles.imgContainer}>
@@ -19,14 +17,6 @@ const Card = ({ img, title, alt, link, visible }: CardProps) => {
       </div>
 
       <div className={styles.title}>{title}</div>
-
-      {visible ? (
-        <Button
-          text="Añadir al carrito"
-          css=""
-          onClick={() => alert("Funcionalidad en desarrollo")}
-        />
-      ) : null}
     </Link>
   );
 };
