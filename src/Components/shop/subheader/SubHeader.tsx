@@ -31,7 +31,9 @@ export default function SubHeader() {
     <div className={styles.storebarContainer}>
       <div className={styles.storebarInner}>
         {/* Left: Store Icon & Title */}
-        <div className={styles.storeTitle}>Tienda</div>
+        <Link to={routes.shop_cart} className={styles.storeTitle}>
+          Tienda
+        </Link>
 
         {/* Center: Search Bar */}
         <div className={styles.searchContainer}>
@@ -44,7 +46,6 @@ export default function SubHeader() {
             />
           </div>
         </div>
-
         {/* Right: Cart Button */}
         <Link to={routes.shop_cart} className={styles.cartButton}>
           <IconSVG name="cart" size={20} className={styles.cartIcon} />
