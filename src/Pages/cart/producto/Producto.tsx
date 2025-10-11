@@ -63,7 +63,7 @@ const Producto = () => {
 
   return (
     <>
-      <SubHeader />
+      <SubHeader title={`Producto ${producto?.nombre}`} />
 
       <div className={styles.productoContainer}>
         {loading ? (

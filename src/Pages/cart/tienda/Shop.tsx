@@ -46,7 +46,7 @@ const Shop = () => {
 
   return (
     <>
-      <SubHeader />
+      <SubHeader title="Tienda" />
 
       <div className={styles.shopContainer}>
         <Sidebar

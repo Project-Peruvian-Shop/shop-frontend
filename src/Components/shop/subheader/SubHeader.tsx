@@ -5,7 +5,12 @@ import { useEffect, useState } from "react";
 import { getCartFromLocalStorage } from "../../../utils/localStorage";
 import { routes } from "../../../utils/routes";
 
-export default function SubHeader() {
+type SubHeaderProps = {
+  title: string;
+};
+
+export default function SubHeader(props: SubHeaderProps) {
+  const { title } = props;
   const [cantidadCarrito, setCantidadCarrito] = useState(0);
 
   useEffect(() => {
@@ -32,7 +37,7 @@ export default function SubHeader() {
       <div className={styles.storebarInner}>
         {/* Left: Store Icon & Title */}
         <Link to={routes.shop_cart} className={styles.storeTitle}>
-          Tienda
+          {title}
         </Link>
 
         {/* Center: Search Bar */}
