@@ -96,10 +96,11 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
   min-width: fit-content;
+  text-decoration: none;
 }
 
 .cartButton:hover {
-  background-color: #c5c5c5;
+  background-color: #d5d5d5;
 }
 
 .cartIcon {
@@ -109,7 +110,7 @@
 
 .cartText {
   display: none;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
