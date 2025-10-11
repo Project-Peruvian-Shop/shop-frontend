@@ -1,42 +1,35 @@
-import { Link } from "react-router-dom";
+import IconSVG from "../../../Icons/IconSVG";
 import styles from "./SubHeader.module.css";
-import { routes } from "../../../utils/routes";
 
-const SubHeader = () => {
+export default function SubHeader() {
   return (
-    <div className={styles.container}>
-      <h2>Tienda</h2>
+    <div className={styles.storebarContainer}>
+      <div className={styles.storebarInner}>
+        {/* Left: Store Icon & Title */}
+        <div className={styles.storeTitle}>
+          <IconSVG name="items" size={20} className={styles.storeIcon} />
+          <span className={styles.storeText}>Tienda</span>
+        </div>
 
-      <div className={styles.navbar}>
-        <Link to={routes.home} className={styles.links}>
-          Inicio
-        </Link>
-
-        <Link to={routes.profile_user} className={styles.links}>
-          Mi Perfil
-        </Link>
-
-        <Link to={routes.shop_cart} className={styles.links}>
-          Carrito
-        </Link>
-
-        {/* <div className={styles.dropdown}>
-          <button className={styles.dropbtn}>Ayuda ▾</button>
-          <div className={styles.dropdownContent}>
-            <Link to={routes.complaints_book}>Libro de Reclamaciones</Link>
-            <Link to={routes.privacy_policy}>Política de Privacidad</Link>
-            <Link to={routes.tyc}>Términos y Condiciones</Link>
-            <Link to={routes.questions}>Preguntas Frecuentes</Link>
-            <Link to={routes.contact}>Contáctenos</Link>
+        {/* Center: Search Bar */}
+        <div className={styles.searchContainer}>
+          <div className={styles.searchWrapper}>
+            <IconSVG name="search" size={16} className={styles.searchIcon} />
+            <input
+              type="text"
+              placeholder="Buscar productos…"
+              className={styles.searchInput}
+            />
           </div>
-        </div> */}
+        </div>
 
-        {/* <Link to={routes.about} className={styles.links}>
-          ¿Quiénes somos?
-        </Link> */}
+        {/* Right: Cart Button */}
+        <button className={styles.cartButton}>
+          <IconSVG name="cart" size={20} className={styles.cartIcon} />
+          <span className={styles.cartText}>Carrito</span>
+          <span className={styles.cartBadge}>3</span>
+        </button>
       </div>
     </div>
   );
-};
-
-export default SubHeader;
+}
