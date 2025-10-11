@@ -1,4 +1,4 @@
-import CartTable from "../../../Components/cart/carrito/CartTable";
+import CartTable from "../../../Components/shop/carrito/CartTable";
 import Header from "../../../Components/header/Header";
 import styles from "./Carrito.module.css";
 
