@@ -8,8 +8,8 @@ import {
   getCategoryById,
   getQuantityCategorias,
 } from "../../../services/categoria.service";
-import type { Action, Column } from "../../../Components/table/DashboardTable";
-import DashboardTable from "../../../Components/table/DashboardTable";
+import type { Action, Column } from "../../../Components/dashboard/table/DashboardTable";
+import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import { useNavigate } from "react-router-dom";
 import IconSVG from "../../../Icons/IconSVG";
 import ModalCategoriaCreate from "../../../Components/dashboard/Modals/Categoria/ModalCategoriaCreate";

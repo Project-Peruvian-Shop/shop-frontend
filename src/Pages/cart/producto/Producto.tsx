@@ -8,7 +8,7 @@ import { saveProductoToCart } from "../../../utils/localStorage";
 import { routes } from "../../../utils/routes";
 import { getProductoById } from "../../../services/producto.service";
 import SubHeader from "../../../Components/shop/subheader/SubHeader";
-import ProductosSugeridos from "../../../Components/ProductosSugeridos/ProductosSugeridos";
+import ProductosSugeridos from "../../../Components/cart/ProductosSugeridos/ProductosSugeridos";
 
 const Producto = () => {
   const { id } = useParams<{ id: string }>();

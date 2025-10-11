@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./Cotizaciones.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
-import type { Action, Column } from "../../../Components/table/DashboardTable";
-import DashboardTable from "../../../Components/table/DashboardTable";
+import type { Action, Column } from "../../../Components/dashboard/table/DashboardTable";
+import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import {
   getAllCotizaciones,

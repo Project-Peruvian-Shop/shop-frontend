@@ -1,7 +1,7 @@
 import styles from "./Mensajes.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
-import type { Action, Column } from "../../../Components/table/DashboardTable";
-import DashboardTable from "../../../Components/table/DashboardTable";
+import type { Action, Column } from "../../../Components/dashboard/table/DashboardTable";
+import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import { useEffect, useState } from "react";
 import {
   getAllMensajes,

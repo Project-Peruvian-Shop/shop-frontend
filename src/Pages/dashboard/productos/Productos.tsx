@@ -9,7 +9,7 @@ import {
 	getQuantityProductos,
 } from "../../../services/producto.service";
 import { getAllCategories } from "../../../services/categoria.service";
-import DashboardTable, { type Action, type Column } from "../../../Components/table/DashboardTable";
+import DashboardTable, { type Action, type Column } from "../../../Components/dashboard/table/DashboardTable";
 import styles from "./Productos.module.css";
 import { useNavigate } from "react-router-dom";
 import IconSVG from "../../../Icons/IconSVG";
