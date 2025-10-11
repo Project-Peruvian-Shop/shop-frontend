@@ -20,7 +20,13 @@ export default function SideBarDashboard() {
     <aside className={styles.sidebar}>
       {/* Logo */}
       <div className={styles.logoContainer}>
-        <img src={logo} alt="Logo" className={styles.logo} width={100} />
+        <Link to={routes.home}>
+          <img
+            src={logo}
+            alt="logo-tuberias-peruanito"
+            className={styles.logo}
+          />
+        </Link>
       </div>
 
       <hr className={styles.divider} />
