@@ -1,7 +1,7 @@
 .storebarContainer {
   width: 100%;
   background-color: var(--secondary-color);
-  padding: 0.6rem 0;
+  padding: 1rem 0;
   color: white;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -28,21 +28,21 @@
   align-items: center;
   gap: 0.5rem;
   min-width: fit-content;
-  color: white;
-  font-size: 1.5rem;
   font-weight: 500;
-  font-family: "Poppins", sans-serif;
-}
 
-.storeText {
-  margin-left: 8px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 36px;
 }
 
 /* ---- Center: Search ---- */
 .searchContainer {
   flex: 1;
+  margin-left: -80px;
   max-width: 42rem;
-  margin: 0 2rem;
 }
 
 .searchWrapper {

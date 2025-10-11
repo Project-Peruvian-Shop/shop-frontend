@@ -31,10 +31,7 @@ export default function SubHeader() {
     <div className={styles.storebarContainer}>
       <div className={styles.storebarInner}>
         {/* Left: Store Icon & Title */}
-        <div className={styles.storeTitle}>
-          <IconSVG name="items" size={20} className={styles.storeIcon} />
-          <span className={styles.storeText}>Tienda</span>
-        </div>
+        <div className={styles.storeTitle}>Tienda</div>
 
         {/* Center: Search Bar */}
         <div className={styles.searchContainer}>
