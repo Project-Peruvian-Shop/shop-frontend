@@ -16,17 +16,16 @@ export interface CotizacionCreateResponseDTO {
 }
 
 //Cotizacion dashboard
-
 export interface CotizacionDashboardDTO {
-  cotizacionId: number;
-  cotizacionCreacion: string;
-  cotizacionNombre: string;
-  cotizacionEmail: string;
-  cotizacionTelefono: string;
-  cotizacionComentarios: string;
-  cotizacionEstado: number;
+  id: number;
+  numeroCotizacion: string;
+  clienteNombre: string;
+  clienteDocumento: string;
+  creacion: string;
+  estado: string;
+  comentario: string;
+  observaciones: string;
 }
-
 //CotizacionProductoDTO
 
 export interface CotizacionProductoDTO {
@@ -94,14 +93,4 @@ export interface CotizacionFullDTO {
   telefono: string;
   observaciones: string;
   cotizacionEnlace: string | null;
-}
-
-export interface CotizacionDashboardDTO {
-  id: number;
-  numeroCotizacion: string;
-  clienteNombre: string;
-  clienteDocumento: string;
-  creacion: string;
-  estado: string;
-  observaciones: number;
 }

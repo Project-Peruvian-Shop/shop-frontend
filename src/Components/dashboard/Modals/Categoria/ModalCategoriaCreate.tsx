@@ -1,24 +1,22 @@
-// ModalProductoCreate.tsx
 import { useState } from "react";
-import styles from "../../Pages/dashboard/productos/Productos.module.css";
-import add_img from "../../Icons/Modal_producto/add_img.svg";
-import upload from "../../Icons/Modal_producto/upload_icon.svg";
+import styles from "./ModalCategoriaCreate.module.css";
+import add_img from "../../../../Icons/Modal_producto/add_img.svg";
+import upload from "../../../../Icons/Modal_producto/upload_icon.svg";
 
-interface ModalProductoCreateProps {
-	categorias: { id: number; nombre: string }[];
+interface ModalCategoriaCreateProps {
 	onClose: () => void;
 	onSubmit: (data: {
 		nombre: string;
-		descripcion: string;
-		categoriaID: number;
+		norma: string;
+		usos: string;
 		imagenFile: File | null;
 	}) => Promise<void>;
 }
 
-export default function ModalProductoCreate({ categorias, onClose, onSubmit }: ModalProductoCreateProps) {
+export default function ModalCategoriaCreate({  onClose, onSubmit }: ModalCategoriaCreateProps) {
 	const [nombre, setNombre] = useState("");
-	const [descripcion, setDescripcion] = useState("");
-	const [categoriaID, setCategoriaID] = useState<number | string>("");
+	const [norma, setNorma] = useState("");
+	const [usos, setUsos] = useState("");
 	const [imagenFile, setImagenFile] = useState<File | null>(null);
 	const [imagenPreview, setImagenPreview] = useState<string | null>(null);
 
@@ -26,8 +24,8 @@ export default function ModalProductoCreate({ categorias, onClose, onSubmit }: M
 		e.preventDefault();
 		onSubmit({
 			nombre,
-			descripcion,
-			categoriaID: Number(categoriaID),
+			norma,
+			usos,
 			imagenFile,
 		});
 	};
@@ -38,7 +36,7 @@ export default function ModalProductoCreate({ categorias, onClose, onSubmit }: M
 				<form onSubmit={handleSubmit} className={styles.form}>
 					<div className={styles.formRow}>
 						<div className={styles.imagenSection}>
-							<h3>Imagen del producto</h3>
+							<h3>Imagen de la Categoría</h3>
 							<div
 								className={`${styles.dropZone} ${imagenPreview ? styles.dropZoneActive : ""}`}
 								onDragOver={(e) => e.preventDefault()}
@@ -81,28 +79,21 @@ export default function ModalProductoCreate({ categorias, onClose, onSubmit }: M
 						</div>
 
 						<div className={styles.datosSection}>
-							<h3>Información del producto</h3>
+							<h3>Información de la Categoría</h3>
 							<label>
-								Nombre del producto
-								<input value={nombre} placeholder="Nombre del producto" onChange={(e) => setNombre(e.target.value)} required />
+								Nombre de la Categoría
+								<input value={nombre} placeholder="Nombre de la Categoría" onChange={(e) => setNombre(e.target.value)} required />
 							</label>
 							<label>
-								Categoría
-								<select value={categoriaID} onChange={(e) => setCategoriaID(e.target.value)} required>
-									<option value="">Selecciona una categoría</option>
-									{categorias.map((cat) => (
-										<option key={cat.id} value={cat.id}>
-											{cat.nombre}
-										</option>
-									))}
-								</select>
+								Norma
+								<input value={norma} placeholder="Ingrese la norma de la categoría" onChange={(e) => setNorma(e.target.value)} required />
 							</label>
 							<label>
-								Descripción
+								Usos
 								<textarea
-									value={descripcion}
-									placeholder="Ingrese la descripción del producto"
-									onChange={(e) => setDescripcion(e.target.value)}
+									value={usos}
+									placeholder="Ingrese los usos de la categoría"
+									onChange={(e) => setUsos(e.target.value)}
 									required
 								/>
 							</label>

@@ -10,3 +10,6 @@ export interface CotizacionRequestDTO {
   comentario: string;
   productos: CartProductoDTO[];
 }
+export interface CotizacionObservacionDTO {
+  observaciones: string;
+}

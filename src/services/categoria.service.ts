@@ -3,9 +3,11 @@ import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type {
   AllAndQuantityResponseDTO,
+  CategoriaCreateResponseDTO,
   CategoriaDashboardDTO,
   ProductoResponseDTO,
 } from "../models/Categoria/Categoria_response";
+import type { CategoriaRequestDTO } from "../models/Categoria/Categoria_request";
 
 const BASE_URL = URL_API + "/categoria";
 
@@ -60,6 +62,26 @@ export async function getQuantityCategorias(): Promise<number> {
   const url = `${BASE_URL}/dashboard-quantity`;
 
   const res = await axios.get<ApiResponse<number>>(url);
+
+  return res.data.data;
+}
+
+export async function createCategoria(
+  body: CategoriaRequestDTO
+): Promise<CategoriaCreateResponseDTO> {
+  const url = `${BASE_URL}/`;
+
+  const res = await axios.post<ApiResponse<CategoriaCreateResponseDTO>>(url, body);
+
+  return res.data.data;
+}
+export async function updateCategoria(
+  id: number,
+  body: CategoriaRequestDTO
+): Promise<CategoriaCreateResponseDTO> {
+  const url = `${BASE_URL}/${id}`;
+
+  const res = await axios.put<ApiResponse<CategoriaCreateResponseDTO>>(url, body);
 
   return res.data.data;
 }

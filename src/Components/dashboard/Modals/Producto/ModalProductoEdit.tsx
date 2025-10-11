@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import styles from "../../Pages/dashboard/productos/Productos.module.css";
-import upload from "../../Icons/Modal_producto/upload_icon.svg";
-import add_img from "../../Icons/Modal_producto/add_img.svg";
-import type { ProductoDTO } from "../../models/Producto/Producto_response_dto";
+import styles from "./ModalProductoEdit.module.css";
+import upload from "../../../../Icons/Modal_producto/upload_icon.svg";
+import add_img from "../../../../Icons/Modal_producto/add_img.svg";
+import type { ProductoDTO } from "../../../../models/Producto/Producto_response_dto";
 
 interface ModalProductoEditProps {
 	producto: ProductoDTO;

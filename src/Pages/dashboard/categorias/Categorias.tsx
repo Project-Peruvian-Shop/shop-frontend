@@ -3,20 +3,34 @@ import type { CategoriaDashboardDTO } from "../../../models/Categoria/Categoria_
 import styles from "./Categorias.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import {
+  createCategoria,
   getAllCategories,
+  getCategoryById,
   getQuantityCategorias,
 } from "../../../services/categoria.service";
 import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import { useNavigate } from "react-router-dom";
 import IconSVG from "../../../Icons/IconSVG";
-
+import ModalCategoriaCreate from "../../../Components/dashboard/Modals/Categoria/ModalCategoriaCreate";
+import ModalCategoriaEdit from "../../../Components/dashboard/Modals/Categoria/ModalCategoriaEdit";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { updateCategoria } from "../../../services/categoria.service";
+import { createImagen } from "../../../services/imagen.service";
 function Categorias() {
   const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<CategoriaDashboardDTO | null>(null);
+  
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     loadCategorias(page);
@@ -42,6 +56,100 @@ function Categorias() {
       console.error("Error cargando cantidad de categorias:", error);
     }
   };
+  interface CategoriaFormData{
+    nombre: string;
+    norma: string;
+    usos: string;
+    imagenFile: File | null;
+  }
+  const uploadImagen = async (file: File | null, defaultID = 2): Promise<number> => {
+		if (!file) return categoriaSeleccionada?.imagenId ?? defaultID;
+
+		const enlace = URL.createObjectURL(file);
+		const imagenData = {
+			enlace,
+			nombre: file.name,
+			alt: file.name.replace(/\s+/g, "-"),
+		};
+
+		const imagenResponse = await createImagen(imagenData);
+		return imagenResponse.id;
+	};
+  const handleAddCategoria = async (data: CategoriaFormData) => {
+    try {
+          const imagenID = await uploadImagen(data.imagenFile);
+          const body = {
+            nombre: data.nombre,
+            norma: data.norma,
+            usos: data.usos,
+            imagenId: imagenID,
+          };
+    
+          const response = await createCategoria(body);
+          if (response) {
+            MySwal.fire({
+              icon: "success",
+              title: "¡Categoría creada!",
+              text: "La categoría ha sido creada exitosamente.",
+            });
+            setShowModal(false);
+            await loadCategorias(page);
+            await loadCantidadCategorias();
+          }
+        } catch (error: unknown) {
+          const mensaje = error instanceof Error ? error.message : String(error);
+          MySwal.fire({
+            icon: "error",
+            title: "Error al crear el producto",
+            text: mensaje,
+          });
+        }
+  }
+  const handleEditCategoria = async (data: CategoriaFormData) => {
+    if (!categoriaSeleccionada) return;
+
+    // Verificación si hay cambios
+		if (
+			data.nombre === categoriaSeleccionada.nombre &&
+			data.norma === categoriaSeleccionada.norma &&
+			data.usos === categoriaSeleccionada.usos &&
+			data.imagenFile === null
+		) {
+			MySwal.fire({
+				icon: "info",
+				title: "Sin cambios",
+				text: "No has realizado ninguna modificación.",
+			});
+			return;
+		}
+    try {
+          const imagenID = await uploadImagen(data.imagenFile);
+          const body = {
+            nombre: data.nombre,
+            norma: data.norma,
+            usos: data.usos,
+            imagenId: imagenID,
+          };
+          const response = await updateCategoria(categoriaSeleccionada.id, body);
+          if (response) {
+            MySwal.fire({
+              icon: "success",
+              title: "¡Categoría editada!",
+              text: "La categoría ha sido editada exitosamente.",
+            });
+            setShowEditModal(false);
+            await loadCategorias(page);
+            await loadCantidadCategorias();
+          }
+        } catch (error: unknown) {
+          const mensaje = error instanceof Error ? error.message : String(error);
+          MySwal.fire({
+            icon: "error",
+            title: "Error al editar la categoría",
+            text: mensaje,
+          });
+        }
+  }
 
   // Definición de columnas
   const columns: Column<CategoriaDashboardDTO>[] = [
@@ -81,7 +189,11 @@ function Categorias() {
     {
       label: "Editar",
       icon: <IconSVG name="edit-secondary" size={20} />,
-      onClick: (row) => console.log("Editar categoria", row),
+      onClick: async (row) => {
+        const categoria = await getCategoryById(row.id);
+        setCategoriaSeleccionada(categoria);
+        setShowEditModal(true);
+      },
     },
     {
       label: "Eliminar",
@@ -99,7 +211,9 @@ function Categorias() {
           <div className={styles.totalProducts}>
             Total: {cantidad} Categorías
           </div>
-          <button className={styles.addButton}>+ Añadir Categoría</button>
+          <button className={styles.addButton} onClick={() => setShowModal(true)}>
+            + Añadir Categoría
+          </button>
         </div>
       </div>
 
@@ -113,6 +227,19 @@ function Categorias() {
           onPageChange={setPage}
         />
       </div>
+      {showModal && (
+      <ModalCategoriaCreate
+          onClose={() => setShowModal(false)}
+          onSubmit={handleAddCategoria}
+        />
+      )}
+      {showEditModal && categoriaSeleccionada && (
+        <ModalCategoriaEdit
+          categoria={categoriaSeleccionada}
+          onClose={() => setShowEditModal(false)}
+          onSubmit={handleEditCategoria}
+        />
+        )}
     </div>
   );
 }

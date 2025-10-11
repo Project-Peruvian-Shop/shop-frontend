@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
-import type { CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
+import type { CotizacionObservacionDTO, CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
 import type {
   CotizacionCreateResponseDTO,
   CotizacionDashboardDTO,
@@ -61,6 +61,18 @@ export async function getQuantityCotizaciones(): Promise<number> {
   const url = `${BASE_URL}/dashboard-quantity`;
 
   const res = await axios.get<ApiResponse<number>>(url);
+
+  return res.data.data;
+}
+export async function updateObservacionCotizacion(
+  id: number,
+  observaciones: string
+): Promise<CotizacionObservacionDTO> {
+  const url = `${BASE_URL}/observaciones/${id}`;
+
+  const res = await axios.put<ApiResponse<CotizacionObservacionDTO>>(url, {
+    observaciones,
+  });
 
   return res.data.data;
 }
