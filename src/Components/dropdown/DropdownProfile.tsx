@@ -74,7 +74,7 @@ export default function DropdownProfile({
           </Link>
 
           <Link
-            to={routes.profile_cotization}
+            to={routes.cotizaciones}
             className={styles.menuItem}
             onClick={() => setIsOpen(false)}
           >

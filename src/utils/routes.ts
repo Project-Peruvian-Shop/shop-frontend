@@ -23,6 +23,7 @@ export const routes = {
   thank_you: "/thank-you",
   profile_user: "/perfil/usuario",
   profile_cotization: "/perfil/cotizaciones/",
+  cotizaciones: "/perfil/cotizaciones",
 
   //Admin Pages
   dashboard: "/dashboard",
