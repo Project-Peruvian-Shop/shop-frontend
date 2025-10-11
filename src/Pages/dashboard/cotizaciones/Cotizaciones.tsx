@@ -7,9 +7,11 @@ import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizaci
 import {
   getAllCotizaciones,
   getQuantityCotizaciones,
+  updateObservacionCotizacion,
 } from "../../../services/cotizacion.service";
 import IconSVG from "../../../Icons/IconSVG";
 import { useNavigate } from "react-router-dom";
+import ModalObservacion from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservaciones";
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] = useState<CotizacionDashboardDTO[]>(
@@ -18,21 +20,25 @@ function Cotizaciones() {
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCotizacion, setSelectedCotizacion] =
+    useState<CotizacionDashboardDTO | null>(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadProductos(page);
+    loadCotizaciones(page);
     loadCantidadCotizaciones();
   }, [page]);
 
-  const loadProductos = async (page: number) => {
+  const loadCotizaciones = async (page: number) => {
     try {
       const res: PaginatedResponse<CotizacionDashboardDTO> =
         await getAllCotizaciones(page, 10);
       setCotizaciones(res.content);
       setTotalPages(res.totalPages);
     } catch (error) {
-      console.error("Error cargando productos:", error);
+      console.error("Error cargando cotizaciones:", error);
     }
   };
 
@@ -45,83 +51,77 @@ function Cotizaciones() {
     }
   };
 
-  // Definición de columnas
+  // columnas
   const columns: Column<CotizacionDashboardDTO>[] = [
+    { header: "Número", accessor: "numeroCotizacion" },
+    { header: "Cliente", accessor: "clienteNombre" },
     {
-      header: "Número",
-      accessor: "numeroCotizacion",
-      render: (_, row) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontWeight: "bold",
-          }}
-        >
-          <span>{row.numeroCotizacion}</span>
-        </div>
-      ),
-    },
-    {
-      header: "Cliente",
-      accessor: "clienteNombre",
-      render: (_, row) => (
-        <div>
-          <div>{row.clienteNombre}</div>
-          <div style={{ fontSize: "0.9rem", color: "#666" }}>
-            {row.clienteDocumento}
-          </div>
-        </div>
-      ),
-    },
-    {
-      header: "Creación",
-      accessor: "creacion",
+      header: "Estado",
+      accessor: "estado",
       render: (value) => {
-        const fecha = new Date(value as string);
+        const estado = (value as string)?.toLowerCase();
+        // asignar color según estado de la cotización
+        let color = "";
+        switch (estado) {
+          case "pendiente":
+            color = "#dc2626"; // rojo
+            break;
+          case "en_proceso":
+            color = "#eab308"; // amarillo
+            break;
+          case "respondida":
+            color = "#16a34a"; // verde
+            break;
+          case "cerrada":
+            color = "#555"; // gris
+            break;
+          default:
+            color = "#777"; // gris oscuro
+            break;
+        }
+
         return (
-          <span>
-            {fecha.toLocaleDateString("es-PE", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })}
+          <span
+            style={{
+              backgroundColor: color,
+              color: "white",
+              padding: "4px 10px",
+              borderRadius: "9999px",
+              fontSize: "0.85rem",
+              textTransform: "capitalize",
+            }}
+          >
+            {estado}
           </span>
         );
       },
     },
-    { header: "Estado", accessor: "estado" },
     { header: "Observaciones", accessor: "observaciones" },
   ];
-
-  // Acciones con iconos
+  // acciones de la tabla
   const actions: Action<CotizacionDashboardDTO>[] = [
     {
       label: "Ver",
       icon: <IconSVG name="view-secondary" size={20} />,
-      onClick: (row) => {
-        console.log("Ver producto", row);
-        navigate(`/dashboard/cotizacion/${row.id}`);
-      },
+      onClick: (row) => navigate(`/dashboard/cotizacion/${row.id}`),
     },
     {
       label: "Editar",
       icon: <IconSVG name="edit-secondary" size={20} />,
-      onClick: (row) => console.log("Editar producto", row),
+      onClick: (row) => {
+        setSelectedCotizacion(row);
+        setShowModal(true);
+      },
     },
   ];
-
   return (
     <div>
       <div className={styles.dashboardHeader}>
         <div className={styles.title}>Cotizaciones</div>
-
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
             Total: {cantidad} Cotizaciones
           </div>
-          <button className={styles.addButton}>+ Añadir Cotización</button>
         </div>
       </div>
 
@@ -135,6 +135,23 @@ function Cotizaciones() {
           onPageChange={setPage}
         />
       </div>
+
+      {showModal && (
+        <ModalObservacion
+          show={showModal}
+          cotizacion={selectedCotizacion}
+          onClose={() => setShowModal(false)}
+          onSave={async (id, obs) => {
+            try {
+              await updateObservacionCotizacion(id, obs);
+              setShowModal(false);
+              await loadCotizaciones(page);
+            } catch (error) {
+              console.error("Error al actualizar observaciones:", error);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }
