@@ -6,14 +6,14 @@ interface ModalObservacionProps {
   show: boolean;
   cotizacion: CotizacionDashboardDTO | null;
   onClose: () => void;
-  onSave: (id: number, observacion: string) => Promise<void>;
+  onSubmit: (id: number, observacion: string) => Promise<void>;
 }
 
 const ModalObservacion = ({
   show,
   cotizacion,
   onClose,
-  onSave,
+  onSubmit,
 }: ModalObservacionProps) => {
   const [observacion, setObservacion] = useState(
     cotizacion?.observaciones || ""
@@ -46,7 +46,7 @@ const ModalObservacion = ({
             Cancelar
           </button>
           <button
-            onClick={() => onSave(cotizacion.id, observacion)}
+            onClick={() => onSubmit(cotizacion.id, observacion)}
             className={styles.addButton}
           >
             Guardar

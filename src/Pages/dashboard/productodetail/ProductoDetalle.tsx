@@ -126,7 +126,6 @@ function ProductoDetalle() {
 					<ButtonHeader
 						title="Editar"
 						onClick={() => {
-							console.log("Click en Editar");
 							setShowEditModal(true);
 						}}
 						icon="edit-secondary"

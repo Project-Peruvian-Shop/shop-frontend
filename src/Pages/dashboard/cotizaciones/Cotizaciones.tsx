@@ -52,7 +52,49 @@ function Cotizaciones() {
       console.error("Error cargando cantidad de cotizaciones:", error);
     }
   };
+  const handleSaveObservacion = async (id: number, nuevaObservacion: string) => {
+    if (!cotizaciones) return;
 
+    try {
+      const observacionOriginal = cotizaciones.find(c => c.id === id)?.observaciones || "";
+
+      if (nuevaObservacion.trim() === "") {
+        await MySwal.fire({
+          icon: "warning",
+          title: "Observación vacía",
+          text: "Por favor, ingresa una observación.",
+        });
+        return;
+      }
+
+      if (nuevaObservacion.trim() === observacionOriginal.trim()) {
+        await MySwal.fire({
+          icon: "info",
+          title: "Sin cambios",
+          text: "No se detectaron modificaciones en la observación.",
+        });
+        return;
+      }
+
+      await updateObservacionCotizacion(id, nuevaObservacion);
+
+      await MySwal.fire({
+        icon: "success",
+        title: "¡Observación actualizada!",
+        text: "La observación ha sido modificada correctamente.",
+      });
+
+      setShowModal(false);
+      await loadCotizaciones(page);
+    } catch (error) {
+      console.error("Error al actualizar observaciones:", error);
+      MySwal.fire({
+        icon: "error",
+        title: "Error al actualizar",
+        text: "No se pudo guardar la observación.",
+      });
+    }
+  };
   // columnas
   const columns: Column<CotizacionDashboardDTO>[] = [
     { header: "Número", accessor: "numeroCotizacion" },
@@ -143,48 +185,8 @@ function Cotizaciones() {
           show={showModal}
           cotizacion={selectedCotizacion}
           onClose={() => setShowModal(false)}
-          onSave={async (id, obs) => {
-            try {
-              if (!selectedCotizacion) return;
-              if (obs.trim() === "") {
-                await MySwal.fire({
-                  icon: "warning",
-                  title: "Observación vacía",
-                  text: "Por favor, ingresa una observación.",
-                });
-                return;
-              }
-              if (
-                obs.trim() === (selectedCotizacion.observaciones || "").trim()
-              ) {
-                await MySwal.fire({
-                  icon: "info",
-                  title: "Sin cambios",
-                  text: "No se detectaron modificaciones en la observación.",
-                });
-                return;
-              }
-              await updateObservacionCotizacion(id, obs);
-
-              await MySwal.fire({
-                icon: "success",
-                title: "¡Observación actualizada!",
-                text: "La observación ha sido modificada correctamente.",
-              });
-
-              setShowModal(false);
-              await loadCotizaciones(page);
-            } catch (error) {
-              console.error("Error al actualizar observaciones:", error);
-              MySwal.fire({
-                icon: "error",
-                title: "Error al actualizar",
-                text: "No se pudo guardar la observación.",
-              });
-            }
-          }}
-        />
-      )}
+          onSubmit={handleSaveObservacion}
+        />)}
     </div>
   );
 }
