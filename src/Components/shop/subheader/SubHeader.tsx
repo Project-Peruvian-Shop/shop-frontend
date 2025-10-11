@@ -36,7 +36,7 @@ export default function SubHeader(props: SubHeaderProps) {
     <div className={styles.storebarContainer}>
       <div className={styles.storebarInner}>
         {/* Left: Store Icon & Title */}
-        <Link to={routes.shop_cart} className={styles.storeTitle}>
+        <Link to={routes.shop} className={styles.storeTitle}>
           {title}
         </Link>
 

@@ -69,6 +69,7 @@ export const eliminarProductoDelCart = (
   const updatedCart = cart.filter((item) => item.id !== id);
   setCart(updatedCart);
   localStorage.setItem("cart", JSON.stringify(updatedCart));
+  window.dispatchEvent(new Event("cartUpdated"));
 };
 
 export const clearCart = () => {
