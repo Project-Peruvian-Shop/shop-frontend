@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./ProductosSugeridos.module.css";
-import { routes } from "../../utils/routes";
 import { useNavigate } from "react-router-dom";
-import { getSugeridos } from "../../services/producto.service";
-import type { PaginatedProductoResponseDTO } from "../../models/Producto/Producto_response_dto";
-import ProductCard from "../shop/card/ProductCard";
-import { addToCart } from "../../utils/cartUtils";
+import { getSugeridos } from "../../../services/producto.service";
+import { addToCart } from "../../../utils/cartUtils";
+import { routes } from "../../../utils/routes";
+import ProductCard from "../../shop/card/ProductCard";
+import type { PaginatedProductoResponseDTO } from "../../../models/Producto/Producto_response_dto";
 
 interface ProductosSugeridosProps {
   producto: number;
