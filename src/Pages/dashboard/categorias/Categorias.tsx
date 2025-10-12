@@ -50,30 +50,32 @@ function Categorias() {
 
   useEffect(() => {
     if (search.length === 0) {
-      fetchAll();
+      fetchAll(page);
     } else if (search.length >= 3) {
       const delay = setTimeout(() => {
-        fetchSearch(search);
+        fetchSearch(search, page);
       }, 400);
       return () => clearTimeout(delay);
     }
-  }, [search]);
+  }, [search, page]);
 
-  const fetchAll = async () => {
+  const fetchAll = async (page: number = 0) => {
     setLoading(true);
     try {
-      const res = await getAllCategories();
+      const res = await getAllCategories(page);
       setCategorias(res);
+      setTotalPages(res.totalPages);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchSearch = async (text: string) => {
+  const fetchSearch = async (text: string, page: number = 0) => {
     setLoading(true);
     try {
-      const res = await getSearchCategories(text);
+      const res = await getSearchCategories(text, page);
       setCategorias(res);
+      setTotalPages(res.totalPages);
     } finally {
       setLoading(false);
     }
