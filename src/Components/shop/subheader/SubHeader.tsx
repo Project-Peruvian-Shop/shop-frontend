@@ -51,6 +51,7 @@ export default function SubHeader(props: SubHeaderProps) {
             />
           </div>
         </div>
+        
         {/* Right: Cart Button */}
         <Link to={routes.shop_cart} className={styles.cartButton}>
           <IconSVG name="cart" size={20} className={styles.cartIcon} />
