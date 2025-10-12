@@ -48,17 +48,6 @@ function Categorias() {
     loadCantidadCategorias();
   }, [page]);
 
-  const loadCategorias = async (page: number) => {
-    try {
-      const res: PaginatedResponse<CategoriaDashboardDTO> =
-        await getAllCategories(page, 10);
-      setCategorias(res.content);
-      setTotalPages(res.totalPages);
-    } catch (error) {
-      console.error("Error cargando categorias:", error);
-    }
-  };
-
   useEffect(() => {
     if (isSearching) {
       // Si se está buscando, mantener búsqueda paginada
@@ -71,6 +60,17 @@ function Categorias() {
       loadCantidadCategorias();
     }
   }, [page, isSearching]);
+
+  const loadCategorias = async (page: number) => {
+    try {
+      const res: PaginatedResponse<CategoriaDashboardDTO> =
+        await getAllCategories(page, 10);
+      setCategorias(res.content);
+      setTotalPages(res.totalPages);
+    } catch (error) {
+      console.error("Error cargando categorias:", error);
+    }
+  };
 
   const loadCantidadCategorias = async () => {
     try {
