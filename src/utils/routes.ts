@@ -20,7 +20,6 @@ export const routes = {
 
   // Private - Shop & User profile
   checkout: "/checkout",
-  thank_you: "/thank-you",
   profile_user: "/perfil/usuario",
   profile_cotization: "/perfil/cotizaciones/",
   cotizaciones: "/perfil/cotizaciones",
