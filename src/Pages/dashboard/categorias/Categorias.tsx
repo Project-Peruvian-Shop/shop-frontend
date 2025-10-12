@@ -25,7 +25,11 @@ import { createImagen } from "../../../services/imagen.service";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 
 function Categorias() {
-  const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
+  const [categorias, setCategorias] =
+    useState<PaginatedResponse<CategoriaDashboardDTO>>();
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -37,38 +41,41 @@ function Categorias() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] =
     useState<CategoriaDashboardDTO | null>(null);
 
-  const [searchResults, setSearchResults] =
-    useState<PaginatedResponse<CategoriaDashboardDTO> | null>(null);
-  const [isSearching, setIsSearching] = useState(false);
-
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
-    loadCategorias(page);
+    fetchAll();
     loadCantidadCategorias();
-  }, [page]);
+  }, []);
 
   useEffect(() => {
-    if (isSearching) {
-      // Si se está buscando, mantener búsqueda paginada
-      (async () => {
-        const res = await getSearchCategories("", page);
-        setSearchResults(res);
-      })();
-    } else {
-      loadCategorias(page);
-      loadCantidadCategorias();
+    if (search.length === 0) {
+      fetchAll();
+    } else if (search.length >= 3) {
+      const delay = setTimeout(() => {
+        fetchSearch(search);
+      }, 400);
+      return () => clearTimeout(delay);
     }
-  }, [page, isSearching]);
+  }, [search]);
 
-  const loadCategorias = async (page: number) => {
+  const fetchAll = async () => {
+    setLoading(true);
     try {
-      const res: PaginatedResponse<CategoriaDashboardDTO> =
-        await getAllCategories(page, 10);
-      setCategorias(res.content);
-      setTotalPages(res.totalPages);
-    } catch (error) {
-      console.error("Error cargando categorias:", error);
+      const res = await getAllCategories();
+      setCategorias(res);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchSearch = async (text: string) => {
+    setLoading(true);
+    try {
+      const res = await getSearchCategories(text);
+      setCategorias(res);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -123,7 +130,6 @@ function Categorias() {
           text: "La categoría ha sido creada exitosamente.",
         });
         setShowModal(false);
-        await loadCategorias(page);
         await loadCantidadCategorias();
       }
     } catch (error: unknown) {
@@ -169,7 +175,6 @@ function Categorias() {
           text: "La categoría ha sido editada exitosamente.",
         });
         setShowEditModal(false);
-        await loadCategorias(page);
         await loadCantidadCategorias();
       }
     } catch (error: unknown) {
@@ -239,14 +244,10 @@ function Categorias() {
         <div className={styles.title}>Categorías</div>
 
         <div className={styles.searchBarContainer}>
-          <SearchBar<CategoriaDashboardDTO>
+          <SearchBar
             placeholder="Buscar categoría..."
-            searchService={getSearchCategories}
-            onResults={(results) => {
-              setIsSearching(!!results);
-              setSearchResults(results);
-            }}
-            page={page}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
@@ -264,14 +265,18 @@ function Categorias() {
       </div>
 
       <div className={styles.tableContainer}>
-        <DashboardTable
-          columns={columns}
-          data={isSearching ? searchResults?.content ?? [] : categorias}
-          actions={actions}
-          currentPage={page}
-          totalPages={isSearching ? searchResults?.totalPages ?? 0 : totalPages}
-          onPageChange={setPage}
-        />
+        {loading ? (
+          <p>Cargando...</p>
+        ) : (
+          <DashboardTable
+            columns={columns}
+            data={categorias?.content || []}
+            actions={actions}
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+        )}
       </div>
 
       {showModal && (
