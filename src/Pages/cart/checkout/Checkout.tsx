@@ -114,22 +114,25 @@ function Checkout() {
           <div className={styles.sectionTitle}>Información Personal</div>
           <div className={styles.inputRow}>
             <input
+              type="text"
               className={styles.input}
               placeholder="Nombre Completo o de la Empresa *"
+              minLength={3}
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
           </div>
           <div className={styles.inputRow}>
             <input
+              type="tel"
               className={styles.input}
               placeholder="Teléfono *"
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />
             <input
-              className={styles.input}
               type="email"
+              className={styles.input}
               placeholder="Correo Electrónico *"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -149,11 +152,13 @@ function Checkout() {
               <option value="" disabled>
                 Tipo de Documento *
               </option>
-              <option value="1">DNI</option>
-              <option value="2">RUC</option>
-              <option value="3">PASAPORTE</option>
+              <option value="DNI">DNI</option>
+              <option value="RUC">RUC</option>
+              <option value="PASAPORTE">PASAPORTE</option>
+              <option value="OTRO">OTRO</option>
             </select>
             <input
+              type="text"
               className={styles.input}
               placeholder="Número de Documento *"
               value={numeroDocumento}
@@ -166,8 +171,9 @@ function Checkout() {
           <div className={styles.sectionNumber}>3</div>
           <div className={styles.sectionTitle}>Información Adicional</div>
           <textarea
+            minLength={10}
             className={styles.textarea}
-            placeholder="Comentarios (opcional)"
+            placeholder="Comentarios"
             value={comentarios}
             onChange={(e) => setComentarios(e.target.value)}
             name="comentarios"
