@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./DropdownProfile.module.css";
 import { routes } from "../../utils/routes";
 import { useLogout } from "../../hooks/useLogout";
+import IconSVG from "../../Icons/IconSVG";
 
 interface UserDropdownClassicProps {
   userName: string;
@@ -50,6 +51,10 @@ export default function DropdownProfile({
         {/* <ChevronDown
           className={`${styles.chevron} ${isOpen ? styles.rotate : ""}`}
         /> */}
+        <IconSVG
+          name={isOpen ? "arrowUp" : "arrowDown"}
+          className={styles.chevron}
+        />
       </button>
 
       {/* Dropdown menu */}

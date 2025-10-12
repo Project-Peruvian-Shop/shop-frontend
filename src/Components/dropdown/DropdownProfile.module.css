@@ -45,6 +45,10 @@
   color: var(--secondary-color);
 }
 
+.chevron {
+  margin-left: 0.25rem;
+}
+
 .dropdownMenu {
   position: absolute;
   right: 0;
