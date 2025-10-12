@@ -10,6 +10,7 @@ import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizaci
 import {
   getAllCotizaciones,
   getQuantityCotizaciones,
+  getSearchCotizaciones,
   updateObservacionCotizacion,
 } from "../../../services/cotizacion.service";
 import IconSVG from "../../../Icons/IconSVG";
@@ -17,11 +18,14 @@ import { useNavigate } from "react-router-dom";
 import ModalObservacion from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservaciones";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 
 function Cotizaciones() {
-  const [cotizaciones, setCotizaciones] = useState<CotizacionDashboardDTO[]>(
-    []
-  );
+  const [cotizaciones, setCotizaciones] =
+    useState<PaginatedResponse<CotizacionDashboardDTO>>();
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -32,15 +36,47 @@ function Cotizaciones() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadCotizaciones(page);
+    fetchAll();
     loadCantidadCotizaciones();
   }, [page]);
+
+  useEffect(() => {
+    if (search.length === 0) {
+      fetchAll(page);
+    } else if (search.length >= 3) {
+      const delay = setTimeout(() => {
+        fetchSearch(search, page);
+      }, 400);
+      return () => clearTimeout(delay);
+    }
+  }, [search, page]);
+
+  const fetchAll = async (page: number = 0) => {
+    setLoading(true);
+    try {
+      const res = await getAllCotizaciones(page);
+      setCotizaciones(res);
+      setTotalPages(res.totalPages);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchSearch = async (text: string, page: number = 0) => {
+    setLoading(true);
+    try {
+      const res = await getSearchCotizaciones(text, page);
+      setCotizaciones(res);
+      setTotalPages(res.totalPages);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loadCotizaciones = async (page: number) => {
     try {
       const res: PaginatedResponse<CotizacionDashboardDTO> =
         await getAllCotizaciones(page, 10);
-      setCotizaciones(res.content);
       setTotalPages(res.totalPages);
     } catch (error) {
       console.error("Error cargando cotizaciones:", error);
@@ -64,7 +100,7 @@ function Cotizaciones() {
 
     try {
       const observacionOriginal =
-        cotizaciones.find((c) => c.id === id)?.observaciones || "";
+        cotizaciones.content.find((c) => c.id === id)?.observaciones || "";
 
       if (nuevaObservacion.trim() === "") {
         await MySwal.fire({
@@ -173,6 +209,15 @@ function Cotizaciones() {
     <div>
       <div className={styles.dashboardHeader}>
         <div className={styles.title}>Cotizaciones</div>
+
+        <div className={styles.searchBarContainer}>
+          <SearchBar
+            placeholder="Buscar cotización..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
             Total: {cantidad} Cotizaciones
@@ -181,14 +226,18 @@ function Cotizaciones() {
       </div>
 
       <div className={styles.tableContainer}>
-        <DashboardTable
-          columns={columns}
-          data={cotizaciones}
-          actions={actions}
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={setPage}
-        />
+        {loading ? (
+          <p>Cargando...</p>
+        ) : (
+          <DashboardTable
+            columns={columns}
+            data={cotizaciones ? cotizaciones.content : []}
+            actions={actions}
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+        )}
       </div>
 
       {showModal && (

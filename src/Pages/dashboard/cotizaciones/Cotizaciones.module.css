@@ -21,6 +21,10 @@
   font-size: 24px;
 }
 
+.searchBarContainer {
+  width: 540px;
+}
+
 /* Título estilo "botón" con línea roja */
 .totalProducts {
   padding: 8px 16px;
