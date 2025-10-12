@@ -10,3 +10,15 @@
   line-height: 36px;
   text-align: left;
 }
+
+.productosGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  gap: 40px;
+
+  margin: 40px 0px;
+}
