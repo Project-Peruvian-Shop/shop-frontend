@@ -3,7 +3,7 @@ import type { CartProductoDTO } from "../../utils/localStorage";
 export interface CotizacionRequestDTO {
   usuarioID: number;
   nombre: string;
-  tipoDocumento: number;
+  tipoDocumento: string;
   documento: string;
   telefono: string;
   email: string;
