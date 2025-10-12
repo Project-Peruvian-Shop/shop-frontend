@@ -133,10 +133,6 @@ function MapCard({ propertie, value }: MapCardProps) {
         style={{
           backgroundColor,
           color,
-          padding: "4px 10px",
-          borderRadius: "6px",
-          fontWeight: "bold",
-          textTransform: "capitalize",
         }}
       >
         {formattedValue}
