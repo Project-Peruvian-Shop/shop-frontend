@@ -30,6 +30,20 @@ export async function getAllUsuarios(
   return res.data.data;
 }
 
+export async function getSearchUsuarios(
+  text: string,
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedResponse<UsuarioDashboardDTO>> {
+  const url = `${BASE_URL}/dashboard-search?busqueda=${text}&page=${page}&size=${size}`;
+
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<UsuarioDashboardDTO>>
+  >(url);
+
+  return res.data.data;
+}
+
 export async function getQuantityUsuarios(): Promise<number> {
   const url = `${BASE_URL}/dashboard-quantity`;
 
