@@ -23,8 +23,6 @@ export async function getPaginatedProductos(
     params.append("categoria", categoria.toString());
   }
 
-  console.log("Fetching products with params:", params.toString());
-
   const url = `${BASE_URL}/paginated?${params.toString()}`;
   const res = await axios.get<
     ApiResponse<PaginatedResponse<PaginatedProductoResponseDTO>>
@@ -42,7 +40,7 @@ export async function getProductoById(id: number): Promise<ProductoDTO> {
 
 export async function getAllProductos(
   page: number = 0,
-  size: number = 10
+  size: number = 8
 ): Promise<PaginatedResponse<ProductoDashboardDTO>> {
   const url = `${BASE_URL}/dashboard-paginated?page=${page}&size=${size}`;
   const res = await axios.get<
@@ -55,7 +53,7 @@ export async function getAllProductos(
 export async function getSearchProductos(
   busqueda: string,
   page: number = 0,
-  size: number = 10
+  size: number = 8
 ): Promise<PaginatedResponse<ProductoDashboardDTO>> {
   const url = `${BASE_URL}/dashboard-search?busqueda=${encodeURIComponent(
     busqueda
