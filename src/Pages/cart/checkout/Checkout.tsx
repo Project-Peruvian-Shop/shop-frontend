@@ -32,7 +32,7 @@ function Checkout() {
       setNombre(usuario.nombre || "");
       setEmail(usuario.email || "");
       setTipoDocumento(usuario.tipoDocumento || "");
-      setTipoDocumento(usuario.documento || "");
+      setNumeroDocumento(usuario.documento || "");
       setTelefono(usuario.telefono || "");
 
       const Toast = Swal.mixin({
@@ -51,7 +51,7 @@ function Checkout() {
         title: "Se han cargado tus datos personales",
       });
     }
-  }, [usuario]);
+  }, []);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAcceptedTerms(event.target.checked);
@@ -92,7 +92,7 @@ function Checkout() {
     const body: CotizacionRequestDTO = {
       usuarioID: usuario.id,
       nombre,
-      tipoDocumento: tipoDocumento ? parseInt(tipoDocumento) : -1,
+      tipoDocumento: tipoDocumento,
       documento: numeroDocumento,
       telefono,
       email,
@@ -200,7 +200,6 @@ function Checkout() {
           <div className={styles.sectionNumber}>3</div>
           <div className={styles.sectionTitle}>Información Adicional</div>
           <textarea
-            minLength={10}
             className={styles.textarea}
             placeholder="Comentarios"
             value={comentarios}
