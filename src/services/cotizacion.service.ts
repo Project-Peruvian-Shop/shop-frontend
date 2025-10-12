@@ -60,6 +60,22 @@ export async function getAllCotizaciones(
   return res.data.data;
 }
 
+export async function getSearchCotizaciones(
+  busqueda: string,
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedResponse<CotizacionDashboardDTO>> {
+  const url = `${BASE_URL}/dashboard-search?busqueda=${encodeURIComponent(
+    busqueda
+  )}&page=${page}&size=${size}`;
+
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<CotizacionDashboardDTO>>
+  >(url);
+
+  return res.data.data;
+}
+
 export async function getQuantityCotizaciones(): Promise<number> {
   const url = `${BASE_URL}/dashboard-quantity`;
 
