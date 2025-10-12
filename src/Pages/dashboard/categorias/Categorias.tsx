@@ -238,7 +238,7 @@ function Categorias() {
       <div className={styles.dashboardHeader}>
         <div className={styles.title}>Categorías</div>
 
-        <div className={styles.headerActions}>
+        <div className={styles.searchBarContainer}>
           <SearchBar<CategoriaDashboardDTO>
             placeholder="Buscar categoría..."
             searchService={getSearchCategories}
@@ -248,6 +248,9 @@ function Categorias() {
             }}
             page={page}
           />
+        </div>
+
+        <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
             Total: {cantidad} Categorías
           </div>
