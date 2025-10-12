@@ -34,6 +34,8 @@ import instagram from "./rrss/instagram.svg";
 import cart from "./navbar/cart.svg";
 import search from "./navbar/search.svg";
 import items from "./navbar/items.svg";
+import arrowUp from "./navbar/arrow-up.svg";
+import arrowDown from "./navbar/arrow-down.svg";
 
 export const Icons = {
   // "view-primary": view1,
@@ -67,6 +69,8 @@ export const Icons = {
   cart,
   search,
   items,
+  arrowUp,
+  arrowDown,
 };
 
 export type IconName = keyof typeof Icons;
