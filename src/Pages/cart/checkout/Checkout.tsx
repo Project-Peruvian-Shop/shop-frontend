@@ -74,9 +74,13 @@ function Checkout() {
     try {
       const response = await postCotizacion(body);
       MySwal.fire({
-        title: "Éxito",
-        text: "La cotización se ha enviado correctamente.",
-        icon: "success",
+        title: "La cotización se ha enviado correctamente.",
+        text: "Nos pondremos en contacto contigo pronto.",
+        imageUrl:
+          "https://tuberiasperuanito.com/wp-content/uploads/2024/10/Logo-HD.png",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Logo de la empresa",
       });
       console.log("Respuesta backend:", response);
       setNombre("");
@@ -177,7 +181,7 @@ function Checkout() {
             checked={acceptedTerms}
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="terms">
+          <label htmlFor="terms" className={styles.terms}>
             Acepto los <Link to={routes.tyc}>términos y condiciones</Link> y la{" "}
             <Link to={routes.privacy_policy}>política de privacidad</Link>
           </label>
