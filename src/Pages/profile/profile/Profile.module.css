@@ -115,32 +115,12 @@
 }
 
 .table td {
-  padding: 8px 20px;
   text-align: left;
 }
 
-.estado {
-  font-weight: bold;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.sinAtender {
-  color: #d9e004;
-  background-color: #d9e0042e; /* naranja */
-}
-
-.enviada {
-  color: #01d20c;
-  background-color: #01d20c2e; /* azul */
-}
-
-.cerrada {
-  color: #931919;
-  background-color: #9319192e; /* verde */
-}
-
-.desconocido {
-  color: #ffffff;
-  background-color: #7f8c8d; /* gris */
+.repeatButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }

@@ -11,6 +11,7 @@ import { getCotizacionesByUser } from "../../../services/cotizacion.service";
 import { routes } from "../../../utils/routes";
 import Header from "../../../Components/header/Header";
 import { Icons } from "../../../Icons/icons";
+import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 
 function Profile() {
   const navigate = useNavigate();
@@ -74,36 +75,6 @@ function Profile() {
     }
   };
 
-  const mapperEstado = (estado: string) => {
-    switch (estado) {
-      case "PENDIENTE":
-        return "Pendiente";
-      case "EN_PROCESO":
-        return "En proceso";
-      case "CERRADA":
-        return "Cerrada";
-      case "RESPONDIDA":
-        return "Respondida";
-      default:
-        return "Desconocido";
-    }
-  };
-
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case "PENDIENTE":
-        return styles.sinAtender; // define en CSS color rojo o lo que quieras
-      case "EN_PROCESO":
-        return styles.enviada; // color azul
-      case "RESPONDIDA":
-        return styles.cerrada; // color verde
-      case "CERRADA":
-        return styles.cerrada; // color verde
-      default:
-        return styles.desconocido; // gris u otro color
-    }
-  };
-
   return (
     <div className={styles.container}>
       <Header nombre="Perfil de Usuario" />
@@ -164,7 +135,7 @@ function Profile() {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>Número</th>
                   <th>Fecha</th>
                   <th style={{ textAlign: "center" }}>Estado</th>
@@ -174,21 +145,24 @@ function Profile() {
               <tbody>
                 {cotizaciones.map((c) => (
                   <tr key={c.id}>
-                    <td>{c.id}</td>
+                    {/* <td>{c.id}</td> */}
                     <td>{c.numero}</td>
                     <td>{new Date(c.creacion).toLocaleDateString("es-PE")}</td>
-                    <td
-                      className={`${styles.estado} ${getStatusClass(
-                        c.estado.toString()
-                      )}`}
-                    >
-                      {mapperEstado(c.estado)}
+                    <td style={{ textAlign: "center" }}>
+                      <MapCard propertie="estadoCotizacion" value={c.estado} />
                     </td>
-                    {/* icono que envia a /cotizacion/:id */}
                     <td>
                       <Link to={`${routes.profile_cotization}${c.id}`}>
                         <img src={Icons.view} alt="Ver" />
                       </Link>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.repeatButton}
+                        onClick={() => console.log("Refrescar " + c.id)}
+                      >
+                        <img src={Icons.repeat} alt="Ver" />
+                      </button>
                     </td>
                   </tr>
                 ))}
