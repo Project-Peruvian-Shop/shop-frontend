@@ -148,9 +148,9 @@ function Cotizaciones() {
     {
       header: "Estado",
       accessor: "estado",
-      render: (value) => {
-        return <MapCard propertie="estadoCotizacion" value={value as string} />;
-      },
+      render: (value) => (
+        <MapCard propertie="estadoCotizacion" value={value as string} />
+      ),
     },
     { header: "Observaciones", accessor: "observaciones" },
   ];
