@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Checkout.module.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -15,7 +15,6 @@ import { routes } from "../../../utils/routes";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const MySwal = withReactContent(Swal);
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [nombre, setNombre] = useState("");
@@ -23,6 +22,36 @@ function Checkout() {
   const [email, setEmail] = useState("");
   const [comentarios, setComentarios] = useState("");
   const navigate = useNavigate();
+
+  const usuario = obtenerUsuario();
+  const MySwal = withReactContent(Swal);
+
+  useEffect(() => {
+    if (usuario) {
+      // Cargar los valores del usuario en el formulario
+      setNombre(usuario.nombre || "");
+      setEmail(usuario.email || "");
+      setTipoDocumento(usuario.tipoDocumento || "");
+      setTipoDocumento(usuario.documento || "");
+      setTelefono(usuario.telefono || "");
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Se han cargado tus datos personales",
+      });
+    }
+  }, [usuario]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAcceptedTerms(event.target.checked);
