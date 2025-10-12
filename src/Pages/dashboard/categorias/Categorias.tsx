@@ -211,7 +211,18 @@ function Categorias() {
       ),
     },
     { header: "Norma", accessor: "norma" },
-    { header: "Usos", accessor: "usos" },
+    {
+      header: "Usos",
+      accessor: "usos",
+      render: (_, row) => {
+        const palabras = row.usos.split(" ");
+        const textoCorto =
+          palabras.length > 12
+            ? palabras.slice(0, 12).join(" ") + "..."
+            : row.usos;
+        return <span>{textoCorto}</span>;
+      },
+    },
   ];
 
   // Acciones con iconos
