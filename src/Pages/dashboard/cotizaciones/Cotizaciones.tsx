@@ -152,7 +152,13 @@ function Cotizaciones() {
         <MapCard propertie="estadoCotizacion" value={value as string} />
       ),
     },
-    { header: "Observaciones", accessor: "observaciones" },
+    {
+      header: "Observaciones",
+      accessor: "observaciones",
+      render: (value) => (
+        <span>{value ? String(value) : "No hay observaciones"}</span>
+      ),
+    },
   ];
 
   // acciones de la tabla
