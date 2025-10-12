@@ -31,7 +31,6 @@ function CategoriaDetalle() {
     useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const pageSize = 6;
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ function CategoriaDetalle() {
 
     const fetchProductos = async (page: number) => {
       try {
-        const data = await getProductosByCategoryId(Number(id), page, pageSize);
+        const data = await getProductosByCategoryId(Number(id), page);
         setProductosData(data);
       } catch (error) {
         console.error("Error cargando productos:", error);
@@ -68,70 +67,72 @@ function CategoriaDetalle() {
     fetchProductos(currentPage);
   }, [id, currentPage]);
 
-   const uploadImagen = async (file: File | null, defaultID = 2): Promise<number> => {
-      if (!file) return categoria?.imagenId ?? defaultID;
-  
-      const enlace = URL.createObjectURL(file);
-      const imagenData = {
-        enlace,
-        nombre: file.name,
-        alt: file.name.replace(/\s+/g, "-"),
-      };
-  
-      const imagenResponse = await createImagen(imagenData);
-      return imagenResponse.id;
+  const uploadImagen = async (
+    file: File | null,
+    defaultID = 2
+  ): Promise<number> => {
+    if (!file) return categoria?.imagenId ?? defaultID;
+
+    const enlace = URL.createObjectURL(file);
+    const imagenData = {
+      enlace,
+      nombre: file.name,
+      alt: file.name.replace(/\s+/g, "-"),
     };
-  const handleEditCategoria = async (data:{
-        nombre: string;
-        norma: string;
-        usos: string;
-        imagenFile: File | null;
+
+    const imagenResponse = await createImagen(imagenData);
+    return imagenResponse.id;
+  };
+  const handleEditCategoria = async (data: {
+    nombre: string;
+    norma: string;
+    usos: string;
+    imagenFile: File | null;
   }) => {
-      if (!categoria) return;
-  
-      // Verificación si hay cambios
-      if (
-        data.nombre === categoria.nombre &&
-        data.norma === categoria.norma &&
-        data.usos === categoria.usos &&
-        data.imagenFile === null
-      ) {
-        MySwal.fire({
-          icon: "info",
-          title: "Sin cambios",
-          text: "No has realizado ninguna modificación.",
-        });
-        return;
-      }
-      try {
-            const imagenID = await uploadImagen(data.imagenFile);
-            const body = {
-              nombre: data.nombre,
-              norma: data.norma,
-              usos: data.usos,
-              imagenId: imagenID,
-            };
-            const response = await updateCategoria(categoria.id, body);
-            if (response) {
-              MySwal.fire({
-                icon: "success",
-                title: "¡Categoría editada!",
-                text: "La categoría ha sido editada exitosamente.",
-              });
-              const updatedCategoria = await getCategoryById(categoria.id);
-              setCategoria(updatedCategoria);
-              setShowEditModal(false);
-            }
-          } catch (error: unknown) {
-            const mensaje = error instanceof Error ? error.message : String(error);
-            MySwal.fire({
-              icon: "error",
-              title: "Error al editar la categoría",
-              text: mensaje,
-            });
-          }
+    if (!categoria) return;
+
+    // Verificación si hay cambios
+    if (
+      data.nombre === categoria.nombre &&
+      data.norma === categoria.norma &&
+      data.usos === categoria.usos &&
+      data.imagenFile === null
+    ) {
+      MySwal.fire({
+        icon: "info",
+        title: "Sin cambios",
+        text: "No has realizado ninguna modificación.",
+      });
+      return;
     }
-  
+    try {
+      const imagenID = await uploadImagen(data.imagenFile);
+      const body = {
+        nombre: data.nombre,
+        norma: data.norma,
+        usos: data.usos,
+        imagenId: imagenID,
+      };
+      const response = await updateCategoria(categoria.id, body);
+      if (response) {
+        MySwal.fire({
+          icon: "success",
+          title: "¡Categoría editada!",
+          text: "La categoría ha sido editada exitosamente.",
+        });
+        const updatedCategoria = await getCategoryById(categoria.id);
+        setCategoria(updatedCategoria);
+        setShowEditModal(false);
+      }
+    } catch (error: unknown) {
+      const mensaje = error instanceof Error ? error.message : String(error);
+      MySwal.fire({
+        icon: "error",
+        title: "Error al editar la categoría",
+        text: mensaje,
+      });
+    }
+  };
 
   return (
     <div className={styles.container}>

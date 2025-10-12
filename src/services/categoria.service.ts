@@ -63,7 +63,7 @@ export async function getCategoryById(
 export async function getProductosByCategoryId(
   categoryId: number,
   page: number = 0,
-  size: number = 10
+  size: number = 2
 ): Promise<PaginatedResponse<ProductoResponseDTO>> {
   const url = `${BASE_URL}/productos/${categoryId}?page=${page}&size=${size}`;
 
