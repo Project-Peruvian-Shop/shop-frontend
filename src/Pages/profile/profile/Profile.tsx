@@ -176,7 +176,7 @@ function Profile() {
                   <tr key={c.id}>
                     <td>{c.id}</td>
                     <td>{c.numero}</td>
-                    <td>{new Date(c.creacion).toLocaleDateString()}</td>
+                    <td>{new Date(c.creacion).toLocaleDateString("es-PE")}</td>
                     <td
                       className={`${styles.estado} ${getStatusClass(
                         c.estado.toString()
