@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./Cotizaciones.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
-import type { Action, Column } from "../../../Components/dashboard/table/DashboardTable";
+import type {
+  Action,
+  Column,
+} from "../../../Components/dashboard/table/DashboardTable";
 import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import {
@@ -52,11 +55,16 @@ function Cotizaciones() {
       console.error("Error cargando cantidad de cotizaciones:", error);
     }
   };
-  const handleSaveObservacion = async (id: number, nuevaObservacion: string) => {
+
+  const handleSaveObservacion = async (
+    id: number,
+    nuevaObservacion: string
+  ) => {
     if (!cotizaciones) return;
 
     try {
-      const observacionOriginal = cotizaciones.find(c => c.id === id)?.observaciones || "";
+      const observacionOriginal =
+        cotizaciones.find((c) => c.id === id)?.observaciones || "";
 
       if (nuevaObservacion.trim() === "") {
         await MySwal.fire({
@@ -95,6 +103,7 @@ function Cotizaciones() {
       });
     }
   };
+
   // columnas
   const columns: Column<CotizacionDashboardDTO>[] = [
     { header: "Número", accessor: "numeroCotizacion" },
@@ -142,6 +151,7 @@ function Cotizaciones() {
     },
     { header: "Observaciones", accessor: "observaciones" },
   ];
+
   // acciones de la tabla
   const actions: Action<CotizacionDashboardDTO>[] = [
     {
@@ -158,6 +168,7 @@ function Cotizaciones() {
       },
     },
   ];
+
   return (
     <div>
       <div className={styles.dashboardHeader}>
@@ -186,7 +197,8 @@ function Cotizaciones() {
           cotizacion={selectedCotizacion}
           onClose={() => setShowModal(false)}
           onSubmit={handleSaveObservacion}
-        />)}
+        />
+      )}
     </div>
   );
 }
