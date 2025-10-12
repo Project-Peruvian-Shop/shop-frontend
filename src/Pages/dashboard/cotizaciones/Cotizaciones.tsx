@@ -19,6 +19,7 @@ import ModalObservacion from "../../../Components/dashboard/Modals/Cotizaciones/
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
+import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] =
@@ -148,41 +149,7 @@ function Cotizaciones() {
       header: "Estado",
       accessor: "estado",
       render: (value) => {
-        const estado = (value as string)?.toLowerCase();
-        // asignar color según estado de la cotización
-        let color = "";
-        switch (estado) {
-          case "pendiente":
-            color = "#dc2626"; // rojo
-            break;
-          case "en_proceso":
-            color = "#eab308"; // amarillo
-            break;
-          case "respondida":
-            color = "#16a34a"; // verde
-            break;
-          case "cerrada":
-            color = "#555"; // gris
-            break;
-          default:
-            color = "#777"; // gris oscuro
-            break;
-        }
-
-        return (
-          <span
-            style={{
-              backgroundColor: color,
-              color: "white",
-              padding: "4px 10px",
-              borderRadius: "9999px",
-              fontSize: "0.85rem",
-              textTransform: "capitalize",
-            }}
-          >
-            {estado}
-          </span>
-        );
+        return <MapCard propertie="estadoCotizacion" value={value as string} />;
       },
     },
     { header: "Observaciones", accessor: "observaciones" },
