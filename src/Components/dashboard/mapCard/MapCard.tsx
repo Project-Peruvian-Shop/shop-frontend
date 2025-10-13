@@ -1,7 +1,7 @@
 import styles from "./MapCard.module.css";
 
 interface MapCardProps {
-  propertie: "tipoMensaje" | "estadoCotizacion" | "estadoMensaje";
+  property: "tipoMensaje" | "estadoCotizacion" | "estadoMensaje";
   value: string;
 }
 
@@ -44,10 +44,10 @@ const mapperEstadoMensaje = (estado: string) => {
       return "Pendiente";
     case "EN_PROCESO":
       return "En proceso";
-    case "CERRADA":
-      return "Cerrada";
     case "RESUELTO":
       return "Resuelto";
+    case "CERRADO":
+      return "Cerrado";
     default:
       return "Desconocido";
   }
@@ -84,17 +84,22 @@ const colorPalette: Record<string, { color: string; background: string }> = {
     color: "var(--green)",
     background: "var(--light-green)",
   },
+  Cerrado: {
+    color: "var(--gray)",
+    background: "var(--light-gray)",
+  },
+
   Queja: {
     color: "var(--orange)",
     background: "var(--light-orange)",
   },
   Reclamo: {
-    color: "var(--red)",
-    background: "var(--light-red)",
+    color: "var(--primary-color)",
+    background: "var(--light-primary-color)",
   },
   Contáctenos: {
-    color: "var(--purple)",
-    background: "var(--light-purple)",
+    color: "var(--blue)",
+    background: "var(--light-blue)",
   },
 
   Desconocido: {
@@ -103,9 +108,9 @@ const colorPalette: Record<string, { color: string; background: string }> = {
   },
 };
 
-function MapCard({ propertie, value }: MapCardProps) {
+function MapCard({ property, value }: MapCardProps) {
   let formattedValue = value;
-  switch (propertie) {
+  switch (property) {
     case "tipoMensaje":
       formattedValue = mapperTipoMensaje(value);
       break;
