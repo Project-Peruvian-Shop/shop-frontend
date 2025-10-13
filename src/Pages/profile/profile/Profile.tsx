@@ -149,7 +149,7 @@ function Profile() {
                     <td>{c.numero}</td>
                     <td>{new Date(c.creacion).toLocaleDateString("es-PE")}</td>
                     <td style={{ textAlign: "center" }}>
-                      <MapCard propertie="estadoCotizacion" value={c.estado} />
+                      <MapCard property="estadoCotizacion" value={c.estado} />
                     </td>
                     <td>
                       <Link to={`${routes.profile_cotization}${c.id}`}>
