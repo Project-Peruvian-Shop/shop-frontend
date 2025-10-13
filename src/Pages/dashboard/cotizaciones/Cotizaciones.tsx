@@ -18,12 +18,9 @@ import IconSVG from "../../../Icons/IconSVG";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-<<<<<<< HEAD
 import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservacionesEstado";
-=======
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
->>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] =
@@ -96,10 +93,7 @@ function Cotizaciones() {
       console.error("Error cargando cantidad de cotizaciones:", error);
     }
   };
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
   const handleSaveObservacion = async (
     id: number,
     nuevaObservacion: string
@@ -107,13 +101,6 @@ function Cotizaciones() {
     if (!cotizaciones) return;
 
     try {
-      const observacionOriginal =
-<<<<<<< HEAD
-        cotizaciones.find((c) => c.id === id)?.observaciones || "";
-=======
-        cotizaciones.content.find((c) => c.id === id)?.observaciones || "";
->>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
-
       if (nuevaObservacion.trim() === "") {
         await MySwal.fire({
           icon: "warning",
@@ -123,7 +110,7 @@ function Cotizaciones() {
         return;
       }
 
-      if (nuevaObservacion.trim() === observacionOriginal.trim()) {
+      if (nuevaObservacion.trim() === nuevaObservacion.trim()) {
         await MySwal.fire({
           icon: "info",
           title: "Sin cambios",
@@ -152,7 +139,6 @@ function Cotizaciones() {
     }
   };
 
-<<<<<<< HEAD
   const handleChangeEstado = async (
     id: number,
     nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
@@ -175,8 +161,6 @@ function Cotizaciones() {
     }
   };
 
-=======
->>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
   // columnas
   const columns: Column<CotizacionDashboardDTO>[] = [
     { header: "Número", accessor: "numeroCotizacion" },
@@ -268,12 +252,8 @@ function Cotizaciones() {
           show={showModal}
           cotizacion={selectedCotizacion}
           onClose={() => setShowModal(false)}
-<<<<<<< HEAD
           onSaveObservacion={handleSaveObservacion}
           onChangeEstado={handleChangeEstado}
-=======
-          onSubmit={handleSaveObservacion}
->>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
         />
       )}
     </div>

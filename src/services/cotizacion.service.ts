@@ -1,14 +1,7 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
-<<<<<<< HEAD
 import type { CotizacionChangeStateDTO, CotizacionObservacionDTO, CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
-=======
-import type {
-  CotizacionObservacionDTO,
-  CotizacionRequestDTO,
-} from "../models/Cotizacion/Cotizacion_request_dto";
->>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
 import type {
   CotizacionCreateResponseDTO,
   CotizacionDashboardDTO,
@@ -100,7 +93,6 @@ export async function updateObservacionCotizacion(
 
   return res.data.data;
 }
-<<<<<<< HEAD
 export async function change_state(
   id:number,
   nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
@@ -114,5 +106,3 @@ export async function change_state(
 
   return res.data.data;
 }
-=======
->>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
