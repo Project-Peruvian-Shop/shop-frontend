@@ -79,6 +79,7 @@ function Cotizaciones() {
     try {
       const res: PaginatedResponse<CotizacionDashboardDTO> =
         await getAllCotizaciones(page, 10);
+      setCotizaciones(res);
       setTotalPages(res.totalPages);
     } catch (error) {
       console.error("Error cargando cotizaciones:", error);
@@ -110,7 +111,7 @@ function Cotizaciones() {
         return;
       }
 
-      if (nuevaObservacion.trim() === nuevaObservacion.trim()) {
+      if (nuevaObservacion.trim() === (selectedCotizacion?.observaciones || "").trim()) {
         await MySwal.fire({
           icon: "info",
           title: "Sin cambios",
