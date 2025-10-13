@@ -181,8 +181,12 @@
   justify-content: center;
   gap: 8px;
   margin-top: 20px;
+  
 }
 
+.terms {
+  display: inline-block;
+}
 .termsBox label {
   font-size: 14px;
   color: #1b2f33;

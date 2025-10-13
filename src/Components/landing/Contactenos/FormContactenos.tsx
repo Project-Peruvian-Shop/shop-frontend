@@ -192,7 +192,7 @@ const FormContactenos = () => {
         <div className={style.termsBox}>
           <input type="checkbox" id="terms" required />
 
-          <label htmlFor="terms">
+          <label htmlFor="terms" className={style.terms}>
             Acepto los{" "}
             <Link to={routes.tyc} target="_blank" rel="noopener noreferrer">
               términos y condiciones
