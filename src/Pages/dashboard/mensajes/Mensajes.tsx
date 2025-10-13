@@ -1,6 +1,9 @@
 import styles from "./Mensajes.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
-import type { Action, Column } from "../../../Components/dashboard/table/DashboardTable";
+import type {
+  Action,
+  Column,
+} from "../../../Components/dashboard/table/DashboardTable";
 import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import { useEffect, useState } from "react";
 import {
@@ -9,6 +12,7 @@ import {
 } from "../../../services/mensajes.service";
 import type { MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
+import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 
 function Mensajes() {
   const [mensajes, setMensajes] = useState<MensajeDashboardDTO[]>([]);
@@ -45,26 +49,14 @@ function Mensajes() {
     }
   };
 
-  // Mapper para tipo de mensaje
-  const tipoMensajeMap: Record<string, string> = {
-    "0": "Queja",
-    "1": "Sugerencia",
-    "2": "Contáctenos",
-  };
-
-  // Mapper para estado de mensaje
-  const estadoMensajeMap: Record<number, string> = {
-    0: "Sin atender",
-    1: "Contestado",
-    2: "Cerrado",
-  };
-
   // Definición de columnas
   const columns: Column<MensajeDashboardDTO>[] = [
     {
       header: "Tipo",
       accessor: "tipo",
-      render: (_, row) => <span>{tipoMensajeMap[row.tipo] ?? row.tipo}</span>,
+      render: (value) => (
+        <MapCard property="tipoMensaje" value={value as string} />
+      ),
     },
     {
       header: "Mensaje",
@@ -92,8 +84,8 @@ function Mensajes() {
     {
       header: "Estado",
       accessor: "estado",
-      render: (_, row) => (
-        <span>{estadoMensajeMap[row.estado] ?? row.estado}</span>
+      render: (value) => (
+        <MapCard property="estadoMensaje" value={value as string} />
       ),
     },
   ];
@@ -110,7 +102,7 @@ function Mensajes() {
   return (
     <div>
       <div className={styles.dashboardHeader}>
-        <div className={styles.title}>Usuarios</div>
+        <div className={styles.title}>Mensajes</div>
 
         <div className={styles.headerActions}>
           <div className={styles.totalCount}>
