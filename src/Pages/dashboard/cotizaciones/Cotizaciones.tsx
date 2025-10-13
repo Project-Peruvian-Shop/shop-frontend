@@ -149,7 +149,7 @@ function Cotizaciones() {
       header: "Estado",
       accessor: "estado",
       render: (value) => (
-        <MapCard propertie="estadoCotizacion" value={value as string} />
+        <MapCard property="estadoCotizacion" value={value as string} />
       ),
     },
     {
