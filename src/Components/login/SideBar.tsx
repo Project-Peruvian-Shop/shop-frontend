@@ -1,6 +1,8 @@
 import styles from "./SideBar.module.css";
 import logo from "../../Icons/Logo-HD.png";
 import Icon from "../../Icons/star.svg";
+import { Link } from "react-router-dom";
+import { routes } from "../../utils/routes";
 
 interface SideBarProps {
   title: string;
@@ -12,7 +14,13 @@ function SideBar(props: SideBarProps) {
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
-        <img src={logo} alt="logo-tuberias-peruanito" className={styles.logo} />{" "}
+        <Link to={routes.home}>
+          <img
+            src={logo}
+            alt="logo-tuberias-peruanito"
+            className={styles.logo}
+          />
+        </Link>
       </div>
       <div className={styles.title}>{props.title}</div>
 

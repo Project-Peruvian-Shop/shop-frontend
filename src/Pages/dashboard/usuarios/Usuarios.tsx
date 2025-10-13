@@ -1,36 +1,65 @@
 import styles from "./Usuarios.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
-import type { Action, Column } from "../../../Components/table/DashboardTable";
-import DashboardTable from "../../../Components/table/DashboardTable";
+import type {
+  Action,
+  Column,
+} from "../../../Components/dashboard/table/DashboardTable";
+import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import { useEffect, useState } from "react";
 import {
   getAllUsuarios,
   getQuantityUsuarios,
+  getSearchUsuarios,
 } from "../../../services/usuario.service";
 import type { UsuarioDashboardDTO } from "../../../models/Usuario/Usuario_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
+import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 
 function Usuarios() {
-  const [usuarios, setUsuarios] = useState<UsuarioDashboardDTO[]>([]);
+  const [usuarios, setUsuarios] =
+    useState<PaginatedResponse<UsuarioDashboardDTO>>();
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    loadUsuarios(page);
+    fetchAll(page);
     loadCantidadUsuarios();
   }, [page]);
 
-  const loadUsuarios = async (page: number) => {
+  useEffect(() => {
+    if (search.length === 0) {
+      fetchAll(page);
+    } else if (search.length >= 3) {
+      const delay = setTimeout(() => {
+        fetchSearch(search, page);
+      }, 400);
+      return () => clearTimeout(delay);
+    }
+  }, [search, page]);
+
+  const fetchAll = async (page: number = 0) => {
+    setLoading(true);
     try {
-      const res: PaginatedResponse<UsuarioDashboardDTO> = await getAllUsuarios(
-        page,
-        10
-      );
-      setUsuarios(res.content);
+      const res = await getAllUsuarios(page);
+      setUsuarios(res);
       setTotalPages(res.totalPages);
-    } catch (error) {
-      console.error("Error cargando productos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchSearch = async (text: string, page: number = 0) => {
+    setLoading(true);
+    try {
+      const res = await getSearchUsuarios(text, page);
+      setUsuarios(res);
+      setTotalPages(res.totalPages);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -94,6 +123,14 @@ function Usuarios() {
       <div className={styles.dashboardHeader}>
         <div className={styles.title}>Usuarios</div>
 
+        <div className={styles.searchBarContainer}>
+          <SearchBar
+            placeholder="Buscar usuario..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>Total: {cantidad} Usuarios</div>
           <button className={styles.addButton}>+ Añadir Usuario</button>
@@ -101,14 +138,18 @@ function Usuarios() {
       </div>
 
       <div className={styles.tableContainer}>
-        <DashboardTable
-          columns={columns}
-          data={usuarios}
-          actions={actions}
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={setPage}
-        />
+        {loading ? (
+          <p>Cargando...</p>
+        ) : (
+          <DashboardTable
+            columns={columns}
+            data={usuarios?.content || []}
+            actions={actions}
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+        )}
       </div>
     </div>
   );

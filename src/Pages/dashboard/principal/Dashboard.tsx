@@ -26,6 +26,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { PieChart, Pie, Cell, Legend } from "recharts";
+import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 
 function Dashboard() {
   const [categorias, setCategorias] = useState<DashboardCategoriaDTO[]>([]);
@@ -100,18 +101,6 @@ function Dashboard() {
     fetchCotizaciones();
   }, []);
 
-  // mapeos
-  const estadoMapper: Record<number, string> = {
-    0: "Pendiente",
-    1: "Aceptada",
-    2: "Rechazada",
-  };
-
-  const tipoMapper: Record<number, string> = {
-    0: "Queja",
-    1: "Sugerencia",
-    2: "Contáctenos",
-  };
   const chartCategorias = categorias.map((c) => ({
     name: c.categoriaNombre,
     value: c.categoriaCantidad,
@@ -144,10 +133,8 @@ function Dashboard() {
               {mensajes.length > 0 ? (
                 mensajes.map((msg) => (
                   <li key={msg.id} className={styles.item}>
-                    <div className={styles.tipo}>
-                      {tipoMapper[msg.tipo] ?? "Desconocido"}
-                    </div>
-                    <div className={styles.mensaje}>{msg.mensaje}</div>
+                    <MapCard property="tipoMensaje" value={msg.tipo} />
+                    <div className={styles.mensaje}>{msg.contenido}</div>
                   </li>
                 ))
               ) : (
@@ -188,8 +175,8 @@ function Dashboard() {
                 <li key={cot.id} className={styles.item}>
                   <div>
                     <span className={styles.numero}>{cot.numero}</span>{" "}
-                    <span className={styles.estado}>
-                      ({estadoMapper[cot.estado] ?? "Desconocido"})
+                    <span>
+                      <MapCard property="estadoCotizacion" value={cot.estado} />
                     </span>
                   </div>
                   <div className={styles.totalItems}>

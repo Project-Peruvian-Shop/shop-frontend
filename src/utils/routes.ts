@@ -20,9 +20,9 @@ export const routes = {
 
   // Private - Shop & User profile
   checkout: "/checkout",
-  thank_you: "/thank-you",
   profile_user: "/perfil/usuario",
   profile_cotization: "/perfil/cotizaciones/",
+  cotizaciones: "/perfil/cotizaciones",
 
   //Admin Pages
   dashboard: "/dashboard",
@@ -54,3 +54,13 @@ export const routes = {
   dashboard_messages: "/dashboard/mensajes",
   dashboard_message: "/dashboard/mensaje/:id",
 };
+
+export const publicRoutes = [
+  routes.home,
+  routes.about,
+  routes.questions,
+  routes.contact,
+  routes.complaints_book,
+  routes.tyc,
+  routes.privacy_policy,
+];

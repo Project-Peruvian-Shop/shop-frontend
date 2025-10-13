@@ -13,9 +13,17 @@ const BASE_URL = URL_API + "/producto";
 
 export async function getPaginatedProductos(
   page: number = 0,
-  size: number = 10
+  size: number = 10,
+  categoria: number | null = null
 ): Promise<PaginatedResponse<PaginatedProductoResponseDTO>> {
-  const url = `${BASE_URL}/paginated?page=${page}&size=${size}`;
+  const params = new URLSearchParams();
+  params.append("page", page.toString());
+  params.append("size", size.toString());
+  if (categoria !== null) {
+    params.append("categoria", categoria.toString());
+  }
+
+  const url = `${BASE_URL}/paginated?${params.toString()}`;
   const res = await axios.get<
     ApiResponse<PaginatedResponse<PaginatedProductoResponseDTO>>
   >(url);
@@ -32,9 +40,25 @@ export async function getProductoById(id: number): Promise<ProductoDTO> {
 
 export async function getAllProductos(
   page: number = 0,
-  size: number = 10
+  size: number = 8
 ): Promise<PaginatedResponse<ProductoDashboardDTO>> {
   const url = `${BASE_URL}/dashboard-paginated?page=${page}&size=${size}`;
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<ProductoDashboardDTO>>
+  >(url);
+
+  return res.data.data;
+}
+
+export async function getSearchProductos(
+  busqueda: string,
+  page: number = 0,
+  size: number = 8
+): Promise<PaginatedResponse<ProductoDashboardDTO>> {
+  const url = `${BASE_URL}/dashboard-search?busqueda=${encodeURIComponent(
+    busqueda
+  )}&page=${page}&size=${size}`;
+
   const res = await axios.get<
     ApiResponse<PaginatedResponse<ProductoDashboardDTO>>
   >(url);

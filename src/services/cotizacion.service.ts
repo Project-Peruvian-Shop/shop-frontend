@@ -1,7 +1,14 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
+<<<<<<< HEAD
 import type { CotizacionChangeStateDTO, CotizacionObservacionDTO, CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
+=======
+import type {
+  CotizacionObservacionDTO,
+  CotizacionRequestDTO,
+} from "../models/Cotizacion/Cotizacion_request_dto";
+>>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64
 import type {
   CotizacionCreateResponseDTO,
   CotizacionDashboardDTO,
@@ -57,6 +64,22 @@ export async function getAllCotizaciones(
   return res.data.data;
 }
 
+export async function getSearchCotizaciones(
+  busqueda: string,
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedResponse<CotizacionDashboardDTO>> {
+  const url = `${BASE_URL}/dashboard-search?busqueda=${encodeURIComponent(
+    busqueda
+  )}&page=${page}&size=${size}`;
+
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<CotizacionDashboardDTO>>
+  >(url);
+
+  return res.data.data;
+}
+
 export async function getQuantityCotizaciones(): Promise<number> {
   const url = `${BASE_URL}/dashboard-quantity`;
 
@@ -64,6 +87,7 @@ export async function getQuantityCotizaciones(): Promise<number> {
 
   return res.data.data;
 }
+
 export async function updateObservacionCotizacion(
   id: number,
   observaciones: string
@@ -76,6 +100,7 @@ export async function updateObservacionCotizacion(
 
   return res.data.data;
 }
+<<<<<<< HEAD
 export async function change_state(
   id:number,
   nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
@@ -89,3 +114,5 @@ export async function change_state(
 
   return res.data.data;
 }
+=======
+>>>>>>> 6b530e0e6d794b8a79697f7bca796c70dd73ff64

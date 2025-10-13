@@ -5,6 +5,11 @@ export interface CartProductoDTO extends PaginatedProductoResponseDTO {
   cantidad: number;
 }
 
+export const setCartToLocalStorage = (items: CartProductoDTO[]) => {
+  localStorage.setItem("cart", JSON.stringify(items));
+  window.dispatchEvent(new Event("cartUpdated"));
+};
+
 export const getCartFromLocalStorage = (): CartProductoDTO[] => {
   const cart = localStorage.getItem("cart");
   return cart ? JSON.parse(cart) : [];
@@ -37,6 +42,8 @@ export const saveProductoToCart = (
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
+
+  window.dispatchEvent(new Event("cartUpdated"));
 };
 
 export const actualizarCantidadEnCart = (
@@ -62,6 +69,7 @@ export const eliminarProductoDelCart = (
   const updatedCart = cart.filter((item) => item.id !== id);
   setCart(updatedCart);
   localStorage.setItem("cart", JSON.stringify(updatedCart));
+  window.dispatchEvent(new Event("cartUpdated"));
 };
 
 export const clearCart = () => {

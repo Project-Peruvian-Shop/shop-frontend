@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { createLibroReclamaciones } from "../../services/mensajes.service";
-import style from "./FormLibro.module.css";
-import Swal from "sweetalert2";
+import style from "./FormContactenos.module.css";
+import { Link } from "react-router-dom";
+import { routes } from "../../../utils/routes";
+import { obtenerUsuario } from "../../../utils/auth";
 import withReactContent from "sweetalert2-react-content";
-import { obtenerUsuario } from "../../utils/auth";
+import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import { createContactenos } from "../../../services/mensajes.service";
 
-const FormLibro = () => {
+const FormContactenos = () => {
   const usuario = obtenerUsuario();
   const usuario_id = usuario ? usuario.id : null;
 
@@ -18,7 +20,33 @@ const FormLibro = () => {
   const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [contenido, setContenido] = useState("");
-  const [tipo, setTipo] = useState("");
+
+  useEffect(() => {
+    if (usuario) {
+      // Cargar los valores del usuario en el formulario
+      setNombre(usuario.nombre || "");
+      setEmail(usuario.email || "");
+      setTipoDocumento(usuario.tipoDocumento || "");
+      setDocumento(usuario.documento || "");
+      setTelefono(usuario.telefono || "");
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Se han cargado tus datos personales",
+      });
+    }
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,16 +59,16 @@ const FormLibro = () => {
         telefono,
         email,
         contenido,
-        tipo,
+        tipo: "CONTACTENOS",
         usuario_id,
       };
-      const response = await createLibroReclamaciones(body);
+      const response = await createContactenos(body);
 
       if (response) {
         MySwal.fire({
           icon: "success",
-          title: "¡Reclamación enviada!",
-          text: "Le agradecemos por contactarnos. Su reclamación ha sido recibida y será atendida a la brevedad.",
+          title: "¡Consulta enviada!",
+          text: "Le agradecemos por contactarnos. Su consulta ha sido recibida y será atendida a la brevedad.",
         });
       }
 
@@ -49,7 +77,6 @@ const FormLibro = () => {
       setDocumento("");
       setTelefono("");
       setEmail("");
-      setTipo("");
       setContenido("");
     } catch (error: unknown) {
       let mensaje;
@@ -69,8 +96,10 @@ const FormLibro = () => {
   return (
     <div className={style.containerFormulario}>
       <form onSubmit={handleSubmit}>
-        <h3>Datos personales</h3>
+        <input type="hidden" name="tipo" value="CONTACTENOS" />
+        <input type="hidden" name="usuario_id" value={usuario_id} />
 
+        <h3>Datos personales</h3>
         <div className={style.inputGroup}>
           <div className={style.inputWrapper}>
             <label htmlFor="nombre">Nombre Completo / Razón Social *</label>
@@ -88,10 +117,10 @@ const FormLibro = () => {
           <div className={style.inputWrapper}>
             <label htmlFor="email">Email *</label>
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
-              placeholder="Ingrese el email"
+              placeholder="Ingrese su correo electrónico"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -123,7 +152,7 @@ const FormLibro = () => {
               type="string"
               id="documento"
               name="documento"
-              placeholder="Ingrese su número de documento"
+              placeholder="Ingrese el número de documento"
               required
               value={documento}
               onChange={(e) => setDocumento(e.target.value)}
@@ -144,61 +173,15 @@ const FormLibro = () => {
           </div>
         </div>
 
-        <div className={style.radioGroup}>
-          <h3 className={style.radioGroupTitle}>Tipo de solicitud</h3>
-
-          <div className={style.radioContainer}>
-            <label className={style.radioLabel}>
-              <div className={style.radioCard}>
-                <span className={style.radioTitle}>Reclamo</span>
-                <div className={style.radioCardContent}>
-                  <input
-                    type="radio"
-                    name="tipo"
-                    value="RECLAMO"
-                    className={style.radioInput}
-                    required
-                    checked={tipo === "RECLAMO"}
-                    onChange={(e) => setTipo(e.target.value)}
-                  />
-                  <span className={style.radioDescription}>
-                    Disconformidad relacionada a los productos
-                  </span>
-                </div>
-              </div>
-            </label>
-
-            <label className={style.radioLabel}>
-              <div className={style.radioCard}>
-                <span className={style.radioTitle}>Queja</span>
-                <div className={style.radioCardContent}>
-                  <input
-                    type="radio"
-                    name="tipo"
-                    value="QUEJA"
-                    className={style.radioInput}
-                    required
-                    checked={tipo === "QUEJA"}
-                    onChange={(e) => setTipo(e.target.value)}
-                  />
-                  <span className={style.radioDescription}>
-                    Disconformidad no relacionada a los productos
-                  </span>
-                </div>
-              </div>
-            </label>
-          </div>
-        </div>
-
         <div className={style.textareaGroup}>
           <div className={style.inputWrapper}>
-            <label htmlFor="contenido" className={style.radioGroupTitle}>
-              Detalle de la reclamación
-            </label>
+            <label htmlFor="contenido">Comentario o mensaje *</label>
             <textarea
               id="contenido"
               name="contenido"
-              placeholder="Describa de manera clara y detallada los hechos que motivan su reclamo o queja."
+              placeholder="Describa de manera clara su consulta para poder atenderlo de forma eficiente."
+              minLength={10}
+              maxLength={500}
               required
               value={contenido}
               onChange={(e) => setContenido(e.target.value)}
@@ -208,11 +191,24 @@ const FormLibro = () => {
 
         <div className={style.termsBox}>
           <input type="checkbox" id="terms" required />
-          <label htmlFor="terms">
-            Confirmo que la información proporcionada es verídica.
+
+          <label htmlFor="terms" className={style.terms}>
+            Acepto los{" "}
+            <Link to={routes.tyc} target="_blank" rel="noopener noreferrer">
+              términos y condiciones
+            </Link>{" "}
+            y la{" "}
+            <Link
+              to={routes.privacy_policy}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              política de privacidad
+            </Link>
           </label>
+
           <button type="submit" className={style.btnPrimary}>
-            Enviar reclamación
+            Enviar mensaje
           </button>
         </div>
       </form>
@@ -220,4 +216,4 @@ const FormLibro = () => {
   );
 };
 
-export default FormLibro;
+export default FormContactenos;

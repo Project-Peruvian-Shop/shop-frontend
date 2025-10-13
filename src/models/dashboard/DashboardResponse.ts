@@ -8,13 +8,13 @@ export interface DashboardLastCotizacionDTO {
   id: number;
   numero: string;
   totalItems: number;
-  estado: number;
+  estado: string;
 }
 
 export interface DashboardMensajeDTO {
   id: number;
-  mensaje: string;
-  tipo: number;
+  contenido: string;
+  tipo: string;
 }
 
 export interface DashboardProductoDTO {

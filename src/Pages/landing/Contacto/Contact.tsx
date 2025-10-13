@@ -1,4 +1,4 @@
-import FormContactenos from "../../../Components/Contactenos/FormContactenos";
+import FormContactenos from "../../../Components/landing/Contactenos/FormContactenos";
 import Header from "../../../Components/header/Header";
 import Card from "../../../Components/home/card/Card";
 import { Icons } from "../../../Icons/icons";
@@ -61,7 +61,6 @@ const Contact = () => {
           }
           alt="phone-icon"
           link={routes.contact}
-          visible={false}
         />
         <Card
           img={Icons.email}
@@ -74,7 +73,6 @@ const Contact = () => {
           }
           alt="email-icon"
           link={routes.contact}
-          visible={false}
         />
         <Card
           img={locationIcon}
@@ -87,7 +85,6 @@ const Contact = () => {
           }
           alt="ubicacion-icon"
           link={routes.contact}
-          visible={false}
         />
       </div>
     </main>

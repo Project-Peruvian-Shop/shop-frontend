@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Checkout.module.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -15,7 +15,6 @@ import { routes } from "../../../utils/routes";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const MySwal = withReactContent(Swal);
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [nombre, setNombre] = useState("");
@@ -23,6 +22,36 @@ function Checkout() {
   const [email, setEmail] = useState("");
   const [comentarios, setComentarios] = useState("");
   const navigate = useNavigate();
+
+  const usuario = obtenerUsuario();
+  const MySwal = withReactContent(Swal);
+
+  useEffect(() => {
+    if (usuario) {
+      // Cargar los valores del usuario en el formulario
+      setNombre(usuario.nombre || "");
+      setEmail(usuario.email || "");
+      setTipoDocumento(usuario.tipoDocumento || "");
+      setNumeroDocumento(usuario.documento || "");
+      setTelefono(usuario.telefono || "");
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Se han cargado tus datos personales",
+      });
+    }
+  }, []);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAcceptedTerms(event.target.checked);
@@ -63,7 +92,7 @@ function Checkout() {
     const body: CotizacionRequestDTO = {
       usuarioID: usuario.id,
       nombre,
-      tipoDocumento: tipoDocumento ? parseInt(tipoDocumento) : -1,
+      tipoDocumento: tipoDocumento,
       documento: numeroDocumento,
       telefono,
       email,
@@ -74,9 +103,13 @@ function Checkout() {
     try {
       const response = await postCotizacion(body);
       MySwal.fire({
-        title: "Éxito",
-        text: "La cotización se ha enviado correctamente.",
-        icon: "success",
+        title: "La cotización se ha enviado correctamente.",
+        text: "Nos pondremos en contacto contigo pronto.",
+        imageUrl:
+          "https://tuberiasperuanito.com/wp-content/uploads/2024/10/Logo-HD.png",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Logo de la empresa",
       });
       console.log("Respuesta backend:", response);
       setNombre("");
@@ -110,22 +143,25 @@ function Checkout() {
           <div className={styles.sectionTitle}>Información Personal</div>
           <div className={styles.inputRow}>
             <input
+              type="text"
               className={styles.input}
               placeholder="Nombre Completo o de la Empresa *"
+              minLength={3}
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
           </div>
           <div className={styles.inputRow}>
             <input
+              type="tel"
               className={styles.input}
               placeholder="Teléfono *"
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />
             <input
-              className={styles.input}
               type="email"
+              className={styles.input}
               placeholder="Correo Electrónico *"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -145,11 +181,13 @@ function Checkout() {
               <option value="" disabled>
                 Tipo de Documento *
               </option>
-              <option value="1">DNI</option>
-              <option value="2">RUC</option>
-              <option value="3">PASAPORTE</option>
+              <option value="DNI">DNI</option>
+              <option value="RUC">RUC</option>
+              <option value="PASAPORTE">PASAPORTE</option>
+              <option value="OTRO">OTRO</option>
             </select>
             <input
+              type="text"
               className={styles.input}
               placeholder="Número de Documento *"
               value={numeroDocumento}
@@ -163,7 +201,7 @@ function Checkout() {
           <div className={styles.sectionTitle}>Información Adicional</div>
           <textarea
             className={styles.textarea}
-            placeholder="Comentarios (opcional)"
+            placeholder="Comentarios"
             value={comentarios}
             onChange={(e) => setComentarios(e.target.value)}
             name="comentarios"
@@ -177,7 +215,7 @@ function Checkout() {
             checked={acceptedTerms}
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="terms">
+          <label htmlFor="terms" className={styles.terms}>
             Acepto los <Link to={routes.tyc}>términos y condiciones</Link> y la{" "}
             <Link to={routes.privacy_policy}>política de privacidad</Link>
           </label>

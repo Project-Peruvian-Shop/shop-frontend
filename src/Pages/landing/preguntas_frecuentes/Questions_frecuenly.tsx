@@ -2,7 +2,7 @@ import { useState } from "react";
 import { faqs } from "./data";
 import styles from "./Questions_frecuenly.module.css";
 import { Link } from "react-router-dom";
-import { FAQCard } from "../../../Components/FAQ/FAQ_card";
+import { FAQCard } from "../../../Components/landing/FAQ/FAQ_card";
 import Header from "../../../Components/header/Header";
 
 function linkWhatsapp(text: string) {

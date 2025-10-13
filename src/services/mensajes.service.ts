@@ -22,6 +22,20 @@ export async function getAllMensajes(
   return res.data.data;
 }
 
+export async function getSearchMensajes(
+  text: string,
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedResponse<MensajeDashboardDTO>> {
+  const url = `${BASE_URL}/dashboard-search?busqueda=${text}&page=${page}&size=${size}`;
+
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<MensajeDashboardDTO>>
+  >(url);
+
+  return res.data.data;
+}
+
 export async function createContactenos(
   body: MensajeRequestDTO
 ): Promise<MensajeCreateResponseDTO> {
@@ -49,7 +63,7 @@ export async function createLibroReclamaciones(
 }
 
 export async function getQuantityMensajes(
-  mes: number,
+  mes: number
 ): Promise<MensajeDashboardDTO> {
   const url = `${BASE_URL}/dashboard-quantity/${mes}`;
 

@@ -28,13 +28,14 @@
 .label {
   width: 30%;
   font-family: "Montserrat", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 16px;
 }
 
 .value {
   width: 70%;
   font-family: "Montserrat", sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
+  text-align: justify;
 }

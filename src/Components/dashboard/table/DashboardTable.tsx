@@ -1,5 +1,5 @@
 import styles from "./DashboardTable.module.css";
-import Pagination from "../pagination/Pagination";
+import Pagination from "../../pagination/Pagination";
 
 export interface Column<T> {
   header: string;

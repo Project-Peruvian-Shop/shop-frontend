@@ -32,6 +32,14 @@ import tiktok from "./rrss/tiktok.svg";
 import facebook from "./rrss/facebook.svg";
 import instagram from "./rrss/instagram.svg";
 
+import cart from "./navbar/cart.svg";
+import search from "./navbar/search.svg";
+import items from "./navbar/items.svg";
+import arrowUp from "./navbar/arrow-up.svg";
+import arrowDown from "./navbar/arrow-down.svg";
+
+import repeat from "./table/repeat.svg";
+
 export const Icons = {
   // "view-primary": view1,
   // "edit-primary": edit1,
@@ -62,6 +70,12 @@ export const Icons = {
   whatsappPri,
   userIcon,
   view,
+  cart,
+  search,
+  items,
+  arrowUp,
+  arrowDown,
+  repeat,
 };
 
 export type IconName = keyof typeof Icons;

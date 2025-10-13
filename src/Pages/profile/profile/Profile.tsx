@@ -5,12 +5,13 @@ import withReactContent from "sweetalert2-react-content";
 import { useEffect, useState } from "react";
 import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
 import type { CotizacionUserDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
-import { eliminarUsuario, obtenerUsuario } from "../../../utils/auth";
+import { obtenerUsuario } from "../../../utils/auth";
 import { getProfile } from "../../../services/usuario.service";
 import { getCotizacionesByUser } from "../../../services/cotizacion.service";
 import { routes } from "../../../utils/routes";
 import Header from "../../../Components/header/Header";
 import { Icons } from "../../../Icons/icons";
+import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 
 function Profile() {
   const navigate = useNavigate();
@@ -61,39 +62,6 @@ function Profile() {
       });
   }, [navigate]);
 
-  const handleCerrarSesion = () => {
-    MySwal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción cerrará tu sesión.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, cerrar sesión",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        eliminarUsuario();
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-
-        navigate(routes.login);
-        Toast.fire({
-          icon: "success",
-          title: "Sesión cerrada exitosamente",
-        });
-      }
-    });
-  };
-
   const mapperRol = (rol: string) => {
     switch (rol) {
       case "ROLE_ADMIN":
@@ -104,36 +72,6 @@ function Profile() {
         return "Administrador";
       default:
         return "Desconocido";
-    }
-  };
-
-  const mapperEstado = (estado: string) => {
-    switch (estado) {
-      case "PENDIENTE":
-        return "Pendiente";
-      case "EN_PROCESO":
-        return "En proceso";
-      case "CERRADA":
-        return "Cerrada";
-      case "RESPONDIDA":
-        return "Respondida";
-      default:
-        return "Desconocido";
-    }
-  };
-
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case "PENDIENTE":
-        return styles.sinAtender; // define en CSS color rojo o lo que quieras
-      case "EN_PROCESO":
-        return styles.enviada; // color azul
-      case "RESPONDIDA":
-        return styles.cerrada; // color verde
-      case "CERRADA":
-        return styles.cerrada; // color verde
-      default:
-        return styles.desconocido; // gris u otro color
     }
   };
 
@@ -170,14 +108,6 @@ function Profile() {
                 {fechaHora.toLocaleTimeString()}
               </span>
             </div>
-
-            {/* Botón de Cerrar Sesión dentro de esta sección */}
-            <button
-              className={styles.logoutButton}
-              onClick={handleCerrarSesion}
-            >
-              Cerrar Sesión
-            </button>
           </div>
 
           <div className={styles.personal}>
@@ -205,7 +135,7 @@ function Profile() {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>Número</th>
                   <th>Fecha</th>
                   <th style={{ textAlign: "center" }}>Estado</th>
@@ -215,21 +145,24 @@ function Profile() {
               <tbody>
                 {cotizaciones.map((c) => (
                   <tr key={c.id}>
-                    <td>{c.id}</td>
+                    {/* <td>{c.id}</td> */}
                     <td>{c.numero}</td>
-                    <td>{new Date(c.creacion).toLocaleDateString()}</td>
-                    <td
-                      className={`${styles.estado} ${getStatusClass(
-                        c.estado.toString()
-                      )}`}
-                    >
-                      {mapperEstado(c.estado)}
+                    <td>{new Date(c.creacion).toLocaleDateString("es-PE")}</td>
+                    <td style={{ textAlign: "center" }}>
+                      <MapCard property="estadoCotizacion" value={c.estado} />
                     </td>
-                    {/* icono que envia a /cotizacion/:id */}
                     <td>
                       <Link to={`${routes.profile_cotization}${c.id}`}>
                         <img src={Icons.view} alt="Ver" />
                       </Link>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.repeatButton}
+                        onClick={() => console.log("Refrescar " + c.id)}
+                      >
+                        <img src={Icons.repeat} alt="Ver" />
+                      </button>
                     </td>
                   </tr>
                 ))}

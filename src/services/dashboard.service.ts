@@ -18,6 +18,8 @@ export async function getCotizacionesLineaMes(
   const url = `${BASE_URL}/lineas_mes?mes=${mes}&year=${year}`;
 
   const res = await axios.get<ApiResponse<DashboardCategoriaDTO[]>>(url);
+  console.log(res.data.data);
+  
 
   return res.data.data;
 }

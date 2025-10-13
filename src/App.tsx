@@ -30,6 +30,7 @@ import Producto from "./Pages/cart/producto/Producto.tsx";
 import Carrito from "./Pages/cart/carrito/Carrito.tsx";
 import Checkout from "./Pages/cart/checkout/Checkout.tsx";
 import Profile from "./Pages/profile/profile/Profile.tsx";
+import CotizacionesProfile from "./Pages/profile/cotizaciones/Cotizaciones.tsx";
 
 function App() {
   const location = useLocation();
@@ -65,6 +66,7 @@ function App() {
 
         {/* User Pages */}
         <Route path={routes.profile_user} element={<Profile />} />
+        <Route path={routes.cotizaciones} element={<CotizacionesProfile />} />
         <Route
           path={`${routes.profile_cotization}:id`}
           element={<Cotizacion />}

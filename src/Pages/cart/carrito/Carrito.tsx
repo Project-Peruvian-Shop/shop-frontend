@@ -1,11 +1,11 @@
-import CartTable from "../../../Components/cart/CartTable";
-import Header from "../../../Components/header/Header";
+import CartTable from "../../../Components/shop/carrito/CartTable";
 import styles from "./Carrito.module.css";
+import SubHeader from "../../../Components/shop/subheader/SubHeader";
 
 function Carrito() {
   return (
     <div>
-      <Header nombre="Carrito de productos" />
+      <SubHeader title="Carrito" />
 
       <div className={styles.content}>
         <CartTable />

@@ -1,10 +1,11 @@
-import Banner from "../../../Components/banner/Banner";
+import Header from "../../../Components/header/Header";
 import styles from "./Policity.module.css";
 
 const Policity = () => {
   return (
     <main>
-      <Banner title="Política de Privacidad" />
+      <Header nombre="Política de Privacidad" />
+
       <div className={styles.containerPadre}>
         <p>
           En Tuberías Peruanito S.A.C. respetamos tu privacidad y protegemos tu

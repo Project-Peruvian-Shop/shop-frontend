@@ -86,7 +86,11 @@ function Cotizacion() {
             items={[
               {
                 label: "Nº documento:",
-                value: cotizacion?.documento || "",
+                value: cotizacion
+                  ? `${cotizacion.tipoDocumento ?? ""}${
+                      cotizacion.documento ? " - " + cotizacion.documento : ""
+                    }`
+                  : "",
               },
               { label: "Cliente:", value: cotizacion?.cliente || "" },
               { label: "Email:", value: cotizacion?.email || "" },

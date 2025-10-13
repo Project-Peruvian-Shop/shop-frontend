@@ -1,13 +1,11 @@
-import style from "./FormContactenos.module.css";
-import { Link } from "react-router-dom";
-import { routes } from "../../utils/routes";
-import { obtenerUsuario } from "../../utils/auth";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
-import { createContactenos } from "../../services/mensajes.service";
+import style from "./FormLibro.module.css";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { obtenerUsuario } from "../../../utils/auth";
+import { createLibroReclamaciones } from "../../../services/mensajes.service";
 
-const FormContactenos = () => {
+const FormLibro = () => {
   const usuario = obtenerUsuario();
   const usuario_id = usuario ? usuario.id : null;
 
@@ -20,6 +18,7 @@ const FormContactenos = () => {
   const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [contenido, setContenido] = useState("");
+  const [tipo, setTipo] = useState("");
 
   useEffect(() => {
     if (usuario) {
@@ -46,7 +45,7 @@ const FormContactenos = () => {
         title: "Se han cargado tus datos personales",
       });
     }
-  }, [usuario]);
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,16 +58,16 @@ const FormContactenos = () => {
         telefono,
         email,
         contenido,
-        tipo: "CONTACTENOS",
+        tipo,
         usuario_id,
       };
-      const response = await createContactenos(body);
+      const response = await createLibroReclamaciones(body);
 
       if (response) {
         MySwal.fire({
           icon: "success",
-          title: "¡Consulta enviada!",
-          text: "Le agradecemos por contactarnos. Su consulta ha sido recibida y será atendida a la brevedad.",
+          title: "¡Reclamación enviada!",
+          text: "Le agradecemos por contactarnos. Su reclamación ha sido recibida y será atendida a la brevedad.",
         });
       }
 
@@ -77,6 +76,7 @@ const FormContactenos = () => {
       setDocumento("");
       setTelefono("");
       setEmail("");
+      setTipo("");
       setContenido("");
     } catch (error: unknown) {
       let mensaje;
@@ -96,10 +96,8 @@ const FormContactenos = () => {
   return (
     <div className={style.containerFormulario}>
       <form onSubmit={handleSubmit}>
-        <input type="hidden" name="tipo" value="CONTACTENOS" />
-        <input type="hidden" name="usuario_id" value={usuario_id} />
-
         <h3>Datos personales</h3>
+
         <div className={style.inputGroup}>
           <div className={style.inputWrapper}>
             <label htmlFor="nombre">Nombre Completo / Razón Social *</label>
@@ -117,10 +115,10 @@ const FormContactenos = () => {
           <div className={style.inputWrapper}>
             <label htmlFor="email">Email *</label>
             <input
-              type="email"
+              type="text"
               id="email"
               name="email"
-              placeholder="Ingrese su correo electrónico"
+              placeholder="Ingrese el email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -152,7 +150,7 @@ const FormContactenos = () => {
               type="string"
               id="documento"
               name="documento"
-              placeholder="Ingrese el número de documento"
+              placeholder="Ingrese su número de documento"
               required
               value={documento}
               onChange={(e) => setDocumento(e.target.value)}
@@ -173,15 +171,61 @@ const FormContactenos = () => {
           </div>
         </div>
 
+        <div className={style.radioGroup}>
+          <h3 className={style.radioGroupTitle}>Tipo de solicitud</h3>
+
+          <div className={style.radioContainer}>
+            <label className={style.radioLabel}>
+              <div className={style.radioCard}>
+                <span className={style.radioTitle}>Reclamo</span>
+                <div className={style.radioCardContent}>
+                  <input
+                    type="radio"
+                    name="tipo"
+                    value="RECLAMO"
+                    className={style.radioInput}
+                    required
+                    checked={tipo === "RECLAMO"}
+                    onChange={(e) => setTipo(e.target.value)}
+                  />
+                  <span className={style.radioDescription}>
+                    Disconformidad relacionada a los productos
+                  </span>
+                </div>
+              </div>
+            </label>
+
+            <label className={style.radioLabel}>
+              <div className={style.radioCard}>
+                <span className={style.radioTitle}>Queja</span>
+                <div className={style.radioCardContent}>
+                  <input
+                    type="radio"
+                    name="tipo"
+                    value="QUEJA"
+                    className={style.radioInput}
+                    required
+                    checked={tipo === "QUEJA"}
+                    onChange={(e) => setTipo(e.target.value)}
+                  />
+                  <span className={style.radioDescription}>
+                    Disconformidad no relacionada a los productos
+                  </span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
         <div className={style.textareaGroup}>
           <div className={style.inputWrapper}>
-            <label htmlFor="contenido">Comentario o mensaje *</label>
+            <label htmlFor="contenido" className={style.radioGroupTitle}>
+              Detalle de la reclamación
+            </label>
             <textarea
               id="contenido"
               name="contenido"
-              placeholder="Describa de manera clara su consulta para poder atenderlo de forma eficiente."
-              minLength={10}
-              maxLength={500}
+              placeholder="Describa de manera clara y detallada los hechos que motivan su reclamo o queja."
               required
               value={contenido}
               onChange={(e) => setContenido(e.target.value)}
@@ -191,24 +235,11 @@ const FormContactenos = () => {
 
         <div className={style.termsBox}>
           <input type="checkbox" id="terms" required />
-
           <label htmlFor="terms">
-            Acepto los{" "}
-            <Link to={routes.tyc} target="_blank" rel="noopener noreferrer">
-              términos y condiciones
-            </Link>{" "}
-            y la{" "}
-            <Link
-              to={routes.privacy_policy}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              política de privacidad
-            </Link>
+            Confirmo que la información proporcionada es verídica.
           </label>
-
           <button type="submit" className={style.btnPrimary}>
-            Enviar mensaje
+            Enviar reclamación
           </button>
         </div>
       </form>
@@ -216,4 +247,4 @@ const FormContactenos = () => {
   );
 };
 
-export default FormContactenos;
+export default FormLibro;

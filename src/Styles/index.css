@@ -9,6 +9,17 @@
   --white-color: #ffffff;
   --placeholder-color: #aaaaaa;
   --border-input-color: #dddddd;
+  --light-primary-color: #fb234320;
+  --yellow: #fad60d;
+  --light-yellow: #fad60d20;
+  --blue: #0052d6;
+  --light-blue: #0052d620;
+  --green: #0bde24;
+  --light-green: #07cf1e20;
+  --orange: #ff6a00;
+  --light-orange: #ff6a0020;
+  --gray: #6b7280;
+  --light-gray: #6b728020;
 }
 
 body {

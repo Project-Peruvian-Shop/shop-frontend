@@ -26,21 +26,18 @@ const Home = () => {
           title="Cotización de tuberías"
           alt="Shop-icon"
           link={routes.shop}
-          visible={false}
         />
         <Card
           img={document}
           title="Asesoramiento técnico"
           alt="Document-icon"
           link={routes.NotFound}
-          visible={false}
         />
         <Card
           img={questions}
           title="Preguntas frecuentes"
           alt="Questions-icon"
           link={routes.questions}
-          visible={false}
         />
       </div>
 
@@ -53,21 +50,18 @@ const Home = () => {
           title="Alcantarillado"
           alt="Alcantarillado-icon"
           link={routes.shop}
-          visible={false}
         />
         <Card
           img={desague}
           title="Desagüe"
           alt="Desagüe-icon"
           link={routes.shop}
-          visible={false}
         />
         <Card
           img={fluidoapresionUF}
           title="Fluidos a presión UF"
           alt="Fluidos-a-presion-UF-icon"
           link={routes.shop}
-          visible={false}
         />
       </div>
 
@@ -77,21 +71,18 @@ const Home = () => {
           title="Fluido a presión SP"
           alt="Fluido-a-presion-SP-icon"
           link={routes.shop}
-          visible={false}
         />
         <Card
           img={fluidoapresionUR}
           title="Fluido a presión UR"
           alt="Fluido-a-presion-UR-icon"
           link={routes.shop}
-          visible={false}
         />
         <Card
           img={instalacioneselectricas}
           title="Instalaciones Electricas"
           alt="Instalaciones-Electricas-icon"
           link={routes.shop}
-          visible={false}
         />
       </div>
     </main>
