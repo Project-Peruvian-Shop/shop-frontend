@@ -146,6 +146,22 @@ function Cotizaciones() {
     { header: "Número", accessor: "numeroCotizacion" },
     { header: "Cliente", accessor: "clienteNombre" },
     {
+      header: "Fecha",
+      accessor: "creacion",
+      render: (value) => {
+        const fecha = new Date(value as string);
+        return (
+          <span>
+            {fecha.toLocaleDateString("es-PE", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })}
+          </span>
+        );
+      },
+    },
+    {
       header: "Estado",
       accessor: "estado",
       render: (value) => (
