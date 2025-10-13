@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
-import type { CotizacionObservacionDTO, CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
+import type { CotizacionChangeStateDTO, CotizacionObservacionDTO, CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
 import type {
   CotizacionCreateResponseDTO,
   CotizacionDashboardDTO,
@@ -72,6 +72,19 @@ export async function updateObservacionCotizacion(
 
   const res = await axios.put<ApiResponse<CotizacionObservacionDTO>>(url, {
     observaciones,
+  });
+
+  return res.data.data;
+}
+export async function change_state(
+  id:number,
+  nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+):Promise<CotizacionChangeStateDTO>{
+
+  const url = `${BASE_URL}/change_state/${id}`;
+
+  const res = await axios.put<ApiResponse<CotizacionChangeStateDTO>>(url, {
+    nuevoEstado
   });
 
   return res.data.data;

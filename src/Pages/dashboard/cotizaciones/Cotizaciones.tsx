@@ -5,15 +5,16 @@ import type { Action, Column } from "../../../Components/table/DashboardTable";
 import DashboardTable from "../../../Components/table/DashboardTable";
 import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import {
+  change_state,
   getAllCotizaciones,
   getQuantityCotizaciones,
   updateObservacionCotizacion,
 } from "../../../services/cotizacion.service";
 import IconSVG from "../../../Icons/IconSVG";
 import { useNavigate } from "react-router-dom";
-import ModalObservacion from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservaciones";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservacionesEstado";
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] = useState<CotizacionDashboardDTO[]>(
@@ -52,11 +53,15 @@ function Cotizaciones() {
       console.error("Error cargando cantidad de cotizaciones:", error);
     }
   };
-  const handleSaveObservacion = async (id: number, nuevaObservacion: string) => {
+  const handleSaveObservacion = async (
+    id: number,
+    nuevaObservacion: string
+  ) => {
     if (!cotizaciones) return;
 
     try {
-      const observacionOriginal = cotizaciones.find(c => c.id === id)?.observaciones || "";
+      const observacionOriginal =
+        cotizaciones.find((c) => c.id === id)?.observaciones || "";
 
       if (nuevaObservacion.trim() === "") {
         await MySwal.fire({
@@ -78,13 +83,13 @@ function Cotizaciones() {
 
       await updateObservacionCotizacion(id, nuevaObservacion);
 
+      setShowModal(false);
       await MySwal.fire({
         icon: "success",
         title: "¡Observación actualizada!",
         text: "La observación ha sido modificada correctamente.",
       });
 
-      setShowModal(false);
       await loadCotizaciones(page);
     } catch (error) {
       console.error("Error al actualizar observaciones:", error);
@@ -95,6 +100,29 @@ function Cotizaciones() {
       });
     }
   };
+
+  const handleChangeEstado = async (
+    id: number,
+    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+  ) => {
+    try {
+      await change_state(id, nuevoEstado);
+      await loadCotizaciones(page);
+      await MySwal.fire({
+        title: "Estado actualizado",
+        icon: "success",
+        text: `El estado se cambió a "${nuevoEstado}" correctamente.`,
+      });
+    } catch (error) {
+      console.error(error);
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo actualizar el estado de la cotización",
+      });
+    }
+  };
+
   // columnas
   const columns: Column<CotizacionDashboardDTO>[] = [
     { header: "Número", accessor: "numeroCotizacion" },
@@ -168,7 +196,6 @@ function Cotizaciones() {
           </div>
         </div>
       </div>
-
       <div className={styles.tableContainer}>
         <DashboardTable
           columns={columns}
@@ -179,14 +206,15 @@ function Cotizaciones() {
           onPageChange={setPage}
         />
       </div>
-
-      {showModal && (
-        <ModalObservacion
+      {showModal && selectedCotizacion && (
+        <ModalObservacionEstado
           show={showModal}
           cotizacion={selectedCotizacion}
           onClose={() => setShowModal(false)}
-          onSubmit={handleSaveObservacion}
-        />)}
+          onSaveObservacion={handleSaveObservacion}
+          onChangeEstado={handleChangeEstado}
+        />
+      )}
     </div>
   );
 }

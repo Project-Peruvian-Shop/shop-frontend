@@ -13,3 +13,6 @@ export interface CotizacionRequestDTO {
 export interface CotizacionObservacionDTO {
   observaciones: string;
 }
+export interface CotizacionChangeStateDTO {
+  nuevoEstado: string;
+}

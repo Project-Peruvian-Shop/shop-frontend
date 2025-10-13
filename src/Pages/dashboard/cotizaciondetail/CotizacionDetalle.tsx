@@ -2,19 +2,20 @@ import styles from "./CotizacionDetalle.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../../utils/routes";
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
-import { useEffect, useState } from "react";
+import { useCallback,useEffect, useState } from "react";
 import type {
   CotizacionDashboardDTO,
   CotizacionFullDTO,
 } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import {
+  change_state,
   getCotizacionById,
   updateObservacionCotizacion,
 } from "../../../services/cotizacion.service";
 import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
-import ModalObservacion from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservaciones";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservacionesEstado";
 function CotizacionDetalle() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -29,33 +30,36 @@ function CotizacionDetalle() {
   // const [currentPage, setCurrentPage] = useState(0);
   // const pageSize = 6;
 
-  useEffect(() => {
-    if (!id) {
-      navigate(routes.shop);
-      return;
+
+const fetchCotizacion = useCallback(
+  async (cotizacionId: number) => {
+    try {
+      const data = await getCotizacionById(cotizacionId);
+      setCotizacion(data);
+    } catch (error) {
+      console.error("Error al obtener la cotización:", error);
+      navigate(routes.profile_user);
     }
-
-    const fetchCotizacion = async (id: string) => {
-      try {
-        const data = await getCotizacionById(Number(id));
-        setCotizacion(data);
-        // setProductosData(data.productos);
-      } catch (error) {
-        console.error("Error al obtener la cotización:", error);
-        navigate(routes.profile_user);
-      }
-    };
-
-    fetchCotizacion(id);
-  }, [id, navigate]);
+  },
+  [navigate] // 👈 dependencias reales de la función
+);
+useEffect(() => {
+  if (!id) {
+    navigate(routes.shop);
+    return;
+  }
+  fetchCotizacion(Number(id));
+}, [id, navigate, fetchCotizacion]);
 
   const mapperEstado = (estado: string) => {
     switch (estado) {
-      case "0":
-        return { label: "Sin atender", className: styles.sinAtender };
-      case "1":
-        return { label: "Enviada", className: styles.enviada };
-      case "2":
+      case "PENDIENTE":
+        return { label: "Pendiente", className: styles.sinAtender };
+      case "EN_PROCESO":
+        return { label: "En proceso", className: styles.enviada };
+      case "RESPONDIDA":
+        return { label: "Respondida", className: styles.respondida };
+      case "CERRADA":
         return { label: "Cerrada", className: styles.cerrada };
       default:
         return { label: "Desconocido", className: styles.desconocido };
@@ -87,14 +91,9 @@ function CotizacionDetalle() {
       });
       return;
     }
-
     await updateObservacionCotizacion(id, nuevaObservacion);
+    await fetchCotizacion(id);
 
-    // Actualiza el estado local para reflejar los cambios
-    setCotizacion({
-      ...cotizacion,
-      observaciones: nuevaObservacion,
-    });
     setShowModal(false);
     await MySwal.fire({
       icon: "success",
@@ -110,6 +109,28 @@ function CotizacionDetalle() {
     });
   }
 };
+const handleChangeEstado = async (
+    id: number,
+    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+  ) => {
+    try {
+      await change_state(id, nuevoEstado);
+      await fetchCotizacion(id);
+      await MySwal.fire({
+        title: "Estado actualizado",
+        icon: "success",
+        text: `El estado se cambió a "${nuevoEstado}" correctamente.`,
+      });
+    } catch (error) {
+      console.error(error);
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo actualizar el estado de la cotización",
+      });
+    }
+  };
+
 
   return (
     <div className={styles.container}>
@@ -244,11 +265,12 @@ function CotizacionDetalle() {
         </div>
       </div>
       {showModal && (
-        <ModalObservacion
+        <ModalObservacionEstado
           show={showModal}
           cotizacion={selectedCotizacion}
           onClose={() => setShowModal(false)}
-          onSubmit={handleSaveObservacion}
+          onSaveObservacion={handleSaveObservacion}
+          onChangeEstado={handleChangeEstado}
         />
       )}
     </div>

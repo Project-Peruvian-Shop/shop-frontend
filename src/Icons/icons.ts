@@ -16,6 +16,7 @@ import usuarioIc from "./dashboard/user.svg";
 import logout from "./dashboard/logout.svg";
 import logoutWhite from "./logout-white.svg";
 import cotizacionesD from "./cotizacionesD.svg";
+import changeState from "./dashboard/change_state_icon.svg";
 
 import userIcon from "./user.svg";
 import view from "./view.svg";
@@ -50,6 +51,7 @@ export const Icons = {
   outlook,
   whatsappSec,
   cotizacionesD,
+  changeState,
   logoutWhite,
   about,
   email,
