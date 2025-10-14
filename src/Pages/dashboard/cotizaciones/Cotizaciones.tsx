@@ -142,15 +142,16 @@ function Cotizaciones() {
 
   const handleChangeEstado = async (
     id: number,
-    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
   ) => {
     try {
       await change_state(id, nuevoEstado);
       await loadCotizaciones(page);
+      setShowModal(false);
       await MySwal.fire({
         title: "Estado actualizado",
         icon: "success",
-        text: `El estado se cambió a "${nuevoEstado}" correctamente.`,
+        text: `El estado se cambió correctamente.`,
       });
     } catch (error) {
       console.error(error);
@@ -196,9 +197,9 @@ function Cotizaciones() {
         <span>{value ? String(value) : "No hay observaciones"}</span>
       ),
     },
-  ];
-
+    
   // acciones de la tabla
+  ];
   const actions: Action<CotizacionDashboardDTO>[] = [
     {
       label: "Ver",

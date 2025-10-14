@@ -9,13 +9,13 @@ interface ModalObservacionEstadoProps {
   onSaveObservacion: (id: number, observacion: string) => void;
   onChangeEstado: (
     id: number,
-    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
   ) => void;
 }
-type EstadoCotizacion = "" | "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA";
+type EstadoCotizacion = "" | "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA";
 
 const validarEstado = (estado: string | undefined): EstadoCotizacion => {
-  if (estado === "PENDIENTE" || estado === "EN_PROCESO" || estado === "RESPONDIDA" || estado === "CERRADA") {
+  if (estado === "PENDIENTE" || estado === "EN_PROCESO" || estado === "ENVIADA" || estado === "ACEPTADA" || estado === "RECHAZADA" || estado === "CERRADA") {
     return estado;
   }
   return "";
@@ -39,7 +39,9 @@ function ModalObservacionEstado({
       (cotizacion.estado as
         | "PENDIENTE"
         | "EN_PROCESO"
-        | "RESPONDIDA"
+        | "ENVIADA"
+        | "ACEPTADA"
+        | "RECHAZADA"
         | "CERRADA"
         | "") || ""
     );
@@ -86,14 +88,16 @@ function ModalObservacionEstado({
             value={estadoSeleccionado}
             onChange={(e) =>
               setEstadoSeleccionado(
-                e.target.value as "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+                e.target.value as "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
               )
             }
           >
             <option value="">Selecciona un estado</option>
             <option value="PENDIENTE">Pendiente</option>
             <option value="EN_PROCESO">En Proceso</option>
-            <option value="RESPONDIDA">Respondida</option>
+            <option value="ENVIADA">Enviada</option>
+            <option value="ACEPTADA">Aceptada</option>
+            <option value="RECHAZADA">Rechazada</option>
             <option value="CERRADA">Cerrada</option>
           </select>
         </label>

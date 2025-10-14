@@ -133,6 +133,7 @@ function Categorias() {
         });
         setShowModal(false);
         await loadCantidadCategorias();
+        await fetchAll();
       }
     } catch (error: unknown) {
       const mensaje = error instanceof Error ? error.message : String(error);
@@ -178,6 +179,7 @@ function Categorias() {
         });
         setShowEditModal(false);
         await loadCantidadCategorias();
+        await fetchAll();
       }
     } catch (error: unknown) {
       const mensaje = error instanceof Error ? error.message : String(error);

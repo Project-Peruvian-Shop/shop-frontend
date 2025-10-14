@@ -150,7 +150,8 @@ export default function ProductosTable() {
           title: "¡Producto creado!",
           text: "El producto ha sido creado exitosamente.",
         });
-        loadCantidadProductos();
+        await loadCantidadProductos();
+        await fetchAll();
         setShowModal(false);
       }
     } catch (error: unknown) {
@@ -198,6 +199,7 @@ export default function ProductosTable() {
           text: "El producto ha sido modificado exitosamente.",
         });
         setShowEditModal(false);
+        fetchAll();
       }
     } catch (error: unknown) {
       const mensaje = error instanceof Error ? error.message : String(error);

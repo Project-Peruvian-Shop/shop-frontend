@@ -116,6 +116,7 @@ const handleChangeEstado = async (
     try {
       await change_state(id, nuevoEstado);
       await fetchCotizacion(id);
+      setShowModal(false);
       await MySwal.fire({
         title: "Estado actualizado",
         icon: "success",

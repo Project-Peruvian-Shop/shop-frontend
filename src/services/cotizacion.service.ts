@@ -95,7 +95,7 @@ export async function updateObservacionCotizacion(
 }
 export async function change_state(
   id:number,
-  nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+  nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
 ):Promise<CotizacionChangeStateDTO>{
 
   const url = `${BASE_URL}/change_state/${id}`;
