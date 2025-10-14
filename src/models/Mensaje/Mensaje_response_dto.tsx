@@ -27,7 +27,7 @@ export interface MensajeDashboardDTO {
   tipo: string;
   mensaje: string;
   creacion: string;
-  estado: number;
+  estado: string;
 }
 
 export interface MensajeCreateResponseDTO {

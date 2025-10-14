@@ -1,5 +1,5 @@
 export interface ChangeStateMensajeRequestDTO {
-  new_state: number;
+  nuevoEstado: string;
 }
 
 export interface MensajeRequestDTO {

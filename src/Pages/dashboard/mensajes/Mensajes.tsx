@@ -7,15 +7,18 @@ import type {
 import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import { useEffect, useState } from "react";
 import {
+  changeStateMensaje,
   getAllMensajes,
   getQuantityMensajes,
   getSearchMensajes,
 } from "../../../services/mensajes.service";
-import type { MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
+import type {  MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import ModalMensajes from "../../../Components/dashboard/Modals/Mensajes/ModalMensajes";
 function Mensajes() {
   const [mensajes, setMensajes] =
     useState<PaginatedResponse<MensajeDashboardDTO>>();
@@ -25,6 +28,12 @@ function Mensajes() {
   const [cantidad, setCantidad] = useState<MensajeDashboardDTO>();
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedMensaje, setSelectedMensaje] = useState<MensajeDashboardDTO | null>(null);
+
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetchAll(page);
@@ -72,6 +81,31 @@ function Mensajes() {
       setCantidad(cantidadMensajes);
     } catch (error) {
       console.error("Error cargando cantidad de mensajes:", error);
+    }
+  };
+  
+  const handleChangeState = async (
+    id: number, 
+    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESUELTO" | "CERRADO"
+  ) => {
+    try {
+      await changeStateMensaje(id, nuevoEstado);
+      await fetchAll(page);
+      await loadCantidadMensajes();
+      setModalShow(false);
+      MySwal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El estado del mensaje ha sido actualizado.",
+      });
+    } catch (error) {
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un problema al actualizar el estado del mensaje.",
+      });
+      console.error(error);
+      
     }
   };
 
@@ -123,6 +157,14 @@ function Mensajes() {
       icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => console.log("Ver producto", row),
     },
+    {
+      label: "Editar",
+      icon: <IconSVG name="edit-secondary" size={20} />,
+      onClick: (row) => {
+        setSelectedMensaje(row);
+        setModalShow(true);
+      },
+    },
   ];
 
   return (
@@ -162,8 +204,14 @@ function Mensajes() {
           />
         )}
       </div>
+      {modalShow && (
+        <ModalMensajes
+        mensaje={selectedMensaje as MensajeDashboardDTO}
+        onClose={() => setModalShow(false)} 
+        onSubmit={handleChangeState} 
+        />
+      )}
     </div>
   );
 }
-
 export default Mensajes;

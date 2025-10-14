@@ -71,3 +71,14 @@ export async function getQuantityMensajes(
 
   return res.data.data;
 }
+
+export async function changeStateMensaje(
+  id: number,
+  nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESUELTO" | "CERRADO"
+): Promise<MensajeDashboardDTO> {
+  const url = `${BASE_URL}/change_state/${id}`;
+
+  const res = await axios.put<ApiResponse<MensajeDashboardDTO>>(url, { nuevoEstado });
+
+  return res.data.data;
+}
