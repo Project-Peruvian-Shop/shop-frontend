@@ -11,14 +11,16 @@ import {
   getQuantityUsuarios,
   getSearchUsuarios,
   saveUser,
+  updateUser,
 } from "../../../services/usuario.service";
 import type { UsuarioDashboardDTO } from "../../../models/Usuario/Usuario_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
-import type { UsuarioSaveRequestDto } from "../../../models/Usuario/Usuario_request_dto";
+import type { UsuarioSaveRequestDto, UsuarioUpdateRequestDto } from "../../../models/Usuario/Usuario_request_dto";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ModalUsuarioCreate from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioCreate";
+import ModalUsuarioEdit from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioEdit";
 
 function Usuarios() {
   const [usuarios, setUsuarios] =
@@ -31,7 +33,9 @@ function Usuarios() {
   const [totalPages, setTotalPages] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
+  const [selectedUser, setSelectedUser] = useState<UsuarioDashboardDTO | null>(null);
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
@@ -128,6 +132,30 @@ function Usuarios() {
       console.error("Error al añadir usuario:", error);
     }
   };
+  const handleEditUser = async (data: UsuarioUpdateRequestDto) => {
+    
+    if (!selectedUser) return;
+    try {
+      const updatedUser = await updateUser(selectedUser.id, data);
+      fetchAll(page);
+      loadCantidadUsuarios();
+      setShowEditModal(false);
+      if (updatedUser) {
+        MySwal.fire({
+          icon: "success",
+          title: "Usuario editado",
+          text: `El usuario ha sido editado correctamente.`,
+        });
+      }
+    } catch (error) {
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al editar usuario" + (error instanceof Error ? error.message : ''),
+      })
+      
+    }
+  }
 
   // Definición de columnas
   const columns: Column<UsuarioDashboardDTO>[] = [
@@ -165,7 +193,12 @@ function Usuarios() {
     {
       label: "Editar",
       icon: <IconSVG name="edit-secondary" size={20} />,
-      onClick: (row) => console.log("Editar producto", row),
+      onClick: (row) => {
+        setSelectedUser(row);
+        setShowEditModal(true);
+        console.log(selectedUser);
+        
+      }
     },
     {
       label: "Eliminar",
@@ -216,6 +249,13 @@ function Usuarios() {
         <ModalUsuarioCreate
           onClose={() => setShowModal(false)}
           onSubmit={handleAddUser}
+        />
+      )}
+      {showEditModal && selectedUser && (
+        <ModalUsuarioEdit
+          onClose={() => setShowEditModal(false)}
+          onSubmit={handleEditUser}
+          user={selectedUser}
         />
       )}
     </div>

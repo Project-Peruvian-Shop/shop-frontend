@@ -5,8 +5,9 @@ import type {
   TrabajadoresDTO,
   UsuarioDashboardDTO,
   UsuarioProfileDTO,
+  UsuarioResponseDto,
 } from "../models/Usuario/Usuario_response_dto";
-import type { UsuarioSaveRequestDto } from "../models/Usuario/Usuario_request_dto";
+import type { UsuarioSaveRequestDto, UsuarioUpdateRequestDto } from "../models/Usuario/Usuario_request_dto";
 
 const BASE_URL = URL_API + "/usuario";
 
@@ -69,11 +70,21 @@ export async function getTrabajadores(
 
 export async function saveUser(
   body: UsuarioSaveRequestDto
-): Promise<UsuarioProfileDTO> {
+): Promise<UsuarioResponseDto> {
   const url = `${BASE_URL}/save`;
 
-  const res = await axios.post<ApiResponse<UsuarioProfileDTO>>(url, body);
+  const res = await axios.post<ApiResponse<UsuarioResponseDto>>(url, body);
 
   return res.data.data;
   
+}
+export async function updateUser(
+  id: number,
+  body: UsuarioUpdateRequestDto
+): Promise<UsuarioResponseDto> {
+  const url = `${BASE_URL}/update/${id}`;
+  
+  const res = await axios.put<ApiResponse<UsuarioResponseDto>>(url, body);
+
+  return res.data.data;
 }
