@@ -45,7 +45,7 @@ const FormLibro = () => {
         title: "Se han cargado tus datos personales",
       });
     }
-  }, []);
+  }, [usuario]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -10,10 +10,15 @@ import {
   getAllUsuarios,
   getQuantityUsuarios,
   getSearchUsuarios,
+  saveUser,
 } from "../../../services/usuario.service";
 import type { UsuarioDashboardDTO } from "../../../models/Usuario/Usuario_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
+import type { UsuarioSaveRequestDto } from "../../../models/Usuario/Usuario_request_dto";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import ModalUsuarioCreate from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioCreate";
 
 function Usuarios() {
   const [usuarios, setUsuarios] =
@@ -24,6 +29,10 @@ function Usuarios() {
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetchAll(page);
@@ -78,6 +87,48 @@ function Usuarios() {
     ROLE_MANAGER: "Administrador",
   };
 
+  const handleAddUser = async (data: UsuarioSaveRequestDto) => {
+    try {
+      const newUser = await saveUser(data);
+      fetchAll(page);
+      loadCantidadUsuarios();
+      setShowModal(false);
+      if (newUser) {
+        MySwal.fire({
+          icon: "success",
+          title: "Usuario añadido",
+          text: `El usuario ${newUser.nombre} ha sido añadido correctamente.`,
+        });
+      }
+    } catch (error: unknown) {
+      let errorMessage = "Error al añadir usuario";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: errorMessage,
+      });
+
+      console.error("Error al añadir usuario:", error);
+    }
+  };
+
   // Definición de columnas
   const columns: Column<UsuarioDashboardDTO>[] = [
     {
@@ -112,6 +163,11 @@ function Usuarios() {
       onClick: (row) => console.log("Ver producto", row),
     },
     {
+      label: "Editar",
+      icon: <IconSVG name="edit-secondary" size={20} />,
+      onClick: (row) => console.log("Editar producto", row),
+    },
+    {
       label: "Eliminar",
       icon: <IconSVG name="delete-primary" size={20} />,
       onClick: (row) => console.log("Eliminar producto", row),
@@ -133,7 +189,12 @@ function Usuarios() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>Total: {cantidad} Usuarios</div>
-          <button className={styles.addButton}>+ Añadir Usuario</button>
+          <button
+            className={styles.addButton}
+            onClick={() => setShowModal(true)}
+          >
+            + Añadir Usuario
+          </button>
         </div>
       </div>
 
@@ -151,8 +212,13 @@ function Usuarios() {
           />
         )}
       </div>
+      {showModal && (
+        <ModalUsuarioCreate
+          onClose={() => setShowModal(false)}
+          onSubmit={handleAddUser}
+        />
+      )}
     </div>
   );
 }
-
 export default Usuarios;

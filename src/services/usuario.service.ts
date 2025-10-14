@@ -6,6 +6,7 @@ import type {
   UsuarioDashboardDTO,
   UsuarioProfileDTO,
 } from "../models/Usuario/Usuario_response_dto";
+import type { UsuarioSaveRequestDto } from "../models/Usuario/Usuario_request_dto";
 
 const BASE_URL = URL_API + "/usuario";
 
@@ -64,4 +65,15 @@ export async function getTrabajadores(
   );
 
   return res.data.data;
+}
+
+export async function saveUser(
+  body: UsuarioSaveRequestDto
+): Promise<UsuarioProfileDTO> {
+  const url = `${BASE_URL}/save`;
+
+  const res = await axios.post<ApiResponse<UsuarioProfileDTO>>(url, body);
+
+  return res.data.data;
+  
 }
