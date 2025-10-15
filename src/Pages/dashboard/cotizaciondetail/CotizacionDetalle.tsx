@@ -56,9 +56,13 @@ useEffect(() => {
       case "PENDIENTE":
         return { label: "Pendiente", className: styles.sinAtender };
       case "EN_PROCESO":
-        return { label: "En proceso", className: styles.enviada };
-      case "RESPONDIDA":
-        return { label: "Respondida", className: styles.respondida };
+        return { label: "En proceso", className: styles.enProceso };
+      case "ENVIADA":
+        return { label: "Enviada", className: styles.enviada };
+      case "ACEPTADA":
+        return { label: "Aceptada", className: styles.aceptada };
+      case "RECHAZADA":
+        return { label: "Rechazada", className: styles.rechazada };
       case "CERRADA":
         return { label: "Cerrada", className: styles.cerrada };
       default:
@@ -109,18 +113,18 @@ useEffect(() => {
     });
   }
 };
-const handleChangeEstado = async (
+ const handleChangeEstado = async (
     id: number,
-    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESPONDIDA" | "CERRADA"
+    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
   ) => {
     try {
       await change_state(id, nuevoEstado);
-      await fetchCotizacion(id);
+      await fetchCotizacion(cotizacion?.id || id);
       setShowModal(false);
       await MySwal.fire({
         title: "Estado actualizado",
         icon: "success",
-        text: `El estado se cambió a "${nuevoEstado}" correctamente.`,
+        text: `El estado se cambió correctamente.`,
       });
     } catch (error) {
       console.error(error);
