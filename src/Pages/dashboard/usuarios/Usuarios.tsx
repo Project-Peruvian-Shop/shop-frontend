@@ -160,7 +160,7 @@ function Usuarios() {
   // Definición de columnas
   const columns: Column<UsuarioDashboardDTO>[] = [
     {
-      header: "Nombre",
+      header: "Nombres",
       accessor: "nombre",
       render: (_, row) => (
         <span>
@@ -185,11 +185,6 @@ function Usuarios() {
 
   // Acciones con iconos
   const actions: Action<UsuarioDashboardDTO>[] = [
-    {
-      label: "Ver",
-      icon: <IconSVG name="view-secondary" size={20} />,
-      onClick: (row) => console.log("Ver producto", row),
-    },
     {
       label: "Editar",
       icon: <IconSVG name="edit-secondary" size={20} />,

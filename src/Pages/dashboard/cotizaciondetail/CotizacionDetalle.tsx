@@ -2,7 +2,7 @@ import styles from "./CotizacionDetalle.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../../utils/routes";
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
-import { useCallback,useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type {
   CotizacionDashboardDTO,
   CotizacionFullDTO,
@@ -30,31 +30,30 @@ function CotizacionDetalle() {
   // const [currentPage, setCurrentPage] = useState(0);
   // const pageSize = 6;
 
-
-const fetchCotizacion = useCallback(
-  async (cotizacionId: number) => {
-    try {
-      const data = await getCotizacionById(cotizacionId);
-      setCotizacion(data);
-    } catch (error) {
-      console.error("Error al obtener la cotización:", error);
-      navigate(routes.profile_user);
+  const fetchCotizacion = useCallback(
+    async (cotizacionId: number) => {
+      try {
+        const data = await getCotizacionById(cotizacionId);
+        setCotizacion(data);
+      } catch (error) {
+        console.error("Error al obtener la cotización:", error);
+        navigate(routes.profile_user);
+      }
+    },
+    [navigate] // 👈 dependencias reales de la función
+  );
+  useEffect(() => {
+    if (!id) {
+      navigate(routes.shop);
+      return;
     }
-  },
-  [navigate] // 👈 dependencias reales de la función
-);
-useEffect(() => {
-  if (!id) {
-    navigate(routes.shop);
-    return;
-  }
-  fetchCotizacion(Number(id));
-}, [id, navigate, fetchCotizacion]);
+    fetchCotizacion(Number(id));
+  }, [id, navigate, fetchCotizacion]);
 
   const mapperEstado = (estado: string) => {
     switch (estado) {
       case "PENDIENTE":
-        return { label: "Pendiente", className: styles.sinAtender };
+        return { label: "Pendiente", className: styles.pendiente };
       case "EN_PROCESO":
         return { label: "En proceso", className: styles.enProceso };
       case "ENVIADA":
@@ -70,52 +69,58 @@ useEffect(() => {
     }
   };
   const handleSaveObservacion = async (
-  id: number,
-  nuevaObservacion: string
-) => {
-  if (!selectedCotizacion || !cotizacion) return;
-
-  try {
-    const observacionOriginal = selectedCotizacion.observaciones || "";
-
-    if (nuevaObservacion.trim() === "") {
-      await MySwal.fire({
-        icon: "warning",
-        title: "Observación vacía",
-        text: "Por favor, ingresa una observación.",
-      });
-      return;
-    }
-
-    if (nuevaObservacion.trim() === observacionOriginal.trim()) {
-      await MySwal.fire({
-        icon: "info",
-        title: "Sin cambios",
-        text: "No se detectaron modificaciones en la observación.",
-      });
-      return;
-    }
-    await updateObservacionCotizacion(id, nuevaObservacion);
-    await fetchCotizacion(id);
-
-    setShowModal(false);
-    await MySwal.fire({
-      icon: "success",
-      title: "¡Observación actualizada!",
-      text: "La observación ha sido modificada correctamente.",
-    });
-  } catch (error) {
-    console.error("Error al actualizar observaciones:", error);
-    MySwal.fire({
-      icon: "error",
-      title: "Error al actualizar",
-      text: "No se pudo guardar la observación.",
-    });
-  }
-};
- const handleChangeEstado = async (
     id: number,
-    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
+    nuevaObservacion: string
+  ) => {
+    if (!selectedCotizacion || !cotizacion) return;
+
+    try {
+      const observacionOriginal = selectedCotizacion.observaciones || "";
+
+      if (nuevaObservacion.trim() === "") {
+        await MySwal.fire({
+          icon: "warning",
+          title: "Observación vacía",
+          text: "Por favor, ingresa una observación.",
+        });
+        return;
+      }
+
+      if (nuevaObservacion.trim() === observacionOriginal.trim()) {
+        await MySwal.fire({
+          icon: "info",
+          title: "Sin cambios",
+          text: "No se detectaron modificaciones en la observación.",
+        });
+        return;
+      }
+      await updateObservacionCotizacion(id, nuevaObservacion);
+      await fetchCotizacion(id);
+
+      setShowModal(false);
+      await MySwal.fire({
+        icon: "success",
+        title: "¡Observación actualizada!",
+        text: "La observación ha sido modificada correctamente.",
+      });
+    } catch (error) {
+      console.error("Error al actualizar observaciones:", error);
+      MySwal.fire({
+        icon: "error",
+        title: "Error al actualizar",
+        text: "No se pudo guardar la observación.",
+      });
+    }
+  };
+  const handleChangeEstado = async (
+    id: number,
+    nuevoEstado:
+      | "PENDIENTE"
+      | "EN_PROCESO"
+      | "ENVIADA"
+      | "ACEPTADA"
+      | "RECHAZADA"
+      | "CERRADA"
   ) => {
     try {
       await change_state(id, nuevoEstado);
@@ -135,7 +140,6 @@ useEffect(() => {
       });
     }
   };
-
 
   return (
     <div className={styles.container}>
@@ -184,11 +188,23 @@ useEffect(() => {
               },
               {
                 label: "Estado:",
-                value: mapperEstado(cotizacion?.estado || "").label,
+                value: (
+                  <span
+                    className={mapperEstado(cotizacion?.estado || "").className}
+                  >
+                    {mapperEstado(cotizacion?.estado || "").label}
+                  </span>
+                ),
               },
               {
                 label: "Fecha de cotización:",
-                value: cotizacion?.creacion || "",
+                value: cotizacion?.creacion
+                  ? new Date(cotizacion.creacion).toLocaleDateString("es-PE", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })
+                  : "",
               },
               { label: "Comentario:", value: cotizacion?.comentario || "" },
             ]}

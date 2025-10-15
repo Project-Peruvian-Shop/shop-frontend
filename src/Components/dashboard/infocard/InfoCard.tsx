@@ -1,9 +1,9 @@
-import React from "react";
+import React, { type JSX } from "react";
 import styles from "./InfoCard.module.css";
 
 interface InfoItem {
   label: string;
-  value: string | number;
+  value: string | number | JSX.Element;
 }
 
 interface InfoCardProps {

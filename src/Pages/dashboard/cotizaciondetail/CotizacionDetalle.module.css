@@ -155,19 +155,68 @@
 .estado {
   font-weight: bold;
 }
-
-.sinAtender {
-  color: #d9e004;
+/*
+"En proceso": {
+    color: "var(--orange)",
+    background: "var(--light-orange)",
+  },
+  Enviada: {
+    color: "var(--blue)",
+    background: "var(--light-blue)",
+  },
+  Aceptada: {
+    color: "var(--green)",
+    background: "var(--light-green)",
+  },
+  Rechazada: {
+    color: "var(--primary-color)",
+    background: "var(--light-primary-color)",
+  },
+  Cerrada: {
+    color: "var(--gray)",
+    background: "var(--light-gray)",
+  },*/
+.pendiente {
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--yellow);
+  background-color: var(--light-yellow);
 }
-
+.enProceso {
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--orange);
+  background-color: var(--light-orange);
+}
 .enviada {
-  color: #01d20c;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--blue);
+  background-color: var(--light-blue);
 }
+.aceptada {
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--green);
+  background-color: var(--light-green);
+}
+.rechazada {
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--primary-color);
+  background-color: var(--light-primary-color);
 
-.cerrada {
-  color: #931919;
 }
+.cerrada {
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--gray);
+  background-color: var(--light-gray);
+} 
 
 .desconocido {
-  color: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--gray);
+  background-color: var(--light-gray);
 }
