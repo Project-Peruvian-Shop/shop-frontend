@@ -11,19 +11,24 @@ import {
   change_state,
   getCotizacionById,
   updateObservacionCotizacion,
+  uploadCotizacionPDF,
 } from "../../../services/cotizacion.service";
 import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservacionesEstado";
+import upload from "../../../Icons/Modal_uploadPDF/upload_pdf.svg";
 function CotizacionDetalle() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [cotizacion, setCotizacion] = useState<CotizacionFullDTO | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [showModalPDF, setShowModalPDF] = useState(false);
   const [selectedCotizacion, setSelectedCotizacion] =
     useState<CotizacionDashboardDTO | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [pdfPreview, setPdfPreview] = useState<string | null>(null);
   const MySwal = withReactContent(Swal);
   // const [productosData, setProductosData] =
   //   useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
@@ -40,7 +45,7 @@ function CotizacionDetalle() {
         navigate(routes.profile_user);
       }
     },
-    [navigate] // 👈 dependencias reales de la función
+    [navigate]
   );
   useEffect(() => {
     if (!id) {
@@ -137,6 +142,28 @@ function CotizacionDetalle() {
         icon: "error",
         title: "Error",
         text: "No se pudo actualizar el estado de la cotización",
+      });
+    }
+  };
+  const handleUpload = async () => {
+    if (!selectedFile || !cotizacion) return;
+
+    try {
+      await uploadCotizacionPDF(cotizacion.id, selectedFile);
+      await fetchCotizacion(cotizacion.id); // 👈 actualiza la vista con el nuevo enlace
+      setSelectedFile(null);
+
+      Swal.fire({
+        icon: "success",
+        title: "PDF subido",
+        text: "La cotización fue actualizada con el PDF.",
+      });
+    } catch (error) {
+      console.error("Error al subir PDF:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al subir PDF",
+        text: "No se pudo subir el archivo. Intenta nuevamente.",
       });
     }
   };
@@ -257,29 +284,135 @@ function CotizacionDetalle() {
               {cotizacion?.observaciones || "No hay observaciones."}
             </div>
 
-            {cotizacion?.cotizacionEnlace && (
-              <>
-                <div className={styles.titlePDF}>PDF de la cotización</div>
-                <div className={styles.pdfContainer}>
-                  {/* Ver PDF en nueva pestaña */}
-                  <a
-                    href={cotizacion.cotizacionEnlace}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.pdfButton}
-                  >
-                    Ver PDF
-                  </a>
+            <div className={styles.titlePDF}>PDF de la cotización</div>
 
-                  {/* Descargar PDF directamente */}
-                  <a
-                    href={cotizacion.cotizacionEnlace}
-                    download={`cotizacion-${cotizacion.numero}.pdf`}
-                    className={styles.pdfButton}
+            {cotizacion?.cotizacionEnlace ? (
+              <div className={styles.pdfContainer}>
+                <a
+                  href={cotizacion.cotizacionEnlace}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.pdfButton}
+                >
+                  Ver PDF
+                </a>
+                <a
+                  className={styles.pdfButton}
+                  onClick={async () => {
+                    const response = await fetch(cotizacion.cotizacionEnlace!);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `cotizacion-${cotizacion.numero}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                  }}
+                >
+                  Descargar PDF
+                </a>
+              </div>
+            ) : (
+              <>
+                <div className={styles.noPdf}>
+                  <p>No se ha subido ningún PDF aún.</p>
+                  <button
+                    className={styles.addButton}
+                    onClick={() => setShowModalPDF(true)}
                   >
-                    Descargar PDF
-                  </a>
+                    Seleccionar archivo
+                  </button>
                 </div>
+                {/* Modal para subir un PDF */}
+                {showModalPDF && (
+                  <div className={styles.modalOverlay}>
+                    <div className={styles.modalContent}>
+                      <h2>Subir PDF de cotización</h2>
+
+                      {/* Si NO hay PDF seleccionado, mostramos dropzone */}
+                      {!selectedFile ? (
+                        <div
+                          className={styles.dropZone}
+                          onDragOver={(e) => e.preventDefault()}
+                          onDrop={(e) => {
+                            e.preventDefault();
+                            const file = e.dataTransfer.files[0];
+                            if (file && file.type === "application/pdf") {
+                              setSelectedFile(file);
+                              setPdfPreview(URL.createObjectURL(file));
+                            }
+                          }}
+                          onClick={() =>
+                            document.getElementById("fileInput")?.click()
+                          }
+                        >
+                          <div className={styles.uploadIcon}>
+                            <img src={upload} alt="Subir archivo" />
+                            <p>Arrastra o haz clic para subir PDF</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          {/* Texto sobre la vista previa */}
+                          <div className={styles.previewHeader}>
+                            <p>
+                              Vista previa del PDF: {selectedFile.name}
+                            </p>
+                          </div>
+
+                          {/* Vista previa */}
+                          {pdfPreview && (
+                            <div className={styles.pdfPreview}>
+                              <embed
+                                src={pdfPreview}
+                                type="application/pdf"
+                                width="100%"
+                                height="400px"
+                              />
+                            </div>
+                          )}
+                        </>
+                      )}
+
+                      <input
+                        id="fileInput"
+                        type="file"
+                        accept="application/pdf"
+                        className={styles.fileInput}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file && file.type === "application/pdf") {
+                            setSelectedFile(file);
+                            setPdfPreview(URL.createObjectURL(file));
+                          }
+                        }}
+                      />
+
+                      <div className={styles.modalActions}>
+                        <button
+                          onClick={handleUpload}
+                          disabled={!selectedFile}
+                          className={styles.addButton}
+                        >
+                          Subir PDF
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.cancelButton}
+                          onClick={() => {
+                            setShowModalPDF(false);
+                            setSelectedFile(null);
+                            setPdfPreview(null);
+                          }}
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -297,5 +430,4 @@ function CotizacionDetalle() {
     </div>
   );
 }
-
 export default CotizacionDetalle;

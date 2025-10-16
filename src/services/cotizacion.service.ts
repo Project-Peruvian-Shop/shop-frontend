@@ -1,11 +1,16 @@
 import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
-import type { CotizacionChangeStateDTO, CotizacionObservacionDTO, CotizacionRequestDTO } from "../models/Cotizacion/Cotizacion_request_dto";
+import type {
+  CotizacionChangeStateDTO,
+  CotizacionObservacionDTO,
+  CotizacionRequestDTO,
+} from "../models/Cotizacion/Cotizacion_request_dto";
 import type {
   CotizacionCreateResponseDTO,
   CotizacionDashboardDTO,
   CotizacionFullDTO,
+  CotizacionPdfDTO,
   CotizacionUserDTO,
 } from "../models/Cotizacion/Cotizacion_response_dto";
 
@@ -94,15 +99,37 @@ export async function updateObservacionCotizacion(
   return res.data.data;
 }
 export async function change_state(
-  id:number,
-  nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
-):Promise<CotizacionChangeStateDTO>{
-
+  id: number,
+  nuevoEstado:
+    | "PENDIENTE"
+    | "EN_PROCESO"
+    | "ENVIADA"
+    | "ACEPTADA"
+    | "RECHAZADA"
+    | "CERRADA"
+): Promise<CotizacionChangeStateDTO> {
   const url = `${BASE_URL}/change_state/${id}`;
 
   const res = await axios.put<ApiResponse<CotizacionChangeStateDTO>>(url, {
-    nuevoEstado
+    nuevoEstado,
   });
 
   return res.data.data;
+}
+export async function uploadCotizacionPDF(
+  cotizacionId: number,
+  file: File
+): Promise<CotizacionPdfDTO> {
+  const url = `${BASE_URL}/create_pdf/${cotizacionId}`;
+
+  const formData = new FormData();
+  formData.append("archivo", file);
+
+  const response = await axios.post<ApiResponse<CotizacionPdfDTO>>(url, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data.data;
 }

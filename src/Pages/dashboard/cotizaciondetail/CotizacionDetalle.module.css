@@ -151,31 +151,147 @@
   background-color: var(--primary-color);
   color: white;
 }
+.noPdf {
+  display: flex;
+  flex-direction: row;
+  align-items: center;  
+  justify-content: center;
+  gap: 1rem;
+  color: var(--secondary-color);
+}
+/*Modal para subir el PDF*/
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.modalContent {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 700px;
+  text-align: center;
+}
+
+.modalActions {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.addButton, .cancelButton {
+  flex: 1;
+  height: 45px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.addButton {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: 2px solid var(--primary-color);
+}
+.addButton:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.cancelButton {
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: 2px solid var(--secondary-color);
+}
+.cancelButton:hover {
+  background-color: #fff;
+  color: var(--secondary-color);
+}
+/* Área de arrastre */
+.dropZone {
+  width: 700px;
+  height: 300px;
+  border: 2px dashed var(--secondary-color-dark);
+  border-radius: 16px;
+  align-items: center;
+  display: flex;
+  margin:  0 auto;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--gray-color);
+  color: var(--secondary-color);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.dropZone:hover {
+  background-color: var(--white-color);
+  border-color: var(--secondary-color);
+}
+.dropZoneActive {
+  width: 500px;
+  height: 150px;
+  border: 2px solid transparent; 
+  background-color: transparent;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.previewHeader {
+  margin-bottom: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+.previewInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pdfPreview {
+  margin-top: 1rem;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+/* Botón img */
+.fileLabel {
+  display: inline-block;
+  width: 400px;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+.fileLabel:hover {
+  background-color: var(--secondary-color-dark);
+}
+.fileInput {
+  display: none;
+}
+.fileLabel img {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
 .estado {
   font-weight: bold;
 }
-/*
-"En proceso": {
-    color: "var(--orange)",
-    background: "var(--light-orange)",
-  },
-  Enviada: {
-    color: "var(--blue)",
-    background: "var(--light-blue)",
-  },
-  Aceptada: {
-    color: "var(--green)",
-    background: "var(--light-green)",
-  },
-  Rechazada: {
-    color: "var(--primary-color)",
-    background: "var(--light-primary-color)",
-  },
-  Cerrada: {
-    color: "var(--gray)",
-    background: "var(--light-gray)",
-  },*/
 .pendiente {
   padding: 8px;
   border-radius: 8px;
