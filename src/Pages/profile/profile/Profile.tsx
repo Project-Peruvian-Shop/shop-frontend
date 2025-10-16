@@ -50,7 +50,7 @@ function Profile() {
 
     Promise.all([
       getProfile(localUser.id),
-      getCotizacionesByUserPaginated(localUser.id, page, 6), // <--- usa page
+      getCotizacionesByUserPaginated(localUser.id, page, 5), // <--- usa page
     ])
       .then(([userData, cotData]) => {
         setUsuario(userData);
@@ -82,20 +82,24 @@ function Profile() {
 
   // columnas
   const columns: Column<CotizacionDashboardDTO>[] = [
-    { header: "Número", accessor: "numeroCotizacion" },
     {
-      header: "Fecha",
-      accessor: "creacion",
-      render: (value) => {
-        const fecha = new Date(value as string);
+      header: "Cotización",
+      accessor: "numeroCotizacion",
+      render: (_, row) => {
+        const fecha = new Date(row.creacion);
+        const fechaFormateada = fecha.toLocaleDateString("es-PE", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        });
+
         return (
-          <span>
-            {fecha.toLocaleDateString("es-PE", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })}
-          </span>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontWeight: "600" }}>{row.numeroCotizacion}</span>
+            <span style={{ fontSize: "0.85em", color: "#666" }}>
+              {fechaFormateada}
+            </span>
+          </div>
         );
       },
     },
