@@ -39,6 +39,20 @@ export async function getCotizacionesByUser(
   return res.data.data;
 }
 
+export async function getCotizacionesByUserPaginated(
+  id: number,
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedResponse<CotizacionDashboardDTO>> {
+  const url = `${BASE_URL}/by-usuario-paginated/${id}?page=${page}&size=${size}`;
+
+  const res = await axios.get<
+    ApiResponse<PaginatedResponse<CotizacionDashboardDTO>>
+  >(url);
+
+  return res.data.data;
+}
+
 export async function getCotizacionById(
   id: number
 ): Promise<CotizacionFullDTO> {
@@ -125,11 +139,15 @@ export async function uploadCotizacionPDF(
   const formData = new FormData();
   formData.append("archivo", file);
 
-  const response = await axios.post<ApiResponse<CotizacionPdfDTO>>(url, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  const response = await axios.post<ApiResponse<CotizacionPdfDTO>>(
+    url,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
 
   return response.data.data;
 }
