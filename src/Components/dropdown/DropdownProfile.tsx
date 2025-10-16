@@ -4,6 +4,7 @@ import styles from "./DropdownProfile.module.css";
 import { routes } from "../../utils/routes";
 import { useLogout } from "../../hooks/useLogout";
 import IconSVG from "../../Icons/IconSVG";
+import { obtenerUsuario } from "../../utils/auth";
 
 interface UserDropdownClassicProps {
   userName: string;
@@ -14,6 +15,7 @@ export default function DropdownProfile({
   userName,
   userAvatar,
 }: UserDropdownClassicProps) {
+  const usuario = obtenerUsuario();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const logout = useLogout();
@@ -60,14 +62,16 @@ export default function DropdownProfile({
       {/* Dropdown menu */}
       {isOpen && (
         <div className={styles.dropdownMenu}>
-          <Link
-            to={routes.dashboard}
-            className={styles.menuItem}
-            onClick={() => setIsOpen(false)}
-          >
-            {/* <User className={styles.icon} /> */}
-            <span>Dashboard</span>
-          </Link>
+          {usuario?.rol === "ROLE_ADMIN" && (
+            <Link
+              to={routes.dashboard}
+              className={styles.menuItem}
+              onClick={() => setIsOpen(false)}
+            >
+              {/* <User className={styles.icon} /> */}
+              <span>Dashboard</span>
+            </Link>
+          )}
 
           <Link
             to={routes.profile_user}
