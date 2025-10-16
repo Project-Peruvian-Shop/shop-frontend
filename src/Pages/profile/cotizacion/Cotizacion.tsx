@@ -127,11 +127,6 @@ function Cotizacion() {
           </div>
 
           <div className={styles.card}>
-            <div className={styles.title}>Observaciones</div>
-            <div className={styles.observations}>
-              {cotizacion?.observaciones || "No hay observaciones."}
-            </div>
-
             {cotizacion?.cotizacionEnlace && (
               <>
                 <div className={styles.titlePDF}>PDF de la cotización</div>
