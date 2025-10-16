@@ -11,7 +11,6 @@ import type {
   CotizacionDashboardDTO,
   CotizacionFullDTO,
   CotizacionPdfDTO,
-  CotizacionUserDTO,
 } from "../models/Cotizacion/Cotizacion_response_dto";
 
 const BASE_URL = URL_API + "/cotizacion";
@@ -25,16 +24,6 @@ export async function postCotizacion(
     url,
     body
   );
-
-  return res.data.data;
-}
-
-export async function getCotizacionesByUser(
-  id: number
-): Promise<CotizacionUserDTO[]> {
-  const url = `${BASE_URL}/by-usuario/${id}`;
-
-  const res = await axios.get<ApiResponse<CotizacionUserDTO[]>>(url);
 
   return res.data.data;
 }
