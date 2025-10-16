@@ -55,6 +55,15 @@ function CotizacionDetalle() {
     fetchCotizacion(Number(id));
   }, [id, navigate, fetchCotizacion]);
 
+  useEffect(() => {
+  return () => {
+    if (pdfPreview) {
+      URL.revokeObjectURL(pdfPreview);
+    }
+  };
+}, [pdfPreview]);
+
+
   const mapperEstado = (estado: string) => {
     switch (estado) {
       case "PENDIENTE":
@@ -148,9 +157,18 @@ function CotizacionDetalle() {
   const handleUpload = async () => {
     if (!selectedFile || !cotizacion) return;
 
+    if(selectedFile.size > 10 * 1024 * 1024) {
+      Swal.fire({
+        icon: "warning",
+        title: "Archivo demasiado grande",
+        text: "El archivo PDF no debe superar los 10MB.",
+      });
+      return;
+    }
     try {
-      await uploadCotizacionPDF(cotizacion.id, selectedFile);
-      await fetchCotizacion(cotizacion.id); // 👈 actualiza la vista con el nuevo enlace
+      const result = await uploadCotizacionPDF(cotizacion.id, selectedFile);
+      setPdfPreview(result.archivo);
+      await fetchCotizacion(cotizacion.id); 
       setSelectedFile(null);
 
       Swal.fire({
