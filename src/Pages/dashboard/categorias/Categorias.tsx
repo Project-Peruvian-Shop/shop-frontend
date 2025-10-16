@@ -103,14 +103,10 @@ function Categorias() {
   ): Promise<number> => {
     if (!file) return categoriaSeleccionada?.imagenId ?? defaultID;
 
-    const enlace = URL.createObjectURL(file);
-    const imagenData = {
-      enlace,
-      nombre: file.name,
-      alt: file.name.replace(/\s+/g, "-"),
-    };
-
-    const imagenResponse = await createImagen(imagenData);
+    const formData = new FormData();
+    formData.append("file", file);
+    
+    const imagenResponse = await createImagen(formData);
     return imagenResponse.id;
   };
 
