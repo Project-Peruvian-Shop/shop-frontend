@@ -48,7 +48,7 @@ function DashboardTable<T extends { id: number | string }>({
               </th>
             ))}
             {actions && actions.length > 0 && (
-              <th className={styles.th}>Acciones</th>
+              <th className={styles.thAcciones}>Acciones</th>
             )}
           </tr>
         </thead>
