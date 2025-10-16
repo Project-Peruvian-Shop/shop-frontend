@@ -7,6 +7,7 @@ import type { CotizacionFullDTO } from "../../../models/Cotizacion/Cotizacion_re
 import { getCotizacionById } from "../../../services/cotizacion.service";
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
 import ButtonPrimary from "../../../Components/buttons/ButtonPrimary";
+import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 // import ProductListCard from "../../Components/dashboard/productlistcard/ProductListCard";
 // import type { ProductoResponseDTO } from "../../models/Categoria/Categoria_response";
 // import type { PaginatedResponse } from "../../services/global.interfaces";
@@ -41,21 +42,6 @@ function Cotizacion() {
     fetchCotizacion(id);
   }, [id, navigate]);
 
-  const mapperEstado = (estado: string) => {
-    switch (estado) {
-      case "PENDIENTE":
-        return { label: "Pendiente", className: styles.sinAtender };
-      case "EN_PROCESO":
-        return { label: "En proceso", className: styles.enviada };
-      case "RESPONDIDA":
-        return { label: "Respondida", className: styles.enviada };
-      case "CERRADA":
-        return { label: "Cerrada", className: styles.cerrada };
-      default:
-        return { label: "Desconocido", className: styles.desconocido };
-    }
-  };
-
   return (
     <div className={styles.container}>
       <Header nombre={`Cotización ${cotizacion?.numero}`} />
@@ -71,13 +57,20 @@ function Cotizacion() {
               },
               {
                 label: "Estado:",
-                value: mapperEstado(cotizacion?.estado || "").label,
+                value: (
+                  <MapCard
+                    property="estadoCotizacion"
+                    value={cotizacion?.estado || ""}
+                  />
+                ),
               },
               {
                 label: "Fecha de cotización:",
-                value: cotizacion?.creacion || "",
+                value: cotizacion?.creacion
+                  ? new Date(cotizacion.creacion).toLocaleDateString("es-PE")
+                  : "",
               },
-              { label: "Comentario:", value: cotizacion?.comentario || "" },
+              { label: "Comentario:", value: cotizacion?.comentario || "-" },
             ]}
           />
 
