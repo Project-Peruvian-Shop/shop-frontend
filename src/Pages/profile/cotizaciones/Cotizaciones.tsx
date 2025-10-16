@@ -25,7 +25,7 @@ function CotizacionesProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAll = async (page: number = 0) => {
+    const fetchAll = async (page: number) => {
       const localUser = obtenerUsuario(); // trae usuario desde localStorage
       if (!localUser) {
         navigate(routes.login);
@@ -41,7 +41,7 @@ function CotizacionesProfile() {
         setLoading(false);
       }
     };
-    fetchAll();
+    fetchAll(page);
   }, [page, navigate]);
 
   // columnas
