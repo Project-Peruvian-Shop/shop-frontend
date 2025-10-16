@@ -38,18 +38,14 @@ function Cotizaciones() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchAll();
-    loadCantidadCotizaciones();
-  }, [page]);
-
-  useEffect(() => {
-    if (search.length === 0) {
-      fetchAll(page);
-    } else if (search.length >= 3) {
+    if (search.length >= 3) {
       const delay = setTimeout(() => {
         fetchSearch(search, page);
       }, 400);
       return () => clearTimeout(delay);
+    } else {
+      fetchAll(page);
+      loadCantidadCotizaciones();
     }
   }, [search, page]);
 
@@ -111,7 +107,10 @@ function Cotizaciones() {
         return;
       }
 
-      if (nuevaObservacion.trim() === (selectedCotizacion?.observaciones || "").trim()) {
+      if (
+        nuevaObservacion.trim() ===
+        (selectedCotizacion?.observaciones || "").trim()
+      ) {
         await MySwal.fire({
           icon: "info",
           title: "Sin cambios",
@@ -142,7 +141,13 @@ function Cotizaciones() {
 
   const handleChangeEstado = async (
     id: number,
-    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
+    nuevoEstado:
+      | "PENDIENTE"
+      | "EN_PROCESO"
+      | "ENVIADA"
+      | "ACEPTADA"
+      | "RECHAZADA"
+      | "CERRADA"
   ) => {
     try {
       await change_state(id, nuevoEstado);
@@ -197,8 +202,8 @@ function Cotizaciones() {
         <span>{value ? String(value) : "No hay observaciones"}</span>
       ),
     },
-    
-  // acciones de la tabla
+
+    // acciones de la tabla
   ];
   const actions: Action<CotizacionDashboardDTO>[] = [
     {
