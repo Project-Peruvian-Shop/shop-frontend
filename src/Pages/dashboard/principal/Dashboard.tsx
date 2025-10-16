@@ -135,6 +135,13 @@ function Dashboard() {
                   <li key={msg.id} className={styles.item}>
                     <MapCard property="tipoMensaje" value={msg.tipo} />
                     <div className={styles.mensaje}>{msg.contenido}</div>
+                    <div className={styles.mensaje}>
+                      {new Date(msg.creacion).toLocaleDateString("es-PE", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
+                    </div>
                   </li>
                 ))
               ) : (

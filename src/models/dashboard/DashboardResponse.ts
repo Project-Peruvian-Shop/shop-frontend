@@ -15,6 +15,7 @@ export interface DashboardMensajeDTO {
   id: number;
   contenido: string;
   tipo: string;
+  creacion: string;
 }
 
 export interface DashboardProductoDTO {
