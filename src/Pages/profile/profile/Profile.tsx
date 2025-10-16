@@ -1,17 +1,23 @@
 import styles from "./Profile.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useEffect, useState } from "react";
 import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
-import type { CotizacionUserDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
+import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import { obtenerUsuario } from "../../../utils/auth";
 import { getProfile } from "../../../services/usuario.service";
-import { getCotizacionesByUser } from "../../../services/cotizacion.service";
+import { getCotizacionesByUserPaginated } from "../../../services/cotizacion.service";
 import { routes } from "../../../utils/routes";
 import Header from "../../../Components/header/Header";
 import { Icons } from "../../../Icons/icons";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
+import type { PaginatedResponse } from "../../../services/global.interfaces";
+import DashboardTable, {
+  type Action,
+  type Column,
+} from "../../../Components/dashboard/table/DashboardTable";
+import IconSVG from "../../../Icons/IconSVG";
 
 function Profile() {
   const navigate = useNavigate();
@@ -19,9 +25,13 @@ function Profile() {
 
   const [fechaHora, setFechaHora] = useState(new Date());
   const [usuario, setUsuario] = useState<UsuarioProfileDTO | null>(null);
-  const [cotizaciones, setCotizaciones] = useState<CotizacionUserDTO[] | null>(
-    null
-  );
+  const [cotizaciones, setCotizaciones] =
+    useState<PaginatedResponse<CotizacionDashboardDTO>>();
+
+  const [loading, setLoading] = useState(false);
+
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     // Actualizar fecha y hora cada segundo
@@ -36,31 +46,26 @@ function Profile() {
       return;
     }
 
-    // Obtener datos completos desde el backend
-    getProfile(localUser.id)
-      .then((data) => setUsuario(data))
-      .catch(() => {
-        MySwal.fire({
-          icon: "error",
-          title: "Error",
-          text: "No se pudo cargar la información del perfil",
-        });
-      });
+    setLoading(true);
 
-    // Obtener cotizaciones del usuario
-    getCotizacionesByUser(localUser.id)
-      .then((data) => {
-        setCotizaciones(data);
-        console.log(data);
+    Promise.all([
+      getProfile(localUser.id),
+      getCotizacionesByUserPaginated(localUser.id, page, 6), // <--- usa page
+    ])
+      .then(([userData, cotData]) => {
+        setUsuario(userData);
+        setCotizaciones(cotData);
+        setTotalPages(cotData.totalPages); // <--- asigna total
       })
       .catch(() => {
         MySwal.fire({
           icon: "error",
           title: "Error",
-          text: "No se pudieron cargar las cotizaciones",
+          text: "No se pudieron cargar los datos del perfil o cotizaciones",
         });
-      });
-  }, [navigate]);
+      })
+      .finally(() => setLoading(false)); // fin loading
+  }, [page, navigate]);
 
   const mapperRol = (rol: string) => {
     switch (rol) {
@@ -74,6 +79,43 @@ function Profile() {
         return "Desconocido";
     }
   };
+
+  // columnas
+  const columns: Column<CotizacionDashboardDTO>[] = [
+    { header: "Número", accessor: "numeroCotizacion" },
+    {
+      header: "Fecha",
+      accessor: "creacion",
+      render: (value) => {
+        const fecha = new Date(value as string);
+        return (
+          <span>
+            {fecha.toLocaleDateString("es-PE", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })}
+          </span>
+        );
+      },
+    },
+    {
+      header: "Estado",
+      accessor: "estado",
+      render: (value) => (
+        <MapCard property="estadoCotizacion" value={value as string} />
+      ),
+    },
+  ];
+
+  // acciones de la tabla
+  const actions: Action<CotizacionDashboardDTO>[] = [
+    {
+      label: "Ver",
+      icon: <IconSVG name="view-secondary" size={20} />,
+      onClick: (row) => navigate(`/perfil/cotizaciones/${row.id}`),
+    },
+  ];
 
   return (
     <div className={styles.container}>
@@ -131,45 +173,17 @@ function Profile() {
 
         <div className={styles.right}>
           <div className={styles.title}>Cotizaciones anteriores</div>
-          {cotizaciones && cotizaciones.length > 0 ? (
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  {/* <th>ID</th> */}
-                  <th>Número</th>
-                  <th>Fecha</th>
-                  <th style={{ textAlign: "center" }}>Estado</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {cotizaciones.map((c) => (
-                  <tr key={c.id}>
-                    {/* <td>{c.id}</td> */}
-                    <td>{c.numero}</td>
-                    <td>{new Date(c.creacion).toLocaleDateString("es-PE")}</td>
-                    <td style={{ textAlign: "center" }}>
-                      <MapCard property="estadoCotizacion" value={c.estado} />
-                    </td>
-                    <td>
-                      <Link to={`${routes.profile_cotization}${c.id}`}>
-                        <img src={Icons.view} alt="Ver" />
-                      </Link>
-                    </td>
-                    <td>
-                      <button
-                        className={styles.repeatButton}
-                        onClick={() => console.log("Refrescar " + c.id)}
-                      >
-                        <img src={Icons.repeat} alt="Ver" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {loading ? (
+            <p>Cargando...</p>
           ) : (
-            <p>No tienes cotizaciones registradas.</p>
+            <DashboardTable
+              columns={columns}
+              data={cotizaciones ? cotizaciones.content : []}
+              actions={actions}
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+            />
           )}
         </div>
       </div>
