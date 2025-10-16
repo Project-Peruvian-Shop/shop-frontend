@@ -177,18 +177,20 @@ function Profile() {
 
         <div className={styles.right}>
           <div className={styles.title}>Cotizaciones anteriores</div>
-          {loading ? (
-            <p>Cargando...</p>
-          ) : (
-            <DashboardTable
-              columns={columns}
-              data={cotizaciones ? cotizaciones.content : []}
-              actions={actions}
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
-            />
-          )}
+          <div className={styles.tableContainer}>
+            {loading ? (
+              <p>Cargando...</p>
+            ) : (
+              <DashboardTable
+                columns={columns}
+                data={cotizaciones ? cotizaciones.content : []}
+                actions={actions}
+                currentPage={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
