@@ -12,7 +12,7 @@ import {
   getQuantityMensajes,
   getSearchMensajes,
 } from "../../../services/mensajes.service";
-import type {  MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
+import type { MensajeDashboardDTO } from "../../../models/Mensaje/Mensaje_response_dto";
 import IconSVG from "../../../Icons/IconSVG";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
@@ -29,27 +29,30 @@ function Mensajes() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-
   const [modalShow, setModalShow] = useState(false);
-  const [selectedMensaje, setSelectedMensaje] = useState<MensajeDashboardDTO | null>(null);
+  const [selectedMensaje, setSelectedMensaje] =
+    useState<MensajeDashboardDTO | null>(null);
 
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
-    fetchAll(page);
     loadCantidadMensajes();
   }, [page]);
 
   useEffect(() => {
-    if (search.length === 0) {
-      fetchAll(page);
-    } else if (search.length >= 3) {
+    if (search.trim().length >= 3) {
       const delay = setTimeout(() => {
         fetchSearch(search, page);
       }, 400);
       return () => clearTimeout(delay);
+    } else {
+      fetchAll(page);
     }
   }, [search, page]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [search]);
 
   const fetchAll = async (page: number = 0) => {
     setLoading(true);
@@ -83,9 +86,9 @@ function Mensajes() {
       console.error("Error cargando cantidad de mensajes:", error);
     }
   };
-  
+
   const handleChangeState = async (
-    id: number, 
+    id: number,
     nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESUELTO" | "CERRADO"
   ) => {
     try {
@@ -105,7 +108,6 @@ function Mensajes() {
         text: "Hubo un problema al actualizar el estado del mensaje.",
       });
       console.error(error);
-      
     }
   };
 
@@ -206,9 +208,9 @@ function Mensajes() {
       </div>
       {modalShow && (
         <ModalMensajes
-        mensaje={selectedMensaje as MensajeDashboardDTO}
-        onClose={() => setModalShow(false)} 
-        onSubmit={handleChangeState} 
+          mensaje={selectedMensaje as MensajeDashboardDTO}
+          onClose={() => setModalShow(false)}
+          onSubmit={handleChangeState}
         />
       )}
     </div>

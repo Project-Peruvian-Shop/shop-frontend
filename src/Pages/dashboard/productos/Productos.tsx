@@ -53,21 +53,24 @@ export default function ProductosTable() {
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
-    fetchAll();
     loadCategorias();
     loadCantidadProductos();
   }, []);
 
   useEffect(() => {
-    if (search.length === 0) {
-      fetchAll(page);
-    } else if (search.length >= 3) {
+    if (search.length >= 3) {
       const delay = setTimeout(() => {
         fetchSearch(search, page);
       }, 400);
       return () => clearTimeout(delay);
+    } else {
+      fetchAll(page);
     }
   }, [search, page]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [search]);
 
   const fetchAll = async (page: number = 0) => {
     setLoading(true);

@@ -49,6 +49,10 @@ function Cotizaciones() {
     }
   }, [search, page]);
 
+  useEffect(() => {
+    setPage(0);
+  }, [search]);
+
   const fetchAll = async (page: number = 0) => {
     setLoading(true);
     try {
