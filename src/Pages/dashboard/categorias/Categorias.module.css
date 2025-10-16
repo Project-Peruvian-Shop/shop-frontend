@@ -9,11 +9,8 @@
 
 .dashboardHeader {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  align-content: stretch;
   margin: 40px;
 }
 
