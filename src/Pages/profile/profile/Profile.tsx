@@ -18,6 +18,7 @@ import DashboardTable, {
   type Column,
 } from "../../../Components/dashboard/table/DashboardTable";
 import IconSVG from "../../../Icons/IconSVG";
+import { agregarProductosCotizacionAlCarrito } from "../../../utils/localStorage";
 
 function Profile() {
   const navigate = useNavigate();
@@ -118,6 +119,13 @@ function Profile() {
       label: "Ver",
       icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => navigate(`/perfil/cotizaciones/${row.id}`),
+    },
+    {
+      label: "Editar",
+      icon: <IconSVG name="repeat" size={20} />,
+      onClick: async (row) => {
+        await agregarProductosCotizacionAlCarrito(row.numeroCotizacion, row.id);
+      },
     },
   ];
 
