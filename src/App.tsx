@@ -31,6 +31,7 @@ import Carrito from "./Pages/cart/carrito/Carrito.tsx";
 import Checkout from "./Pages/cart/checkout/Checkout.tsx";
 import Profile from "./Pages/profile/profile/Profile.tsx";
 import CotizacionesProfile from "./Pages/profile/cotizaciones/Cotizaciones.tsx";
+import MensajeDetalle from "./Pages/dashboard/mensajesdetail/MensajeDetalle.tsx";
 
 function App() {
   const location = useLocation();
@@ -84,6 +85,7 @@ function App() {
           <Route path="product/:id" element={<ProductoDetalle />} />
           <Route path="category/:id" element={<CategoriaDetalle />} />
           <Route path="cotizacion/:id" element={<CotizacionDetalle />} />
+          <Route path={routes.dashboard_message} element={<MensajeDetalle />} />
 
           <Route path="profile" element={<DashboardPerfil />} />
         </Route>

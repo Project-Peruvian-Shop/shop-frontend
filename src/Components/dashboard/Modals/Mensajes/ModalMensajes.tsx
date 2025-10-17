@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styles from "./ModalMensajes.module.css";
-import type { MensajeDashboardDTO } from "../../../../models/Mensaje/Mensaje_response_dto";
+import type {  MensajeDetalleResponseDTO } from "../../../../models/Mensaje/Mensaje_response_dto";
 import type { ChangeStateMensajeRequestDTO } from "../../../../models/Mensaje/Mensaje_request_dto";
 interface ModalMensajesProps {
-  mensaje: MensajeDashboardDTO;
+  mensaje: MensajeDetalleResponseDTO;
   onClose: () => void;
   onSubmit: (
     id: number,

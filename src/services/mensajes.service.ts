@@ -5,6 +5,7 @@ import type { MensajeRequestDTO } from "../models/Mensaje/Mensaje_request_dto";
 import type {
   MensajeCreateResponseDTO,
   MensajeDashboardDTO,
+  MensajeDetalleResponseDTO,
 } from "../models/Mensaje/Mensaje_response_dto";
 
 const BASE_URL = URL_API + "/mensaje";
@@ -79,6 +80,16 @@ export async function changeStateMensaje(
   const url = `${BASE_URL}/change_state/${id}`;
 
   const res = await axios.put<ApiResponse<MensajeDashboardDTO>>(url, { nuevoEstado });
+
+  return res.data.data;
+}
+
+export async function getMensajeById(
+  id: number
+): Promise<MensajeDetalleResponseDTO> {
+  const url = `${BASE_URL}/${id}`;
+
+  const res = await axios.get<ApiResponse<MensajeDetalleResponseDTO>>(url);
 
   return res.data.data;
 }

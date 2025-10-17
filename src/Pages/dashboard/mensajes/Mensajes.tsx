@@ -19,6 +19,7 @@ import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ModalMensajes from "../../../Components/dashboard/Modals/Mensajes/ModalMensajes";
+import { useNavigate } from "react-router-dom";
 function Mensajes() {
   const [mensajes, setMensajes] =
     useState<PaginatedResponse<MensajeDashboardDTO>>();
@@ -34,6 +35,8 @@ function Mensajes() {
     useState<MensajeDashboardDTO | null>(null);
 
   const MySwal = withReactContent(Swal);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadCantidadMensajes();
@@ -162,7 +165,7 @@ function Mensajes() {
     {
       label: "Ver",
       icon: <IconSVG name="view-secondary" size={20} />,
-      onClick: (row) => console.log("Ver producto", row),
+      onClick: (row) => navigate(`/dashboard/mensaje/${row.id}`),
     },
     {
       label: "Editar",

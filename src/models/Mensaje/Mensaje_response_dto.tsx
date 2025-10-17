@@ -5,14 +5,16 @@ export interface MensajeResponseDTO {
 //Mensaje detalle
 export interface MensajeDetalleResponseDTO {
   id: number;
-  mensaje_tipo: number;
-  mensaje_estado: number;
-  mensaje_contenido: string;
-  mensaje_tipo_documento: number;
-  mensaje_documento: string;
-  mensaje_nombre: string;
-  mensaje_telefono: string;
-  mensaje_email: string;
+  tipo: string;
+  estado: string;
+  medioRespuesta: string;
+  creacion: string;
+  contenido: string;
+  tipoDocumento: string;
+  documento: string;
+  nombre: string;
+  telefono: string;
+  email: string;
 }
 
 //Mensaje dashboard
