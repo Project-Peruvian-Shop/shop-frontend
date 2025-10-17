@@ -13,6 +13,7 @@ import { useNavigate } from "react-router";
 import { getCotizacionesByUserPaginated } from "../../../services/cotizacion.service";
 import { obtenerUsuario } from "../../../utils/auth";
 import { routes } from "../../../utils/routes";
+import { agregarProductosCotizacionAlCarrito } from "../../../utils/localStorage";
 
 function CotizacionesProfile() {
   const [cotizaciones, setCotizaciones] =
@@ -83,8 +84,8 @@ function CotizacionesProfile() {
     {
       label: "Editar",
       icon: <IconSVG name="repeat" size={20} />,
-      onClick: (row) => {
-        console.log(row);
+      onClick: async (row) => {
+        await agregarProductosCotizacionAlCarrito(row.numeroCotizacion, row.id);
       },
     },
   ];
