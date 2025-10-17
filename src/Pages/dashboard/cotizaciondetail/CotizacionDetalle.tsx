@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservacionesEstado";
 import upload from "../../../Icons/Modal_uploadPDF/upload_pdf.svg";
+import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 function CotizacionDetalle() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -56,32 +57,13 @@ function CotizacionDetalle() {
   }, [id, navigate, fetchCotizacion]);
 
   useEffect(() => {
-  return () => {
-    if (pdfPreview) {
-      URL.revokeObjectURL(pdfPreview);
-    }
-  };
-}, [pdfPreview]);
+    return () => {
+      if (pdfPreview) {
+        URL.revokeObjectURL(pdfPreview);
+      }
+    };
+  }, [pdfPreview]);
 
-
-  const mapperEstado = (estado: string) => {
-    switch (estado) {
-      case "PENDIENTE":
-        return { label: "Pendiente", className: styles.pendiente };
-      case "EN_PROCESO":
-        return { label: "En proceso", className: styles.enProceso };
-      case "ENVIADA":
-        return { label: "Enviada", className: styles.enviada };
-      case "ACEPTADA":
-        return { label: "Aceptada", className: styles.aceptada };
-      case "RECHAZADA":
-        return { label: "Rechazada", className: styles.rechazada };
-      case "CERRADA":
-        return { label: "Cerrada", className: styles.cerrada };
-      default:
-        return { label: "Desconocido", className: styles.desconocido };
-    }
-  };
   const handleSaveObservacion = async (
     id: number,
     nuevaObservacion: string
@@ -157,7 +139,7 @@ function CotizacionDetalle() {
   const handleUpload = async () => {
     if (!selectedFile || !cotizacion) return;
 
-    if(selectedFile.size > 10 * 1024 * 1024) {
+    if (selectedFile.size > 10 * 1024 * 1024) {
       Swal.fire({
         icon: "warning",
         title: "Archivo demasiado grande",
@@ -168,7 +150,7 @@ function CotizacionDetalle() {
     try {
       const result = await uploadCotizacionPDF(cotizacion.id, selectedFile);
       setPdfPreview(result.archivo);
-      await fetchCotizacion(cotizacion.id); 
+      await fetchCotizacion(cotizacion.id);
       setSelectedFile(null);
 
       Swal.fire({
@@ -234,11 +216,10 @@ function CotizacionDetalle() {
               {
                 label: "Estado:",
                 value: (
-                  <span
-                    className={mapperEstado(cotizacion?.estado || "").className}
-                  >
-                    {mapperEstado(cotizacion?.estado || "").label}
-                  </span>
+                  <MapCard
+                    property="estadoCotizacion"
+                    value={cotizacion?.estado || ""}
+                  />
                 ),
               },
               {
@@ -375,9 +356,7 @@ function CotizacionDetalle() {
                         <>
                           {/* Texto sobre la vista previa */}
                           <div className={styles.previewHeader}>
-                            <p>
-                              Vista previa del PDF: {selectedFile.name}
-                            </p>
+                            <p>Vista previa del PDF: {selectedFile.name}</p>
                           </div>
 
                           {/* Vista previa */}
