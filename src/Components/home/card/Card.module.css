@@ -6,11 +6,10 @@
   align-items: center;
   align-content: stretch;
   gap: 20px;
-
-  width: 414px;
-  height: 410px;
   border-radius: 25px;
-
+  width: 304px;
+  height: 251px;
+  padding: 20px;
   background-color: #50566d0d;
   text-decoration: none;
   color: #000000;

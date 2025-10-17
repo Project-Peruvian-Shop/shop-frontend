@@ -29,7 +29,10 @@
   gap: 8px;
   padding: 40px 0;
 }
-
+a{
+  text-decoration: none;
+  color: inherit;
+}
 .productImage {
   width: 48px;
   height: 48px;

@@ -1,31 +1,14 @@
-.containerContacto{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    margin: auto;
-    margin-top: 50px;
-    flex-wrap: wrap;
-    gap: 20px;
+.containerCanales {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
-.containerContacto img{
-    width: 30px;
-    height: 30px;
-    margin: 0 10px;
+.containerCanales span {
+  text-align: justify;
+  font-size: 18px;
+  font-weight: 500;
 }
-.containerCanales{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 20px;
-}
-.containerCanales span{
-    text-align: justify;
-    font-size: 18px;
-    font-weight: 500; 
-}
-
-

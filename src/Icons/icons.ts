@@ -28,7 +28,10 @@ import whatsappSec from "./rrss/whatsapp-secondary.svg";
 import outlook from "./rrss/outlook.svg";
 import email from "./rrss/email.svg";
 import phone from "./rrss/phone.svg";
-import tiktok from "./rrss/tiktok.svg";
+import phone2 from "./Contact/phone_contact.svg"
+import email2 from "./Contact/email_contact.svg"
+import location from "./Contact/location_contact.png"
+import tiktok from "./rrss/tik_tok.svg";
 import facebook from "./rrss/facebook.svg";
 import instagram from "./rrss/instagram.svg";
 
@@ -64,6 +67,9 @@ export const Icons = {
   about,
   email,
   phone,
+  phone2,
+  email2,
+  location,
   tiktok,
   facebook,
   instagram,

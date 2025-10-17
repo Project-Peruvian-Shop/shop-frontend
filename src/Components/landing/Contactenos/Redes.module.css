@@ -1,0 +1,20 @@
+.containerContacto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: auto;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.containerContacto img {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+.containerContacto img:hover {
+  filter: brightness(0) saturate(100%) invert(15%) sepia(14%) saturate(1073%)
+    hue-rotate(137deg) brightness(92%) contrast(89%);
+}

@@ -7,7 +7,7 @@ import {
   getCartFromLocalStorage,
   type CartProductoDTO,
 } from "../../../utils/localStorage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../../../utils/routes";
 import { obtenerUsuario } from "../../../utils/auth";
 import Swal from "sweetalert2";
@@ -63,7 +63,9 @@ export default function CartTable() {
                   alt={item.imagenAlt}
                   className={styles.productImage}
                 />
-                <span>{item.nombre}</span>
+                <Link to={`/producto/${item.id}`}>
+                  <span>{item.nombre}</span>
+                </Link>
               </td>
               <td>{item.categoriaNombre}</td>
               <td className={styles.quantityCell}>

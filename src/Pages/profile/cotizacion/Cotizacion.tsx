@@ -120,7 +120,7 @@ function Cotizacion() {
           </div>
 
           <div className={styles.card}>
-            {cotizacion?.cotizacionEnlace && (
+            {cotizacion?.cotizacionEnlace ? (
               <>
                 <div className={styles.titlePDF}>PDF de la cotización</div>
                 <div className={styles.pdfContainer}>
@@ -144,7 +144,12 @@ function Cotizacion() {
                   </a>
                 </div>
               </>
-            )}
+            ):
+            <>
+            <div className={styles.titlePDF}>PDF de la cotización</div>
+            <p>No se ha subido ningún PDF aún.</p>
+            </>
+            }
           </div>
         </div>
       </div>

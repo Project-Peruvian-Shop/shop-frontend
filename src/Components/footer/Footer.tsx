@@ -18,9 +18,9 @@ function Footer() {
 
         <div className={styles.columna}>
           <p className={styles.title}>Productos</p>
-          <Link to={routes.about}>Alcantarillado</Link>
-          <Link to={""}>Desagüe</Link>
-          <Link to={""}>Instalaciones eléctricas</Link>
+          <Link to={routes.shop}>Alcantarillado</Link>
+          <Link to={routes.shop}>Desagüe</Link>
+          <Link to={routes.shop}>Instalaciones eléctricas</Link>
         </div>
 
         <div className={styles.columna}>
@@ -71,7 +71,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <img
-              src={Icons.whatsappSec}
+              src={Icons.whatsappPri}
               alt="WhatsApp"
               className={styles.iconRRSS}
             />

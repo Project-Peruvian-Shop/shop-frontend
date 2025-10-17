@@ -1,7 +1,7 @@
 import style from "./Complaints_book.module.css";
 import Header from "../../../Components/header/Header";
-import { Icons } from "../../../Icons/icons";
 import FormLibro from "../../../Components/landing/Libro_reclamaciones/FormLibro";
+import Redes from "../../../Components/landing/Contactenos/Redes";
 
 const Complaints_book = () => {
   return (
@@ -18,34 +18,7 @@ const Complaints_book = () => {
         </p>
       </div>
 
-      <div className={style.containerContacto}>
-        <div className={style.containerRedes}>
-          <p>Télefono/Whatsapp</p>
-          <p>+51 922 723 633</p>
-        </div>
-        <div className={style.containerRedes}>
-          <p>Email</p>
-          <p>wilmer.guevara@tuberiasperuanito.com</p>
-        </div>
-        <div className={style.containerRedes}>
-          <p>Redes Sociales</p>
-          <span>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={Icons.whatsappSec} alt="whatsapp" />
-            </a>
-          </span>
-          <span>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={Icons.instagram} alt="instagram" />
-            </a>
-          </span>
-          <span>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
-              <img src={Icons.tiktok} alt="tiktok" />
-            </a>
-          </span>
-        </div>
-      </div>
+      <Redes/>
 
       <FormLibro />
     </main>
