@@ -3,8 +3,18 @@ import type { CotizacionDetalleId } from "../CotizacionDetalleId/Cotizacion_deta
 import type { Producto } from "../Producto/Producto";
 
 export interface CotizacionDetalle {
-    id: CotizacionDetalleId;
-    cantidad: number;
-    producto: Producto;
-    cotizacion: Cotizacion
+  id: CotizacionDetalleId;
+  cantidad: number;
+  producto: Producto;
+  cotizacion: Cotizacion;
+}
+
+export interface ProductoCarritoDetalleDTO {
+  id: number;
+  nombre: string;
+  categoriaNombre: string;
+  categoriaNorma: string;
+  imagenEnlace: string;
+  imagenAlt: string;
+  cantidad: number;
 }

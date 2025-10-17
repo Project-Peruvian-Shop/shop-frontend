@@ -12,6 +12,7 @@ import type {
   CotizacionFullDTO,
   CotizacionPdfDTO,
 } from "../models/Cotizacion/Cotizacion_response_dto";
+import type { ProductoCarritoDetalleDTO } from "../models/CotizacionDetalle/Cotizacion_detalle";
 
 const BASE_URL = URL_API + "/cotizacion";
 
@@ -101,6 +102,7 @@ export async function updateObservacionCotizacion(
 
   return res.data.data;
 }
+
 export async function change_state(
   id: number,
   nuevoEstado:
@@ -119,6 +121,7 @@ export async function change_state(
 
   return res.data.data;
 }
+
 export async function uploadCotizacionPDF(
   cotizacionId: number,
   file: File
@@ -139,4 +142,14 @@ export async function uploadCotizacionPDF(
   );
 
   return response.data.data;
+}
+
+export async function getProductoCarritoDetalle(
+  cotizacionId: number
+): Promise<ProductoCarritoDetalleDTO[]> {
+  const url = `${BASE_URL}/productos-por-cotizacion/${cotizacionId}`;
+
+  const res = await axios.get<ApiResponse<ProductoCarritoDetalleDTO[]>>(url);
+
+  return res.data.data;
 }
