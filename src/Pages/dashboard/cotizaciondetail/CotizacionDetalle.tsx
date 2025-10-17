@@ -278,7 +278,7 @@ function CotizacionDetalle() {
           </div>
 
           <div className={styles.card}>
-            <div className={styles.title}>Observaciones</div>
+            <div className={styles.subtitle}>Observaciones</div>
             <div className={styles.observations}>
               {cotizacion?.observaciones || "No hay observaciones."}
             </div>

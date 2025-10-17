@@ -127,7 +127,6 @@
 
 .titlePDF {
   margin-top: 16px;
-  margin-bottom: 12px;
   color: var(--primary-color);
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
@@ -154,7 +153,7 @@
 .noPdf {
   display: flex;
   flex-direction: row;
-  align-items: center;  
+  align-items: center;
   justify-content: center;
   gap: 1rem;
   color: var(--secondary-color);
@@ -185,7 +184,8 @@
   margin-top: 1rem;
 }
 
-.addButton, .cancelButton {
+.addButton,
+.cancelButton {
   flex: 1;
   height: 45px;
   font-family: "Poppins", sans-serif;
@@ -223,7 +223,7 @@
   border-radius: 16px;
   align-items: center;
   display: flex;
-  margin:  0 auto;
+  margin: 0 auto;
   justify-content: center;
   text-align: center;
   cursor: pointer;
@@ -240,7 +240,7 @@
 .dropZoneActive {
   width: 500px;
   height: 150px;
-  border: 2px solid transparent; 
+  border: 2px solid transparent;
   background-color: transparent;
   transition: border-color 0.3s ease, background-color 0.3s ease;
 }
@@ -321,14 +321,13 @@
   border-radius: 8px;
   color: var(--primary-color);
   background-color: var(--light-primary-color);
-
 }
 .cerrada {
   padding: 8px;
   border-radius: 8px;
   color: var(--gray);
   background-color: var(--light-gray);
-} 
+}
 
 .desconocido {
   padding: 8px;
