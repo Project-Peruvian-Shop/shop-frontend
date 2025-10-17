@@ -110,6 +110,9 @@ function Checkout() {
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Logo de la empresa",
+        confirmButtonColor: "var(--primary-color)",
+        confirmButtonText: "Aceptar",
+
       });
       console.log("Respuesta backend:", response);
       setNombre("");

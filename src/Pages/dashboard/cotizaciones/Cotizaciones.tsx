@@ -179,8 +179,8 @@ function Cotizaciones() {
     {
       header: "Fecha",
       accessor: "creacion",
-      render: (value) => {
-        const fecha = new Date(value as string);
+      render: (_, row) => {
+        const fecha = new Date(row.creacion as string);
         return (
           <span>
             {fecha.toLocaleDateString("es-PE", {
@@ -202,11 +202,17 @@ function Cotizaciones() {
     {
       header: "Observaciones",
       accessor: "observaciones",
-      render: (value) => (
-        <span>{value ? String(value) : "No hay observaciones"}</span>
-      ),
+      render: (_,row) => {
+        if (row.observaciones && row.observaciones.length > 16) {
+          return (
+            <span title={row.observaciones}>
+              {row.observaciones.substring(0, 16)}...
+            </span>
+          );
+        }
+        return <span>{row.observaciones ? String(row.observaciones) : "No hay observaciones"}</span>;
+      },
     },
-
     // acciones de la tabla
   ];
   const actions: Action<CotizacionDashboardDTO>[] = [

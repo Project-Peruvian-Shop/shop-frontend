@@ -204,7 +204,7 @@ function Usuarios() {
     },
     {
       label: "Eliminar",
-      icon: <IconSVG name="delete-primary" size={20} />,
+      icon: <IconSVG name="delete-secondary" size={20} />,
       onClick: (row) => console.log("Eliminar producto", row),
     },
   ];

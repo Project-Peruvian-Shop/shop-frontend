@@ -232,7 +232,16 @@ export default function ProductosTable() {
       ),
     },
     { header: "Categoría", accessor: "categoriaNombre" },
-    { header: "Descripción", accessor: "descripcion" },
+    { header: "Descripción", accessor: "descripcion",
+      render: (_, row) => {
+        const palabras = row.descripcion.split(" ");
+        const textoCorto =
+          palabras.length > 12
+            ? palabras.slice(0, 12).join(" ") + "..."
+            : row.descripcion;
+        return <span>{textoCorto}</span>;
+      }
+     },
   ];
 
   const actions: Action<ProductoDashboardDTO>[] = [

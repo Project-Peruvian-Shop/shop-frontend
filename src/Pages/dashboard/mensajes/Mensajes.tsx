@@ -124,7 +124,12 @@ function Mensajes() {
       header: "Mensaje",
       accessor: "mensaje",
       render: (_, row) => {
-        return <span>{row.mensaje}</span>;
+        const palabras = row.mensaje.split(" ");
+        const textoCorto =
+          palabras.length > 12
+            ? palabras.slice(0, 12).join(" ") + "..."
+            : row.mensaje; 
+        return <span>{textoCorto}</span>;
       },
     },
     {
