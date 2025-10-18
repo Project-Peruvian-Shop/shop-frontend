@@ -109,20 +109,28 @@ function Dashboard() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        {/* 📊 Gráfico de barras */}
-        <div className={styles.graphic}>
-          <div className={styles.title}>Total de cotizaciones por mes</div>
-          <div className={styles.chart}>
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={cotizacionesMes}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="cotizacionesNombreMes" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="cotizacionesCantidadMes" fill="#fb2343" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+        {/* Últimas cotizaciones */}
+        <div className={styles.lastCotizaciones}>
+          <div className={styles.title}>Últimas cotizaciones</div>
+          <ul className={styles.list}>
+            {lastCotizaciones.length > 0 ? (
+              lastCotizaciones.map((cot) => (
+                <li key={cot.id} className={styles.item}>
+                  <div>
+                    <span className={styles.numero}>{cot.numero}</span>{" "}
+                    <span>
+                      <MapCard property="estadoCotizacion" value={cot.estado} />
+                    </span>
+                  </div>
+                  <div className={styles.totalItems}>
+                    Items: {cot.totalItems}
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li className={styles.item}>No hay datos</li>
+            )}
+          </ul>
         </div>
 
         {/* Mensajes y productos */}
@@ -173,37 +181,28 @@ function Dashboard() {
       </div>
 
       <div className={styles.right}>
-        {/* Últimas cotizaciones */}
-        <div className={styles.lastCotizaciones}>
-          <div className={styles.title}>Últimas cotizaciones</div>
-          <ul className={styles.list}>
-            {lastCotizaciones.length > 0 ? (
-              lastCotizaciones.map((cot) => (
-                <li key={cot.id} className={styles.item}>
-                  <div>
-                    <span className={styles.numero}>{cot.numero}</span>{" "}
-                    <span>
-                      <MapCard property="estadoCotizacion" value={cot.estado} />
-                    </span>
-                  </div>
-                  <div className={styles.totalItems}>
-                    Items: {cot.totalItems}
-                  </div>
-                </li>
-              ))
-            ) : (
-              <li className={styles.item}>No hay datos</li>
-            )}
-          </ul>
+        {/* 📊 Gráfico de barras */}
+        <div className={styles.graphic}>
+          <div className={styles.title}>Total de cotizaciones por mes</div>
+          <div className={styles.chart}>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={cotizacionesMes}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="cotizacionesNombreMes" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="cotizacionesCantidadMes" fill="#fb2343" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-
         {/* Categorías más cotizadas */}
         <div className={styles.topCategorias}>
           <div className={styles.title}>Categorías más cotizadas</div>
 
           {/* Gráfico de torta */}
           {categorias.length > 0 && (
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
                   data={chartCategorias}
