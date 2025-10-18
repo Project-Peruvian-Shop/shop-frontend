@@ -1,4 +1,4 @@
-export const URL_API = "http://10.125.22.124:8080/api/v1";
+export const URL_API = "http://localhost:8080/api/v1";
 
 export const COLORS = {
   primary: "#fb2343",
