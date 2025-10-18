@@ -246,6 +246,7 @@ function Cotizaciones() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
+            <IconSVG name="cotizacion" size={24} className={styles.cotizacionIcon} />
             Total: {cantidad} Cotizaciones
           </div>
         </div>

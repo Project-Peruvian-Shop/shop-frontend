@@ -193,9 +193,11 @@ function Mensajes() {
         <div className={styles.headerActions}>
           <div className={styles.totalCount}>
             Mensajes del mes: {cantidad?.mensaje_response_count_mes}
+            <IconSVG name="mensaje" size={20} className={styles.mensajeSecondaryIcon} />
           </div>
           <div className={styles.totalSecondaryCount}>
             Mensajes por responder: {cantidad?.mensaje_pending_count_mes}
+            <IconSVG name="mensaje" size={20} className={styles.mensajePrimaryIcon} />
           </div>
         </div>
       </div>

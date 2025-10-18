@@ -285,6 +285,7 @@ export default function ProductosTable() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
+            <IconSVG name="producto" size={20} className={styles.productIcon} />
             Total: {cantidad} Productos
           </div>
           <button

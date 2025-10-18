@@ -267,6 +267,7 @@ function Categorias() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
+            <IconSVG name="categoria" size={24} className={styles.categoriaIcon} />
             Total: {cantidad} Categorías
           </div>
           <button

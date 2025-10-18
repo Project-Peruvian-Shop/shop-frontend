@@ -1,12 +1,19 @@
 export interface MensajeResponseDTO {
   id: number;
 }
+export type EstadoMensaje =
+  | "PENDIENTE"
+  | "EN_PROCESO"
+  | "RESUELTO"
+  | "CERRADO";
+export type MensajeBaseDTO = {
+  id: number;
+  estado: EstadoMensaje;
+};
 
 //Mensaje detalle
-export interface MensajeDetalleResponseDTO {
-  id: number;
+export interface MensajeDetalleResponseDTO extends MensajeBaseDTO {
   tipo: string;
-  estado: string;
   medioRespuesta: string;
   creacion: string;
   contenido: string;
@@ -24,12 +31,10 @@ export interface MensajeDashboardDTO {
   mensaje_pending_count_mes: number;
 }
 
-export interface MensajeDashboardDTO {
-  id: number;
+export interface MensajeDashboardDTO extends MensajeBaseDTO{
   tipo: string;
   mensaje: string;
   creacion: string;
-  estado: string;
 }
 
 export interface MensajeCreateResponseDTO {

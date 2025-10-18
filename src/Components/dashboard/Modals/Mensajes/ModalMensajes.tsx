@@ -1,9 +1,12 @@
 import { useState } from "react";
 import styles from "./ModalMensajes.module.css";
-import type {  MensajeDetalleResponseDTO } from "../../../../models/Mensaje/Mensaje_response_dto";
+import type {   MensajeDetalleResponseDTO, } from "../../../../models/Mensaje/Mensaje_response_dto";
 import type { ChangeStateMensajeRequestDTO } from "../../../../models/Mensaje/Mensaje_request_dto";
+
+type MensajeMinimo = Pick<MensajeDetalleResponseDTO, "id" | "estado">;
+
 interface ModalMensajesProps {
-  mensaje: MensajeDetalleResponseDTO;
+  mensaje: MensajeMinimo;
   onClose: () => void;
   onSubmit: (
     id: number,

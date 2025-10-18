@@ -23,6 +23,9 @@
 
 /* Título estilo "botón" con línea roja */
 .totalCount {
+  display: flex;
+  gap: 10px;
+  align-items: center;
   padding: 8px 16px;
   border: 2px solid var(--secondary-color);
   border-radius: 6px;
@@ -32,6 +35,9 @@
 }
 
 .totalSecondaryCount {
+  display: flex;
+  gap: 10px;
+  align-items: center;
   padding: 8px 16px;
   border: 2px solid var(--primary-color);
   border-radius: 6px;
@@ -69,4 +75,12 @@
 
 .tableContainer {
   margin: 0 40px 40px 40px;
+}
+.mensajeSecondaryIcon {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(9%) saturate(1260%)
+    hue-rotate(137deg) brightness(93%) contrast(89%);
+}
+.mensajePrimaryIcon {
+  filter: brightness(0) saturate(100%) invert(26%) sepia(96%) saturate(2838%)
+    hue-rotate(338deg) brightness(98%) contrast(101%);
 }

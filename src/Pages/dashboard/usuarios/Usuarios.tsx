@@ -223,7 +223,10 @@ function Usuarios() {
         </div>
 
         <div className={styles.headerActions}>
-          <div className={styles.totalProducts}>Total: {cantidad} Usuarios</div>
+          <div className={styles.totalProducts}>
+            <IconSVG name="usuarioIcon" size={24} className={styles.usuarioIcon} />
+            Total: {cantidad} Usuarios
+            </div>
           <button
             className={styles.addButton}
             onClick={() => setShowModal(true)}
