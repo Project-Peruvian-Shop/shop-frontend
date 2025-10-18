@@ -288,7 +288,7 @@ function CotizacionDetalle() {
             {cotizacion?.cotizacionEnlace ? (
               <div className={styles.pdfContainer}>
                 <a
-                  href={cotizacion.cotizacionEnlace}
+                  href={cotizacion.cotizacionEnlace!}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.pdfButton}
@@ -312,17 +312,53 @@ function CotizacionDetalle() {
                 >
                   Descargar PDF
                 </a>
+                {/* Enviar por link de PDF por correo */}
+                <a
+                  href={`https://outlook.office.com/mail/deeplink/compose?to=${
+                    cotizacion?.email
+                  }&subject=${encodeURIComponent(
+                    `Cotización N° ${cotizacion?.numero}`
+                  )}&body=${encodeURIComponent(
+                    `Estimado(a) ${cotizacion?.cliente},\n\nPuede descargar su cotización aquí:\n${cotizacion?.cotizacionEnlace}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.pdfButton}
+                >
+                  Mandar PDF por correo
+                </a>
+                {/* Enviar por link de PDF por whatsapp */}
+                <a
+                  href={`https://wa.me/${
+                    cotizacion?.telefono
+                  }?text=${encodeURIComponent(
+                    `Hola ${cotizacion?.cliente}, aquí tiene el enlace de su cotización N° ${cotizacion?.numero}: ${cotizacion?.cotizacionEnlace}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.pdfButton}
+                >
+                  Mandar PDF por WhatsApp
+                </a>
               </div>
             ) : (
               <>
                 <div className={styles.noPdf}>
-                  <p>No se ha subido ningún PDF aún.</p>
-                  <button
-                    className={styles.addButton}
-                    onClick={() => setShowModalPDF(true)}
-                  >
-                    Seleccionar archivo
-                  </button>
+                  {cotizacion?.estado !== "PENDIENTE" ?(
+                    <>
+                      <p>No se ha subido ningún PDF.</p>
+                      <button
+                        className={styles.addButton}
+                        onClick={() => setShowModalPDF(true)}
+                      >
+                        Añadir PDF
+                      </button>
+                    </>
+                  ):(
+                    <p>
+                        Para subir una cotización PDF, cambie el estado de la cotización.
+                      </p>
+                  )}
                 </div>
                 {/* Modal para subir un PDF */}
                 {showModalPDF && (
