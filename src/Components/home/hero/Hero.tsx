@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import Home1 from "../../../Images/Landing/Home-1.jpeg";
 import Home2 from "../../../Images/Landing/Home-2.jpg";
 import styles from "./Hero.module.css";
 
-const images = [Home1, Home2];
+const images = [Home2];
 
 const Hero = () => {
   const [index, setIndex] = useState(0);
