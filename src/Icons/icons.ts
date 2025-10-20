@@ -28,9 +28,9 @@ import whatsappSec from "./rrss/whatsapp-secondary.svg";
 import outlook from "./rrss/outlook.svg";
 import email from "./rrss/email.svg";
 import phone from "./rrss/phone.svg";
-import phone2 from "./Contact/phone_contact.svg"
-import email2 from "./Contact/email_contact.svg"
-import location from "./Contact/location_contact.png"
+import phone2 from "./Contact/phone_contact.svg";
+import email2 from "./Contact/email_contact.svg";
+import location from "./Contact/location_contact.png";
 import tiktok from "./rrss/tik_tok.svg";
 import facebook from "./rrss/facebook.svg";
 import instagram from "./rrss/instagram.svg";
@@ -43,9 +43,11 @@ import arrowDown from "./navbar/arrow-down.svg";
 
 import repeat from "./table/repeat.svg";
 
+import check from "./dashboard/check.svg";
+import clipboard from "./dashboard/clipboard.svg";
+import message from "./dashboard/message.svg";
+
 export const Icons = {
-  // "view-primary": view1,
-  // "edit-primary": edit1,
   "delete-primary": delete1,
   "view-secondary": view2,
   "edit-secondary": edit2,
@@ -82,6 +84,9 @@ export const Icons = {
   arrowUp,
   arrowDown,
   repeat,
+  check,
+  clipboard,
+  message,
 };
 
 export type IconName = keyof typeof Icons;
