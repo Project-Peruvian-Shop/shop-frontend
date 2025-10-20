@@ -1,0 +1,78 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid transparent;
+  flex: 1;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Colores */
+.blue {
+  border-top-color: #2f80ed;
+  color: #2f80ed;
+}
+
+.green {
+  border-top-color: #27ae60;
+  color: #27ae60;
+}
+
+.orange {
+  border-top-color: #f2994a;
+  color: #f2994a;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* Valor */
+.value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Botones de periodo */
+.periodSwitch {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.periodButton {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.periodButton:hover {
+  text-decoration: underline;
+}
+
+.active {
+  font-weight: bold;
+  color: inherit;
+  text-decoration: underline;
+}
