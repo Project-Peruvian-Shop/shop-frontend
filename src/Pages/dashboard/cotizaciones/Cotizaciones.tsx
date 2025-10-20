@@ -151,10 +151,11 @@ function Cotizaciones() {
       | "ENVIADA"
       | "ACEPTADA"
       | "RECHAZADA"
-      | "CERRADA"
+      | "CERRADA",
+    observacion: string
   ) => {
     try {
-      await change_state(id, nuevoEstado);
+      await change_state(id, nuevoEstado, observacion);
       await loadCotizaciones(page);
       setShowModal(false);
       await MySwal.fire({
