@@ -34,7 +34,7 @@ export const StatusHistoryTable: React.FC<TableProps> = ({ changes }) => {
         <thead>
           <tr>
             <th>Cambio de Estado</th>
-            <th>Observación</th>
+            <th>Observaciones</th>
             <th>Fecha</th>
             <th>Usuario</th>
           </tr>
