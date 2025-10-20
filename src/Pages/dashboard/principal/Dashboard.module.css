@@ -64,3 +64,40 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.headerRight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.modoToggle {
+  display: flex;
+  background: var(--gray-color);
+  border-radius: 20px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.toggleButton {
+  background: transparent;
+  border: none;
+  color: var(--secondary-color);
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+}
+
+.toggleButton:hover {
+  background-color: var(--light-primary-color);
+  color: var(--primary-color);
+}
+
+.active {
+  background-color: var(--secondary-color);
+  color: white;
+}
