@@ -55,7 +55,7 @@ export const StatusHistoryTable: React.FC<TableProps> = ({ changes }) => {
                   />
                 </div>
               </td>
-              <td>{change.observacion}</td>
+              <td>{change.observacion || "-"}</td>
               <td>{formatDate(change.fechaCambio)}</td>
               <td>
                 <div>
