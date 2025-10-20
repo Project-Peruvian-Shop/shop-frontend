@@ -45,7 +45,7 @@ const ProductosMasCotizadosChart: React.FC<Props> = ({ data }) => {
           />
           <Bar
             dataKey="cantidadApariciones"
-            fill="var(--secondary-color)"
+            fill="var(--primary-color)"
             radius={[0, 6, 6, 0]}
             barSize={24}
           />

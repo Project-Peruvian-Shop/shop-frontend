@@ -49,7 +49,7 @@ const CotizacionesChart: React.FC<Props> = ({ data }) => {
           <Tooltip />
           <Bar
             dataKey="cantidad"
-            fill="var(--primary-color)"
+            fill="var(--blue)"
             radius={[4, 4, 0, 0]}
           />
         </BarChart>
