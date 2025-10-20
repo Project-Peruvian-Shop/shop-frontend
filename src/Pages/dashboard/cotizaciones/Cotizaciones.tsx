@@ -202,7 +202,7 @@ function Cotizaciones() {
     {
       header: "Observaciones",
       accessor: "observaciones",
-      render: (_,row) => {
+      render: (_, row) => {
         if (row.observaciones && row.observaciones.length > 16) {
           return (
             <span title={row.observaciones}>
@@ -210,7 +210,13 @@ function Cotizaciones() {
             </span>
           );
         }
-        return <span>{row.observaciones ? String(row.observaciones) : "No hay observaciones"}</span>;
+        return (
+          <span>
+            {row.observaciones
+              ? String(row.observaciones)
+              : "No hay observaciones"}
+          </span>
+        );
       },
     },
     // acciones de la tabla
@@ -246,11 +252,16 @@ function Cotizaciones() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            <IconSVG name="cotizacion" size={24} className={styles.cotizacionIcon} />
+            <IconSVG
+              name="cotizacion"
+              size={24}
+              className={styles.cotizacionIcon}
+            />
             Total: {cantidad} Cotizaciones
           </div>
         </div>
       </div>
+
       <div className={styles.tableContainer}>
         {loading ? (
           <p>Cargando...</p>
