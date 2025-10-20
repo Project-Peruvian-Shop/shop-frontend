@@ -10,6 +10,7 @@ import type {
   CotizacionCreateResponseDTO,
   CotizacionDashboardDTO,
   CotizacionFullDTO,
+  CotizacionHistorialDTO,
   CotizacionPdfDTO,
 } from "../models/Cotizacion/Cotizacion_response_dto";
 import type { ProductoCarritoDetalleDTO } from "../models/CotizacionDetalle/Cotizacion_detalle";
@@ -111,12 +112,14 @@ export async function change_state(
     | "ENVIADA"
     | "ACEPTADA"
     | "RECHAZADA"
-    | "CERRADA"
+    | "CERRADA",
+  observacion: string
 ): Promise<CotizacionChangeStateDTO> {
   const url = `${BASE_URL}/change_state/${id}`;
 
   const res = await axios.put<ApiResponse<CotizacionChangeStateDTO>>(url, {
     nuevoEstado,
+    observacion,
   });
 
   return res.data.data;
@@ -150,6 +153,16 @@ export async function getProductoCarritoDetalle(
   const url = `${BASE_URL}/productos-por-cotizacion/${cotizacionId}`;
 
   const res = await axios.get<ApiResponse<ProductoCarritoDetalleDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getHistorialCambiosEstado(
+  cotizacionId: number
+): Promise<CotizacionHistorialDTO[]> {
+  const url = `${BASE_URL}/${cotizacionId}/historial`;
+
+  const res = await axios.get<ApiResponse<CotizacionHistorialDTO[]>>(url);
 
   return res.data.data;
 }
