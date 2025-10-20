@@ -263,6 +263,7 @@ import {
 } from "../../../services/dashboard.service";
 import CotizacionesChart from "../../../Components/dashboard/charts/CotizacionChart";
 import ProductosMasCotizadosChart from "../../../Components/dashboard/charts/ProductoChart";
+import CategoriasMasCotizadasChart from "../../../Components/dashboard/charts/CategoriasChart";
 
 function Dashboard() {
   const [period, setPeriod] = useState<PeriodSummaryCard>("MONTH");
@@ -382,7 +383,12 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className={styles.right}></div>
+        <div className={styles.right}>
+          Categorias más cotizadas:
+          <div className={styles.modoSelector}>
+            <CategoriasMasCotizadasChart data={categorias} />
+          </div>
+        </div>
       </div>
     </div>
   );
