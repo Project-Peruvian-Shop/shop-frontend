@@ -162,7 +162,7 @@ function Dashboard() {
             </div>
           </div>
 
-          <CategoriasMasCotizadasChart data={categorias} />
+          <CategoriasMasCotizadasChart data={categorias} name={modo} />
         </div>
       </div>
     </div>

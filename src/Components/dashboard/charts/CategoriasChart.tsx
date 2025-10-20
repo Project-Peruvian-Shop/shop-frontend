@@ -10,6 +10,7 @@ import type { CategoriaCotizadaDTO } from "../../../models/dashboard/DashboardRe
 
 interface Props {
   data: CategoriaCotizadaDTO[];
+  name: string;
 }
 
 type CustomLabelProps = {
@@ -28,7 +29,9 @@ const COLORS = [
   "var(--gray)", // 7️⃣ Gris neutro → relleno o valores bajos
 ];
 
-const CategoriasMasCotizadasChart: React.FC<Props> = ({ data }) => {
+const CategoriasMasCotizadasChart: React.FC<Props> = ({ data, name }) => {
+  const chartName = name === "DEMANDA" ? "producto(es)" : "aparicion(es)";
+
   if (!data || data.length === 0) {
     return <p>No hay datos disponibles.</p>;
   }
@@ -58,9 +61,7 @@ const CategoriasMasCotizadasChart: React.FC<Props> = ({ data }) => {
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip
-            formatter={(value, name) => [`${value} cotizaciones`, String(name)]}
-          />
+          <Tooltip formatter={(value) => [`${value} ${chartName}`]} />
           <Legend
             layout="horizontal"
             align="left"
