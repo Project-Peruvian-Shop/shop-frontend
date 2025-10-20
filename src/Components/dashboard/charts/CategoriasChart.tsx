@@ -12,17 +12,20 @@ interface Props {
   data: CategoriaCotizadaDTO[];
 }
 
-// 🎨 Paleta de colores para distinguir las categorías
+type CustomLabelProps = {
+  name?: string;
+  percent?: number;
+  value?: number;
+};
+
 const COLORS = [
-  "var(--blue)",
-  "var(--green)",
-  "var(--secondary-color)",
-  "var(--yellow)",
-  "var(--primary-color)",
-  "var(--red)",
-  "var(--orange)",
-  "var(--turquoise)",
-  "var(--gray)",
+  "var(--blue)", // 1️⃣ Azul → da sensación de estabilidad
+  "var(--green)", // 2️⃣ Verde → representa éxito o crecimiento
+  "var(--yellow)", // 3️⃣ Amarillo → energía, visibilidad
+  "var(--orange)", // 4️⃣ Naranja → dinamismo, contraste cálido
+  "var(--primary-color)", // 5️⃣ Rojo principal → énfasis / alerta
+  "var(--secondary-color)", // 6️⃣ Gris oscuro → balance / sobriedad
+  "var(--gray)", // 7️⃣ Gris neutro → relleno o valores bajos
 ];
 
 const CategoriasMasCotizadasChart: React.FC<Props> = ({ data }) => {
@@ -47,8 +50,8 @@ const CategoriasMasCotizadasChart: React.FC<Props> = ({ data }) => {
             cx="50%"
             cy="50%"
             outerRadius={90}
-            label={({ name, percent }) =>
-              `${name} (${(percent * 100).toFixed(0)}%)`
+            label={({ percent }: CustomLabelProps) =>
+              `${((percent ?? 0) * 100).toFixed(0)}%`
             }
           >
             {chartData.map((_, index) => (
@@ -60,7 +63,7 @@ const CategoriasMasCotizadasChart: React.FC<Props> = ({ data }) => {
           />
           <Legend
             layout="horizontal"
-            align="center"
+            align="left"
             verticalAlign="bottom"
             iconType="circle"
           />
