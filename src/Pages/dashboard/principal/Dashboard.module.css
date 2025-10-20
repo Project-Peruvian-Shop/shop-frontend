@@ -50,6 +50,14 @@
   gap: 20px;
 }
 
+.cotizaciones {
+  width: 50%;
+}
+
+.productos {
+  width: 50%;
+}
+
 .right {
   flex: 1;
   display: flex;

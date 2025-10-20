@@ -249,17 +249,36 @@ import {
   type PeriodSummaryCard,
 } from "../../../Components/dashboard/summarycard/SummaryCard";
 import { obtenerUsuario } from "../../../utils/auth";
-import type { KPIResponseDTO } from "../../../models/dashboard/DashboardResponse";
-import { getKPIS } from "../../../services/dashboard.service";
+import type {
+  CategoriaCotizadaDTO,
+  CotizacionesPorMesDTO,
+  KPIResponseDTO,
+  ProductoCotizadoDTO,
+} from "../../../models/dashboard/DashboardResponse";
+import {
+  getCategorias,
+  getCotizaciones,
+  getKPIS,
+  getProductos,
+} from "../../../services/dashboard.service";
+import CotizacionesChart from "../../../Components/dashboard/charts/CotizacionChart";
+import ProductosMasCotizadosChart from "../../../Components/dashboard/charts/ProductoChart";
 
 function Dashboard() {
   const [period, setPeriod] = useState<PeriodSummaryCard>("MONTH");
+  const [modo, setModo] = useState<"APARICION" | "DEMANDA">("DEMANDA");
+
   const usuario = obtenerUsuario();
 
   const [kpis, setKpis] = useState<KPIResponseDTO | null>(null);
+  const [cotizaciones, setCotizaciones] = useState<
+    CotizacionesPorMesDTO[] | null
+  >(null);
+  const [productos, setProductos] = useState<ProductoCotizadoDTO[]>([]);
+  const [categorias, setCategorias] = useState<CategoriaCotizadaDTO[]>([]);
 
   useEffect(() => {
-    const fetchCotizaciones = async () => {
+    const fetchKPIS = async () => {
       try {
         const data = await getKPIS(period);
         setKpis(data);
@@ -268,8 +287,46 @@ function Dashboard() {
       }
     };
 
+    const fetchCotizaciones = async () => {
+      try {
+        const data = await getCotizaciones();
+        setCotizaciones(data);
+      } catch (error) {
+        console.error("Error cargando cotizaciones", error);
+      }
+    };
+
+    const fetchProductos = async () => {
+      try {
+        const data = await getProductos(
+          modo,
+          new Date().getMonth() + 1,
+          new Date().getFullYear()
+        );
+        setProductos(data);
+      } catch (error) {
+        console.error("Error cargando productos", error);
+      }
+    };
+
+    const fetchCategorias = async () => {
+      try {
+        const data = await getCategorias(
+          modo,
+          new Date().getMonth() + 1,
+          new Date().getFullYear()
+        );
+        setCategorias(data);
+      } catch (error) {
+        console.error("Error cargando categorias", error);
+      }
+    };
+
+    fetchKPIS();
     fetchCotizaciones();
-  }, [period]);
+    fetchProductos();
+    fetchCategorias();
+  }, [period, modo]);
 
   return (
     <div>
@@ -309,9 +366,19 @@ function Dashboard() {
           </div>
 
           <div className={styles.chartsContainer}>
-            <div className={styles.cotizaciones}>Cotizaciones aceptadas</div>
+            <div className={styles.cotizaciones}>
+              <div>Cotizaciones aceptadas:</div>
+              <CotizacionesChart data={cotizaciones || []} />
+            </div>
 
-            <div className={styles.productos}>Productos mas cotizados</div>
+            <div className={styles.productos}>
+              Productos mas cotizados:
+              {productos && productos.length > 0 ? (
+                <ProductosMasCotizadosChart data={productos} />
+              ) : (
+                <p>No hay datos disponibles</p>
+              )}{" "}
+            </div>
           </div>
         </div>
 
