@@ -7,9 +7,10 @@ import type {
   DashboardLastCotizacionDTO,
   DashboardMensajeDTO,
   DashboardProductoDTO,
+  KPIResponseDTO,
 } from "../models/dashboard/DashboardResponse";
 
-const BASE_URL = URL_API + "/cotizacion";
+const BASE_URL = URL_API + "/dashboard";
 
 export async function getCotizacionesLineaMes(
   mes: number,
@@ -19,7 +20,6 @@ export async function getCotizacionesLineaMes(
 
   const res = await axios.get<ApiResponse<DashboardCategoriaDTO[]>>(url);
   console.log(res.data.data);
-  
 
   return res.data.data;
 }
@@ -57,6 +57,16 @@ export async function getCotizacionesMes(): Promise<DashboardCotizacionDTO[]> {
   const url = `${BASE_URL}/cotizaciones_year`;
 
   const res = await axios.get<ApiResponse<DashboardCotizacionDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getKPIS(
+  periodo: "DAY" | "WEEK" | "MONTH"
+): Promise<KPIResponseDTO> {
+  const url = `${BASE_URL}/resumen-kpis?periodo=${periodo}`;
+
+  const res = await axios.get<ApiResponse<KPIResponseDTO>>(url);
 
   return res.data.data;
 }
