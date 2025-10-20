@@ -1,7 +1,26 @@
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px;
+}
+
+.title {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 24px;
+}
+
 .container {
   display: flex;
   gap: 20px;
   padding: 20px;
+  padding: 48px 140px;
+  background-color: #f9fafb; /* gris muy claro */
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
 }
 
 .left {

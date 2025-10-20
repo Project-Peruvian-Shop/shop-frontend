@@ -248,9 +248,11 @@ import {
   SummaryCard,
   type PeriodSummaryCard,
 } from "../../../Components/dashboard/summarycard/SummaryCard";
+import { obtenerUsuario } from "../../../utils/auth";
 
 function Dashboard() {
   const [period, setPeriod] = useState<PeriodSummaryCard>("mes");
+  const usuario = obtenerUsuario();
 
   // Datos de ejemplo (puedes reemplazar por fetch)
   const data = {
@@ -260,41 +262,47 @@ function Dashboard() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.left}>
-        <div className={styles.kpis}>
-          <SummaryCard
-            title="Cotizaciones Pendientes"
-            value={data.pendientes}
-            icon="clipboard"
-            color="blue"
-            period={period}
-            onPeriodChange={setPeriod}
-          />
-
-          <SummaryCard
-            title="Cotizaciones Aceptadas"
-            value={data.aceptadas}
-            icon="check"
-            color="green"
-            period={period}
-            onPeriodChange={setPeriod}
-          />
-
-          <SummaryCard
-            title="Mensajes Pendientes"
-            value={data.mensajes}
-            icon="message"
-            color="orange"
-            period={period}
-            onPeriodChange={setPeriod}
-          />
-        </div>
-
-        {/* <div className={styles.chartsContainer}></div> */}
+    <div>
+      <div className={styles.dashboardHeader}>
+        <div className={styles.title}>Bienvenido, {usuario?.nombre} </div>
       </div>
 
-      <div className={styles.right}></div>
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <div className={styles.kpis}>
+            <SummaryCard
+              title="Cotizaciones Pendientes"
+              value={data.pendientes}
+              icon="clipboard"
+              color="blue"
+              period={period}
+              onPeriodChange={setPeriod}
+            />
+
+            <SummaryCard
+              title="Cotizaciones Aceptadas"
+              value={data.aceptadas}
+              icon="check"
+              color="green"
+              period={period}
+              onPeriodChange={setPeriod}
+            />
+
+            <SummaryCard
+              title="Mensajes Pendientes"
+              value={data.mensajes}
+              icon="message"
+              color="orange"
+              period={period}
+              onPeriodChange={setPeriod}
+            />
+          </div>
+
+          {/* <div className={styles.chartsContainer}></div> */}
+        </div>
+
+        <div className={styles.right}></div>
+      </div>
     </div>
   );
 }
