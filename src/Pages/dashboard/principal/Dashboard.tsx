@@ -243,23 +243,33 @@ import styles from "./Dashboard.module.css";
 // }
 // export default Dashboard;
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SummaryCard,
   type PeriodSummaryCard,
 } from "../../../Components/dashboard/summarycard/SummaryCard";
 import { obtenerUsuario } from "../../../utils/auth";
+import type { KPIResponseDTO } from "../../../models/dashboard/DashboardResponse";
+import { getKPIS } from "../../../services/dashboard.service";
 
 function Dashboard() {
-  const [period, setPeriod] = useState<PeriodSummaryCard>("mes");
+  const [period, setPeriod] = useState<PeriodSummaryCard>("MONTH");
   const usuario = obtenerUsuario();
 
-  // Datos de ejemplo (puedes reemplazar por fetch)
-  const data = {
-    pendientes: 24,
-    aceptadas: 156,
-    mensajes: 8,
-  };
+  const [kpis, setKpis] = useState<KPIResponseDTO | null>(null);
+
+  useEffect(() => {
+    const fetchCotizaciones = async () => {
+      try {
+        const data = await getKPIS(period);
+        setKpis(data);
+      } catch (error) {
+        console.error("Error cargando kpis", error);
+      }
+    };
+
+    fetchCotizaciones();
+  }, [period]);
 
   return (
     <div>
@@ -272,7 +282,7 @@ function Dashboard() {
           <div className={styles.kpis}>
             <SummaryCard
               title="Cotizaciones Pendientes"
-              value={data.pendientes}
+              value={kpis?.cotizacionesPendientes || 0}
               icon="clipboard"
               color="blue"
               period={period}
@@ -281,7 +291,7 @@ function Dashboard() {
 
             <SummaryCard
               title="Cotizaciones Aceptadas"
-              value={data.aceptadas}
+              value={kpis?.cotizacionesAceptadas || 0}
               icon="check"
               color="green"
               period={period}
@@ -290,7 +300,7 @@ function Dashboard() {
 
             <SummaryCard
               title="Mensajes Pendientes"
-              value={data.mensajes}
+              value={kpis?.mensajesPendientes || 0}
               icon="message"
               color="orange"
               period={period}
@@ -298,7 +308,11 @@ function Dashboard() {
             />
           </div>
 
-          {/* <div className={styles.chartsContainer}></div> */}
+          <div className={styles.chartsContainer}>
+            <div className={styles.cotizaciones}>Cotizaciones aceptadas</div>
+
+            <div className={styles.productos}>Productos mas cotizados</div>
+          </div>
         </div>
 
         <div className={styles.right}></div>

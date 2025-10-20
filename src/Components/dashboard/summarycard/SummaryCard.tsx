@@ -2,7 +2,13 @@ import React from "react";
 import styles from "./SummaryCard.module.css";
 import IconSVG from "../../../Icons/IconSVG";
 
-export type PeriodSummaryCard = "dia" | "semana" | "mes";
+export type PeriodSummaryCard = "DAY" | "WEEK" | "MONTH";
+
+const periodLabels: Record<PeriodSummaryCard, string> = {
+  DAY: "Día",
+  WEEK: "Semana",
+  MONTH: "Mes",
+};
 
 interface SummaryCardProps {
   title: string;
@@ -43,7 +49,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
       <div className={styles.value}>{value}</div>
 
       <div className={styles.periodSwitch}>
-        {(["dia", "semana", "mes"] as PeriodSummaryCard[]).map((p) => (
+        {(["DAY", "WEEK", "MONTH"] as PeriodSummaryCard[]).map((p) => (
           <button
             key={p}
             className={`${styles.periodButton} ${
@@ -51,7 +57,7 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
             }`}
             onClick={() => onPeriodChange(p)}
           >
-            {p}
+            {periodLabels[p]}
           </button>
         ))}
       </div>
