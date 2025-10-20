@@ -47,6 +47,8 @@ import check from "./dashboard/check.svg";
 import clipboard from "./dashboard/clipboard.svg";
 import message from "./dashboard/message.svg";
 
+import arrowRight from "./dashboard/arrow-right.svg";
+
 export const Icons = {
   "delete-primary": delete1,
   "view-secondary": view2,
@@ -87,6 +89,7 @@ export const Icons = {
   check,
   clipboard,
   message,
+  arrowRight,
 };
 
 export type IconName = keyof typeof Icons;

@@ -6,10 +6,12 @@ import { useCallback, useEffect, useState } from "react";
 import type {
   CotizacionDashboardDTO,
   CotizacionFullDTO,
+  CotizacionHistorialDTO,
 } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import {
   change_state,
   getCotizacionById,
+  getHistorialCambiosEstado,
   updateObservacionCotizacion,
   uploadCotizacionPDF,
 } from "../../../services/cotizacion.service";
@@ -19,6 +21,7 @@ import withReactContent from "sweetalert2-react-content";
 import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservacionesEstado";
 import upload from "../../../Icons/Modal_uploadPDF/upload_pdf.svg";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
+import { StatusHistoryTable } from "../../../Components/dashboard/statushistorytable/StatusHistoryTable";
 function CotizacionDetalle() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -30,6 +33,9 @@ function CotizacionDetalle() {
     useState<CotizacionDashboardDTO | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [pdfPreview, setPdfPreview] = useState<string | null>(null);
+
+  const [historial, setHistorial] = useState<CotizacionHistorialDTO[]>([]);
+
   const MySwal = withReactContent(Swal);
   // const [productosData, setProductosData] =
   //   useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
@@ -40,14 +46,17 @@ function CotizacionDetalle() {
     async (cotizacionId: number) => {
       try {
         const data = await getCotizacionById(cotizacionId);
+        const historialData = await getHistorialCambiosEstado(cotizacionId);
         setCotizacion(data);
+        setHistorial(historialData);
       } catch (error) {
         console.error("Error al obtener la cotización:", error);
-        navigate(routes.profile_user);
+        navigate(routes.dashboard_cotizations);
       }
     },
     [navigate]
   );
+
   useEffect(() => {
     if (!id) {
       navigate(routes.shop);
@@ -108,6 +117,7 @@ function CotizacionDetalle() {
       });
     }
   };
+
   const handleChangeEstado = async (
     id: number,
     nuevoEstado:
@@ -116,10 +126,11 @@ function CotizacionDetalle() {
       | "ENVIADA"
       | "ACEPTADA"
       | "RECHAZADA"
-      | "CERRADA"
+      | "CERRADA",
+    observacion: string
   ) => {
     try {
-      await change_state(id, nuevoEstado);
+      await change_state(id, nuevoEstado, observacion);
       await fetchCotizacion(cotizacion?.id || id);
       setShowModal(false);
       await MySwal.fire({
@@ -136,6 +147,7 @@ function CotizacionDetalle() {
       });
     }
   };
+
   const handleUpload = async () => {
     if (!selectedFile || !cotizacion) return;
 
@@ -344,7 +356,7 @@ function CotizacionDetalle() {
             ) : (
               <>
                 <div className={styles.noPdf}>
-                  {cotizacion?.estado !== "PENDIENTE" ?(
+                  {cotizacion?.estado !== "PENDIENTE" ? (
                     <>
                       <p>No se ha subido ningún PDF.</p>
                       <button
@@ -354,10 +366,11 @@ function CotizacionDetalle() {
                         Añadir PDF
                       </button>
                     </>
-                  ):(
+                  ) : (
                     <p>
-                        Para subir una cotización PDF, cambie el estado de la cotización.
-                      </p>
+                      Para subir una cotización PDF, cambie el estado de la
+                      cotización.
+                    </p>
                   )}
                 </div>
                 {/* Modal para subir un PDF */}
@@ -451,6 +464,9 @@ function CotizacionDetalle() {
           </div>
         </div>
       </div>
+
+      <StatusHistoryTable changes={historial} />
+
       {showModal && (
         <ModalObservacionEstado
           show={showModal}

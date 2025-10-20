@@ -43,8 +43,8 @@ const CategoriasMasCotizadasChart: React.FC<Props> = ({ data, name }) => {
   }));
 
   return (
-    <div style={{ width: "100%", height: 380 }}>
-      <ResponsiveContainer>
+    <div style={{ width: "100%", height: "100%", paddingTop: "30px", paddingBottom: "20px" }}>
+      <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={chartData}
