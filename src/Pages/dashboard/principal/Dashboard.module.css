@@ -13,10 +13,10 @@
 }
 
 .container {
+  height: 75vh;
   display: flex;
   gap: 20px;
   padding: 20px;
-  /* padding: 48px 140px; */
   background-color: #f9fafb; /* gris muy claro */
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -25,9 +25,13 @@
 
 .left {
   flex: 2;
+  gap: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: stretch;
 }
 
 .kpis {
@@ -65,24 +69,28 @@
   gap: 20px;
 }
 
-.categorias {
-  width: 100%;
-  height: auto;
-}
-
 .headerRight {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.categorias {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modoToggle {
   display: flex;
+  justify-content: center;
   background: var(--gray-color);
   border-radius: 20px;
   padding: 4px;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .toggleButton {
