@@ -129,7 +129,7 @@ function Dashboard() {
             </div>
 
             <div className={styles.productos}>
-              Productos mas cotizados:
+              Productos
               {productos && productos.length > 0 ? (
                 <ProductosMasCotizadosChart data={productos} />
               ) : (
@@ -140,8 +140,13 @@ function Dashboard() {
         </div>
 
         <div className={styles.right}>
+          <div className={styles.headerRight}>Categorías</div>
+
+          <div className={styles.categorias}>
+            <CategoriasMasCotizadasChart data={categorias} name={modo} />
+          </div>
+
           <div className={styles.headerRight}>
-            <span>Categorías más cotizadas:</span>
             <div className={styles.modoToggle}>
               <button
                 className={`${styles.toggleButton} ${
@@ -161,8 +166,6 @@ function Dashboard() {
               </button>
             </div>
           </div>
-
-          <CategoriasMasCotizadasChart data={categorias} name={modo} />
         </div>
       </div>
     </div>

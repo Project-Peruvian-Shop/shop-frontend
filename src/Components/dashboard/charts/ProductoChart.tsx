@@ -37,7 +37,7 @@ const ProductosMasCotizadosChart: React.FC<Props> = ({ data }) => {
           <YAxis
             dataKey="nombreProducto"
             type="category"
-            width={180} // reduce el espacio reservado para el texto
+            width={120} // reduce el espacio reservado para el texto
             tick={{ fontSize: 12, textAnchor: "end" }} // alinea texto hacia la izquierda
           />
           <Tooltip
