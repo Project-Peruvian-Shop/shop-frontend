@@ -27,3 +27,9 @@ export interface DashboardCotizacionDTO {
   cotizacionesNombreMes: string;
   cotizacionesCantidadMes: number;
 }
+
+export interface KPIResponseDTO {
+  cotizacionesPendientes: number;
+  cotizacionesAceptadas: number;
+  mensajesPendientes: number;
+}
