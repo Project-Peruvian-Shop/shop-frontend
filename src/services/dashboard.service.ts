@@ -2,64 +2,13 @@ import axios from "axios";
 import { URL_API } from "../utils/constants";
 import type { ApiResponse } from "./global.interfaces";
 import type {
-  DashboardCategoriaDTO,
-  DashboardCotizacionDTO,
-  DashboardLastCotizacionDTO,
-  DashboardMensajeDTO,
-  DashboardProductoDTO,
+  CategoriaCotizadaDTO,
+  CotizacionesPorMesDTO,
   KPIResponseDTO,
+  ProductoCotizadoDTO,
 } from "../models/dashboard/DashboardResponse";
 
 const BASE_URL = URL_API + "/dashboard";
-
-export async function getCotizacionesLineaMes(
-  mes: number,
-  year: number
-): Promise<DashboardCategoriaDTO[]> {
-  const url = `${BASE_URL}/lineas_mes?mes=${mes}&year=${year}`;
-
-  const res = await axios.get<ApiResponse<DashboardCategoriaDTO[]>>(url);
-  console.log(res.data.data);
-
-  return res.data.data;
-}
-
-export async function getLastCotizaciones(): Promise<
-  DashboardLastCotizacionDTO[]
-> {
-  const url = `${BASE_URL}/last-cotizaciones`;
-
-  const res = await axios.get<ApiResponse<DashboardLastCotizacionDTO[]>>(url);
-
-  return res.data.data;
-}
-
-export async function getMensajesPendientes(): Promise<DashboardMensajeDTO[]> {
-  const url = `${BASE_URL}/mensajes-mes`;
-
-  const res = await axios.get<ApiResponse<DashboardMensajeDTO[]>>(url);
-
-  return res.data.data;
-}
-
-export async function getProductosTopMes(
-  mes: number,
-  year: number
-): Promise<DashboardProductoDTO[]> {
-  const url = `${BASE_URL}/productos_mes?mes=${mes}&year=${year}`;
-
-  const res = await axios.get<ApiResponse<DashboardProductoDTO[]>>(url);
-
-  return res.data.data;
-}
-
-export async function getCotizacionesMes(): Promise<DashboardCotizacionDTO[]> {
-  const url = `${BASE_URL}/cotizaciones_year`;
-
-  const res = await axios.get<ApiResponse<DashboardCotizacionDTO[]>>(url);
-
-  return res.data.data;
-}
 
 export async function getKPIS(
   periodo: "DAY" | "WEEK" | "MONTH"
@@ -67,6 +16,38 @@ export async function getKPIS(
   const url = `${BASE_URL}/resumen-kpis?periodo=${periodo}`;
 
   const res = await axios.get<ApiResponse<KPIResponseDTO>>(url);
+
+  return res.data.data;
+}
+
+export async function getCotizaciones(): Promise<CotizacionesPorMesDTO[]> {
+  const url = `${BASE_URL}/cotizaciones-por-mes`;
+
+  const res = await axios.get<ApiResponse<CotizacionesPorMesDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getProductos(
+  modo: "APARICION" | "DEMANDA",
+  mes: number,
+  year: number
+): Promise<ProductoCotizadoDTO[]> {
+  const url = `${BASE_URL}/productos-mas-cotizados?modo=${modo}&mes=${mes}&year=${year}`;
+
+  const res = await axios.get<ApiResponse<ProductoCotizadoDTO[]>>(url);
+
+  return res.data.data;
+}
+
+export async function getCategorias(
+  modo: "APARICION" | "DEMANDA",
+  mes: number,
+  year: number
+): Promise<CategoriaCotizadaDTO[]> {
+  const url = `${BASE_URL}/categorias-mas-cotizadas?modo=${modo}&mes=${mes}&year=${year}`;
+
+  const res = await axios.get<ApiResponse<CategoriaCotizadaDTO[]>>(url);
 
   return res.data.data;
 }

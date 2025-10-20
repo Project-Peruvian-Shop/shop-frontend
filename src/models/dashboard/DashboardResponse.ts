@@ -33,3 +33,21 @@ export interface KPIResponseDTO {
   cotizacionesAceptadas: number;
   mensajesPendientes: number;
 }
+
+export interface CotizacionesPorMesDTO {
+  year: number;
+  mes: number;
+  cantidad: number;
+}
+
+export interface ProductoCotizadoDTO {
+  productoID: number;
+  nombreProducto: string;
+  cantidadApariciones: number;
+}
+
+export interface CategoriaCotizadaDTO {
+  categoriaID: number;
+  nombreCategoria: string;
+  cantidadCotizaciones: number;
+}
