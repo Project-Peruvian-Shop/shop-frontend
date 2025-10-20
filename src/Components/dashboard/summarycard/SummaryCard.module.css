@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: space-between;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  font-family: "Poppins", sans-serif;
 }
 
 .card:hover {
@@ -19,18 +20,18 @@
 
 /* Colores */
 .blue {
-  border-top-color: #2f80ed;
-  color: #2f80ed;
+  border-top-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .green {
-  border-top-color: #27ae60;
-  color: #27ae60;
+  border-top-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .orange {
-  border-top-color: #f2994a;
-  color: #f2994a;
+  border-top-color: var(--yellow);
+  color: var(--yellow);
 }
 
 /* Header */
@@ -65,14 +66,12 @@
   color: #666;
   cursor: pointer;
   transition: color 0.2s;
+  font-family: "Poppins", sans-serif;
 }
 
-.periodButton:hover {
-  text-decoration: underline;
-}
-
+.periodButton:hover,
 .active {
   font-weight: bold;
   color: inherit;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
