@@ -1,4 +1,4 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { CotizacionDashboardDTO } from "../../../../models/Cotizacion/Cotizacion_response_dto";
 import style from "./ModalObservacionesEstado.module.css";
 
@@ -9,13 +9,34 @@ interface ModalObservacionEstadoProps {
   onSaveObservacion: (id: number, observacion: string) => void;
   onChangeEstado: (
     id: number,
-    nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
+    nuevoEstado:
+      | "PENDIENTE"
+      | "EN_PROCESO"
+      | "ENVIADA"
+      | "ACEPTADA"
+      | "RECHAZADA"
+      | "CERRADA",
+    observacion: string
   ) => void;
 }
-type EstadoCotizacion = "" | "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA";
+type EstadoCotizacion =
+  | ""
+  | "PENDIENTE"
+  | "EN_PROCESO"
+  | "ENVIADA"
+  | "ACEPTADA"
+  | "RECHAZADA"
+  | "CERRADA";
 
 const validarEstado = (estado: string | undefined): EstadoCotizacion => {
-  if (estado === "PENDIENTE" || estado === "EN_PROCESO" || estado === "ENVIADA" || estado === "ACEPTADA" || estado === "RECHAZADA" || estado === "CERRADA") {
+  if (
+    estado === "PENDIENTE" ||
+    estado === "EN_PROCESO" ||
+    estado === "ENVIADA" ||
+    estado === "ACEPTADA" ||
+    estado === "RECHAZADA" ||
+    estado === "CERRADA"
+  ) {
     return estado;
   }
   return "";
@@ -28,38 +49,38 @@ function ModalObservacionEstado({
   onSaveObservacion,
   onChangeEstado,
 }: ModalObservacionEstadoProps) {
-  const [observacion, setObservacion] = useState(cotizacion?.observaciones || "");
-  const [estadoSeleccionado, setEstadoSeleccionado] = useState<EstadoCotizacion>(
-    validarEstado(cotizacion?.estado)
+  const [observacion, setObservacion] = useState(
+    cotizacion?.observaciones || ""
   );
+  const [estadoSeleccionado, setEstadoSeleccionado] =
+    useState<EstadoCotizacion>(validarEstado(cotizacion?.estado));
   // Cada vez que cambia la cotización, se sincroniza el estado y observación
   useEffect(() => {
-  if (cotizacion) {
-    setEstadoSeleccionado(
-      (cotizacion.estado as
-        | "PENDIENTE"
-        | "EN_PROCESO"
-        | "ENVIADA"
-        | "ACEPTADA"
-        | "RECHAZADA"
-        | "CERRADA"
-        | "") || ""
-    );
-    setObservacion(cotizacion.observaciones || "");
-  }
-}, [cotizacion]);
+    if (cotizacion) {
+      setEstadoSeleccionado(
+        (cotizacion.estado as
+          | "PENDIENTE"
+          | "EN_PROCESO"
+          | "ENVIADA"
+          | "ACEPTADA"
+          | "RECHAZADA"
+          | "CERRADA"
+          | "") || ""
+      );
+      setObservacion(cotizacion.observaciones || "");
+    }
+  }, [cotizacion]);
 
   if (!show || !cotizacion) return null;
 
   const handleConfirm = async () => {
-
     // Actualizar observación si tiene contenido
     if (observacion.trim() !== "" && observacion !== cotizacion.observaciones) {
       await onSaveObservacion(cotizacion.id, observacion);
     }
     // Actualizar estado si cambió
     if (estadoSeleccionado && estadoSeleccionado !== cotizacion.estado) {
-      await onChangeEstado(cotizacion.id, estadoSeleccionado);
+      await onChangeEstado(cotizacion.id, estadoSeleccionado, observacion);
     }
     onClose();
   };
@@ -88,7 +109,13 @@ function ModalObservacionEstado({
             value={estadoSeleccionado}
             onChange={(e) =>
               setEstadoSeleccionado(
-                e.target.value as "PENDIENTE" | "EN_PROCESO" | "ENVIADA" | "ACEPTADA" | "RECHAZADA" | "CERRADA"
+                e.target.value as
+                  | "PENDIENTE"
+                  | "EN_PROCESO"
+                  | "ENVIADA"
+                  | "ACEPTADA"
+                  | "RECHAZADA"
+                  | "CERRADA"
               )
             }
           >
