@@ -40,29 +40,27 @@ function Profile() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-const checkAndRefreshToken = async (refreshToken: string) => {
-  try {
-    const newToken = await obtenerNuevoToken(refreshToken);
-    agregarAuthToken(newToken.accessToken);
-    agregarRefreshToken(newToken.refreshToken);
-    agregarUsuario({
-      ...obtenerUsuario(),
-      accessToken: newToken.accessToken,
-      refreshToken: newToken.refreshToken,
-    });
-  } catch (error) {
-    MySwal.fire({
-      icon: "error",
-      title: "Sesión expirada",
-      text: "Por favor, vuelve a iniciar sesión.",
-    }).then(() => {
-      navigate(routes.login);
-      console.log(error);
-      
-    });
-  }
-};
-
+  const checkAndRefreshToken = async (refreshToken: string) => {
+    try {
+      const newToken = await obtenerNuevoToken(refreshToken);
+      agregarAuthToken(newToken.accessToken);
+      agregarRefreshToken(newToken.refreshToken);
+      agregarUsuario({
+        ...obtenerUsuario(),
+        accessToken: newToken.accessToken,
+        refreshToken: newToken.refreshToken,
+      });
+    } catch (error) {
+      MySwal.fire({
+        icon: "error",
+        title: "Sesión expirada",
+        text: "Por favor, vuelve a iniciar sesión.",
+      }).then(() => {
+        navigate(routes.login);
+        console.log(error);
+      });
+    }
+  };
 
   useEffect(() => {
     // Actualizar fecha y hora cada segundo
@@ -70,41 +68,42 @@ const checkAndRefreshToken = async (refreshToken: string) => {
     return () => clearInterval(interval);
   }, []);
 
-useEffect(() => {
-  const localUser = obtenerUsuario();
+  useEffect(() => {
+    const fetchData = async () => {
+      const localUser = obtenerUsuario();
+      if (!localUser) {
+        navigate(routes.login);
+        return;
+      }
 
-  if (!localUser) {
-    navigate(routes.login);
-    return;
-  }
+      setLoading(true);
+      try {
+        await checkAndRefreshToken(localUser.refreshToken);
 
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      await checkAndRefreshToken(localUser.refreshToken);
+        const updatedUser = obtenerUsuario();
 
-      const [userData, cotData] = await Promise.all([
-        getProfile(localUser.id),
-        getCotizacionesByUserPaginated(localUser.id, page, 5),
-      ]);
+        const [userData, cotData] = await Promise.all([
+          getProfile(updatedUser.id),
+          getCotizacionesByUserPaginated(updatedUser.id, page, 5),
+        ]);
 
-      setUsuario(userData);
-      setCotizaciones(cotData);
-      setTotalPages(cotData.totalPages);
-    } catch {
-      MySwal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se pudieron cargar los datos del perfil o cotizaciones",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchData();
-  
-}, [page, navigate]);
+        setUsuario(userData);
+        setCotizaciones(cotData);
+        setTotalPages(cotData.totalPages);
+      } catch (err) {
+        MySwal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudieron cargar los datos del perfil o cotizaciones",
+        });
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, [page, navigate]);
 
   const mapperRol = (rol: string) => {
     switch (rol) {

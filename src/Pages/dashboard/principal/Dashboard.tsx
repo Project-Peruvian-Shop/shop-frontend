@@ -4,7 +4,7 @@ import {
   SummaryCard,
   type PeriodSummaryCard,
 } from "../../../Components/dashboard/summarycard/SummaryCard";
-import { obtenerUsuario } from "../../../utils/auth";
+import { agregarAuthToken, agregarRefreshToken, agregarUsuario, obtenerUsuario } from "../../../utils/auth";
 import type {
   CategoriaCotizadaDTO,
   CotizacionesPorMesDTO,
@@ -20,12 +20,20 @@ import {
 import CotizacionesChart from "../../../Components/dashboard/charts/CotizacionChart";
 import ProductosMasCotizadosChart from "../../../Components/dashboard/charts/ProductoChart";
 import CategoriasMasCotizadasChart from "../../../Components/dashboard/charts/CategoriasChart";
-
+import { routes } from "../../../utils/routes";
+import { useNavigate } from "react-router-dom";
+import { obtenerNuevoToken } from "../../../services/auht.service";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 function Dashboard() {
   const [period, setPeriod] = useState<PeriodSummaryCard>("MONTH");
   const [modo, setModo] = useState<"APARICION" | "DEMANDA">("DEMANDA");
 
   const usuario = obtenerUsuario();
+
+  const navigate = useNavigate();
+
+  const MySwal = withReactContent(Swal);
 
   const [kpis, setKpis] = useState<KPIResponseDTO | null>(null);
   const [cotizaciones, setCotizaciones] = useState<
@@ -34,6 +42,51 @@ function Dashboard() {
   const [productos, setProductos] = useState<ProductoCotizadoDTO[]>([]);
   const [categorias, setCategorias] = useState<CategoriaCotizadaDTO[]>([]);
 
+  const checkAndRefreshToken = async (refreshToken: string) => {
+    try {
+      const newToken = await obtenerNuevoToken(refreshToken);
+      agregarAuthToken(newToken.accessToken);
+      agregarRefreshToken(newToken.refreshToken);
+      agregarUsuario({
+        ...obtenerUsuario(),
+        accessToken: newToken.accessToken,
+        refreshToken: newToken.refreshToken,
+      });
+    } catch (error) {
+      MySwal.fire({
+        icon: "error",
+        title: "Sesión expirada",
+        text: "Por favor, vuelve a iniciar sesión.",
+      }).then(() => {
+        navigate(routes.login);
+        console.log(error);
+        
+      });
+    }
+  };
+  useEffect(() => {
+    const localUser = obtenerUsuario();
+  
+    if (!localUser) {
+      navigate(routes.login);
+      return;
+    }
+    const fetchData = async () => {
+      try {
+        await checkAndRefreshToken(localUser.refreshToken);
+  
+      } catch {
+        MySwal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudieron cargar los datos del perfil o cotizaciones",
+        });
+      } 
+    };
+    fetchData();
+    
+  }, [navigate]);
+  
   useEffect(() => {
     const fetchKPIS = async () => {
       try {
@@ -43,7 +96,6 @@ function Dashboard() {
         console.error("Error cargando kpis", error);
       }
     };
-
     const fetchCotizaciones = async () => {
       try {
         const data = await getCotizaciones();

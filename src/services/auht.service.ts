@@ -32,11 +32,12 @@ export async function register(
 
 export async function obtenerNuevoToken(
   refreshToken: string
-) : Promise<RefreshTokenResponseDto> {
+): Promise<RefreshTokenResponseDto> {
   const url = `${BASE_URL}/refresh-token`;
 
-  const res = await axios.post<ApiResponse<RefreshTokenResponseDto>>(url, { refreshToken });
+  const res = await axios.post<ApiResponse<RefreshTokenResponseDto>>(url, {
+    refreshToken,
+  });
 
   return res.data.data;
 }
-
