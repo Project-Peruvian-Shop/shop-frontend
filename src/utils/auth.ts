@@ -14,3 +14,27 @@ export const eliminarUsuario = () => {
   // Eliminar el usuario del localStorage
   localStorage.removeItem("usuario");
 };
+
+export const agregarAuthToken = (accessToken: string) => {
+  localStorage.setItem("authToken", accessToken);
+};
+
+export const obtenerAuthToken = () => {
+  return localStorage.getItem("authToken");
+};
+
+export const eliminarAuthToken = () => {
+  localStorage.removeItem("authToken");
+};
+
+export const agregarRefreshToken = (refreshToken: string) => {
+  localStorage.setItem("refreshToken", refreshToken);
+};
+
+export const obtenerRefreshToken = () => {
+  return localStorage.getItem("refreshToken");
+};
+
+export const eliminarRefreshToken = () => {
+  localStorage.removeItem("refreshToken");
+};

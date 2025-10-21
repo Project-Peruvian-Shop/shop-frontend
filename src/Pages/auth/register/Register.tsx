@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../../Components/login/SideBar";
 import styles from "./Register.module.css";
 import { routes } from "../../../utils/routes";
-import { agregarUsuario } from "../../../utils/auth";
+import { agregarAuthToken, agregarUsuario } from "../../../utils/auth";
 import { register } from "../../../services/auht.service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -47,6 +47,8 @@ function Register() {
       const response = await register(body);
 
       if (response) {
+        
+        agregarAuthToken(response.accessToken);
         agregarUsuario(response); // guardar usuario completo en localStorage
 
         const Toast = Swal.mixin({

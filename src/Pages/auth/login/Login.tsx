@@ -2,7 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../../Components/login/SideBar";
 import styles from "./Login.module.css";
 import { routes } from "../../../utils/routes";
-import { agregarUsuario } from "../../../utils/auth";
+import {
+  agregarAuthToken,
+  agregarRefreshToken,
+  agregarUsuario,
+} from "../../../utils/auth";
 import { useState } from "react";
 import { login } from "../../../services/auht.service";
 import Swal from "sweetalert2";
@@ -29,6 +33,10 @@ function Login() {
       const response = await login(body);
 
       if (response) {
+        // Guardar el token de autenticación
+        agregarAuthToken(response.accessToken);
+        // Guardar el refresh token
+        agregarRefreshToken(response.refreshToken);
         // Guardar usuario en localStorage o como lo tengas implementado
         agregarUsuario(response);
 
@@ -43,11 +51,11 @@ function Login() {
             toast.onmouseleave = Swal.resumeTimer;
           },
         });
-        navigate(routes.profile_user);
-        Toast.fire({
-          icon: "success",
-          title: "Inicio de sesión exitoso",
-        });
+          navigate(routes.profile_user);
+          Toast.fire({
+            icon: "success",
+            title: "Inicio de sesión exitoso",
+          });
       } else {
         alert("Usuario o contraseña incorrectos");
       }

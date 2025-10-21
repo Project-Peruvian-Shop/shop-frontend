@@ -14,8 +14,11 @@ import type {
   CotizacionPdfDTO,
 } from "../models/Cotizacion/Cotizacion_response_dto";
 import type { ProductoCarritoDetalleDTO } from "../models/CotizacionDetalle/Cotizacion_detalle";
+import { obtenerAuthToken } from "../utils/auth";
 
 const BASE_URL = URL_API + "/cotizacion";
+
+const accessToken = obtenerAuthToken();
 
 export async function postCotizacion(
   body: CotizacionRequestDTO
@@ -24,7 +27,13 @@ export async function postCotizacion(
 
   const res = await axios.post<ApiResponse<CotizacionCreateResponseDTO[]>>(
     url,
-    body
+    body,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
 
   return res.data.data;
@@ -39,7 +48,12 @@ export async function getCotizacionesByUserPaginated(
 
   const res = await axios.get<
     ApiResponse<PaginatedResponse<CotizacionDashboardDTO>>
-  >(url);
+  >(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   return res.data.data;
 }
@@ -49,7 +63,12 @@ export async function getCotizacionById(
 ): Promise<CotizacionFullDTO> {
   const url = `${BASE_URL}/${id}`;
 
-  const res = await axios.get<ApiResponse<CotizacionFullDTO>>(url);
+  const res = await axios.get<ApiResponse<CotizacionFullDTO>>(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   return res.data.data;
 }
@@ -152,7 +171,15 @@ export async function getProductoCarritoDetalle(
 ): Promise<ProductoCarritoDetalleDTO[]> {
   const url = `${BASE_URL}/productos-por-cotizacion/${cotizacionId}`;
 
-  const res = await axios.get<ApiResponse<ProductoCarritoDetalleDTO[]>>(url);
+  const res = await axios.get<ApiResponse<ProductoCarritoDetalleDTO[]>>(
+    url,
+    {
+      headers:{
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      }
+    }
+  );
 
   return res.data.data;
 }

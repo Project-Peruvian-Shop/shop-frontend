@@ -8,13 +8,24 @@ import type {
   UsuarioResponseDto,
 } from "../models/Usuario/Usuario_response_dto";
 import type { UsuarioSaveRequestDto, UsuarioUpdateRequestDto } from "../models/Usuario/Usuario_request_dto";
+import { obtenerAuthToken } from "../utils/auth";
 
 const BASE_URL = URL_API + "/usuario";
+
+const accessToken = obtenerAuthToken();
+
 
 export async function getProfile(id: number): Promise<UsuarioProfileDTO> {
   const url = `${BASE_URL}/${id}`;
 
-  const res = await axios.get<ApiResponse<UsuarioProfileDTO>>(url);
+  const res = await axios.get<ApiResponse<UsuarioProfileDTO>>(url
+    ,{
+      headers:{
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      }
+    }
+  );
 
   return res.data.data;
 }

@@ -5,6 +5,8 @@ export interface UsuarioResponseDto {
   email: string;
   telefono: string;
   rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER";
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface UsuarioProfileDTO {

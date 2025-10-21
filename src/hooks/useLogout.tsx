@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { eliminarUsuario } from "../utils/auth";
+import { eliminarAuthToken, eliminarRefreshToken, eliminarUsuario } from "../utils/auth";
 import { routes } from "../utils/routes";
 
 const MySwal = withReactContent(Swal);
@@ -25,7 +25,8 @@ export const useLogout = () => {
 
     if (result.isConfirmed) {
       eliminarUsuario();
-
+      eliminarAuthToken();
+      eliminarRefreshToken();
       await MySwal.fire({
         icon: "success",
         title: "Sesión cerrada",

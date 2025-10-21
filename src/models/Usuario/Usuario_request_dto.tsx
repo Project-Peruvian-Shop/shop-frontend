@@ -27,3 +27,7 @@ export interface UsuarioUpdateRequestDto {
   telefono: string,
   rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER"
 }
+export interface RefreshTokenResponseDto {
+  accessToken: string;
+  refreshToken: string;
+}
