@@ -5,7 +5,12 @@ import withReactContent from "sweetalert2-react-content";
 import { useEffect, useState } from "react";
 import type { UsuarioProfileDTO } from "../../../models/Usuario/Usuario_response_dto";
 import type { CotizacionDashboardDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
-import { obtenerUsuario } from "../../../utils/auth";
+import {
+  agregarAuthToken,
+  agregarRefreshToken,
+  agregarUsuario,
+  obtenerUsuario,
+} from "../../../utils/auth";
 import { getProfile } from "../../../services/usuario.service";
 import { getCotizacionesByUserPaginated } from "../../../services/cotizacion.service";
 import { routes } from "../../../utils/routes";
@@ -19,6 +24,7 @@ import DashboardTable, {
 } from "../../../Components/dashboard/table/DashboardTable";
 import IconSVG from "../../../Icons/IconSVG";
 import { agregarProductosCotizacionAlCarrito } from "../../../utils/localStorage";
+import { obtenerNuevoToken } from "../../../services/auht.service";
 
 function Profile() {
   const navigate = useNavigate();
@@ -34,6 +40,28 @@ function Profile() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
+  const checkAndRefreshToken = async (refreshToken: string) => {
+    try {
+      const newToken = await obtenerNuevoToken(refreshToken);
+      agregarAuthToken(newToken.accessToken);
+      agregarRefreshToken(newToken.refreshToken);
+      agregarUsuario({
+        ...obtenerUsuario(),
+        accessToken: newToken.accessToken,
+        refreshToken: newToken.refreshToken,
+      });
+    } catch (error) {
+      MySwal.fire({
+        icon: "error",
+        title: "Sesión expirada",
+        text: "Por favor, vuelve a iniciar sesión.",
+      }).then(() => {
+        navigate(routes.login);
+        console.log(error);
+      });
+    }
+  };
+
   useEffect(() => {
     // Actualizar fecha y hora cada segundo
     const interval = setInterval(() => setFechaHora(new Date()), 1000);
@@ -41,31 +69,40 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    const localUser = obtenerUsuario(); // trae usuario desde localStorage
-    if (!localUser) {
-      navigate(routes.login);
-      return;
-    }
+    const fetchData = async () => {
+      const localUser = obtenerUsuario();
+      if (!localUser) {
+        navigate(routes.login);
+        return;
+      }
 
-    setLoading(true);
+      setLoading(true);
+      try {
+        await checkAndRefreshToken(localUser.refreshToken);
 
-    Promise.all([
-      getProfile(localUser.id),
-      getCotizacionesByUserPaginated(localUser.id, page, 5), // <--- usa page
-    ])
-      .then(([userData, cotData]) => {
+        const updatedUser = obtenerUsuario();
+
+        const [userData, cotData] = await Promise.all([
+          getProfile(updatedUser.id),
+          getCotizacionesByUserPaginated(updatedUser.id, page, 5),
+        ]);
+
         setUsuario(userData);
         setCotizaciones(cotData);
-        setTotalPages(cotData.totalPages); // <--- asigna total
-      })
-      .catch(() => {
+        setTotalPages(cotData.totalPages);
+      } catch (err) {
         MySwal.fire({
           icon: "error",
           title: "Error",
           text: "No se pudieron cargar los datos del perfil o cotizaciones",
         });
-      })
-      .finally(() => setLoading(false)); // fin loading
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [page, navigate]);
 
   const mapperRol = (rol: string) => {

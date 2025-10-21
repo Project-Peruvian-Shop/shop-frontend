@@ -3,6 +3,7 @@ import { URL_API } from "../utils/constants";
 import type { ApiResponse } from "./global.interfaces";
 import type {
   LoginRequestDto,
+  RefreshTokenResponseDto,
   UsuarioRequestDto,
 } from "../models/Usuario/Usuario_request_dto";
 import type { UsuarioResponseDto } from "../models/Usuario/Usuario_response_dto";
@@ -25,6 +26,18 @@ export async function register(
   const url = `${BASE_URL}/register`;
 
   const res = await axios.post<ApiResponse<UsuarioResponseDto>>(url, body);
+
+  return res.data.data;
+}
+
+export async function obtenerNuevoToken(
+  refreshToken: string
+): Promise<RefreshTokenResponseDto> {
+  const url = `${BASE_URL}/refresh-token`;
+
+  const res = await axios.post<ApiResponse<RefreshTokenResponseDto>>(url, {
+    refreshToken,
+  });
 
   return res.data.data;
 }
