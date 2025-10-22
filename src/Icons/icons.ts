@@ -25,6 +25,7 @@ import about from "./About_company/user_icon.png";
 
 import whatsappPri from "./rrss/whatsapp-primary.svg";
 import whatsappSec from "./rrss/whatsapp-secondary.svg";
+import whatsappWhi from "./whatsapp-white.svg";
 import outlook from "./rrss/outlook.svg";
 import email from "./rrss/email.svg";
 import phone from "./rrss/phone.svg";
@@ -78,6 +79,7 @@ export const Icons = {
   facebook,
   instagram,
   whatsappPri,
+  whatsappWhi,
   userIcon,
   view,
   cart,

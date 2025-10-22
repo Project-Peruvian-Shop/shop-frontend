@@ -5,9 +5,10 @@ import {
   agregarAuthToken,
 } from "../utils/auth";
 import { obtenerNuevoToken } from "../services/auht.service";
+import { URL_API } from "./constants";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1",
+  baseURL: URL_API,
 });
 
 // 🔹 Interceptor de PETICIONES (antes de enviar)

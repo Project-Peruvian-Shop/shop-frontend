@@ -32,6 +32,7 @@ import Checkout from "./Pages/cart/checkout/Checkout.tsx";
 import Profile from "./Pages/profile/profile/Profile.tsx";
 import CotizacionesProfile from "./Pages/profile/cotizaciones/Cotizaciones.tsx";
 import MensajeDetalle from "./Pages/dashboard/mensajesdetail/MensajeDetalle.tsx";
+import WhatsappButton from "./Components/whatsappButton/WhastappButton.tsx";
 
 function App() {
   const location = useLocation();
@@ -90,7 +91,7 @@ function App() {
           <Route path="profile" element={<DashboardPerfil />} />
         </Route>
       </Routes>
-
+      <WhatsappButton />
       {showNavbar && <Footer />}
     </>
   );
