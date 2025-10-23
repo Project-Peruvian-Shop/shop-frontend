@@ -11,19 +11,22 @@ function Sidebar(props: SidebarProps) {
 
   return (
     <div className={styles.sidebarContainer}>
-      <div className={styles.title}>CATEGORÍAS</div>
+      <div className={styles.title}>LÍNEAS</div>
 
       <div className={styles.divisor}></div>
 
       <div className={styles.listContainer}>
         {arrayCategories.map((category) => (
-          <button
-            key={category.id}
-            className={styles.categoryItem}
-            onClick={() => onCategoryClick?.(category.id)}
-          >
-            {category.nombre} ({category.cantidad})
-          </button>
+          <>
+            <button
+              key={category.id}
+              className={styles.categoryItem}
+              onClick={() => onCategoryClick?.(category.id)}
+            >
+              {category.nombre} ({category.cantidad})
+            </button>
+            <div className={styles.divisor}></div>
+          </>
         ))}
         <button
           className={styles.categoryItem}
