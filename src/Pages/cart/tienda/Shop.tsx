@@ -24,7 +24,7 @@ const Shop = () => {
     const fetchProductos = async () => {
       try {
         setLoading(true);
-        const response = await getPaginatedProductos(page, 9, selectedCategory);
+        const response = await getPaginatedProductos(page, 12, selectedCategory);
         const responseCategories = await getCategoriaAllQuantity();
 
         setCategoriesData(responseCategories);
