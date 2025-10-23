@@ -50,7 +50,7 @@ function ProductosSugeridos(props: ProductosSugeridosProps) {
       {!loading && productos?.length > 0 && (
         <div className={styles.container}>
           <div className={styles.usosContainer}>
-            <div className={styles.subtitle}>Productos sugeridos:</div>
+            <div className={styles.subtitle}>Productos sugeridos</div>
             <div className={styles.productosGrid}>
               {productos.map((sugerido) => (
                 <ProductCard
