@@ -60,7 +60,7 @@ export default function SideBarDashboard() {
         </Link>
         <Link to={routes.dashboard_cotizations} className={styles.menuItem}>
           <IconSVG name="cotizacion" size={20} className={styles.icon} />
-          Cotizaciones
+          Líneas
         </Link>
         <Link to={routes.dashboard_users} className={styles.menuItem}>
           <IconSVG name="usuarioIcon" size={20} className={styles.icon} />
