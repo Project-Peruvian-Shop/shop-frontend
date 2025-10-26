@@ -56,11 +56,11 @@ export default function SideBarDashboard() {
         </Link>
         <Link to={routes.dashboard_categories} className={styles.menuItem}>
           <IconSVG name="categoria" size={20} className={styles.icon} />
-          Categorías
+          Líneas
         </Link>
         <Link to={routes.dashboard_cotizations} className={styles.menuItem}>
           <IconSVG name="cotizacion" size={20} className={styles.icon} />
-          Líneas
+          Cotizaciones
         </Link>
         <Link to={routes.dashboard_users} className={styles.menuItem}>
           <IconSVG name="usuarioIcon" size={20} className={styles.icon} />
