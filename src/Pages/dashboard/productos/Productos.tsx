@@ -277,7 +277,7 @@ export default function ProductosTable() {
 
         <div className={styles.searchBarContainer}>
           <SearchBar
-            placeholder="Buscar categoría..."
+            placeholder="Buscar producto..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
