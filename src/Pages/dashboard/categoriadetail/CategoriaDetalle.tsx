@@ -113,8 +113,8 @@ function CategoriaDetalle() {
       if (response) {
         MySwal.fire({
           icon: "success",
-          title: "¡Categoría editada!",
-          text: "La categoría ha sido editada exitosamente.",
+          title: "¡Línea editada!",
+          text: "La línea ha sido editada exitosamente.",
         });
         const updatedCategoria = await getCategoryById(categoria.id);
         setCategoria(updatedCategoria);
@@ -124,7 +124,7 @@ function CategoriaDetalle() {
       const mensaje = error instanceof Error ? error.message : String(error);
       MySwal.fire({
         icon: "error",
-        title: "Error al editar la categoría",
+        title: "Error al editar la línea",
         text: mensaje,
       });
     }
@@ -133,7 +133,7 @@ function CategoriaDetalle() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>Categoría {categoria?.norma}</div>
+        <div className={styles.title}>Línea {categoria?.norma}</div>
         <div className={styles.actions}>
           <ButtonHeader
             title="Editar"
@@ -155,7 +155,7 @@ function CategoriaDetalle() {
       <div className={styles.content}>
         <div className={styles.left}>
           <InfoCard
-            title="Datos de la Categoría"
+            title="Datos de la línea"
             items={[
               { label: "ID:", value: categoria?.id || "0" },
               { label: "Nombre:", value: categoria?.nombre || "" },
@@ -165,7 +165,7 @@ function CategoriaDetalle() {
           />
 
           <ProductListCard
-            title="Productos de la categoría"
+            title="Productos de la línea"
             items={productosData?.content || []}
             currentPage={productosData?.number || 0}
             totalPages={productosData?.totalPages || 1}
