@@ -36,7 +36,7 @@ export default function ModalCategoriaCreate({  onClose, onSubmit }: ModalCatego
 				<form onSubmit={handleSubmit} className={styles.form}>
 					<div className={styles.formRow}>
 						<div className={styles.imagenSection}>
-							<h3>Imagen de la Categoría</h3>
+							<h3>Imagen de la Línea</h3>
 							<div
 								className={`${styles.dropZone} ${imagenPreview ? styles.dropZoneActive : ""}`}
 								onDragOver={(e) => e.preventDefault()}
@@ -79,20 +79,20 @@ export default function ModalCategoriaCreate({  onClose, onSubmit }: ModalCatego
 						</div>
 
 						<div className={styles.datosSection}>
-							<h3>Información de la Categoría</h3>
+							<h3>Información de la Línea</h3>
 							<label>
-								Nombre de la Categoría
-								<input value={nombre} placeholder="Nombre de la Categoría" onChange={(e) => setNombre(e.target.value)} required />
+								Nombre de la Línea
+								<input value={nombre} placeholder="Nombre de la Línea" onChange={(e) => setNombre(e.target.value)} required />
 							</label>
 							<label>
 								Norma
-								<input value={norma} placeholder="Ingrese la norma de la categoría" onChange={(e) => setNorma(e.target.value)} required />
+								<input value={norma} placeholder="Ingrese la norma de la línea" onChange={(e) => setNorma(e.target.value)} required />
 							</label>
 							<label>
 								Usos
 								<textarea
 									value={usos}
-									placeholder="Ingrese los usos de la categoría"
+									placeholder="Ingrese los usos de la línea"
 									onChange={(e) => setUsos(e.target.value)}
 									required
 								/>
