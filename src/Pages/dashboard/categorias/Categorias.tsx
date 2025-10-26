@@ -127,8 +127,8 @@ function Categorias() {
       if (response) {
         MySwal.fire({
           icon: "success",
-          title: "¡Categoría creada!",
-          text: "La categoría ha sido creada exitosamente.",
+          title: "¡Línea creada!",
+          text: "La línea ha sido creada exitosamente.",
         });
         setShowModal(false);
         await loadCantidadCategorias();
@@ -138,7 +138,7 @@ function Categorias() {
       const mensaje = error instanceof Error ? error.message : String(error);
       MySwal.fire({
         icon: "error",
-        title: "Error al crear el producto",
+        title: "Error al crear la línea",
         text: mensaje,
       });
     }
@@ -173,8 +173,8 @@ function Categorias() {
       if (response) {
         MySwal.fire({
           icon: "success",
-          title: "¡Categoría editada!",
-          text: "La categoría ha sido editada exitosamente.",
+          title: "Líneas editada!",
+          text: "La línea ha sido editada exitosamente.",
         });
         setShowEditModal(false);
         await loadCantidadCategorias();
@@ -184,7 +184,7 @@ function Categorias() {
       const mensaje = error instanceof Error ? error.message : String(error);
       MySwal.fire({
         icon: "error",
-        title: "Error al editar la categoría",
+        title: "Error al editar la línea",
         text: mensaje,
       });
     }
@@ -255,11 +255,11 @@ function Categorias() {
   return (
     <div>
       <div className={styles.dashboardHeader}>
-        <div className={styles.title}>Categorías</div>
+        <div className={styles.title}>Líneas</div>
 
         <div className={styles.searchBarContainer}>
           <SearchBar
-            placeholder="Buscar categoría..."
+            placeholder="Buscar línea..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -268,13 +268,13 @@ function Categorias() {
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
             <IconSVG name="categoria" size={24} className={styles.categoriaIcon} />
-            Total: {cantidad} Categorías
+            Total: {cantidad} Líneas
           </div>
           <button
             className={styles.addButton}
             onClick={() => setShowModal(true)}
           >
-            + Añadir Categoría
+            + Añadir Línea
           </button>
         </div>
       </div>
