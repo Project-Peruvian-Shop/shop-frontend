@@ -51,7 +51,7 @@ export default function ModalCategoriaEdit({
 				<form onSubmit={handleSubmit} className={styles.form}>
 					<div className={styles.formRow}>
 						<div className={styles.imagenSection}>
-							<h3>Imagen del producto</h3>
+							<h3>Imagen de la Línea</h3>
 							<div
 								className={`${styles.dropZone} ${
 									imagenPreview ? styles.dropZoneActive : ""
