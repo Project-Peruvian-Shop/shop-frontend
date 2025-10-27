@@ -7,6 +7,7 @@ import { agregarAuthToken, agregarUsuario } from "../../../utils/auth";
 import { register } from "../../../services/auht.service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import IconSVG from "../../../Icons/IconSVG";
 
 function Register() {
   const title = "Únete a nosotros";
@@ -27,6 +28,8 @@ function Register() {
   const [telefono, setTelefono] = useState("");
   const [passwordd, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -102,6 +105,7 @@ function Register() {
               <label htmlFor="nombre" className={styles.label}>
                 Nombre
               </label>
+              <IconSVG name="userInput" className={styles.inputIcon} />
               <input
                 type="text"
                 id="nombre"
@@ -117,6 +121,7 @@ function Register() {
               <label htmlFor="apellidos" className={styles.label}>
                 Apellidos
               </label>
+              <IconSVG name="userInput" className={styles.inputIcon} />
               <input
                 type="text"
                 id="apellidos"
@@ -133,6 +138,7 @@ function Register() {
             <label htmlFor="email" className={styles.label}>
               Correo Electrónico
             </label>
+            <IconSVG name="emailInput" className={styles.inputIcon} />
             <input
               type="email"
               id="email"
@@ -148,6 +154,7 @@ function Register() {
             <label htmlFor="telefono" className={styles.label}>
               Teléfono
             </label>
+            <IconSVG name="phoneInput" className={styles.inputIcon} />
             <input
               type="tel"
               id="telefono"
@@ -163,8 +170,9 @@ function Register() {
             <label htmlFor="password" className={styles.label}>
               Contraseña
             </label>
+                <IconSVG name="passwordInput" className={styles.inputIcon} />
             <input
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               id="password"
               minLength={8}
               className={styles.input}
@@ -173,14 +181,30 @@ function Register() {
               value={passwordd}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {passwordVisible ? (
+              <a onClick={() => setPasswordVisible(false)}>
+                <IconSVG
+                  name="eyeHidePassword"
+                  className={styles.inputIconRight}
+                />
+              </a>
+            ) : (
+              <a onClick={() => setPasswordVisible(true)}>
+                <IconSVG
+                  name="eyeShowPassword"
+                  className={styles.inputIconRight}
+                />
+              </a>
+            )}
           </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="confirm-password" className={styles.label}>
               Confirmar Contraseña
             </label>
+                <IconSVG name="passwordInput" className={styles.inputIcon} />
             <input
-              type="password"
+              type={confirmPasswordVisible ? "text" : "password"}
               id="confirm-password"
               minLength={8}
               className={styles.input}
@@ -189,6 +213,21 @@ function Register() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
+            {confirmPasswordVisible ? (
+              <a onClick={() => setConfirmPasswordVisible(false)}>
+                <IconSVG
+                  name="eyeHidePassword"
+                  className={styles.inputIconRight}
+                />
+              </a>
+            ) : (
+              <a onClick={() => setConfirmPasswordVisible(true)}>
+                <IconSVG
+                  name="eyeShowPassword"
+                  className={styles.inputIconRight}
+                />
+              </a>
+            )}
           </div>
 
           <button type="submit" className={styles.button}>

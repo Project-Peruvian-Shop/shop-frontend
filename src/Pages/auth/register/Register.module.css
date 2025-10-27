@@ -45,6 +45,7 @@
 
 .inputGroup {
   width: 100%;
+  position: relative; 
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
@@ -66,8 +67,8 @@
 }
 
 .input {
-  height: 30px;
-  padding: 0 12px;
+  height: 40px;
+  padding: 0 40px;
   border: 1px solid #000000;
   border-radius: 8px;
 }
@@ -78,6 +79,27 @@
   font-style: SemiBold;
   font-size: 14px;
   line-height: 60px;
+}
+.inputIcon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(10px);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.inputIconRight {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(10px);
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .button {
