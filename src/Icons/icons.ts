@@ -54,7 +54,8 @@ import emailInput from "./Login/email-input.svg";
 import passwordInput from "./Login/password-input.svg";
 import eyeShowPassword from "./Login/eye-password-show.svg";
 import eyeHidePassword from "./Login/eye-password-hide.svg.svg";
-
+import userInput from "./Login/user-input.svg";
+import phoneInput from "./Login/phone-input.svg";
 export const Icons = {
   "delete-primary": delete1,
   "view-secondary": view2,
@@ -101,6 +102,8 @@ export const Icons = {
   passwordInput,
   eyeShowPassword,
   eyeHidePassword,
+  userInput,
+  phoneInput,
 };
 
 export type IconName = keyof typeof Icons;
