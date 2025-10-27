@@ -11,6 +11,7 @@ import { useState } from "react";
 import { login } from "../../../services/auht.service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import IconSVG from "../../../Icons/IconSVG";
 
 function Login() {
   const title = "Bienvenido de vuelta";
@@ -23,6 +24,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [passwordd, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const MySwal = withReactContent(Swal);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -51,11 +53,11 @@ function Login() {
             toast.onmouseleave = Swal.resumeTimer;
           },
         });
-          navigate(routes.profile_user);
-          Toast.fire({
-            icon: "success",
-            title: "Inicio de sesión exitoso",
-          });
+        navigate(routes.profile_user);
+        Toast.fire({
+          icon: "success",
+          title: "Inicio de sesión exitoso",
+        });
       } else {
         alert("Usuario o contraseña incorrectos");
       }
@@ -93,6 +95,7 @@ function Login() {
             <label htmlFor="email" className={styles.label}>
               Correo Electrónico
             </label>
+            <IconSVG name="emailInput" className={styles.inputIcon} />
             <input
               type="email"
               id="email"
@@ -108,16 +111,33 @@ function Login() {
             <label htmlFor="password" className={styles.label}>
               Contraseña
             </label>
-            <input
-              type="password"
-              id="password"
-              minLength={8}
-              className={styles.input}
-              placeholder="Ingresa tu contraseña"
-              required
-              value={passwordd}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+                <IconSVG name="passwordInput" className={styles.inputIcon} />
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  id="password"
+                  minLength={8}
+                  className={styles.input}
+                  placeholder="Ingresa tu contraseña"
+                  required
+                  value={passwordd}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+            {passwordVisible ? (
+              <a onClick={() => setPasswordVisible(false)}>
+                <IconSVG
+                  name="eyeHidePassword"
+                  className={styles.inputIconRight}
+                />
+              </a>
+            ) : (
+              <a onClick={() => setPasswordVisible(true)}>
+                <IconSVG
+                  name="eyeShowPassword"
+                  className={styles.inputIconRight}
+                />
+              </a>
+            )}
           </div>
 
           <button type="submit" className={styles.button}>
