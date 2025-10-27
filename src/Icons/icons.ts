@@ -50,6 +50,11 @@ import message from "./dashboard/message.svg";
 
 import arrowRight from "./dashboard/arrow-right.svg";
 
+import emailInput from "./Login/email-input.svg";
+import passwordInput from "./Login/password-input.svg";
+import eyeShowPassword from "./Login/eye-password-show.svg";
+import eyeHidePassword from "./Login/eye-password-hide.svg.svg";
+
 export const Icons = {
   "delete-primary": delete1,
   "view-secondary": view2,
@@ -92,6 +97,10 @@ export const Icons = {
   clipboard,
   message,
   arrowRight,
+  emailInput,
+  passwordInput,
+  eyeShowPassword,
+  eyeHidePassword,
 };
 
 export type IconName = keyof typeof Icons;
