@@ -45,7 +45,7 @@
 .inputGroup {
   position: relative;
   margin-bottom: 20px;
-  display: flex;
+  display: flex;  
   flex-direction: column;
 }
 
@@ -74,9 +74,8 @@
 }
 .inputIcon {
   position: absolute;
-  top: 60%;
+  top: 70%;
   left: 12px;
-  transform: translateY(10px);
   width: 20px;
   height: 20px;
   pointer-events: none;
@@ -85,13 +84,20 @@
 
 .inputIconRight {
   position: absolute;
-  top: 60%;
+  top: 70%;
   right: 12px;
-  transform: translateY(10px);
   width: 22px;
   height: 22px;
   cursor: pointer;
   opacity: 0.8;
+}
+.errorText {
+  position: absolute;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  bottom: -24px;
+  left: 4px;
+  pointer-events: none;
 }
 
 .button {
@@ -106,6 +112,10 @@
   font-size: 14px;
   line-height: 40px;
   cursor: pointer;
+}
+.button:disabled {
+  background-color: var(--placeholder-color);
+  cursor: not-allowed;
 }
 
 .footer {

@@ -25,13 +25,36 @@ function Login() {
   const [email, setEmail] = useState("");
   const [passwordd, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string; passwordd?: string }>({});
+  const [loading, setLoading] = useState(false);
   const MySwal = withReactContent(Swal);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+  setErrors({});
+
+  const newErrors: { email?: string; passwordd?: string } = {};
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    newErrors.email = "Ingresa un correo válido";
+  }
+
+  if (passwordd.trim().length < 8) {
+    newErrors.passwordd = "La contraseña debe tener al menos 8 caracteres";
+  }
+
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
+
+  if (loading) return;
+  setLoading(true);
+  setTimeout(() => setLoading(false), 3000); 
+
     try {
-      const body = { email, passwordd };
+      const body = { email: email.trim(), passwordd: passwordd.trim() };
       const response = await login(body);
 
       if (response) {
@@ -46,8 +69,8 @@ function Login() {
           toast: true,
           position: "top-end",
           showConfirmButton: false,
-          timer: 3000,
           timerProgressBar: true,
+          timer: 3000,
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
@@ -58,9 +81,7 @@ function Login() {
           icon: "success",
           title: "Inicio de sesión exitoso",
         });
-      } else {
-        alert("Usuario o contraseña incorrectos");
-      }
+      } 
     } catch (error: unknown) {
       let mensaje;
       if (error instanceof Error) {
@@ -90,7 +111,7 @@ function Login() {
           Ingresa tus credenciales para continuar
         </div>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <div className={styles.inputGroup}>
             <label htmlFor="email" className={styles.label}>
               Correo Electrónico
@@ -105,6 +126,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && <span className={styles.errorText}>{errors.email}</span>}
           </div>
 
           <div className={styles.inputGroup}>
@@ -115,14 +137,12 @@ function Login() {
                 <input
                   type={passwordVisible ? "text" : "password"}
                   id="password"
-                  minLength={8}
                   className={styles.input}
                   placeholder="Ingresa tu contraseña"
                   required
                   value={passwordd}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
             {passwordVisible ? (
               <a onClick={() => setPasswordVisible(false)}>
                 <IconSVG
@@ -138,10 +158,11 @@ function Login() {
                 />
               </a>
             )}
+                {errors.passwordd && <span className={styles.errorText}>{errors.passwordd}</span>}
           </div>
 
-          <button type="submit" className={styles.button}>
-            Acceder a mi cuenta
+          <button type="submit" className={styles.button} disabled={loading}>
+            {loading ? "Ingresando..." : "Acceder a mi cuenta"}
           </button>
         </form>
 
