@@ -16,13 +16,14 @@
 
 .right {
   flex: 1;
+  max-width: 600px;
+  padding: 0 80px 0 160px;
   display: flex;
   flex-direction: column;
-  padding: 0 80px 0 160px;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: stretch;
-  max-width: 600px;
+  align-content: stretch;
 }
 
 .loginTitle {
@@ -30,7 +31,7 @@
   font-weight: 600;
   font-style: SemiBold;
   font-size: 36px;
-  line-height: 60px;
+  line-height: 30px;
 }
 
 .loginSubtitle {
@@ -43,10 +44,17 @@
 }
 
 .inputGroup {
-  position: relative;
-  margin-bottom: 20px;
-  display: flex;  
+  width: 100%;
+  position: relative; 
+  margin-bottom: 15px;
+  display: flex;
   flex-direction: column;
+}
+
+.inputColumnGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .label {
@@ -55,12 +63,12 @@
   font-weight: 600;
   font-style: SemiBold;
   font-size: 14px;
-  line-height: 60px;
+  line-height: 40px;
 }
 
 .input {
-  padding: 0px 40px;
   height: 40px;
+  padding: 0 40px;
   border: 1px solid #000000;
   border-radius: 8px;
 }
@@ -74,8 +82,9 @@
 }
 .inputIcon {
   position: absolute;
-  top: 70%;
+  top: 50%;
   left: 12px;
+  transform: translateY(10px);
   width: 20px;
   height: 20px;
   pointer-events: none;
@@ -84,8 +93,9 @@
 
 .inputIconRight {
   position: absolute;
-  top: 70%;
+  top: 50%;
   right: 12px;
+  transform: translateY(10px);
   width: 22px;
   height: 22px;
   cursor: pointer;
@@ -99,7 +109,6 @@
   left: 4px;
   pointer-events: none;
 }
-
 .button {
   margin: 20px 0;
   width: 100%;
