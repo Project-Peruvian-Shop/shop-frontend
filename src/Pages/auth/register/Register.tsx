@@ -30,27 +30,71 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [errors, setErrors] = useState<{
+    nombre?: string;
+    apellidos?: string;
+    email?: string;
+    telefono?: string;
+    passwordd?: string;
+    confirmPassword?: string;
+  }>({});
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrors({});
 
+    const newErrors: {
+      nombre?: string;
+      apellidos?: string;
+      email?: string;
+      telefono?: string;
+      passwordd?: string;
+      confirmPassword?: string;
+    } = {};
+
+    if (nombre.trim().length === 0) {
+      newErrors.nombre = "El nombre es obligatorio";
+    }
+
+    if (apellidos.trim().length === 0) {
+      newErrors.apellidos = "Los apellidos son obligatorios";
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Ingresa un correo válido";
+    }
+
+    if (telefono.trim().length < 9) {
+      newErrors.telefono = "El teléfono debe tener 9 dígitos";
+    }
+    if (passwordd.trim().length < 8) {
+      newErrors.passwordd = "La contraseña debe tener al menos 8 caracteres";
+    }
     // Validar contraseñas
     if (passwordd !== confirmPassword) {
-      MySwal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Las contraseñas no coinciden",
-        confirmButtonText: "Intentar de nuevo",
-      });
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
+    if (loading) return;
+    setLoading(true);
+    setTimeout(() => setLoading(false), 3000);
+
     try {
-      const body = { nombre, apellidos, email, telefono, passwordd };
+      const body = {
+        nombre: nombre.trim(),
+        apellidos: apellidos.trim(),
+        email: email.trim(),
+        telefono: telefono.trim(),
+        passwordd: passwordd.trim(),
+      };
       const response = await register(body);
 
       if (response) {
-        
         agregarAuthToken(response.accessToken);
         agregarUsuario(response); // guardar usuario completo en localStorage
 
@@ -99,7 +143,7 @@ function Register() {
           Completa tus datos para registrarte
         </div>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <div className={styles.inputColumnGroup}>
             <div className={styles.inputGroup}>
               <label htmlFor="nombre" className={styles.label}>
@@ -115,6 +159,9 @@ function Register() {
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
               />
+              {errors.nombre && (
+                <span className={styles.errorText}>{errors.nombre}</span>
+              )}
             </div>
 
             <div className={styles.inputGroup}>
@@ -131,6 +178,9 @@ function Register() {
                 value={apellidos}
                 onChange={(e) => setApellidos(e.target.value)}
               />
+              {errors.apellidos && (
+                <span className={styles.errorText}>{errors.apellidos}</span>
+              )}
             </div>
           </div>
 
@@ -148,6 +198,9 @@ function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && (
+              <span className={styles.errorText}>{errors.email}</span>
+            )}
           </div>
 
           <div className={styles.inputGroup}>
@@ -159,18 +212,21 @@ function Register() {
               type="tel"
               id="telefono"
               className={styles.input}
-              placeholder="+51 999 999 999"
+              placeholder="987 924 910"
               required
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />
+            {errors.telefono && (
+              <span className={styles.errorText}>{errors.telefono}</span>
+            )}
           </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="password" className={styles.label}>
               Contraseña
             </label>
-                <IconSVG name="passwordInput" className={styles.inputIcon} />
+            <IconSVG name="passwordInput" className={styles.inputIcon} />
             <input
               type={passwordVisible ? "text" : "password"}
               id="password"
@@ -181,6 +237,7 @@ function Register() {
               value={passwordd}
               onChange={(e) => setPassword(e.target.value)}
             />
+
             {passwordVisible ? (
               <a onClick={() => setPasswordVisible(false)}>
                 <IconSVG
@@ -196,13 +253,16 @@ function Register() {
                 />
               </a>
             )}
+            {errors.passwordd && (
+              <span className={styles.errorText}>{errors.passwordd}</span>
+            )}
           </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="confirm-password" className={styles.label}>
               Confirmar Contraseña
             </label>
-                <IconSVG name="passwordInput" className={styles.inputIcon} />
+            <IconSVG name="passwordInput" className={styles.inputIcon} />
             <input
               type={confirmPasswordVisible ? "text" : "password"}
               id="confirm-password"
@@ -228,10 +288,13 @@ function Register() {
                 />
               </a>
             )}
+            {errors.confirmPassword && (
+              <span className={styles.errorText}>{errors.confirmPassword}</span>
+            )}
           </div>
 
-          <button type="submit" className={styles.button}>
-            Crear mi cuenta
+          <button type="submit" className={styles.button} disabled={loading}>
+            {loading ? "Creando cuenta..." : "Crear cuenta"}
           </button>
         </form>
 

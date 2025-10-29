@@ -46,7 +46,7 @@
 .inputGroup {
   width: 100%;
   position: relative; 
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -101,7 +101,14 @@
   cursor: pointer;
   opacity: 0.8;
 }
-
+.errorText {
+  position: absolute;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  bottom: -24px;
+  left: 4px;
+  pointer-events: none;
+}
 .button {
   margin: 20px 0;
   width: 100%;
@@ -114,6 +121,10 @@
   font-size: 14px;
   line-height: 40px;
   cursor: pointer;
+}
+.button:disabled {
+  background-color: var(--placeholder-color);
+  cursor: not-allowed;
 }
 
 .footer {
