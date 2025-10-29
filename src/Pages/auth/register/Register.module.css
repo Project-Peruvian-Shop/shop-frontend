@@ -46,7 +46,7 @@
 .inputGroup {
   width: 100%;
   position: relative; 
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }

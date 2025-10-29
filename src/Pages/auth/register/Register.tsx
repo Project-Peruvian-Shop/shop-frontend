@@ -52,25 +52,28 @@ function Register() {
       passwordd?: string;
       confirmPassword?: string;
     } = {};
-
-    if (nombre.trim().length === 0) {
-      newErrors.nombre = "El nombre es obligatorio";
+    
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(nombre.trim())) {
+      newErrors.nombre = "El nombre solo puede contener letras";
     }
-
-    if (apellidos.trim().length === 0) {
-      newErrors.apellidos = "Los apellidos son obligatorios";
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(apellidos.trim())) {
+      newErrors.apellidos = "Los apellidos solo pueden contener letras";
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = "Ingresa un correo válido";
     }
 
-    if (telefono.trim().length < 9) {
-      newErrors.telefono = "El teléfono debe tener 9 dígitos";
+    if (!/^\d{9}$/.test(telefono.trim())) {
+      newErrors.telefono =
+        "El teléfono debe tener exactamente 9 dígitos numéricos";
     }
-    if (passwordd.trim().length < 8) {
-      newErrors.passwordd = "La contraseña debe tener al menos 8 caracteres";
+
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(passwordd.trim())) {
+      newErrors.passwordd =
+        "Debe tener al menos 8 caracteres, una letra y un número";
     }
+
     // Validar contraseñas
     if (passwordd !== confirmPassword) {
       newErrors.confirmPassword = "Las contraseñas no coinciden";
