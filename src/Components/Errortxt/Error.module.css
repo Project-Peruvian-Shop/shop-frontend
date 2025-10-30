@@ -1,0 +1,8 @@
+.errorText {
+  position: absolute;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  bottom: -24px;
+  left: 4px;
+  pointer-events: none;
+}
