@@ -12,6 +12,7 @@ import { login } from "../../../services/auht.service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import IconSVG from "../../../Icons/IconSVG";
+import Error from "../../../Components/Errortxt/Error";
 
 function Login() {
   const title = "Bienvenido de vuelta";
@@ -25,33 +26,35 @@ function Login() {
   const [email, setEmail] = useState("");
   const [passwordd, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [errors, setErrors] = useState<{ email?: string; passwordd?: string }>({});
+  const [errors, setErrors] = useState<{ email?: string; passwordd?: string }>(
+    {}
+  );
   const [loading, setLoading] = useState(false);
   const MySwal = withReactContent(Swal);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-  setErrors({});
+    setErrors({});
 
-  const newErrors: { email?: string; passwordd?: string } = {};
+    const newErrors: { email?: string; passwordd?: string } = {};
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    newErrors.email = "Ingresa un correo válido";
-  }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Ingresa un correo válido";
+    }
 
-  if (passwordd.trim().length < 8) {
-    newErrors.passwordd = "La contraseña debe tener al menos 8 caracteres";
-  }
+    if (passwordd.trim().length < 8) {
+      newErrors.passwordd = "La contraseña debe tener al menos 8 caracteres";
+    }
 
-  if (Object.keys(newErrors).length > 0) {
-    setErrors(newErrors);
-    return;
-  }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
 
-  if (loading) return;
-  setLoading(true);
-  setTimeout(() => setLoading(false), 3000); 
+    if (loading) return;
+    setLoading(true);
+    setTimeout(() => setLoading(false), 3000);
 
     try {
       const body = { email: email.trim(), passwordd: passwordd.trim() };
@@ -81,14 +84,11 @@ function Login() {
           icon: "success",
           title: "Inicio de sesión exitoso",
         });
-      } 
-    } catch (error: unknown) {
-      let mensaje;
-      if (error instanceof Error) {
-        mensaje = error.message;
-      } else {
-        mensaje = String(error);
       }
+    } catch (error) {
+      const err = error as Error;
+      const mensaje = err.message || "Ha ocurrido un error inesperado.";
+
       MySwal.fire({
         icon: "error",
         title: "Error al iniciar sesión",
@@ -126,23 +126,23 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+            {errors.email && <Error message={errors.email} />}
           </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="password" className={styles.label}>
               Contraseña
             </label>
-                <IconSVG name="passwordInput" className={styles.inputIcon} />
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  id="password"
-                  className={styles.input}
-                  placeholder="Ingresa tu contraseña"
-                  required
-                  value={passwordd}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+            <IconSVG name="passwordInput" className={styles.inputIcon} />
+            <input
+              type={passwordVisible ? "text" : "password"}
+              id="password"
+              className={styles.input}
+              placeholder="Ingresa tu contraseña"
+              required
+              value={passwordd}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             {passwordVisible ? (
               <a onClick={() => setPasswordVisible(false)}>
                 <IconSVG
@@ -158,7 +158,7 @@ function Login() {
                 />
               </a>
             )}
-                {errors.passwordd && <span className={styles.errorText}>{errors.passwordd}</span>}
+            {errors.passwordd && <Error message={errors.passwordd} />}
           </div>
 
           <button type="submit" className={styles.button} disabled={loading}>

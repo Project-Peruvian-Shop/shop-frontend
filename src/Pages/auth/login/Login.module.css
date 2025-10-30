@@ -101,14 +101,6 @@
   cursor: pointer;
   opacity: 0.8;
 }
-.errorText {
-  position: absolute;
-  color: var(--primary-color);
-  font-size: 0.85rem;
-  bottom: -24px;
-  left: 4px;
-  pointer-events: none;
-}
 .button {
   margin: 20px 0;
   width: 100%;
