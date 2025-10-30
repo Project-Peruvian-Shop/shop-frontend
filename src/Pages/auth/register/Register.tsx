@@ -8,6 +8,7 @@ import { register } from "../../../services/auht.service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import IconSVG from "../../../Icons/IconSVG";
+import Error from "../../../Components/Errortxt/Error";
 
 function Register() {
   const title = "Únete a nosotros";
@@ -118,13 +119,9 @@ function Register() {
           title: "Registro exitoso",
         });
       }
-    } catch (error: unknown) {
-      let mensaje;
-      if (error instanceof Error) {
-        mensaje = error.message;
-      } else {
-        mensaje = String(error);
-      }
+    } catch (error) {
+      const err = error as Error;
+      const mensaje = err.message || "Ha ocurrido un error inesperado.";
       MySwal.fire({
         icon: "error",
         title: "Error al registrarse",
@@ -163,7 +160,7 @@ function Register() {
                 onChange={(e) => setNombre(e.target.value)}
               />
               {errors.nombre && (
-                <span className={styles.errorText}>{errors.nombre}</span>
+                <Error message={errors.nombre} />
               )}
             </div>
 
@@ -182,7 +179,7 @@ function Register() {
                 onChange={(e) => setApellidos(e.target.value)}
               />
               {errors.apellidos && (
-                <span className={styles.errorText}>{errors.apellidos}</span>
+                <Error message={errors.apellidos} />
               )}
             </div>
           </div>
@@ -202,7 +199,7 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
             />
             {errors.email && (
-              <span className={styles.errorText}>{errors.email}</span>
+              <Error message={errors.email} />
             )}
           </div>
 
@@ -221,7 +218,7 @@ function Register() {
               onChange={(e) => setTelefono(e.target.value)}
             />
             {errors.telefono && (
-              <span className={styles.errorText}>{errors.telefono}</span>
+              <Error message={errors.telefono} />
             )}
           </div>
 
@@ -257,7 +254,7 @@ function Register() {
               </a>
             )}
             {errors.passwordd && (
-              <span className={styles.errorText}>{errors.passwordd}</span>
+              <Error message={errors.passwordd} />
             )}
           </div>
 
@@ -292,7 +289,7 @@ function Register() {
               </a>
             )}
             {errors.confirmPassword && (
-              <span className={styles.errorText}>{errors.confirmPassword}</span>
+              <Error message={errors.confirmPassword} />
             )}
           </div>
 
