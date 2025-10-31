@@ -153,6 +153,7 @@ const FormLibro = () => {
       setEmail("");
       setTipo("");
       setContenido("");
+      setCheckbox(false);
     } catch (error) {
       const err = error as Error;
       const mensaje = err.message || "Ha ocurrido un error inesperado.";
