@@ -22,7 +22,7 @@
 .inputGroup {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 32px;
   width: 100%;
   margin: 20px 0;
   position: relative;
@@ -65,8 +65,10 @@
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: flex-start;
+  gap: 6px;
   width: 100%;
+  position: relative;
 }
 
 .inputWrapper label {
@@ -187,13 +189,17 @@
   font-style: Bold;
   font-size: 16px;
 }
-
-.termsBox {
+.termsSection {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  margin-top: 40px;
+}
+.termsSection span{
+  position: relative;
+}
+.termsBox {
   justify-content: center;
-  gap: 8px;
-  margin-top: 20px;
 }
 
 .termsBox label {
@@ -207,7 +213,7 @@
   text-decoration: none;
   font-weight: 600;
 }
-.termsBox button {
+.btnPrimary {
   margin-left: auto;
   margin-bottom: 20px;
   background-color: var(--primary-color);

@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { obtenerUsuario } from "../../../utils/auth";
 import { createLibroReclamaciones } from "../../../services/mensajes.service";
+import Error from "../../Errortxt/Error";
 
 const FormLibro = () => {
   const usuario = obtenerUsuario();
@@ -19,6 +20,19 @@ const FormLibro = () => {
   const [email, setEmail] = useState("");
   const [contenido, setContenido] = useState("");
   const [tipo, setTipo] = useState("");
+  const [checkbox, setCheckbox] = useState(false);
+
+  const [errors, setErrors] = useState<{
+    nombre?: string;
+    email?: string;
+    tipoDocumento?: string;
+    documento?: string;
+    telefono?: string;
+    tipoSolicitud?: string;
+    contenido?: string;
+    checkbox?: string;
+  }>({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (usuario) {
@@ -50,6 +64,67 @@ const FormLibro = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    setErrors({});
+
+    const newErrors: {
+      nombre?: string;
+      email?: string;
+      tipoDocumento?: string;
+      documento?: string;
+      telefono?: string;
+      tipoSolicitud?: string;
+      contenido?: string;
+      checkbox?: string;
+    } = {};
+
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(nombre.trim())) {
+      newErrors.nombre = "El nombre solo puede contener letras";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Ingresa un correo válido";
+    }
+    if (!tipoDocumento) {
+      newErrors.tipoDocumento = "Selecciona un tipo de documento";
+    }
+    if (!/^\d+$/.test(documento)) {
+      newErrors.documento = "El número de documento debe ser numérico";
+    }
+    if (!/^\d{9}$/.test(telefono)) {
+      newErrors.telefono = "El número de teléfono debe contener 9 dígitos";
+    }
+    if (!tipo) {
+      newErrors.tipoSolicitud = "Selecciona un tipo de solicitud";
+    }
+    if (contenido.trim().length < 10) {
+      newErrors.contenido =
+        "El detalle de la reclamación debe tener al menos 10 caracteres";
+    }
+    if (!checkbox) {
+      newErrors.checkbox = "Debes confirmar que la información es verídica";
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "warning",
+        title: newErrors.checkbox
+      });
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    if (loading) return;
+    setLoading(true);
+    setTimeout(() => setLoading(false), 3000);
+
     try {
       const body = {
         nombre,
@@ -78,24 +153,21 @@ const FormLibro = () => {
       setEmail("");
       setTipo("");
       setContenido("");
-    } catch (error: unknown) {
-      let mensaje;
-      if (error instanceof Error) {
-        mensaje = error.message;
-      } else {
-        mensaje = String(error);
-      }
+    } catch (error) {
+      const err = error as Error;
+      const mensaje = err.message || "Ha ocurrido un error inesperado.";
       MySwal.fire({
         icon: "error",
-        title: "Error al enviar la consulta",
+        title: "Error al registrarse",
         text: mensaje,
+        confirmButtonText: "Intentar de nuevo",
       });
     }
   };
 
   return (
     <div className={style.containerFormulario}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <h3>Datos personales</h3>
 
         <div className={style.inputGroup}>
@@ -110,6 +182,7 @@ const FormLibro = () => {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
+            {errors.nombre && <Error message={errors.nombre} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -123,6 +196,7 @@ const FormLibro = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && <Error message={errors.email} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -142,6 +216,7 @@ const FormLibro = () => {
               <option value="PASAPORTE">Pasaporte</option>
               <option value="OTRO">Otro</option>
             </select>
+            {errors.tipoDocumento && <Error message={errors.tipoDocumento} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -155,6 +230,7 @@ const FormLibro = () => {
               value={documento}
               onChange={(e) => setDocumento(e.target.value)}
             />
+            {errors.documento && <Error message={errors.documento} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -168,6 +244,7 @@ const FormLibro = () => {
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />
+            {errors.telefono && <Error message={errors.telefono} />}
           </div>
         </div>
 
@@ -214,6 +291,7 @@ const FormLibro = () => {
                 </div>
               </div>
             </label>
+            {errors.tipoSolicitud && <Error message={errors.tipoSolicitud} />}
           </div>
         </div>
 
@@ -230,16 +308,24 @@ const FormLibro = () => {
               value={contenido}
               onChange={(e) => setContenido(e.target.value)}
             />
+            {errors.contenido && <Error message={errors.contenido} />}
           </div>
         </div>
 
-        <div className={style.termsBox}>
-          <input type="checkbox" id="terms" required />
-          <label htmlFor="terms">
-            Confirmo que la información proporcionada es verídica.
-          </label>
-          <button type="submit" className={style.btnPrimary}>
-            Enviar reclamación
+        <div className={style.termsSection}>
+          <div className={style.termsBox}>
+            <input
+              type="checkbox"
+              id="terms"
+              checked={checkbox}
+              onChange={(e) => setCheckbox(e.target.checked)}
+            />
+            <label htmlFor="terms">
+              Confirmo que la información proporcionada es verídica.
+            </label>
+          </div>
+          <button type="submit" className={style.btnPrimary} disabled={loading}>
+            {loading ? "Enviando..." : "Enviar Reclamación"}
           </button>
         </div>
       </form>
