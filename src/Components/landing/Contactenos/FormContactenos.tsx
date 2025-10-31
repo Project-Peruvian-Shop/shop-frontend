@@ -6,6 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { createContactenos } from "../../../services/mensajes.service";
+import Error from "../../Errortxt/Error";
 
 const FormContactenos = () => {
   const usuario = obtenerUsuario();
@@ -20,13 +21,25 @@ const FormContactenos = () => {
   const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [contenido, setContenido] = useState("");
+  const [checkbox, setCheckbox] = useState(false);
+
+  const [errors, setErrors] = useState<{
+    nombre?: string;
+    email?: string;
+    tipoDocumento?: string;
+    documento?: string;
+    telefono?: string;
+    contenido?: string;
+    checkbox?: string;
+  }>({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (usuario) {
       // Cargar los valores del usuario en el formulario
-      setNombre(usuario.nombre || "");
       setEmail(usuario.email || "");
       setTipoDocumento(usuario.tipoDocumento || "");
+      setNombre(usuario.nombre || "");
       setDocumento(usuario.documento || "");
       setTelefono(usuario.telefono || "");
 
@@ -50,6 +63,64 @@ const FormContactenos = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setErrors({});
+
+    const newErrors: {
+      nombre?: string;
+      email?: string;
+      tipoDocumento?: string;
+      documento?: string;
+      telefono?: string;
+      tipoSolicitud?: string;
+      contenido?: string;
+      checkbox?: string;
+    } = {};
+
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(nombre.trim())) {
+      newErrors.nombre = "El nombre solo puede contener letras";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Ingresa un correo válido";
+    }
+    if (!tipoDocumento) {
+      newErrors.tipoDocumento = "Selecciona un tipo de documento";
+    }
+    if (!/^\d+$/.test(documento)) {
+      newErrors.documento = "El número de documento debe ser numérico";
+    }
+    if (!/^\d{9}$/.test(telefono)) {
+      newErrors.telefono = "El número de teléfono debe contener 9 dígitos";
+    }
+    if (contenido.trim().length < 10) {
+      newErrors.contenido =
+        "El detalle de la reclamación debe tener al menos 10 caracteres";
+    }
+    if (!checkbox) {
+      newErrors.checkbox = "Debes confirmar que estas de acuerdo con los términos y la política ";
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "warning",
+        title: newErrors.checkbox,
+      });
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    if (loading) return;
+    setLoading(true);
+    setTimeout(() => setLoading(false), 3000);
 
     try {
       const body = {
@@ -78,24 +149,22 @@ const FormContactenos = () => {
       setTelefono("");
       setEmail("");
       setContenido("");
-    } catch (error: unknown) {
-      let mensaje;
-      if (error instanceof Error) {
-        mensaje = error.message;
-      } else {
-        mensaje = String(error);
-      }
+      setCheckbox(false);
+    } catch (error) {
+      const err = error as Error;
+      const mensaje = err.message || "Ha ocurrido un error inesperado.";
       MySwal.fire({
         icon: "error",
-        title: "Error al enviar la consulta",
+        title: "Error al registrarse",
         text: mensaje,
+        confirmButtonText: "Intentar de nuevo",
       });
     }
   };
 
   return (
     <div className={style.containerFormulario}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <input type="hidden" name="tipo" value="CONTACTENOS" />
         <input type="hidden" name="usuario_id" value={usuario_id} />
 
@@ -112,6 +181,7 @@ const FormContactenos = () => {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
+            {errors.nombre && <Error message={errors.nombre} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -125,6 +195,7 @@ const FormContactenos = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && <Error message={errors.email} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -144,6 +215,7 @@ const FormContactenos = () => {
               <option value="PASAPORTE">Pasaporte</option>
               <option value="OTRO">Otro</option>
             </select>
+            {errors.tipoDocumento && <Error message={errors.tipoDocumento} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -157,6 +229,7 @@ const FormContactenos = () => {
               value={documento}
               onChange={(e) => setDocumento(e.target.value)}
             />
+            {errors.documento && <Error message={errors.documento} />}
           </div>
 
           <div className={style.inputWrapper}>
@@ -170,6 +243,7 @@ const FormContactenos = () => {
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />
+            {errors.telefono && <Error message={errors.telefono} />}
           </div>
         </div>
 
@@ -186,11 +260,18 @@ const FormContactenos = () => {
               value={contenido}
               onChange={(e) => setContenido(e.target.value)}
             />
+            {errors.contenido && <Error message={errors.contenido} />}
           </div>
         </div>
 
         <div className={style.termsBox}>
-          <input type="checkbox" id="terms" required />
+          <input
+            type="checkbox"
+            id="terms"
+            required
+            checked={checkbox}
+            onChange={(e) => setCheckbox(e.target.checked)}
+          />
 
           <label htmlFor="terms" className={style.terms}>
             Acepto los{" "}
@@ -207,8 +288,8 @@ const FormContactenos = () => {
             </Link>
           </label>
 
-          <button type="submit" className={style.btnPrimary}>
-            Enviar mensaje
+          <button type="submit" className={style.btnPrimary} disabled={loading}>
+            {loading ? "Enviando..." : "Enviar mensaje"}
           </button>
         </div>
       </form>
