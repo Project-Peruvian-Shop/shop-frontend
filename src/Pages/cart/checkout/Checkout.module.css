@@ -51,17 +51,29 @@
 .inputGroup {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
 }
 
 .inputRow {
   display: flex;
   gap: 10px;
 }
-
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  margin-bottom: 20px;
+}
+.inputWrapper span {
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  margin-top: 4px;
+  text-align: left;
+  font-family: "Inter", sans-serif;
+  position: static;
+}
 .input {
   flex: 1;
-  margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #d0d0d0;
   border-radius: 6px;
@@ -71,7 +83,6 @@
 
 .select {
   flex: 1;
-  margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #d0d0d0;
   border-radius: 6px;
@@ -144,4 +155,8 @@
 
 .button:hover {
   background-color: #e0173a;
+}
+.button:disabled {
+  background-color: var(--gray-color);
+  cursor: not-allowed;
 }

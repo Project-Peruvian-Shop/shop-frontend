@@ -12,6 +12,7 @@ import type { CotizacionRequestDTO } from "../../../models/Cotizacion/Cotizacion
 import { postCotizacion } from "../../../services/cotizacion.service";
 import Header from "../../../Components/header/Header";
 import { routes } from "../../../utils/routes";
+import Error from "../../../Components/Errortxt/Error";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -25,6 +26,17 @@ function Checkout() {
 
   const usuario = obtenerUsuario();
   const MySwal = withReactContent(Swal);
+
+  const [errors, setErrors] = useState<{
+    nombre?: string;
+    email?: string;
+    tipoDocumento?: string;
+    documento?: string;
+    telefono?: string;
+    contenido?: string;
+    checkbox?: string;
+  }>({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (usuario) {
@@ -60,14 +72,52 @@ function Checkout() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    setErrors({});
+    const newErrors: {
+      nombre?: string;
+      email?: string;
+      tipoDocumento?: string;
+      documento?: string;
+      telefono?: string;
+      tipoSolicitud?: string;
+      contenido?: string;
+      checkbox?: string;
+    } = {};
+
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(nombre.trim())) {
+      newErrors.nombre = "El nombre solo puede contener letras";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Ingresa un correo válido";
+    }
+    if (!tipoDocumento) {
+      newErrors.tipoDocumento = "Selecciona un tipo de documento";
+    }
+    if (!/^\d+$/.test(numeroDocumento)) {
+      newErrors.documento = "El número de documento debe ser numérico";
+    }
+    if (!/^\d{9}$/.test(telefono)) {
+      newErrors.telefono = "El número de teléfono debe contener 9 dígitos";
+    }
+    if (comentarios.trim().length < 10) {
+      newErrors.contenido =
+        "El detalle de la reclamación debe tener al menos 10 caracteres";
+    }
     if (!acceptedTerms) {
       MySwal.fire({
         title: "Atención",
         text: "Debe aceptar los términos y condiciones para continuar.",
         icon: "warning",
       });
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
+    if (loading) return;
+    setLoading(true);
+    setTimeout(() => setLoading(false), 3000);
 
     const products = getCartFromLocalStorage();
     if (products.length === 0) {
@@ -112,7 +162,6 @@ function Checkout() {
         imageAlt: "Logo de la empresa",
         confirmButtonColor: "var(--primary-color)",
         confirmButtonText: "Aceptar",
-
       });
       console.log("Respuesta backend:", response);
       setNombre("");
@@ -145,30 +194,39 @@ function Checkout() {
           <div className={styles.sectionNumber}>1</div>
           <div className={styles.sectionTitle}>Información Personal</div>
           <div className={styles.inputRow}>
-            <input
-              type="text"
-              className={styles.input}
-              placeholder="Nombre Completo o de la Empresa *"
-              minLength={3}
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-            />
+            <div className={styles.inputWrapper}>
+              <input
+                type="text"
+                className={styles.input}
+                placeholder="Nombre Completo o de la Empresa *"
+                minLength={3}
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+              />
+              {errors.nombre && <Error message={errors.nombre} />}
+            </div>
           </div>
           <div className={styles.inputRow}>
-            <input
-              type="tel"
-              className={styles.input}
-              placeholder="Teléfono *"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-            />
-            <input
-              type="email"
-              className={styles.input}
-              placeholder="Correo Electrónico *"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <div className={styles.inputWrapper}>
+              <input
+                type="tel"
+                className={styles.input}
+                placeholder="Teléfono *"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+              />
+              {errors.telefono && <Error message={errors.telefono} />}
+            </div>
+            <div className={styles.inputWrapper}>
+              <input
+                type="email"
+                className={styles.input}
+                placeholder="Correo Electrónico *"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {errors.email && <Error message={errors.email} />}
+            </div>
           </div>
         </div>
 
@@ -176,39 +234,49 @@ function Checkout() {
           <div className={styles.sectionNumber}>2</div>
           <div className={styles.sectionTitle}>Documentación</div>
           <div className={styles.inputRow}>
-            <select
-              className={styles.select}
-              value={tipoDocumento}
-              onChange={(e) => setTipoDocumento(e.target.value)}
-            >
-              <option value="" disabled>
-                Tipo de Documento *
-              </option>
-              <option value="DNI">DNI</option>
-              <option value="RUC">RUC</option>
-              <option value="PASAPORTE">PASAPORTE</option>
-              <option value="OTRO">OTRO</option>
-            </select>
-            <input
-              type="text"
-              className={styles.input}
-              placeholder="Número de Documento *"
-              value={numeroDocumento}
-              onChange={(e) => setNumeroDocumento(e.target.value)}
-            />
+            <div className={styles.inputWrapper}>
+              <select
+                className={styles.select}
+                value={tipoDocumento}
+                onChange={(e) => setTipoDocumento(e.target.value)}
+              >
+                <option value="" disabled>
+                  Tipo de Documento *
+                </option>
+                <option value="DNI">DNI</option>
+                <option value="RUC">RUC</option>
+                <option value="PASAPORTE">PASAPORTE</option>
+                <option value="OTRO">OTRO</option>
+              </select>
+              {errors.tipoDocumento && <Error message={errors.tipoDocumento} />}
+            </div>
+
+            <div className={styles.inputWrapper}>
+              <input
+                type="text"
+                className={styles.input}
+                placeholder="Número de Documento *"
+                value={numeroDocumento}
+                onChange={(e) => setNumeroDocumento(e.target.value)}
+              />
+              {errors.documento && <Error message={errors.documento} />}
+            </div>
           </div>
         </div>
 
         <div className={styles.section}>
           <div className={styles.sectionNumber}>3</div>
           <div className={styles.sectionTitle}>Información Adicional</div>
-          <textarea
-            className={styles.textarea}
-            placeholder="Comentarios"
-            value={comentarios}
-            onChange={(e) => setComentarios(e.target.value)}
-            name="comentarios"
-          ></textarea>
+          <div className={styles.inputWrapper}>
+            <textarea
+              className={styles.textarea}
+              placeholder="Comentarios"
+              value={comentarios}
+              onChange={(e) => setComentarios(e.target.value)}
+              name="comentarios"
+            ></textarea>
+            {errors.contenido && <Error message={errors.contenido} />}
+          </div>
         </div>
 
         <div className={styles.checkboxContainer}>
@@ -224,8 +292,8 @@ function Checkout() {
           </label>
         </div>
 
-        <button type="submit" className={styles.button}>
-          Enviar cotización
+        <button type="submit" className={styles.button} disabled={loading}>
+          {loading ? "Enviando..." : "Enviar Cotización"}
         </button>
       </form>
     </div>
