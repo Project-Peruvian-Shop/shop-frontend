@@ -5,15 +5,17 @@ import { obtenerUsuario } from "../../../utils/auth";
 import { routes } from "../../../utils/routes";
 import IconSVG from "../../../Icons/IconSVG";
 import { useLogout } from "../../../hooks/useLogout";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 
 export default function SideBarDashboard() {
   const usuario = obtenerUsuario();
   const logout = useLogout();
 
   const mapperRol = {
-    ROLE_ADMIN: "Propietario",
-    ROLE_USER: "Usuario",
-    ROLE_MANAGER: "Administrador",
+    [UserRoleConst.SUPERADMIN]: "Super Administrador",
+    [UserRoleConst.ADMINISTRADOR]: "Administrador",
+    [UserRoleConst.SUPERVISOR]: "Supervisor",
+    [UserRoleConst.CLIENTE]: "Cliente",
   };
 
   return (
