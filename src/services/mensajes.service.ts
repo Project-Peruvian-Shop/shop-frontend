@@ -78,7 +78,7 @@ export async function changeStateMensaje(
   id: number,
   nuevoEstado: "PENDIENTE" | "EN_PROCESO" | "RESUELTO" | "CERRADO"
 ): Promise<MensajeDashboardDTO> {
-  const url = `${BASE_URL}/change_state/${id}`;
+  const url = `${BASE_URL}/change-state/${id}`;
 
   const res = await api.put<ApiResponse<MensajeDashboardDTO>>(url, { nuevoEstado });
 
