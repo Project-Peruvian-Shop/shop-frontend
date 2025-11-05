@@ -1,10 +1,12 @@
+import type { UserRole } from "./Usuario";
+
 export interface UsuarioResponseDto {
   id: number;
   nombre: string;
   apellidos: string;
   email: string;
   telefono: string;
-  rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER";
+  rol: UserRole;
   accessToken: string;
   refreshToken: string;
 }
@@ -12,7 +14,7 @@ export interface UsuarioResponseDto {
 export interface UsuarioProfileDTO {
   id: number;
   nombre: string;
-  rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER";
+  rol: UserRole;
   email: string;
   telefono: string;
 }
@@ -23,11 +25,11 @@ export interface UsuarioDashboardDTO {
   apellidos: string;
   email: string;
   telefono: string;
-  rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER";
+  rol: UserRole;
 }
 
 export interface TrabajadoresDTO {
   id: number;
   nombreCompleto: string;
-  role: string;
+  role: UserRole;
 }
