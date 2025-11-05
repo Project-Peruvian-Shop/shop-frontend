@@ -22,6 +22,8 @@ import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizac
 import upload from "../../../Icons/Modal_uploadPDF/upload_pdf.svg";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 import { StatusHistoryTable } from "../../../Components/dashboard/statushistorytable/StatusHistoryTable";
+import { obtenerUsuario } from "../../../utils/auth";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 function CotizacionDetalle() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -41,6 +43,8 @@ function CotizacionDetalle() {
   //   useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
   // const [currentPage, setCurrentPage] = useState(0);
   // const pageSize = 6;
+
+  const usuario = obtenerUsuario();
 
   const fetchCotizacion = useCallback(
     async (cotizacionId: number) => {
@@ -184,36 +188,41 @@ function CotizacionDetalle() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>Cotización {cotizacion?.numero}</div>
-        <div className={styles.actions}>
-          <ButtonHeader
-            title="Editar"
-            onClick={() => {
-              if (cotizacion) {
-                setSelectedCotizacion({
-                  id: cotizacion.id,
-                  numeroCotizacion: cotizacion.numero,
-                  clienteNombre: cotizacion.cliente,
-                  clienteDocumento: cotizacion.documento || "",
-                  creacion: cotizacion.creacion || "",
-                  comentario: cotizacion.comentario || "",
-                  estado: cotizacion.estado,
-                  observaciones: cotizacion.observaciones || "",
-                });
-              }
-              setShowModal(true);
-            }}
-            icon="edit-secondary"
-            size={24}
-            style="secondary-outline"
-          />
-          <ButtonHeader
-            title="Eliminar"
-            onClick={() => console.log("Acciones")}
-            icon="delete-primary"
-            size={24}
-            style="primary-outline"
-          />
-        </div>
+
+        {usuario?.role ===
+          (UserRoleConst.ADMINISTRADOR ||
+            usuario?.role === UserRoleConst.SUPERADMIN) && (
+          <div className={styles.actions}>
+            <ButtonHeader
+              title="Editar"
+              onClick={() => {
+                if (cotizacion) {
+                  setSelectedCotizacion({
+                    id: cotizacion.id,
+                    numeroCotizacion: cotizacion.numero,
+                    clienteNombre: cotizacion.cliente,
+                    clienteDocumento: cotizacion.documento || "",
+                    creacion: cotizacion.creacion || "",
+                    comentario: cotizacion.comentario || "",
+                    estado: cotizacion.estado,
+                    observaciones: cotizacion.observaciones || "",
+                  });
+                }
+                setShowModal(true);
+              }}
+              icon="edit-secondary"
+              size={24}
+              style="secondary-outline"
+            />
+            <ButtonHeader
+              title="Eliminar"
+              onClick={() => console.log("Acciones")}
+              icon="delete-primary"
+              size={24}
+              style="primary-outline"
+            />
+          </div>
+        )}
       </div>
 
       <div className={styles.content}>

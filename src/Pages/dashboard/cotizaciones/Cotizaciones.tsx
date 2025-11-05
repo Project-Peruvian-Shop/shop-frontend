@@ -21,12 +21,16 @@ import withReactContent from "sweetalert2-react-content";
 import ModalObservacionEstado from "../../../Components/dashboard/Modals/Cotizaciones/ModalObservacionesEstado";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
+import { obtenerUsuario } from "../../../utils/auth";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 
 function Cotizaciones() {
   const [cotizaciones, setCotizaciones] =
     useState<PaginatedResponse<CotizacionDashboardDTO>>();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const usuario = obtenerUsuario();
 
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
@@ -228,15 +232,21 @@ function Cotizaciones() {
       icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => navigate(`/dashboard/cotizacion/${row.id}`),
     },
-    {
+  ];
+
+  if (
+    usuario?.role === UserRoleConst.ADMINISTRADOR ||
+    usuario?.role === UserRoleConst.SUPERADMIN
+  ) {
+    actions.push({
       label: "Editar",
       icon: <IconSVG name="edit-secondary" size={20} />,
       onClick: (row) => {
         setSelectedCotizacion(row);
         setShowModal(true);
       },
-    },
-  ];
+    });
+  }
 
   return (
     <div>
