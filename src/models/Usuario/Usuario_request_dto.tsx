@@ -1,3 +1,5 @@
+import type { UserRole } from "./Usuario";
+
 export interface UsuarioRequestDto {
   nombre: string;
   apellidos: string;
@@ -13,19 +15,19 @@ export interface LoginRequestDto {
 
 export interface UsuarioSaveRequestDto {
   nombre: string;
-  apellidos: string,
-  email: string
-  telefono: string,
-  passwordd: string,
-  rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER"
+  apellidos: string;
+  email: string;
+  telefono: string;
+  passwordd: string;
+  rol: UserRole;
 }
 
 export interface UsuarioUpdateRequestDto {
   nombre: string;
-  apellidos: string,
-  email: string
-  telefono: string,
-  rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER"
+  apellidos: string;
+  email: string;
+  telefono: string;
+  rol: UserRole;
 }
 export interface RefreshTokenResponseDto {
   accessToken: string;
