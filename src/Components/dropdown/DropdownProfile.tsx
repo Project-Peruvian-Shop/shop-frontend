@@ -63,7 +63,7 @@ export default function DropdownProfile({
       {/* Dropdown menu */}
       {isOpen && (
         <div className={styles.dropdownMenu}>
-          {usuario?.rol === UserRoleConst.SUPERADMIN && (
+          {usuario?.rol !== UserRoleConst.CLIENTE && (
             <Link
               to={routes.dashboard}
               className={styles.menuItem}
