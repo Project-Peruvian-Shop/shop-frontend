@@ -15,6 +15,7 @@ import ButtonCard, {
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../../hooks/useLogout";
 import { Icons } from "../../../Icons/icons";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 
 function DashboardPerfil() {
   const navigate = useNavigate();
@@ -59,12 +60,14 @@ function DashboardPerfil() {
 
   const mapperRol = (rol: string) => {
     switch (rol) {
-      case "ROLE_ADMIN":
-        return "Propietario";
-      case "ROLE_USER":
-        return "Usuario";
-      case "ROLE_MANAGER":
+      case UserRoleConst.SUPERADMIN:
+        return "Super Usuario";
+      case UserRoleConst.ADMINISTRADOR:
         return "Administrador";
+      case UserRoleConst.SUPERVISOR:
+        return "Supervisor";
+      case UserRoleConst.CLIENTE:
+        return "Cliente";
       default:
         return "Desconocido";
     }
@@ -155,7 +158,7 @@ function DashboardPerfil() {
 
         <div className={styles.right}>
           <div className={styles.personal}>
-            <div className={styles.title}>Usuarios</div>
+            <div className={styles.title}>Trabajadores</div>
 
             <div className={styles.productsList}>
               {trabajadores.map((item, i) => (
