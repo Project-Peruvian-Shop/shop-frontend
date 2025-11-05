@@ -25,6 +25,7 @@ import withReactContent from "sweetalert2-react-content";
 import ModalUsuarioCreate from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioCreate";
 import ModalUsuarioEdit from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioEdit";
 import { UserRoleConst } from "../../../models/Usuario/Usuario";
+import { obtenerUsuario } from "../../../utils/auth";
 
 function Usuarios() {
   const [usuarios, setUsuarios] =
@@ -35,6 +36,8 @@ function Usuarios() {
   const [cantidad, setCantidad] = useState<number>(0);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const usuario = obtenerUsuario();
 
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -194,22 +197,31 @@ function Usuarios() {
   ];
 
   // Acciones con iconos
-  const actions: Action<UsuarioDashboardDTO>[] = [
-    {
-      label: "Editar",
-      icon: <IconSVG name="edit-secondary" size={20} />,
-      onClick: (row) => {
-        setSelectedUser(row);
-        setShowEditModal(true);
-        console.log(selectedUser);
+  const actions: Action<UsuarioDashboardDTO>[] = [];
+
+  if (
+    usuario?.role === UserRoleConst.ADMINISTRADOR ||
+    usuario?.role === UserRoleConst.SUPERADMIN
+  ) {
+    actions.push(
+      {
+        label: "Editar",
+        icon: <IconSVG name="edit-secondary" size={20} />,
+        onClick: (row) => {
+          setSelectedUser(row);
+          setShowEditModal(true);
+          console.log(selectedUser);
+        },
       },
-    },
-    {
-      label: "Eliminar",
-      icon: <IconSVG name="delete-secondary" size={20} />,
-      onClick: (row) => console.log("Eliminar producto", row),
-    },
-  ];
+      {
+        label: "Eliminar",
+        icon: <IconSVG name="delete-secondary" size={20} />,
+        onClick: (row) => {
+          console.log("Eliminar usuario", row);
+        },
+      }
+    );
+  }
 
   return (
     <div>
@@ -233,12 +245,17 @@ function Usuarios() {
             />
             Total: {cantidad} Usuarios
           </div>
-          <button
-            className={styles.addButton}
-            onClick={() => setShowModal(true)}
-          >
-            + Añadir Usuario
-          </button>
+
+          {usuario?.role ===
+            (UserRoleConst.ADMINISTRADOR ||
+              usuario?.role === UserRoleConst.SUPERADMIN) && (
+            <button
+              className={styles.addButton}
+              onClick={() => setShowModal(true)}
+            >
+              + Añadir Usuario
+            </button>
+          )}
         </div>
       </div>
 
