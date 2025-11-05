@@ -20,6 +20,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ModalMensajes from "../../../Components/dashboard/Modals/Mensajes/ModalMensajes";
 import { useNavigate } from "react-router-dom";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
+import { obtenerUsuario } from "../../../utils/auth";
 function Mensajes() {
   const [mensajes, setMensajes] =
     useState<PaginatedResponse<MensajeDashboardDTO>>();
@@ -29,6 +31,8 @@ function Mensajes() {
   const [cantidad, setCantidad] = useState<MensajeDashboardDTO>();
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const usuario = obtenerUsuario();
 
   const [modalShow, setModalShow] = useState(false);
   const [selectedMensaje, setSelectedMensaje] =
@@ -131,7 +135,7 @@ function Mensajes() {
         const textoCorto =
           palabras.length > 12
             ? palabras.slice(0, 12).join(" ") + "..."
-            : row.mensaje; 
+            : row.mensaje;
         return <span>{textoCorto}</span>;
       },
     },
@@ -167,15 +171,21 @@ function Mensajes() {
       icon: <IconSVG name="view-secondary" size={20} />,
       onClick: (row) => navigate(`/dashboard/mensaje/${row.id}`),
     },
-    {
+  ];
+
+  if (
+    usuario?.role === UserRoleConst.ADMINISTRADOR ||
+    usuario?.role === UserRoleConst.SUPERADMIN
+  ) {
+    actions.push({
       label: "Editar",
       icon: <IconSVG name="edit-secondary" size={20} />,
       onClick: (row) => {
         setSelectedMensaje(row);
         setModalShow(true);
       },
-    },
-  ];
+    });
+  }
 
   return (
     <div>
@@ -193,11 +203,19 @@ function Mensajes() {
         <div className={styles.headerActions}>
           <div className={styles.totalCount}>
             Mensajes del mes: {cantidad?.mensaje_response_count_mes}
-            <IconSVG name="mensaje" size={20} className={styles.mensajeSecondaryIcon} />
+            <IconSVG
+              name="mensaje"
+              size={20}
+              className={styles.mensajeSecondaryIcon}
+            />
           </div>
           <div className={styles.totalSecondaryCount}>
             Mensajes por responder: {cantidad?.mensaje_pending_count_mes}
-            <IconSVG name="mensaje" size={20} className={styles.mensajePrimaryIcon} />
+            <IconSVG
+              name="mensaje"
+              size={20}
+              className={styles.mensajePrimaryIcon}
+            />
           </div>
         </div>
       </div>
