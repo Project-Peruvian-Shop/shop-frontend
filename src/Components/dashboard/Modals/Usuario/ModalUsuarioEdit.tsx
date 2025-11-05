@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import styles from "./ModalUsuarioCreate.module.css";
 import userIcon from "../../../../Icons/Modal_user/user_add.svg";
 import type { UsuarioUpdateRequestDto } from "../../../../models/Usuario/Usuario_request_dto";
+import {
+  UserRoleConst,
+  type UserRole,
+} from "../../../../models/Usuario/Usuario";
+
 interface ModalUsuarioEditProps {
   user: UsuarioUpdateRequestDto;
   onClose: () => void;
@@ -10,7 +15,7 @@ interface ModalUsuarioEditProps {
     apellidos: string;
     email: string;
     telefono: string;
-    rol: "ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER";
+    rol: UserRole;
   }) => Promise<void>;
 }
 
@@ -23,7 +28,7 @@ export default function ModalUsuarioEdit({
   const [apellidos, setApellidos] = useState(user.apellidos);
   const [email, setEmail] = useState(user.email);
   const [telefono, setTelefono] = useState(user.telefono);
-  const [rol, setRol] = useState<"ROLE_ADMIN" | "ROLE_USER" | "ROLE_MANAGER">(user.rol);
+  const [rol, setRol] = useState<UserRole>(user.rol);
 
   useEffect(() => {
     setNombre(user.nombre);
@@ -97,19 +102,17 @@ export default function ModalUsuarioEdit({
                 Rol
                 <select
                   value={rol}
-                  onChange={(e) =>
-                    setRol(
-                      e.target.value as
-                        | "ROLE_ADMIN"
-                        | "ROLE_USER"
-                        | "ROLE_MANAGER"
-                    )
-                  }
+                  onChange={(e) => setRol(e.target.value as UserRole)}
                   required
                 >
-                  <option value="ROLE_ADMIN">Propetario</option>
-                  <option value="ROLE_USER">Usuario</option>
-                  <option value="ROLE_MANAGER">Administrador</option>
+                  <option value={UserRoleConst.SUPERADMIN}>
+                    Super Administrador
+                  </option>
+                  <option value={UserRoleConst.ADMINISTRADOR}>
+                    Administrador
+                  </option>
+                  <option value={UserRoleConst.SUPERVISOR}>Supervisor</option>
+                  <option value={UserRoleConst.CLIENTE}>Usuario</option>
                 </select>
               </label>
               <div className={styles.modalActions}>
