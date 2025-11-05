@@ -25,6 +25,7 @@ import DashboardTable, {
 import IconSVG from "../../../Icons/IconSVG";
 import { agregarProductosCotizacionAlCarrito } from "../../../utils/localStorage";
 import { obtenerNuevoToken } from "../../../services/auht.service";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 
 function Profile() {
   const navigate = useNavigate();
@@ -107,12 +108,14 @@ function Profile() {
 
   const mapperRol = (rol: string) => {
     switch (rol) {
-      case "ROLE_ADMIN":
-        return "Propietario";
-      case "ROLE_USER":
-        return "Usuario";
-      case "ROLE_MANAGER":
+      case UserRoleConst.SUPERADMIN:
+        return "Super Administrador";
+      case UserRoleConst.ADMINISTRADOR:
         return "Administrador";
+      case UserRoleConst.SUPERVISOR:
+        return "Supervisor";
+      case UserRoleConst.CLIENTE:
+        return "Cliente";
       default:
         return "Desconocido";
     }
