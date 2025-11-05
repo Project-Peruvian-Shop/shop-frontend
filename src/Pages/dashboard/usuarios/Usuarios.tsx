@@ -24,6 +24,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ModalUsuarioCreate from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioCreate";
 import ModalUsuarioEdit from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioEdit";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 
 function Usuarios() {
   const [usuarios, setUsuarios] =
@@ -94,9 +95,10 @@ function Usuarios() {
   };
 
   const roleMap: Record<string, string> = {
-    ROLE_ADMIN: "Propietario",
-    ROLE_USER: "Usuario",
-    ROLE_MANAGER: "Administrador",
+    [UserRoleConst.SUPERADMIN]: "Super Administrador",
+    [UserRoleConst.ADMINISTRADOR]: "Administrador",
+    [UserRoleConst.SUPERVISOR]: "Supervisor",
+    [UserRoleConst.CLIENTE]: "Cliente",
   };
 
   const handleAddUser = async (data: UsuarioSaveRequestDto) => {
@@ -224,9 +226,13 @@ function Usuarios() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            <IconSVG name="usuarioIcon" size={24} className={styles.usuarioIcon} />
+            <IconSVG
+              name="usuarioIcon"
+              size={24}
+              className={styles.usuarioIcon}
+            />
             Total: {cantidad} Usuarios
-            </div>
+          </div>
           <button
             className={styles.addButton}
             onClick={() => setShowModal(true)}
