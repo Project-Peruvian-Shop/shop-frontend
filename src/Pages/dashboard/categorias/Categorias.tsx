@@ -23,6 +23,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { createImagen } from "../../../services/imagen.service";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
+import { obtenerUsuario } from "../../../utils/auth";
 
 function Categorias() {
   const [categorias, setCategorias] =
@@ -34,6 +36,8 @@ function Categorias() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
+
+  const usuario = obtenerUsuario();
 
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -236,21 +240,31 @@ function Categorias() {
         navigate(`/dashboard/category/${row.id}`);
       },
     },
-    {
-      label: "Editar",
-      icon: <IconSVG name="edit-secondary" size={20} />,
-      onClick: async (row) => {
-        const categoria = await getCategoryById(row.id);
-        setCategoriaSeleccionada(categoria);
-        setShowEditModal(true);
-      },
-    },
-    {
-      label: "Eliminar",
-      icon: <IconSVG name="delete-secondary" size={20} />,
-      onClick: (row) => console.log("Eliminar categoria", row),
-    },
   ];
+
+  if (
+    usuario?.role === UserRoleConst.ADMINISTRADOR ||
+    usuario?.role === UserRoleConst.SUPERADMIN
+  ) {
+    actions.push(
+      {
+        label: "Editar",
+        icon: <IconSVG name="edit-secondary" size={20} />,
+        onClick: async (row) => {
+          const categoria = await getCategoryById(row.id);
+          setCategoriaSeleccionada(categoria);
+          setShowEditModal(true);
+        },
+      },
+      {
+        label: "Eliminar",
+        icon: <IconSVG name="delete-secondary" size={20} />,
+        onClick: (row) => {
+          console.log("Eliminar categoria", row);
+        },
+      }
+    );
+  }
 
   return (
     <div>
@@ -267,15 +281,24 @@ function Categorias() {
 
         <div className={styles.headerActions}>
           <div className={styles.totalProducts}>
-            <IconSVG name="categoria" size={24} className={styles.categoriaIcon} />
+            <IconSVG
+              name="categoria"
+              size={24}
+              className={styles.categoriaIcon}
+            />
             Total: {cantidad} Líneas
           </div>
-          <button
-            className={styles.addButton}
-            onClick={() => setShowModal(true)}
-          >
-            + Añadir Línea
-          </button>
+
+          {usuario?.role ===
+            (UserRoleConst.ADMINISTRADOR ||
+              usuario?.role === UserRoleConst.SUPERADMIN) && (
+            <button
+              className={styles.addButton}
+              onClick={() => setShowModal(true)}
+            >
+              + Añadir Línea
+            </button>
+          )}
         </div>
       </div>
 
