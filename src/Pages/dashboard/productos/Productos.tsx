@@ -261,8 +261,8 @@ export default function ProductosTable() {
   ];
 
   if (
-    usuario?.role === UserRoleConst.ADMINISTRADOR ||
-    usuario?.role === UserRoleConst.SUPERADMIN
+    usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+    usuario?.rol === UserRoleConst.SUPERADMIN
   ) {
     actions.push(
       {
@@ -303,9 +303,8 @@ export default function ProductosTable() {
             Total: {cantidad} Productos
           </div>
 
-          {usuario?.role ===
-            (UserRoleConst.ADMINISTRADOR ||
-              usuario?.role === UserRoleConst.SUPERADMIN) && (
+          {(usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+            usuario?.rol === UserRoleConst.SUPERADMIN) && (
             <button
               className={styles.addButton}
               onClick={() => setShowModal(true)}

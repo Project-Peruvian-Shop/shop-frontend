@@ -200,8 +200,8 @@ function Usuarios() {
   const actions: Action<UsuarioDashboardDTO>[] = [];
 
   if (
-    usuario?.role === UserRoleConst.ADMINISTRADOR ||
-    usuario?.role === UserRoleConst.SUPERADMIN
+    usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+    usuario?.rol === UserRoleConst.SUPERADMIN
   ) {
     actions.push(
       {
@@ -246,9 +246,8 @@ function Usuarios() {
             Total: {cantidad} Usuarios
           </div>
 
-          {usuario?.role ===
-            (UserRoleConst.ADMINISTRADOR ||
-              usuario?.role === UserRoleConst.SUPERADMIN) && (
+          {(usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+            usuario?.rol === UserRoleConst.SUPERADMIN) && (
             <button
               className={styles.addButton}
               onClick={() => setShowModal(true)}

@@ -139,9 +139,8 @@ function CategoriaDetalle() {
       <div className={styles.header}>
         <div className={styles.title}>Línea {categoria?.norma}</div>
 
-        {usuario?.role ===
-          (UserRoleConst.ADMINISTRADOR ||
-            usuario?.role === UserRoleConst.SUPERADMIN) && (
+        {(usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+          usuario?.rol === UserRoleConst.SUPERADMIN) && (
           <div className={styles.actions}>
             <ButtonHeader
               title="Editar"

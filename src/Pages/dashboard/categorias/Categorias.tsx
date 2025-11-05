@@ -243,8 +243,8 @@ function Categorias() {
   ];
 
   if (
-    usuario?.role === UserRoleConst.ADMINISTRADOR ||
-    usuario?.role === UserRoleConst.SUPERADMIN
+    usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+    usuario?.rol === UserRoleConst.SUPERADMIN
   ) {
     actions.push(
       {
@@ -289,9 +289,8 @@ function Categorias() {
             Total: {cantidad} Líneas
           </div>
 
-          {usuario?.role ===
-            (UserRoleConst.ADMINISTRADOR ||
-              usuario?.role === UserRoleConst.SUPERADMIN) && (
+          {(usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+            usuario?.rol === UserRoleConst.SUPERADMIN) && (
             <button
               className={styles.addButton}
               onClick={() => setShowModal(true)}

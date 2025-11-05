@@ -235,8 +235,8 @@ function Cotizaciones() {
   ];
 
   if (
-    usuario?.role === UserRoleConst.ADMINISTRADOR ||
-    usuario?.role === UserRoleConst.SUPERADMIN
+    usuario?.rol === UserRoleConst.ADMINISTRADOR ||
+    usuario?.rol === UserRoleConst.SUPERADMIN
   ) {
     actions.push({
       label: "Editar",
