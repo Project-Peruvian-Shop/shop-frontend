@@ -27,6 +27,8 @@ import ModalProductoCreate from "../../../Components/dashboard/Modals/Producto/M
 import ModalProductoEdit from "../../../Components/dashboard/Modals/Producto/ModalProductoEdit";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 import { getAllCategories } from "../../../services/categoria.service";
+import { obtenerUsuario } from "../../../utils/auth";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 
 export default function ProductosTable() {
   const [productos, setProductos] =
@@ -39,6 +41,8 @@ export default function ProductosTable() {
   const [totalPages, setTotalPages] = useState(0);
 
   const navigate = useNavigate();
+
+  const usuario = obtenerUsuario();
 
   // Categorías
   const [categorias, setCategorias] = useState<CategoriaDashboardDTO[]>([]);
@@ -254,21 +258,31 @@ export default function ProductosTable() {
         navigate(`/dashboard/product/${row.id}`);
       },
     },
-    {
-      label: "Editar",
-      icon: <IconSVG name="edit-secondary" size={20} />,
-      onClick: async (row) => {
-        const producto = await getProductoById(row.id);
-        setProductoSeleccionado(producto);
-        setShowEditModal(true);
-      },
-    },
-    {
-      label: "Eliminar",
-      icon: <IconSVG name="delete-secondary" size={20} />,
-      onClick: (row) => console.log("Eliminar producto", row),
-    },
   ];
+
+  if (
+    usuario?.role === UserRoleConst.ADMINISTRADOR ||
+    usuario?.role === UserRoleConst.SUPERADMIN
+  ) {
+    actions.push(
+      {
+        label: "Editar",
+        icon: <IconSVG name="edit-secondary" size={20} />,
+        onClick: async (row) => {
+          const producto = await getProductoById(row.id);
+          setProductoSeleccionado(producto);
+          setShowEditModal(true);
+        },
+      },
+      {
+        label: "Eliminar",
+        icon: <IconSVG name="delete-secondary" size={20} />,
+        onClick: (row) => {
+          console.log("Eliminar producto", row);
+        },
+      }
+    );
+  }
 
   return (
     <div>
@@ -288,12 +302,17 @@ export default function ProductosTable() {
             <IconSVG name="producto" size={20} className={styles.productIcon} />
             Total: {cantidad} Productos
           </div>
-          <button
-            className={styles.addButton}
-            onClick={() => setShowModal(true)}
-          >
-            + Añadir Producto
-          </button>
+
+          {usuario?.role ===
+            (UserRoleConst.ADMINISTRADOR ||
+              usuario?.role === UserRoleConst.SUPERADMIN) && (
+            <button
+              className={styles.addButton}
+              onClick={() => setShowModal(true)}
+            >
+              + Añadir Producto
+            </button>
+          )}
         </div>
       </div>
 

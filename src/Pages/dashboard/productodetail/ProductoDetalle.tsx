@@ -13,10 +13,14 @@ import { updateProducto } from "../../../services/producto.service";
 import { createImagen } from "../../../services/imagen.service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { obtenerUsuario } from "../../../utils/auth";
+import { UserRoleConst } from "../../../models/Usuario/Usuario";
 
 function ProductoDetalle() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
+  const usuario = obtenerUsuario();
 
   const [producto, setProducto] = useState<ProductoDTO | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -119,24 +123,29 @@ function ProductoDetalle() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>Producto {producto?.nombre}</div>
-        <div className={styles.actions}>
-          <ButtonHeader
-            title="Editar"
-            onClick={() => {
-              setShowEditModal(true);
-            }}
-            icon="edit-secondary"
-            size={24}
-            style="secondary-outline"
-          />
-          <ButtonHeader
-            title="Eliminar"
-            onClick={() => console.log("Acciones")}
-            icon="delete-primary"
-            size={24}
-            style="primary-outline"
-          />
-        </div>
+
+        {usuario?.role ===
+          (UserRoleConst.ADMINISTRADOR ||
+            usuario?.role === UserRoleConst.SUPERADMIN) && (
+          <div className={styles.actions}>
+            <ButtonHeader
+              title="Editar"
+              onClick={() => {
+                setShowEditModal(true);
+              }}
+              icon="edit-secondary"
+              size={24}
+              style="secondary-outline"
+            />
+            <ButtonHeader
+              title="Eliminar"
+              onClick={() => console.log("Acciones")}
+              icon="delete-primary"
+              size={24}
+              style="primary-outline"
+            />
+          </div>
+        )}
       </div>
 
       <div className={styles.content}>
