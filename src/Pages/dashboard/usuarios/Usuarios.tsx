@@ -95,7 +95,7 @@ function Usuarios() {
   };
 
   const roleMap: Record<string, string> = {
-    [UserRoleConst.SUPERADMIN]: "Super Administrador",
+    [UserRoleConst.SUPERADMIN]: "Super Usuario",
     [UserRoleConst.ADMINISTRADOR]: "Administrador",
     [UserRoleConst.SUPERVISOR]: "Supervisor",
     [UserRoleConst.CLIENTE]: "Cliente",

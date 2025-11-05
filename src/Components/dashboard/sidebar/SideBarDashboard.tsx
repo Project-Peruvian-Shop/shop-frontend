@@ -12,7 +12,7 @@ export default function SideBarDashboard() {
   const logout = useLogout();
 
   const mapperRol = {
-    [UserRoleConst.SUPERADMIN]: "Super Administrador",
+    [UserRoleConst.SUPERADMIN]: "Super Usuario",
     [UserRoleConst.ADMINISTRADOR]: "Administrador",
     [UserRoleConst.SUPERVISOR]: "Supervisor",
     [UserRoleConst.CLIENTE]: "Cliente",

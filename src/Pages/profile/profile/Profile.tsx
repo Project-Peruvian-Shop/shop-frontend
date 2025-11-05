@@ -109,7 +109,7 @@ function Profile() {
   const mapperRol = (rol: string) => {
     switch (rol) {
       case UserRoleConst.SUPERADMIN:
-        return "Super Administrador";
+        return "Super Usuario";
       case UserRoleConst.ADMINISTRADOR:
         return "Administrador";
       case UserRoleConst.SUPERVISOR:

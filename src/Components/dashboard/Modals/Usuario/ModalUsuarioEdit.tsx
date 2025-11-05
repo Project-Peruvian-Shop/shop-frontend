@@ -106,7 +106,7 @@ export default function ModalUsuarioEdit({
                   required
                 >
                   <option value={UserRoleConst.SUPERADMIN}>
-                    Super Administrador
+                    Super Usuario
                   </option>
                   <option value={UserRoleConst.ADMINISTRADOR}>
                     Administrador
