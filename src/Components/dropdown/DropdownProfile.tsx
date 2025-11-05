@@ -5,6 +5,7 @@ import { routes } from "../../utils/routes";
 import { useLogout } from "../../hooks/useLogout";
 import IconSVG from "../../Icons/IconSVG";
 import { obtenerUsuario } from "../../utils/auth";
+import { UserRoleConst } from "../../models/Usuario/Usuario";
 
 interface UserDropdownClassicProps {
   userName: string;
@@ -62,7 +63,7 @@ export default function DropdownProfile({
       {/* Dropdown menu */}
       {isOpen && (
         <div className={styles.dropdownMenu}>
-          {usuario?.rol === "ROLE_ADMIN" && (
+          {usuario?.rol === UserRoleConst.SUPERADMIN && (
             <Link
               to={routes.dashboard}
               className={styles.menuItem}
