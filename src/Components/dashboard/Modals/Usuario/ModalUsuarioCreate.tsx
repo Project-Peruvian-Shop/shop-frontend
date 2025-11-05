@@ -1,7 +1,10 @@
 import { useState } from "react";
 import styles from "./ModalUsuarioCreate.module.css";
 import userIcon from "../../../../Icons/Modal_user/user_add.svg";
-import type { UserRole } from "../../../../models/Usuario/Usuario";
+import {
+  UserRoleConst,
+  type UserRole,
+} from "../../../../models/Usuario/Usuario";
 interface ModalUsuarioCreateProps {
   onClose: () => void;
   onSubmit: (data: {
@@ -23,7 +26,7 @@ export default function ModalUsuarioCreate({
   const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
   const [passwordd, setPasswordd] = useState("");
-  const [rol, setRol] = useState<UserRole>("ROLE_CLIENTE");
+  const [rol, setRol] = useState<UserRole>(UserRoleConst.CLIENTE);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,10 +106,14 @@ export default function ModalUsuarioCreate({
                   onChange={(e) => setRol(e.target.value as UserRole)}
                   required
                 >
-                  <option value="ROLE_SUPERADMIN">Super Administrador</option>
-                  <option value="ROLE_ADMINISTRADOR">Administrador</option>
-                  <option value="ROLE_SUPERVISOR">Supervisor</option>
-                  <option value="ROLE_CLIENTE">Cliente</option>
+                  <option value={UserRoleConst.SUPERADMIN}>
+                    Super Administrador
+                  </option>
+                  <option value={UserRoleConst.ADMINISTRADOR}>
+                    Administrador
+                  </option>
+                  <option value={UserRoleConst.SUPERVISOR}>Supervisor</option>
+                  <option value={UserRoleConst.CLIENTE}>Cliente</option>
                 </select>
               </label>
               <div className={styles.modalActions}>
