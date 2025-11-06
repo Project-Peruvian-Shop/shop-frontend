@@ -1,36 +1,45 @@
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { publicRoutes, routes } from "../../utils/routes.ts";
+import { publicRoutes, routes } from "../../utils/routes";
 import logo from "../../Icons/Logo-HD.png";
 import styles from "./Navbar.module.css";
-import ButtonPrimary from "../buttons/ButtonPrimary.tsx";
-import { obtenerUsuario } from "../../utils/auth.ts";
-import DropdownProfile from "../dropdown/DropdownProfile.tsx";
+import ButtonPrimary from "../buttons/ButtonPrimary";
+import { obtenerUsuario } from "../../utils/auth";
+import DropdownProfile from "../dropdown/DropdownProfile";
 
 const Navbar = () => {
-  // Verifica si tiene token
   const usuario = obtenerUsuario();
   const navigate = useNavigate();
   const location = useLocation();
-
   const currentPath = location.pathname;
   const showLandingButtons = publicRoutes.includes(currentPath);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
   return (
     <nav className={styles.navbar}>
-      <div>
-        <Link to={routes.home}>
-          <img
-            src={logo}
-            alt="logo-tuberias-peruanito"
-            className={styles.logo}
-          />
-        </Link>
+      {/* Ícono hamburguesa (solo en móviles) */}
+      <div className={styles.menuIcon} onClick={toggleMenu}>
+        {menuOpen ? "✕" : "☰"}
       </div>
+      <Link to={routes.home}>
+        <img src={logo} alt="logo-tuberias-peruanito" className={styles.logo} />
+      </Link>
 
-      <div className={styles.links}>
-        <Link to={routes.home}>Inicio</Link>
-        <Link to={routes.about}>¿Quiénes somos?</Link>
-        <Link to={routes.shop}>Tienda</Link>
+      {/* Links */}
+      <div className={`${styles.links} ${menuOpen ? styles.active : ""}`}>
+        <Link to={routes.home} onClick={() => setMenuOpen(false)}>
+          Inicio
+        </Link>
+        <Link to={routes.about} onClick={() => setMenuOpen(false)}>
+          ¿Quiénes somos?
+        </Link>
+        <Link to={routes.shop} onClick={() => setMenuOpen(false)}>
+          Tienda
+        </Link>
+
         <div className={styles.dropdown}>
           <button className={styles.dropbtn}>Ayuda ▾</button>
           <div className={styles.dropdownContent}>
