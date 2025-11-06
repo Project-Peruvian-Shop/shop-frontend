@@ -154,7 +154,7 @@ function ProductoDetalle() {
             items={[
               { label: "ID:", value: producto?.id || "0" },
               { label: "Nombre:", value: producto?.nombre || "" },
-              { label: "Categoría:", value: producto?.categoriaNombre || "" },
+              { label: "Línea:", value: producto?.categoriaNombre || "" },
               { label: "Descripción:", value: producto?.descripcion || "" },
             ]}
           />

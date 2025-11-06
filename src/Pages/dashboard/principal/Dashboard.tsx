@@ -192,7 +192,7 @@ function Dashboard() {
         </div>
 
         <div className={styles.right}>
-          <div className={styles.headerRight}>Categorías</div>
+          <div className={styles.headerRight}>Líneas</div>
 
           <div className={styles.categorias}>
             <CategoriasMasCotizadasChart data={categorias} name={modo} />

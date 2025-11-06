@@ -116,13 +116,13 @@ export default function ModalProductoEdit({
 								/>
 							</label>
 							<label>
-								Categoría
+								Línea
 								<select
 									value={categoriaID}
 									onChange={(e) => setCategoriaID(e.target.value)}
 									required
 								>
-									<option value="">Selecciona una categoría</option>
+									<option value="">Selecciona una Línea</option>
 									{categorias.map((cat) => (
 										<option key={cat.id} value={cat.id}>
 											{cat.nombre}
