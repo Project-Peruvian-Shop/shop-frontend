@@ -86,9 +86,9 @@ export default function ModalProductoCreate({ categorias, onClose, onSubmit }: M
 								<input value={nombre} placeholder="Nombre del producto" onChange={(e) => setNombre(e.target.value)} required />
 							</label>
 							<label>
-								Categoría
+								Línea
 								<select value={categoriaID} onChange={(e) => setCategoriaID(e.target.value)} required>
-									<option value="">Selecciona una categoría</option>
+									<option value="">Selecciona una Línea</option>
 									{categorias.map((cat) => (
 										<option key={cat.id} value={cat.id}>
 											{cat.nombre}

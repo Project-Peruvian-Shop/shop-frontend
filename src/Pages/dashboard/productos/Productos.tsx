@@ -235,7 +235,7 @@ export default function ProductosTable() {
         </div>
       ),
     },
-    { header: "Categoría", accessor: "categoriaNombre" },
+    { header: "Línea", accessor: "categoriaNombre" },
     {
       header: "Descripción",
       accessor: "descripcion",
