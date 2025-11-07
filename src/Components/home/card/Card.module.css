@@ -7,8 +7,7 @@
   align-content: stretch;
   gap: 20px;
   border-radius: 25px;
-  width: 304px;
-  height: 251px;
+  width: 15em;
   padding: 20px;
   background-color: #50566d0d;
   text-decoration: none;
@@ -30,7 +29,7 @@
   font-family: Poppins;
   font-weight: 500;
   font-style: Medium;
-  font-size: 24px;
+  font-size: 1.2rem;
   line-height: 30px;
   letter-spacing: 0%;
   text-align: center;
