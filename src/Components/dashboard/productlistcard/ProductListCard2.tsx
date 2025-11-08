@@ -31,7 +31,9 @@ const ProductListCard2: React.FC<ProductListCardProps> = ({
             />
             <span className={styles.productName}>{item.nombre}</span>
             {item.cantidad !== undefined && (
-              <span className={styles.productCantidad}>{item.cantidad}</span>
+              <span className={styles.productCantidad}>
+                {item.cantidad} unidad(es)
+              </span>
             )}
           </div>
         ))}
