@@ -12,6 +12,7 @@ import {
   change_state,
   getCotizacionById,
   getHistorialCambiosEstado,
+  getProductosByCotizacionId,
   updateObservacionCotizacion,
   uploadCotizacionPDF,
 } from "../../../services/cotizacion.service";
@@ -24,6 +25,9 @@ import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 import { StatusHistoryTable } from "../../../Components/dashboard/statushistorytable/StatusHistoryTable";
 import { obtenerUsuario } from "../../../utils/auth";
 import { UserRoleConst } from "../../../models/Usuario/Usuario";
+import type { ProductoCarritoDetalleDTO } from "../../../models/CotizacionDetalle/Cotizacion_detalle";
+import type { PaginatedResponse } from "../../../services/global.interfaces";
+import ProductListCard2 from "../../../Components/dashboard/productlistcard/ProductListCard2";
 function CotizacionDetalle() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -38,11 +42,11 @@ function CotizacionDetalle() {
 
   const [historial, setHistorial] = useState<CotizacionHistorialDTO[]>([]);
 
+  const [productos, setProductos] =
+    useState<PaginatedResponse<ProductoCarritoDetalleDTO>>();
+  const [page, setPage] = useState(0);
+
   const MySwal = withReactContent(Swal);
-  // const [productosData, setProductosData] =
-  //   useState<PaginatedResponse<ProductoResponseDTO> | null>(null);
-  // const [currentPage, setCurrentPage] = useState(0);
-  // const pageSize = 6;
 
   const usuario = obtenerUsuario();
 
@@ -50,6 +54,10 @@ function CotizacionDetalle() {
     async (cotizacionId: number) => {
       try {
         const data = await getCotizacionById(cotizacionId);
+
+        const productosData = await getProductosByCotizacionId(cotizacionId);
+        setProductos(productosData);
+
         const historialData = await getHistorialCambiosEstado(cotizacionId);
         setCotizacion(data);
         setHistorial(historialData);
@@ -60,6 +68,24 @@ function CotizacionDetalle() {
     },
     [navigate]
   );
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchProductos = async () => {
+      try {
+        const productosData = await getProductosByCotizacionId(
+          Number(id),
+          page
+        );
+        setProductos(productosData);
+      } catch (error) {
+        console.error("Error al obtener los productos:", error);
+      }
+    };
+
+    fetchProductos();
+  }, [id, page]);
 
   useEffect(() => {
     if (!id) {
@@ -274,28 +300,13 @@ function CotizacionDetalle() {
         </div>
 
         <div className={styles.right}>
-          {/* <ProductListCard
-            title="Productos de la categoría"
-            items={productosData?.content || []}
-            currentPage={productosData?.number || 0}
-            totalPages={productosData?.totalPages || 1}
-            onPageChange={(page) => setCurrentPage(page)}
-          /> */}
-
-          <div className={styles.card}>
-            <div className={styles.subtitle}>Productos de la cotización</div>
-
-            <div className={styles.productsList}>
-              {cotizacion?.productos.map((producto, i) => (
-                <div key={i} className={styles.productRow}>
-                  <div className={styles.productName}>{producto.name}</div>
-                  <div className={styles.productDetails}>
-                    {producto.cantidad} u
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProductListCard2
+            title="Productos de la cotización"
+            items={productos?.content || []}
+            currentPage={productos?.number || 0}
+            totalPages={productos?.totalPages || 1}
+            onPageChange={(page) => setPage(page)}
+          />
 
           <div className={styles.card}>
             <div className={styles.subtitle}>Observaciones</div>
