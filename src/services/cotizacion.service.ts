@@ -166,3 +166,17 @@ export async function getHistorialCambiosEstado(
 
   return res.data.data;
 }
+
+export async function getProductosByCotizacionId(
+  cotizacionId: number,
+  page: number = 0,
+  size: number = 2
+): Promise<PaginatedResponse<ProductoCarritoDetalleDTO>> {
+  const url = `${BASE_URL}/${cotizacionId}/productos?page=${page}&size=${size}`;
+
+  const res = await api.get<
+    ApiResponse<PaginatedResponse<ProductoCarritoDetalleDTO>>
+  >(url);
+
+  return res.data.data;
+}
