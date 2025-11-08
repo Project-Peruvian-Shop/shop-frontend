@@ -51,15 +51,15 @@ function CotizacionDetalle() {
   const usuario = obtenerUsuario();
 
   const fetchCotizacion = useCallback(
-    async (cotizacionId: number) => {
+    async (cotizacionId: number, page: number = 0) => {
       try {
-        const data = await getCotizacionById(cotizacionId);
-
-        const productosData = await getProductosByCotizacionId(cotizacionId);
-        setProductos(productosData);
-
-        const historialData = await getHistorialCambiosEstado(cotizacionId);
+        const [data, productosData, historialData] = await Promise.all([
+          getCotizacionById(cotizacionId),
+          getProductosByCotizacionId(cotizacionId, page),
+          getHistorialCambiosEstado(cotizacionId),
+        ]);
         setCotizacion(data);
+        setProductos(productosData);
         setHistorial(historialData);
       } catch (error) {
         console.error("Error al obtener la cotización:", error);
@@ -70,30 +70,8 @@ function CotizacionDetalle() {
   );
 
   useEffect(() => {
-    if (!id) return;
-
-    const fetchProductos = async () => {
-      try {
-        const productosData = await getProductosByCotizacionId(
-          Number(id),
-          page
-        );
-        setProductos(productosData);
-      } catch (error) {
-        console.error("Error al obtener los productos:", error);
-      }
-    };
-
-    fetchProductos();
-  }, [id, page]);
-
-  useEffect(() => {
-    if (!id) {
-      navigate(routes.shop);
-      return;
-    }
-    fetchCotizacion(Number(id));
-  }, [id, navigate, fetchCotizacion]);
+    if (id) fetchCotizacion(Number(id), page);
+  }, [id, page, fetchCotizacion]);
 
   useEffect(() => {
     return () => {
