@@ -146,4 +146,11 @@
   font-family: "Montserrat", sans-serif;
   text-transform: capitalize;
 }
+.avatarPlaceholder {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.userName {
+  font-size: 13px;
+}
 }
