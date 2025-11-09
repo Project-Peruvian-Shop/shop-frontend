@@ -106,7 +106,9 @@ function Login() {
 
       <div className={styles.right}>
         <div className={styles.logoForm}>
+          <Link to={routes.home} >
           <img src={logo}/>
+          </Link>
         </div>
         <div className={styles.loginTitle}>Iniciar Sesión</div>
 
