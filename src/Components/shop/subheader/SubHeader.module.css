@@ -15,6 +15,10 @@
   max-width: 1120px; /* equivalente a max-w-7xl */
   margin: 0 auto;
 }
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+}
 
 @media (min-width: 768px) {
   .storebarInner {
@@ -35,7 +39,7 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-style: SemiBold;
-  font-size: 36px;
+  font-size: 2rem;
   text-decoration: none;
 }
 
@@ -103,6 +107,25 @@
 .cartButton:hover {
   background-color: #d5d5d5;
 }
+.cartSecondaryButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background-color: white;
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-width: fit-content;
+  text-decoration: none;
+}
+
+.cartSecondaryButton:hover {
+  background-color: #d5d5d5;
+}
 
 .cartIcon {
   width: 1.25rem;
@@ -135,4 +158,61 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.cartSecondaryButton {
+  display: none;
+}
+/*RESPONSIVE DESING*/
+@media (max-width: 1024px) {
+  .searchContainer {
+    margin-left: 0;
+    max-width: 35rem;
+  }
+}
+/* 🔹 Celulares grandes */
+@media (max-width: 768px) {
+  .storebarInner {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  /* ---- Center: Search ---- */
+  .searchContainer {
+    margin: 0;
+    max-width: 20rem;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+  .cartButton {
+    display: flex;
+  }
+  .cartSecondaryButton {
+    display: none;
+  }
+}
+
+/* 🔹 Celulares pequeños */
+@media (max-width: 480px) {
+  .storebarInner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  /* ---- Center: Search ---- */
+  .searchContainer {
+    margin: 0;
+    max-width: 15rem;
+  }
+
+  .searchInput {
+    width: 80%;
+  }
+  .cartButton {
+    display: none;
+  }
+  .cartSecondaryButton {
+    display: flex;
+  }
 }

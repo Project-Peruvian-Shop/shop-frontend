@@ -41,3 +41,22 @@
   cursor: pointer;
   text-align: center;
 }
+/* 🔹 Celulares grandes */
+@media (max-width: 768px) {
+.cardContainer {
+  justify-items: center;
+}
+.title{
+  text-align: center;
+}
+}
+
+/* 🔹 Celulares pequeños */
+@media (max-width: 480px) {
+  .cardContainer {
+  justify-items: center;
+}
+.title{
+  text-align: center;
+}
+}

@@ -36,9 +36,15 @@ export default function SubHeader(props: SubHeaderProps) {
     <div className={styles.storebarContainer}>
       <div className={styles.storebarInner}>
         {/* Left: Store Icon & Title */}
-        <Link to={routes.shop} className={styles.storeTitle}>
-          {title}
-        </Link>
+        <div className={styles.titleContainer}>
+          <Link to={routes.shop} className={styles.storeTitle}>
+            {title}
+            <Link to={routes.shop_cart} className={styles.cartSecondaryButton}>
+              <IconSVG name="cart" size={20} className={styles.cartIcon} />
+              <span className={styles.cartBadge}>{cantidadCarrito}</span>
+            </Link>
+          </Link>
+        </div>
 
         {/* Center: Search Bar */}
         <div className={styles.searchContainer}>
@@ -51,7 +57,7 @@ export default function SubHeader(props: SubHeaderProps) {
             />
           </div>
         </div>
-        
+
         {/* Right: Cart Button */}
         <Link to={routes.shop_cart} className={styles.cartButton}>
           <IconSVG name="cart" size={20} className={styles.cartIcon} />

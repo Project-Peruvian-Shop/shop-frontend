@@ -17,3 +17,55 @@
   align-content: stretch;
   gap: 40px;
 }
+
+/* 🔹 Tablets (pantallas medianas) */
+@media (max-width: 992px) {
+  .productsCount {
+    text-align: left;
+    margin-bottom: 28px;
+  }
+
+  .productsList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: stretch;
+    gap: 40px;
+  }
+}
+
+/* 🔹 Celulares grandes */
+@media (max-width: 768px) {
+  .productsCount {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .productsList {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    gap: 40px;
+  }
+}
+
+/* 🔹 Celulares pequeños */
+@media (max-width: 480px) {
+  .productsCount {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .productsList {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: stretch;
+    gap: 40px;
+  }
+}

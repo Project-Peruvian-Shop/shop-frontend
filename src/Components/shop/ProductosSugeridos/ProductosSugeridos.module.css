@@ -6,7 +6,7 @@
   margin-bottom: 10px;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  font-size: 28px;
+  font-size: 1.5rem;
   line-height: 36px;
   text-align: left;
 }
@@ -14,7 +14,7 @@
 .productosGrid {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: stretch;
@@ -22,3 +22,15 @@
 
   margin: 40px 0px;
 }
+
+@media (min-width: 320px) {
+  .container {
+    padding: 0;
+  }
+  .subtitle{
+    text-align: center;
+  }
+  .productosGrid {
+    gap: 0;
+  }
+} 

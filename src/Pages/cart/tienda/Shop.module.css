@@ -1,7 +1,7 @@
 .shopContainer {
   display: flex;
-  flex-direction: row;
   flex-wrap: nowrap;
+  flex-direction: row;
   justify-content: center;
   align-items: stretch;
   align-content: stretch;
@@ -17,4 +17,75 @@
   align-items: center;
   align-content: stretch;
   gap: 20px;
+}
+
+/* 🔹 Tablets (pantallas medianas) */
+@media (max-width: 992px) {
+  .shopContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    align-content: stretch;
+  }
+
+  .productsSection {
+    padding: 48px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    gap: 20px;
+  }
+}
+
+/* 🔹 Celulares grandes */
+@media (max-width: 768px) {
+  .shopContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    align-content: stretch;
+  }
+
+  .productsSection {
+    padding: 48px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    gap: 20px;
+  }
+}
+
+/* 🔹 Celulares pequeños */
+@media (max-width: 480px) {
+  .shopContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    align-content: stretch;
+  }
+
+  .productsSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    gap: 20px;
+  }
 }
