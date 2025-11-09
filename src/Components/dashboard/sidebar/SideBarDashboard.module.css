@@ -111,3 +111,78 @@
   width: 20px;
   height: 20px;
 }
+/* ===== BOTÓN HAMBURGUESA ===== */
+.hamburgerBtn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+}
+
+.hamburgerLine {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-color: var(--primary-color);
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+.open{
+  .hamburgerLine:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburgerLine:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburgerLine:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .logoContainer {
+    padding: 0;
+  }
+
+  .menu,
+  .bottomMenu {
+    display: none;
+  }
+
+  .hamburgerBtn {
+    display: block;
+  }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: 240px;
+    background-color: var(--secondary-color);
+    flex-direction: column;
+    padding: 2rem 1rem;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebarOpen {
+    left: 0;
+  }
+
+  .menu,
+  .bottomMenu {
+    display: flex;
+    margin-bottom: 4rem;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+}

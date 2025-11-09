@@ -114,3 +114,38 @@
   background-color: var(--secondary-color);
   color: white;
 }
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column;
+
+  }
+
+  .right {
+    order: -1; 
+  }
+  .cotizaciones{
+    width: 100%;
+  }
+  .chartsContainer {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .productos {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .kpis {
+    flex-direction: column;
+  }
+
+  .toggleButton {
+    flex: 1;
+  }
+}
