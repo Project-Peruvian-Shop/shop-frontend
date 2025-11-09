@@ -1,0 +1,70 @@
+.customSelect {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  font-family: "Poppins", sans-serif;
+}
+
+.selectBox {
+  border: 1px solid #d1d5db;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.selectBox:hover {
+  border-color: var(--primary-color);
+}
+.selectBox span {
+  color: var(--secondary-color);
+}
+
+.arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+.arrowRotate {
+  transform: rotate(180deg);
+}
+
+.selectDropdown {
+  position: absolute;
+  top: calc(100% - 14px);
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  z-index: 50;
+  list-style: none;
+  text-align: left;
+  padding: 0;
+}
+
+.selectOption {
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.selectOption:hover {
+  background-color: var(--placeholder-color);
+  color: var(--white-color);
+}
+
+.selectOptionActive {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+  .customSelect {
+    max-width: 100%;
+  }
+}

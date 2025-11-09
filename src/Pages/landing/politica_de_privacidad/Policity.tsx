@@ -1,10 +1,10 @@
-import Header from "../../../Components/header/Header";
+import Banner from "../../../Components/banner/Banner";
 import styles from "./Policity.module.css";
 
 const Policity = () => {
   return (
     <main>
-      <Header nombre="Política de Privacidad" />
+      <Banner title="Política de Privacidad" />
 
       <div className={styles.containerPadre}>
         <p>

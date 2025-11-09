@@ -2,3 +2,10 @@
   margin: 40px 0;
   padding: 16px 140px;
 }
+@media (max-width:768px) {
+  .tableContainer{
+    margin: 0;
+    padding: 16px 50px;
+  }
+  
+}

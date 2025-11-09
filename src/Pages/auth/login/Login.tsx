@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import IconSVG from "../../../Icons/IconSVG";
 import Error from "../../../Components/Errortxt/Error";
-
+import logo from "../../../Icons/Logo-HD.png";
 function Login() {
   const title = "Bienvenido de vuelta";
   const subtitle = "Solicita tus cotizaciones de manera rápida y confiable";
@@ -105,6 +105,9 @@ function Login() {
       </div>
 
       <div className={styles.right}>
+        <div className={styles.logoForm}>
+          <img src={logo}/>
+        </div>
         <div className={styles.loginTitle}>Iniciar Sesión</div>
 
         <div className={styles.loginSubtitle}>

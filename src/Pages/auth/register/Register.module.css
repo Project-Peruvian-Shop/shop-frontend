@@ -30,7 +30,7 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-style: SemiBold;
-  font-size: 36px;
+  font-size: 2rem;
   line-height: 30px;
 }
 
@@ -45,7 +45,7 @@
 
 .inputGroup {
   width: 100%;
-  position: relative; 
+  position: relative;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -135,4 +135,46 @@
 .footerLink {
   color: var(--primary-color);
   text-decoration: none;
+}
+@media (max-width: 768px) {
+  .left {
+    display: none;
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0px;
+    max-width: 70%;
+  }
+  .inputColumnGroup {
+    flex-wrap: nowrap;
+  }
+  .inputGroup span {
+    font-size: 0.75rem;
+    bottom: -28px;
+  }
+}
+@media (max-width: 425px) {
+  .left {
+    display: none;
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0px;
+    max-width: 70%;
+  }
+  .inputColumnGroup {
+    flex-wrap: wrap;
+  }
+  .input:placeholder-shown {
+    font-size: 0.7rem;
+  }
+  .inputGroup span {
+    font-size: 0.7rem;
+    bottom: -34px;
+  }
+  .loginSubtitle {
+    font-size: 0.7rem;
+  }
 }

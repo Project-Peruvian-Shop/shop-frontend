@@ -76,6 +76,7 @@ function DashboardTable<T extends { id: number | string }>({
                       className={`${styles.td} ${
                         col.align ? styles[col.align] : styles.left
                       } ${extraClass}`}
+                      data-label={col.header}
                     >
                       {col.render ? col.render(value, row) : String(value)}
                     </td>

@@ -1,22 +1,22 @@
 import FormContactenos from "../../../Components/landing/Contactenos/FormContactenos";
-import Header from "../../../Components/header/Header";
 import Card from "../../../Components/home/card/Card";
 import { Icons } from "../../../Icons/icons";
 import { routes } from "../../../utils/routes";
 import locationIcon from "../../../Icons/Contact/location_contact.png";
 import style from "./Contact.module.css";
 import Redes from "../../../Components/landing/Contactenos/Redes";
+import Banner from "../../../Components/banner/Banner";
 
 const Contact = () => {
   return (
     <main>
-      <Header nombre="Contáctenos" />
+      <Banner title="Contáctenos" />
 
       <Redes />
 
       <FormContactenos />
 
-      <Header nombre="Canales de atención" />
+      <Banner title="Canales de atención" />
 
       <div className={style.containerCanales}>
         <Card

@@ -14,7 +14,6 @@ import {
 import { getProfile } from "../../../services/usuario.service";
 import { getCotizacionesByUserPaginated } from "../../../services/cotizacion.service";
 import { routes } from "../../../utils/routes";
-import Header from "../../../Components/header/Header";
 import { Icons } from "../../../Icons/icons";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
@@ -26,6 +25,7 @@ import IconSVG from "../../../Icons/IconSVG";
 import { agregarProductosCotizacionAlCarrito } from "../../../utils/localStorage";
 import { obtenerNuevoToken } from "../../../services/auht.service";
 import { UserRoleConst } from "../../../models/Usuario/Usuario";
+import Banner from "../../../Components/banner/Banner";
 
 function Profile() {
   const navigate = useNavigate();
@@ -171,7 +171,7 @@ function Profile() {
 
   return (
     <div className={styles.container}>
-      <Header nombre="Perfil de Usuario" />
+      <Banner title="Perfil de Usuario" />
 
       <div className={styles.content}>
         <div className={styles.left}>

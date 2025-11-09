@@ -3,7 +3,7 @@ import { faqs } from "./data";
 import styles from "./Questions_frecuenly.module.css";
 import { Link } from "react-router-dom";
 import { FAQCard } from "../../../Components/landing/FAQ/FAQ_card";
-import Header from "../../../Components/header/Header";
+import Banner from "../../../Components/banner/Banner";
 
 function linkWhatsapp(text: string) {
   return text.replace(/(\+51\s?\d{9})/g, (match) => {
@@ -17,7 +17,7 @@ const Questions_frecuenly = () => {
 
   return (
     <main>
-      <Header nombre="Preguntas Frecuentes" />
+      <Banner title="Preguntas Frecuentes" />
       <div className={styles.questionsContainer}>
         <div className={styles.questionsHeader}>
           <h1>Todo lo que necesitas saber</h1>

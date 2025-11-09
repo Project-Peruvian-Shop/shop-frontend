@@ -1,7 +1,6 @@
 import styles from "./Cotizacion.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../../utils/routes";
-import Header from "../../../Components/header/Header";
 import { useEffect, useState } from "react";
 import type { CotizacionFullDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
 import {
@@ -11,9 +10,13 @@ import {
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
 import ButtonPrimary from "../../../Components/buttons/ButtonPrimary";
 import MapCard from "../../../Components/dashboard/mapCard/MapCard";
-import type { ProductoCarritoDetalleDTO } from "../../../models/CotizacionDetalle/Cotizacion_detalle";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
+import type { ProductoCarritoDetalleDTO } from "../../../models/CotizacionDetalle/Cotizacion_detalle";
+import Banner from "../../../Components/banner/Banner";
 import ProductListCard2 from "../../../Components/dashboard/productlistcard/ProductListCard2";
+// import ProductListCard from "../../Components/dashboard/productlistcard/ProductListCard";
+// import type { ProductoResponseDTO } from "../../models/Categoria/Categoria_response";
+// import type { PaginatedResponse } from "../../services/global.interfaces";
 
 function Cotizacion() {
   const { id } = useParams<{ id: string }>();
@@ -50,7 +53,7 @@ function Cotizacion() {
 
   return (
     <div className={styles.container}>
-      <Header nombre={`Cotización ${cotizacion?.numero}`} />
+      <Banner title={`Cotización ${cotizacion?.numero}`} />
 
       <div className={styles.content}>
         <div className={styles.left}>

@@ -23,6 +23,7 @@
   flex-direction: row;
   gap: 10px;
   align-items: center;
+  word-wrap: break-word;
 }
 
 .label {
@@ -38,4 +39,14 @@
   font-weight: 400;
   font-size: 16px;
   text-align: justify;
+}
+@media (max-width:320px) {
+  .label{
+    width: 90%;
+    font-size: 0.8rem;
+  }
+  .value {
+    width: 50%;
+    font-size: 0.8rem;
+  }
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "../../../Components/header/Header";
 import styles from "./Cotizaciones.module.css";
 import DashboardTable, {
   type Action,
@@ -14,6 +13,7 @@ import { getCotizacionesByUserPaginated } from "../../../services/cotizacion.ser
 import { obtenerUsuario } from "../../../utils/auth";
 import { routes } from "../../../utils/routes";
 import { agregarProductosCotizacionAlCarrito } from "../../../utils/localStorage";
+import Banner from "../../../Components/banner/Banner";
 
 function CotizacionesProfile() {
   const [cotizaciones, setCotizaciones] =
@@ -92,7 +92,7 @@ function CotizacionesProfile() {
 
   return (
     <div className={styles.container}>
-      <Header nombre="Mis cotizaciones" />
+      <Banner title="Mis cotizaciones" />
 
       <div className={styles.tableContainer}>
         {loading ? (

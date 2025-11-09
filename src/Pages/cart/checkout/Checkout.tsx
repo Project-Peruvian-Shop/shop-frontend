@@ -10,9 +10,10 @@ import {
 import { obtenerUsuario } from "../../../utils/auth";
 import type { CotizacionRequestDTO } from "../../../models/Cotizacion/Cotizacion_request_dto";
 import { postCotizacion } from "../../../services/cotizacion.service";
-import Header from "../../../Components/header/Header";
 import { routes } from "../../../utils/routes";
 import Error from "../../../Components/Errortxt/Error";
+import Banner from "../../../Components/banner/Banner";
+import { CustomSelect } from "../../../Components/customSelect/CustomSelect";
 
 function Checkout() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -37,6 +38,13 @@ function Checkout() {
     checkbox?: string;
   }>({});
   const [loading, setLoading] = useState(false);
+
+  const options = [
+    { value: "DNI", label: "DNI" },
+    { value: "RUC", label: "RUC" },
+    { value: "PASAPORTE", label: "PASAPORTE" },
+    { value: "OTRO", label: "OTRO" },
+  ];
 
   useEffect(() => {
     if (usuario) {
@@ -184,7 +192,7 @@ function Checkout() {
 
   return (
     <div className={styles.container}>
-      <Header nombre="Solicitud de Cotización" />
+      <Banner title="Solicitud de Cotización" />
       <p className={styles.description}>
         Complete la información en las siguientes secciones
       </p>
@@ -235,19 +243,11 @@ function Checkout() {
           <div className={styles.sectionTitle}>Documentación</div>
           <div className={styles.inputRow}>
             <div className={styles.inputWrapper}>
-              <select
-                className={styles.select}
-                value={tipoDocumento}
-                onChange={(e) => setTipoDocumento(e.target.value)}
-              >
-                <option value="" disabled>
-                  Tipo de Documento *
-                </option>
-                <option value="DNI">DNI</option>
-                <option value="RUC">RUC</option>
-                <option value="PASAPORTE">PASAPORTE</option>
-                <option value="OTRO">OTRO</option>
-              </select>
+              <CustomSelect
+                options={options}
+                placeholder="Tipo de Documento"
+                onChange={(e) => setTipoDocumento(e)}
+              />
               {errors.tipoDocumento && <Error message={errors.tipoDocumento} />}
             </div>
 

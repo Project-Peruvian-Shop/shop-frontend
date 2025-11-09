@@ -1,11 +1,11 @@
-import Header from "../../../Components/header/Header";
+import Banner from "../../../Components/banner/Banner";
 import { Icons } from "../../../Icons/icons";
 import styles from "./TermsAndConditions.module.css";
 
 const TermsAndConditions = () => {
   return (
     <main>
-      <Header nombre="Términos y Condiciones" />
+      <Banner title="Términos y Condiciones" />
       <div className={styles.containerPadre}>
         <div className={styles.containerFlex}>
           <div className={styles.containerTerminos}>

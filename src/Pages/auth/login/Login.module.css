@@ -10,6 +10,7 @@
 }
 
 .left {
+  display: block;
   flex: 1;
   height: 100vh;
 }
@@ -25,12 +26,15 @@
   align-items: stretch;
   align-content: stretch;
 }
+  .logoForm{
+    display: none;
+  }
 
 .loginTitle {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-style: SemiBold;
-  font-size: 36px;
+  font-size: 2rem;
   line-height: 30px;
 }
 
@@ -128,3 +132,30 @@
   color: var(--primary-color);
   text-decoration: none;
 }
+
+@media (min-width: 320px) and (max-width: 768px) {
+  .left {
+    display: none;
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 100px 20px;
+  }
+  .logoForm{
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+  }
+  .logoForm img{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .loginSubtitle{
+    font-size: 0.8rem;
+  }
+    .inputGroup span {
+    font-size: 0.7rem;
+  }
+} 

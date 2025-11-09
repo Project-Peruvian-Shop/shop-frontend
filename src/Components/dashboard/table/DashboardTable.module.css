@@ -76,3 +76,81 @@
   display: flex;
   justify-content: flex-end;
 }
+/* 🔸 Tablets (≤ 992px) */
+@media (max-width: 992px) {
+  .th,
+  .td {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .tableWrapper {
+    border-radius: 6px;
+  }
+}
+
+/* 🔸 Móviles grandes (≤ 768px) */
+@media (max-width: 768px) {
+  .th,
+  .td {
+    padding: 8px 16px;
+    font-size: 0.7rem;
+  }
+}
+
+/* 🔸 Móviles pequeños (≤ 600px)
+   → Se convierte en tarjetas */
+@media (max-width: 600px) {
+
+  .tableWrapper {
+    margin: 0 auto;
+    width: 100%;
+    border: none;
+  }
+  .table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+
+  thead {
+    display: none; /* ocultar encabezados */
+  }
+
+  .tr {
+    margin-bottom: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+    padding: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  }
+
+  .td {
+    width: 90%;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+    flex-basis: 40%;
+    text-align: left;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+}

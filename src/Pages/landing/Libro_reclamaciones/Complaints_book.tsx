@@ -1,12 +1,12 @@
 import style from "./Complaints_book.module.css";
-import Header from "../../../Components/header/Header";
 import FormLibro from "../../../Components/landing/Libro_reclamaciones/FormLibro";
 import Redes from "../../../Components/landing/Contactenos/Redes";
+import Banner from "../../../Components/banner/Banner";
 
 const Complaints_book = () => {
   return (
     <main>
-      <Header nombre="Libro de Reclamaciones" />
+      <Banner title="Libro de Reclamaciones" />
 
       <div className={style.intro}>
         <p>

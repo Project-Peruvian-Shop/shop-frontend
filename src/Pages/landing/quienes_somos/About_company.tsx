@@ -6,13 +6,13 @@ import Innovacion from "../../../Icons/About_company/Innovación.png";
 import Mision from "../../../Icons/About_company/mision.png";
 import Vision from "../../../Icons/About_company/vision.png";
 import styles from "./About_company.module.css";
-import Header from "../../../Components/header/Header";
 import { Icons } from "../../../Icons/icons";
+import Banner from "../../../Components/banner/Banner";
 
 const About_company = () => {
   return (
     <main>
-      <Header nombre="¿Quiénes somos?" />
+      <Banner title="¿Quiénes somos?" />
 
       <div className={styles.containerPadre}>
         <img src={Icons.about} alt="About Us" />
