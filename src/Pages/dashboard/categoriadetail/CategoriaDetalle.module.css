@@ -101,3 +101,22 @@
   color: #333;
   font-size: 14px;
 }
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .header {
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .container {
+    padding: 0;
+  }
+  .content {
+    flex-direction: column-reverse;
+  }
+  .categoriaImage {
+    width: 90%;
+  }
+}
