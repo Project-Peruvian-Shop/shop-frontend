@@ -67,3 +67,34 @@
   filter: brightness(0) saturate(100%) invert(18%) sepia(9%) saturate(1260%)
     hue-rotate(137deg) brightness(93%) contrast(89%);
 }
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .dashboardHeader{
+  flex-direction: column;
+  gap: 20px;
+}
+  .searchBarContainer{
+    width: 440px;
+  }
+}
+@media (max-width: 425px) {
+.dashboardHeader{
+  flex-direction: column;
+  gap: 20px;
+}
+.searchBarContainer{
+  order: 1;
+  width: 100%;
+}
+.tableContainer{
+  margin: 0;
+}
+.totalProducts{
+  padding: 8px;
+}
+.headerActions{
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+}
+}
