@@ -132,6 +132,7 @@
   .td {
     width: 90%;
     padding: 8px 12px;
+    gap: 20px;
     display: flex;
     align-items: center;
     border: none;

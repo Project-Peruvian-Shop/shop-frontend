@@ -21,9 +21,11 @@ export default function SideBarDashboard() {
   };
   const toggleMenu = () => setMenuAbierto((prev) => !prev);
 
+    // Cerrar menú de movil cuando se hace clic en un link
+  const handleLinkClick = () => setMenuAbierto(false);
+
   return (
     <>
-      {/* ===== BOTÓN HAMBURGUESA (solo visible en móvil) ===== */}
       <button className={`${styles.hamburgerBtn} ${menuAbierto ? styles.open : ""}`} onClick={toggleMenu}>
         <span className={styles.hamburgerLine}></span>
         <span className={styles.hamburgerLine}></span>
@@ -61,27 +63,27 @@ export default function SideBarDashboard() {
 
         {/* Menú principal */}
         <nav className={styles.menu}>
-          <Link to={routes.dashboard} className={styles.menuItem}>
+          <Link to={routes.dashboard} className={styles.menuItem} onClick={handleLinkClick}>
             <IconSVG name="dashboard" size={20} className={styles.icon} />
             Dashboard
           </Link>
-          <Link to={routes.dashboard_products} className={styles.menuItem}>
+          <Link to={routes.dashboard_products} className={styles.menuItem} onClick={handleLinkClick}>
             <IconSVG name="producto" size={20} className={styles.icon} />
             Productos
           </Link>
-          <Link to={routes.dashboard_categories} className={styles.menuItem}>
+          <Link to={routes.dashboard_categories} className={styles.menuItem} onClick={handleLinkClick}>
             <IconSVG name="categoria" size={20} className={styles.icon} />
             Líneas
           </Link>
-          <Link to={routes.dashboard_cotizations} className={styles.menuItem}>
+          <Link to={routes.dashboard_cotizations} className={styles.menuItem} onClick={handleLinkClick}>
             <IconSVG name="cotizacion" size={20} className={styles.icon} />
             Cotizaciones
           </Link>
-          <Link to={routes.dashboard_users} className={styles.menuItem}>
+          <Link to={routes.dashboard_users} className={styles.menuItem} onClick={handleLinkClick}>
             <IconSVG name="usuarioIcon" size={20} className={styles.icon} />
             Usuarios
           </Link>
-          <Link to={routes.dashboard_messages} className={styles.menuItem}>
+          <Link to={routes.dashboard_messages} className={styles.menuItem} onClick={handleLinkClick}>
             <IconSVG name="mensaje" size={20} className={styles.icon} />
             Mensajes
           </Link>
@@ -91,7 +93,7 @@ export default function SideBarDashboard() {
 
         {/* Parte inferior */}
         <div className={styles.bottomMenu}>
-          <Link to={routes.dashboard_profile} className={styles.menuItem}>
+          <Link to={routes.dashboard_profile} className={styles.menuItem} onClick={handleLinkClick}>
             <IconSVG name="usuarioIc" size={20} className={styles.icon} />
             Mi cuenta
           </Link>

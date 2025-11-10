@@ -56,3 +56,9 @@
   font-size: 14px;
   color: var(--primary-color);
 }
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .productItem {
+    flex-direction: column;
+  }
+}
