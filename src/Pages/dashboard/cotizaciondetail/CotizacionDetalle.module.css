@@ -9,7 +9,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   align-content: stretch;
@@ -135,6 +135,7 @@
 .pdfContainer {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -340,4 +341,26 @@
   border-radius: 8px;
   color: var(--gray);
   background-color: var(--light-gray);
+}
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .header {
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .left{
+    width: 100%;
+  }
+  .right{
+    width: 100%;
+  }
+  .card{
+    height: auto;
+  }
+  .addButton{
+    height: auto;
+  }
 }
