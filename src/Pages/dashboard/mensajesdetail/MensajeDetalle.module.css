@@ -10,7 +10,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   align-content: stretch;
@@ -127,4 +127,26 @@
 
 .buttonWrapper {
   width: 58%;
+}
+/* ====== RESPONSIVE ====== */
+@media (max-width: 992px) {
+  .header {
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .left{
+    width: 100%;
+  }
+  .right{
+    width: 100%;
+  }
+  .card{
+    height: auto;
+  }
+  .addButton{
+    height: auto;
+  }
 }
