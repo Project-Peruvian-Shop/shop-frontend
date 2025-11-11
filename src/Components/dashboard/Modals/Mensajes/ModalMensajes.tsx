@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "./ModalMensajes.module.css";
-import type {   MensajeDetalleResponseDTO, } from "../../../../models/Mensaje/Mensaje_response_dto";
+import type { MensajeDetalleResponseDTO } from "../../../../models/Mensaje/Mensaje_response_dto";
 import type { ChangeStateMensajeRequestDTO } from "../../../../models/Mensaje/Mensaje_request_dto";
+import { CustomSelect } from "../../../customSelect/CustomSelect";
 
 type MensajeMinimo = Pick<MensajeDetalleResponseDTO, "id" | "estado">;
 
@@ -34,6 +35,12 @@ function ModalMensajes({ mensaje, onClose, onSubmit }: ModalMensajesProps) {
         | "CERRADO"
     );
   };
+  const options = [
+    { value: "PENDIENTE", label: "Pendiente" },
+    { value: "EN_PROCESO", label: "En Proceso" },
+    { value: "RESUELTO", label: "Resuelto" },
+    { value: "CERRADO", label: "Cerrado" },
+  ];
 
   return (
     <div className={styles.modalOverlay}>
@@ -46,25 +53,23 @@ function ModalMensajes({ mensaje, onClose, onSubmit }: ModalMensajesProps) {
             <div className={styles.datosSection}>
               <label>
                 Cambiar Estado
-                <select
-                  className={styles.select}
-                  value={nuevoEstado?.nuevoEstado}
-                  onChange={(e) =>
+                <CustomSelect
+                  options={options}
+                  onChange={(value) =>
                     setNuevoEstado({
-                      nuevoEstado: e.target.value as
+                      nuevoEstado: value as
                         | "PENDIENTE"
                         | "EN_PROCESO"
                         | "RESUELTO"
                         | "CERRADO",
                     })
                   }
-                  required
-                >
-                  <option value="PENDIENTE">Pendiente</option>
-                  <option value="EN_PROCESO">En proceso</option>
-                  <option value="RESUELTO">Resuelto</option>
-                  <option value="CERRADO">Cerrado</option>
-                </select>
+                  placeholder={
+                    options.find(
+                      (option) => option.value === nuevoEstado.nuevoEstado
+                    )?.label || "Selecciona un estado"
+                  }
+                />
               </label>
               <div className={styles.modalActions}>
                 <button type="submit" className={styles.addButton}>
