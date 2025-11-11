@@ -138,12 +138,29 @@ function Categorias() {
         await loadCantidadCategorias();
         await fetchAll();
       }
-    } catch (error: unknown) {
-      const mensaje = error instanceof Error ? error.message : String(error);
+    }  catch (error: unknown) {
+      let errorMessage = "Error al crear la línea";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
-        title: "Error al crear la línea",
-        text: mensaje,
+        title: "Error",
+        text: errorMessage,
       });
     }
   };
@@ -184,12 +201,29 @@ function Categorias() {
         await loadCantidadCategorias();
         await fetchAll();
       }
-    } catch (error: unknown) {
-      const mensaje = error instanceof Error ? error.message : String(error);
+    }  catch (error: unknown) {
+      let errorMessage = "Error al editar la línea";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
-        title: "Error al editar la línea",
-        text: mensaje,
+        title: "Error",
+        text: errorMessage,
       });
     }
   };
