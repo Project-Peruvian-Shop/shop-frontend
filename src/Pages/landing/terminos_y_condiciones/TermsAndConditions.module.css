@@ -12,6 +12,7 @@
 .containerFlex{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
 }
@@ -51,7 +52,9 @@
 .containerRedes{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    word-break: break-all;
     margin: 0;
 }
 .containerRedes p{
@@ -61,4 +64,26 @@
 .containerRedes img{
     width: 32px;
     height: 32px;
+}
+@media (max-width: 425px) {
+    .containerPadre {
+        box-sizing: border-box;
+        width: 90%;
+        margin: 40px auto;
+        padding: 10px;
+    }
+    .containerTerminos{
+        width: 100%;
+        max-width: 300px;
+    }
+    .bodyTerminos{
+        width: 80%;
+        margin: auto;
+    }
+    .headerTerminos{
+        flex-direction: column;
+    }
+    .containerRedes{
+        flex-wrap: nowrap;
+    }
 }
