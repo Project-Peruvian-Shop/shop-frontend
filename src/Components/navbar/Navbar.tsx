@@ -51,11 +51,11 @@ const Navbar = () => {
           </button>
           {ayudaDropdownOpen && (
           <div className={styles.dropdownContent}>
-            <Link to={routes.complaints_book}>Libro de Reclamaciones</Link>
-            <Link to={routes.privacy_policy}>Política de Privacidad</Link>
-            <Link to={routes.tyc}>Términos y Condiciones</Link>
-            <Link to={routes.questions}>Preguntas Frecuentes</Link>
-            <Link to={routes.contact}>Contáctenos</Link>
+            <Link to={routes.complaints_book} onClick={() => setMenuOpen(false)}>Libro de Reclamaciones</Link>
+            <Link to={routes.privacy_policy} onClick={() => setMenuOpen(false)}>Política de Privacidad</Link>
+            <Link to={routes.tyc} onClick={() => setMenuOpen(false)}>Términos y Condiciones</Link>
+            <Link to={routes.questions} onClick={() => setMenuOpen(false)}>Preguntas Frecuentes</Link>
+            <Link to={routes.contact} onClick={() => setMenuOpen(false)}>Contáctenos</Link>
           </div>
           )}
         </div>
