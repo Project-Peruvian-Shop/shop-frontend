@@ -108,13 +108,30 @@ function Mensajes() {
         title: "Éxito",
         text: "El estado del mensaje ha sido actualizado.",
       });
-    } catch (error) {
+    } catch (error: unknown) {
+      let errorMessage = "Error al editar el estado del mensaje";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
         title: "Error",
-        text: "Hubo un problema al actualizar el estado del mensaje.",
+        text: errorMessage,
       });
-      console.error(error);
     }
   };
 
