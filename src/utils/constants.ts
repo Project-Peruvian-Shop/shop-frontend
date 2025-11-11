@@ -1,4 +1,4 @@
-export const URL_API = "http://localhost:8080/api/v1";
+export const API_URL = import.meta.env.VITE_URL_API;
 
 export const COLORS = {
   primary: "#fb2343",
