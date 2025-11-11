@@ -90,6 +90,7 @@
 .containerTextoVision {
   background-color: var(--gray-color);
   border-radius: 20px;
+  margin: 0 20px;
   padding: 24px;
   font-size: 14px;
   text-align: justify;
@@ -100,4 +101,18 @@
   margin: 0px;
   color: var(--secondary-color);
   text-align: justify;
+}
+@media (max-width: 425px) {
+  .containerPadre {
+    margin: 20px;
+    gap: 10px;
+  }
+  .containerTexto {
+    width: 100%;
+    font-size: 12px;
+    padding: 20px;
+  }
+  .valoresGrid {
+    gap: 20px;
+  }
 }
