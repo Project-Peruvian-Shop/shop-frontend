@@ -158,11 +158,28 @@ export default function ProductosTable() {
         setShowModal(false);
       }
     } catch (error: unknown) {
-      const mensaje = error instanceof Error ? error.message : String(error);
+      let errorMessage = "Error al añadir producto";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
-        title: "Error al crear el producto",
-        text: mensaje,
+        title: "Error",
+        text: errorMessage,
       });
     }
   };
@@ -205,11 +222,28 @@ export default function ProductosTable() {
         fetchAll();
       }
     } catch (error: unknown) {
-      const mensaje = error instanceof Error ? error.message : String(error);
+      let errorMessage = "Error al editar producto";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
-        title: "Error al actualizar el producto",
-        text: mensaje,
+        title: "Error",
+        text: errorMessage,
       });
     }
   };
