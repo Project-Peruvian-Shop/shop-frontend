@@ -176,18 +176,19 @@
   color: var(--text-color);
 }
 
-.termsBox {
+.termsSection {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  gap: 8px;
   margin-top: 40px;
-  
+}
+.termsSection span {
+  position: relative;
+}
+.termsBox {
+  justify-content: center;
 }
 
-.terms {
-  display: inline-block;
-}
 .termsBox label {
   font-size: 14px;
   color: #1b2f33;
@@ -217,3 +218,42 @@
   cursor: not-allowed;
 }
 
+@media (max-width: 425px) {
+  .containerFormulario form {
+    width: 60%;
+  }
+  .inputGroup {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .inputGroup::before {
+    display: none;
+  }
+  .radioGroup::before {
+    display: none;
+  }
+  .textareaGroup::before {
+    display: none;
+  }
+  .inputGroup {
+    padding: 0;
+  }
+  .textareaGroup {
+    padding: 0;
+  }
+  .radioGroup {
+    padding: 0;
+  }
+  .radioCard {
+    min-width: 0;
+  }
+  .termsBox {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .inputWrapper span {
+    position: static;
+  }
+  .inputWrapper label {
+    font-size: 0.9rem;
+  }
+}

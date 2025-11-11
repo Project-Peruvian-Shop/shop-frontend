@@ -36,12 +36,10 @@ const FormLibro = () => {
   const [loading, setLoading] = useState(false);
 
   const options = [
-    { value: "PENDIENTE", label: "Pendiente" },
-    { value: "EN_PROCESO", label: "En Proceso" },
-    { value: "ENVIADA", label: "Enviada" },
-    { value: "ACEPTADA", label: "Aceptada" },
-    { value: "RECHAZADA", label: "Rechazada" },
-    { value: "CERRADA", label: "Cerrada" },
+    { value: "DNI", label: "DNI" },
+    { value: "RUC", label: "RUC" },
+    { value: "PASAPORTE", label: "PASAPORTE" },
+    { value: "OTRO", label: "OTRO" },
   ];
 
   useEffect(() => {

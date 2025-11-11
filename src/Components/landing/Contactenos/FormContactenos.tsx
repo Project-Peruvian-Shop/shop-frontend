@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { createContactenos } from "../../../services/mensajes.service";
 import Error from "../../Errortxt/Error";
+import { CustomSelect } from "../../customSelect/CustomSelect";
 
 const FormContactenos = () => {
   const usuario = obtenerUsuario();
@@ -34,6 +35,12 @@ const FormContactenos = () => {
   }>({});
   const [loading, setLoading] = useState(false);
 
+  const options = [
+    { value: "DNI", label: "DNI" },
+    { value: "RUC", label: "RUC" },
+    { value: "PASAPORTE", label: "PASAPORTE" },
+    { value: "OTRO", label: "OTRO" },
+  ];
   useEffect(() => {
     if (usuario) {
       // Cargar los valores del usuario en el formulario
@@ -97,7 +104,8 @@ const FormContactenos = () => {
         "El detalle de la reclamación debe tener al menos 10 caracteres";
     }
     if (!checkbox) {
-      newErrors.checkbox = "Debes confirmar que estas de acuerdo con los términos y la política ";
+      newErrors.checkbox =
+        "Debes confirmar que estas de acuerdo con los términos y la política ";
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -200,21 +208,11 @@ const FormContactenos = () => {
 
           <div className={style.inputWrapper}>
             <label htmlFor="tipoDocumento">Tipo de documento *</label>
-            <select
-              id="tipoDocumento"
-              name="tipoDocumento"
-              required
-              value={tipoDocumento}
-              onChange={(e) => setTipoDocumento(e.target.value)}
-            >
-              <option value="" disabled>
-                Seleccione
-              </option>
-              <option value="DNI">DNI</option>
-              <option value="RUC">RUC</option>
-              <option value="PASAPORTE">Pasaporte</option>
-              <option value="OTRO">Otro</option>
-            </select>
+            <CustomSelect
+              options={options}
+              onChange={(e) => setTipoDocumento(e)}
+              placeholder="Seleccione"
+            />
             {errors.tipoDocumento && <Error message={errors.tipoDocumento} />}
           </div>
 
