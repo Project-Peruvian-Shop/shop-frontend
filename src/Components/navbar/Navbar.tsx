@@ -15,8 +15,13 @@ const Navbar = () => {
   const showLandingButtons = publicRoutes.includes(currentPath);
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [ayudaDropdownOpen, setAyudaDropdownOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const toggleAyudaDropdown = () => {
+    setAyudaDropdownOpen(!ayudaDropdownOpen);
+  };
 
   return (
     <nav className={styles.navbar}>
@@ -41,7 +46,10 @@ const Navbar = () => {
         </Link>
 
         <div className={styles.dropdown}>
-          <button className={styles.dropbtn}>Ayuda ▾</button>
+          <button className={styles.dropbtn} onClick={toggleAyudaDropdown}>
+            Ayuda ▾
+          </button>
+          {ayudaDropdownOpen && (
           <div className={styles.dropdownContent}>
             <Link to={routes.complaints_book}>Libro de Reclamaciones</Link>
             <Link to={routes.privacy_policy}>Política de Privacidad</Link>
@@ -49,6 +57,7 @@ const Navbar = () => {
             <Link to={routes.questions}>Preguntas Frecuentes</Link>
             <Link to={routes.contact}>Contáctenos</Link>
           </div>
+          )}
         </div>
       </div>
 
