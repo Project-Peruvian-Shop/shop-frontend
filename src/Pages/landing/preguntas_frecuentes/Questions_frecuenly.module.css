@@ -82,3 +82,11 @@ a.linkWhatsapp {
 .footerBox button:hover {
 	background: #d91d38;
 }
+@media (max-width:425px) {
+	.questionsContainer{
+		padding: 1rem 1rem;	
+	}
+	.footerBox{
+		gap: 1px;
+	}
+}
