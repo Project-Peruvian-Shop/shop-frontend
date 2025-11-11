@@ -141,8 +141,6 @@ function Usuarios() {
         title: "Error",
         text: errorMessage,
       });
-
-      console.error("Error al añadir usuario:", error);
     }
   };
   const handleEditUser = async (data: UsuarioUpdateRequestDto) => {
@@ -159,13 +157,29 @@ function Usuarios() {
           text: `El usuario ha sido editado correctamente.`,
         });
       }
-    } catch (error) {
+    }  catch (error: unknown) {
+      let errorMessage = "Error al editar usuario";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
         title: "Error",
-        text:
-          "Error al editar usuario" +
-          (error instanceof Error ? error.message : ""),
+        text: errorMessage,
       });
     }
   };
