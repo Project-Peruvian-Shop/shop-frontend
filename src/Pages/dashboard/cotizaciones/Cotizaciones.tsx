@@ -137,12 +137,29 @@ function Cotizaciones() {
       });
 
       await loadCotizaciones(page);
-    } catch (error) {
-      console.error("Error al actualizar observaciones:", error);
+    } catch (error: unknown) {
+      let errorMessage = "Error al guardar la observación";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
-        title: "Error al actualizar",
-        text: "No se pudo guardar la observación.",
+        title: "Error",
+        text: errorMessage,
       });
     }
   };
@@ -167,12 +184,29 @@ function Cotizaciones() {
         icon: "success",
         text: `El estado se cambió correctamente.`,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      let errorMessage = "Error al editar el estado de la cotización";
+
+      type AxiosErrorLike = {
+        isAxiosError?: boolean;
+        response?: {
+          data?: {
+            message?: string;
+          };
+        };
+      };
+      const axiosError = error as AxiosErrorLike;
+
+      if (axiosError.isAxiosError) {
+        errorMessage = axiosError.response?.data?.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       MySwal.fire({
         icon: "error",
         title: "Error",
-        text: "No se pudo actualizar el estado de la cotización",
+        text: errorMessage,
       });
     }
   };
