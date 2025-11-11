@@ -74,6 +74,7 @@
 .formRow {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   padding: 0px 60px;
   gap: 3rem;
   align-items: stretch;
@@ -171,4 +172,56 @@
   background-position: right 1rem center;
   background-size: 16px;
   cursor: pointer;
+}
+/*RESPONSIVE*/
+@media (max-width: 768px) {
+  .imagenSection img {
+    width: 90%;
+    height: auto;
+  }
+  .divider {
+    display: none;
+  }
+  .modalOverlay {
+    overflow-y: auto;
+    gap: 20px;
+  }
+  .modalContent {
+    width: 100%;
+    padding: 1rem;
+    margin: 10px;
+  }
+  .formRow {
+    padding: 0;
+    gap: 0;
+  }
+}
+@media (max-width: 425px) {
+  .imagenSection img {
+    width: 50%;
+    height: 50%;
+  }
+  .divider {
+    display: none;
+  }
+  .modalOverlay {
+    overflow-y: auto;
+    gap: 20px;
+  }
+  .modalContent {
+    width: 100%;
+    padding: 1rem;
+    margin: 10px;
+    margin-top: 100%;
+  }
+  .formRow {
+    padding: 0;
+    gap: 0;
+  }
+  .modalActions {
+    flex-direction: column;
+  }
+  .datosSection {
+    display: block;
+  }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "./ModalUsuarioCreate.module.css";
+import styles from "./ModalUsuarioEdit.module.css";
 import userIcon from "../../../../Icons/Modal_user/user_add.svg";
 import type { UsuarioUpdateRequestDto } from "../../../../models/Usuario/Usuario_request_dto";
 import {
