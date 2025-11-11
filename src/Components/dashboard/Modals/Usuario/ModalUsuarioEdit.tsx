@@ -6,6 +6,7 @@ import {
   UserRoleConst,
   type UserRole,
 } from "../../../../models/Usuario/Usuario";
+import { CustomSelect } from "../../../customSelect/CustomSelect";
 
 interface ModalUsuarioEditProps {
   user: UsuarioUpdateRequestDto;
@@ -48,6 +49,12 @@ export default function ModalUsuarioEdit({
       rol,
     });
   };
+  const options = [
+    { value: UserRoleConst.SUPERADMIN, label: "Super Usuario" },
+    { value: UserRoleConst.ADMINISTRADOR, label: "Administrador" },
+    { value: UserRoleConst.SUPERVISOR, label: "Supervisor" },
+    { value: UserRoleConst.CLIENTE, label: "Cliente" },
+  ];
 
   return (
     <div className={styles.modalOverlay}>
@@ -100,20 +107,14 @@ export default function ModalUsuarioEdit({
               </label>
               <label>
                 Rol
-                <select
-                  value={rol}
-                  onChange={(e) => setRol(e.target.value as UserRole)}
-                  required
-                >
-                  <option value={UserRoleConst.SUPERADMIN}>
-                    Super Usuario
-                  </option>
-                  <option value={UserRoleConst.ADMINISTRADOR}>
-                    Administrador
-                  </option>
-                  <option value={UserRoleConst.SUPERVISOR}>Supervisor</option>
-                  <option value={UserRoleConst.CLIENTE}>Usuario</option>
-                </select>
+                <CustomSelect
+                  options={options}
+                  onChange={(value) => setRol(value as UserRole)}
+                  placeholder={
+                    options.find((option) => option.value === rol)?.label ||
+                    "Selecciona un rol"
+                  }
+                />
               </label>
               <div className={styles.modalActions}>
                 <button type="submit" className={styles.addButton}>
