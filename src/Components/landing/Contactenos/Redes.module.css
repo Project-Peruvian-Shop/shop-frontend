@@ -3,9 +3,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin: auto;
   margin-top: 50px;
+  font-size: 1rem;
   flex-wrap: wrap;
+  word-break: break-word;
   gap: 20px;
 }
 .containerContacto img {
@@ -17,4 +18,13 @@
 .containerContacto img:hover {
   filter: brightness(0) saturate(100%) invert(15%) sepia(14%) saturate(1073%)
     hue-rotate(137deg) brightness(92%) contrast(89%);
+}
+
+@media (max-width: 425px) {
+  .containerContacto {
+    flex-direction: column;
+  }
+  .containerRedes {
+    width: 80%;
+  }
 }

@@ -5,6 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { obtenerUsuario } from "../../../utils/auth";
 import { createLibroReclamaciones } from "../../../services/mensajes.service";
 import Error from "../../Errortxt/Error";
+import { CustomSelect } from "../../customSelect/CustomSelect";
 
 const FormLibro = () => {
   const usuario = obtenerUsuario();
@@ -33,6 +34,15 @@ const FormLibro = () => {
     checkbox?: string;
   }>({});
   const [loading, setLoading] = useState(false);
+
+  const options = [
+    { value: "PENDIENTE", label: "Pendiente" },
+    { value: "EN_PROCESO", label: "En Proceso" },
+    { value: "ENVIADA", label: "Enviada" },
+    { value: "ACEPTADA", label: "Aceptada" },
+    { value: "RECHAZADA", label: "Rechazada" },
+    { value: "CERRADA", label: "Cerrada" },
+  ];
 
   useEffect(() => {
     if (usuario) {
@@ -114,7 +124,7 @@ const FormLibro = () => {
       });
       Toast.fire({
         icon: "warning",
-        title: newErrors.checkbox
+        title: newErrors.checkbox,
       });
     }
     if (Object.keys(newErrors).length > 0) {
@@ -202,21 +212,11 @@ const FormLibro = () => {
 
           <div className={style.inputWrapper}>
             <label htmlFor="tipoDocumento">Tipo de documento *</label>
-            <select
-              id="tipoDocumento"
-              name="tipoDocumento"
-              required
-              value={tipoDocumento}
-              onChange={(e) => setTipoDocumento(e.target.value)}
-            >
-              <option value="" disabled>
-                Seleccione
-              </option>
-              <option value="DNI">DNI</option>
-              <option value="RUC">RUC</option>
-              <option value="PASAPORTE">Pasaporte</option>
-              <option value="OTRO">Otro</option>
-            </select>
+            <CustomSelect
+              options={options}
+              onChange={(e) => setTipoDocumento(e)}
+              placeholder="Seleccione"
+            />
             {errors.tipoDocumento && <Error message={errors.tipoDocumento} />}
           </div>
 

@@ -195,7 +195,7 @@
   align-items: flex-start;
   margin-top: 40px;
 }
-.termsSection span{
+.termsSection span {
   position: relative;
 }
 .termsBox {
@@ -229,4 +229,42 @@
 .btnPrimary:disabled {
   background-color: var(--gray-color);
   cursor: not-allowed;
+}
+@media (max-width: 425px) {
+  .containerFormulario form {
+    width: 60%;
+  }
+  .inputGroup {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .inputGroup::before {
+    display: none;
+  }
+  .radioGroup::before {
+    display: none;
+  }
+  .textareaGroup::before {
+    display: none;
+  }
+  .inputGroup {
+    padding: 0;
+  }
+  .textareaGroup {
+    padding: 0;
+  }
+  .radioGroup {
+    padding: 0;
+  }
+  .radioCard {
+    min-width: 0;
+  }
+  .termsBox {
+    margin-bottom: 20px;
+  }
+  .inputWrapper span {
+    position: static;
+  }
+  .inputWrapper label {
+    font-size: 0.9rem;
+  }
 }

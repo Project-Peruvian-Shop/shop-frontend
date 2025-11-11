@@ -1,14 +1,13 @@
 .customSelect {
   position: relative;
   width: 100%;
-  max-width: 300px;
   font-family: "Poppins", sans-serif;
 }
 
 .selectBox {
   border: 1px solid #d1d5db;
-  padding: 10px 12px;
-  border-radius: 6px;
+  padding: 10px 14px;
+  border-radius: 10px;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -21,6 +20,7 @@
   border-color: var(--primary-color);
 }
 .selectBox span {
+  font-size: 1rem;
   color: var(--secondary-color);
 }
 
@@ -67,6 +67,7 @@
   .customSelect {
     max-width: 100%;
   }
+  
   .selectDropdown{
     max-height: 200px;
     overflow-y: auto;
