@@ -14,7 +14,7 @@ interface CustomSelectProps {
 
 export const CustomSelect: React.FC<CustomSelectProps> = ({
   options,
-  placeholder = "Selecciona una opción",
+  placeholder,
   onChange,
 }) => {
   const [open, setOpen] = useState(false);

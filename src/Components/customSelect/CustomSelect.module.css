@@ -67,4 +67,8 @@
   .customSelect {
     max-width: 100%;
   }
+  .selectDropdown{
+    max-height: 200px;
+    overflow-y: auto;
+  }
 }
