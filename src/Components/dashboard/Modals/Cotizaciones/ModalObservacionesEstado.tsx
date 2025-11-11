@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { CotizacionDashboardDTO } from "../../../../models/Cotizacion/Cotizacion_response_dto";
 import style from "./ModalObservacionesEstado.module.css";
+import { CustomSelect } from "../../../customSelect/CustomSelect";
 
 interface ModalObservacionEstadoProps {
   show: boolean;
@@ -71,6 +72,15 @@ function ModalObservacionEstado({
     }
   }, [cotizacion]);
 
+  const options = [
+    { value: "PENDIENTE", label: "Pendiente" },
+    { value: "EN_PROCESO", label: "En Proceso" },
+    { value: "ENVIADA", label: "Enviada" },
+    { value: "ACEPTADA", label: "Aceptada" },
+    { value: "RECHAZADA", label: "Rechazada" },
+    { value: "CERRADA", label: "Cerrada" },
+  ];
+
   if (!show || !cotizacion) return null;
 
   const handleConfirm = async () => {
@@ -104,29 +114,16 @@ function ModalObservacionEstado({
 
         <label>
           Estado
-          <select
-            className={style.select}
-            value={estadoSeleccionado}
-            onChange={(e) =>
-              setEstadoSeleccionado(
-                e.target.value as
-                  | "PENDIENTE"
-                  | "EN_PROCESO"
-                  | "ENVIADA"
-                  | "ACEPTADA"
-                  | "RECHAZADA"
-                  | "CERRADA"
-              )
+          <CustomSelect
+            options={options}
+            onChange={(value) =>
+              setEstadoSeleccionado(value as EstadoCotizacion)
             }
-          >
-            <option value="">Selecciona un estado</option>
-            <option value="PENDIENTE">Pendiente</option>
-            <option value="EN_PROCESO">En Proceso</option>
-            <option value="ENVIADA">Enviada</option>
-            <option value="ACEPTADA">Aceptada</option>
-            <option value="RECHAZADA">Rechazada</option>
-            <option value="CERRADA">Cerrada</option>
-          </select>
+            placeholder={
+              options.find((option) => option.value === estadoSeleccionado)
+                ?.label || "Selecciona un estado"
+            }
+          />{" "}
         </label>
 
         <div className={style.modalActions}>
