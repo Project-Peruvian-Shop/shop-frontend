@@ -43,6 +43,7 @@
 }
 
 .dropbtn {
+  font-family: "Poppins", sans-serif;
   background: none;
   border: none;
   cursor: pointer;
@@ -124,7 +125,6 @@
     position: static;
     box-shadow: none;
     padding: 0;
-    
   }
   .userSection {
     font-size: 12px;
