@@ -5,10 +5,9 @@ import {
   agregarAuthToken,
 } from "../utils/auth";
 import { obtenerNuevoToken } from "../services/auht.service";
-import { URL_API } from "./constants";
 
 const api = axios.create({
-  baseURL: URL_API,
+  baseURL: import.meta.env.VITE_URL_API,
 });
 
 // 🔹 Interceptor de PETICIONES (antes de enviar)

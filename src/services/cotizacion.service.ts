@@ -1,4 +1,3 @@
-import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type {
   CotizacionChangeStateDTO,
@@ -15,7 +14,7 @@ import type {
 import type { ProductoCarritoDetalleDTO } from "../models/CotizacionDetalle/Cotizacion_detalle";
 import api from "../utils/api";
 
-const BASE_URL = URL_API + "/cotizacion";
+const BASE_URL =  "/cotizacion";
 
 export async function postCotizacion(
   body: CotizacionRequestDTO

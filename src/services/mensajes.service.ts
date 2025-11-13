@@ -7,7 +7,6 @@ import type {
   MensajeDetalleResponseDTO,
 } from "../models/Mensaje/Mensaje_response_dto";
 import api from "../utils/api";
-import axios from "axios";
 
 const BASE_URL = URL_API + "/mensaje";
 
@@ -43,7 +42,7 @@ export async function createContactenos(
 ): Promise<MensajeCreateResponseDTO> {
   const url = `${BASE_URL}/contactenos`;
 
-  const res = await axios.post<ApiResponse<MensajeCreateResponseDTO>>(
+  const res = await api.post<ApiResponse<MensajeCreateResponseDTO>>(
     url,
     body
   );
@@ -56,7 +55,7 @@ export async function createLibroReclamaciones(
 ): Promise<MensajeCreateResponseDTO> {
   const url = `${BASE_URL}/reclamaciones`;
 
-  const res = await axios.post<ApiResponse<MensajeCreateResponseDTO>>(
+  const res = await api.post<ApiResponse<MensajeCreateResponseDTO>>(
     url,
     body
   );

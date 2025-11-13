@@ -8,7 +8,6 @@ import type {
 } from "../models/Producto/Producto_response_dto";
 import type { ProductoRequestDTO } from "../models/Producto/Producto_request_dto";
 import api from "../utils/api";
-import axios from "axios";
 const BASE_URL = URL_API + "/producto";
 
 export async function getPaginatedProductos(
@@ -24,7 +23,7 @@ export async function getPaginatedProductos(
   }
 
   const url = `${BASE_URL}/paginated?${params.toString()}`;
-  const res = await axios.get<
+  const res = await api.get<
     ApiResponse<PaginatedResponse<PaginatedProductoResponseDTO>>
   >(url);
 
@@ -33,7 +32,7 @@ export async function getPaginatedProductos(
 
 export async function getProductoById(id: number): Promise<ProductoDTO> {
   const url = `${BASE_URL}/${id}`;
-  const res = await axios.get<ApiResponse<ProductoDTO>>(url);
+  const res = await api.get<ApiResponse<ProductoDTO>>(url);
 
   return res.data.data;
 }
@@ -97,7 +96,7 @@ export async function getSugeridos(
   categoria: number
 ): Promise<PaginatedProductoResponseDTO[]> {
   const url = `${BASE_URL}/sugeridos?producto=${producto}&categoria=${categoria}`;
-  const res = await axios.get<ApiResponse<PaginatedProductoResponseDTO[]>>(url);
+  const res = await api.get<ApiResponse<PaginatedProductoResponseDTO[]>>(url);
 
   return res.data.data;
 }

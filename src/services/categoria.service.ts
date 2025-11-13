@@ -8,16 +8,16 @@ import type {
 } from "../models/Categoria/Categoria_response";
 import type { CategoriaRequestDTO } from "../models/Categoria/Categoria_request";
 import api from "../utils/api";
-import axios from "axios";
 
 const BASE_URL = URL_API + "/categoria";
+
 
 export async function getCategoriaAllQuantity(): Promise<
   AllAndQuantityResponseDTO[]
 > {
   const url = `${BASE_URL}/all-and-quantity`;
 
-  const res = await axios.get<ApiResponse<AllAndQuantityResponseDTO[]>>(url);
+  const res = await api.get<ApiResponse<AllAndQuantityResponseDTO[]>>(url);
 
   return res.data.data;
 }
