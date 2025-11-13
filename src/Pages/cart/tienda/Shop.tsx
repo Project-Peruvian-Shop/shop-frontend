@@ -21,7 +21,6 @@ const Shop = () => {
   const [page, setPage] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
-  // ✅ Obtener parámetro de la URL
   const [searchParams] = useSearchParams();
   const categoriaIdFromUrl = searchParams.get("categoriaId");
 
