@@ -9,6 +9,7 @@ import type { PaginatedProductoResponseDTO } from "../../../models/Producto/Prod
 import Pagination from "../../../Components/pagination/Pagination";
 import type { AllAndQuantityResponseDTO } from "../../../models/Categoria/Categoria_response";
 import { getCategoriaAllQuantity } from "../../../services/categoria.service";
+import { useSearchParams } from "react-router-dom";
 
 const Shop = () => {
   const [pageData, setPageData] =
@@ -20,11 +21,26 @@ const Shop = () => {
   const [page, setPage] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
+  // ✅ Obtener parámetro de la URL
+  const [searchParams] = useSearchParams();
+  const categoriaIdFromUrl = searchParams.get("categoriaId");
+
+  useEffect(() => {
+    if (categoriaIdFromUrl) {
+      setSelectedCategory(Number(categoriaIdFromUrl));
+      setPage(0);
+    }
+  }, [categoriaIdFromUrl]);
+
   useEffect(() => {
     const fetchProductos = async () => {
       try {
         setLoading(true);
-        const response = await getPaginatedProductos(page, 12, selectedCategory);
+        const response = await getPaginatedProductos(
+          page,
+          12,
+          selectedCategory
+        );
         const responseCategories = await getCategoriaAllQuantity();
 
         setCategoriesData(responseCategories);

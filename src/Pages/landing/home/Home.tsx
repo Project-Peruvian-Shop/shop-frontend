@@ -13,6 +13,15 @@ import instalacioneselectricas from "../../../Icons/Home/Instalaciones_electrica
 import Hero from "../../../Components/home/hero/Hero";
 import styles from "./Home.module.css";
 
+const categorias = {
+  fluidoSP: 1,
+  desague: 2,
+  electricas: 3,
+  fluidoUR: 4,
+  fluidoUF: 5,
+  alcantarillado: 6,
+};
+
 const Home = () => {
   return (
     <main>
@@ -49,19 +58,19 @@ const Home = () => {
           img={alcantarillado}
           title="Alcantarillado"
           alt="Alcantarillado-icon"
-          link={routes.shop}
+          link={`${routes.shop}?categoriaId=${categorias.alcantarillado}`}
         />
         <Card
           img={desague}
           title="Desagüe"
           alt="Desagüe-icon"
-          link={routes.shop}
+          link={`${routes.shop}?categoriaId=${categorias.desague}`}
         />
         <Card
           img={fluidoapresionUF}
           title="Fluidos a presión UF"
           alt="Fluidos-a-presion-UF-icon"
-          link={routes.shop}
+          link={`${routes.shop}?categoriaId=${categorias.fluidoUF}`}
         />
       </div>
 
@@ -70,19 +79,19 @@ const Home = () => {
           img={fluidoapresionSP}
           title="Fluido a presión SP"
           alt="Fluido-a-presion-SP-icon"
-          link={routes.shop}
+          link={`${routes.shop}?categoriaId=${categorias.fluidoSP}`}
         />
         <Card
           img={fluidoapresionUR}
           title="Fluido a presión UR"
           alt="Fluido-a-presion-UR-icon"
-          link={routes.shop}
+          link={`${routes.shop}?categoriaId=${categorias.fluidoUR}`}
         />
         <Card
           img={instalacioneselectricas}
           title="Instalaciones Electricas"
           alt="Instalaciones-Electricas-icon"
-          link={routes.shop}
+          link={`${routes.shop}?categoriaId=${categorias.electricas}`}
         />
       </div>
     </main>
