@@ -1,4 +1,3 @@
-import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type {
   TrabajadoresDTO,
@@ -12,7 +11,7 @@ import type {
 } from "../models/Usuario/Usuario_request_dto";
 import api from "../utils/api";
 
-const BASE_URL = URL_API + "/usuario";
+const BASE_URL =  "/usuario";
 
 export async function getProfile(id: number): Promise<UsuarioProfileDTO> {
   const url = `${BASE_URL}/${id}`;

@@ -1,4 +1,3 @@
-import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type {
   AllAndQuantityResponseDTO,
@@ -9,7 +8,7 @@ import type {
 import type { CategoriaRequestDTO } from "../models/Categoria/Categoria_request";
 import api from "../utils/api";
 
-const BASE_URL = URL_API + "/categoria";
+const BASE_URL =  "/categoria";
 
 
 export async function getCategoriaAllQuantity(): Promise<

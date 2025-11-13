@@ -1,4 +1,3 @@
-import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type { MensajeRequestDTO } from "../models/Mensaje/Mensaje_request_dto";
 import type {
@@ -8,7 +7,7 @@ import type {
 } from "../models/Mensaje/Mensaje_response_dto";
 import api from "../utils/api";
 
-const BASE_URL = URL_API + "/mensaje";
+const BASE_URL = "/mensaje";
 
 export async function getAllMensajes(
   page: number = 0,

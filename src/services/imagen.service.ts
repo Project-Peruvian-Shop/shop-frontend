@@ -1,9 +1,8 @@
-import { URL_API } from "../utils/constants";
 import type { ImagenResponseDTO } from "../models/Imagen/Imagen_response_dto";
 import type { ApiResponse } from "./global.interfaces";
 import api from "../utils/api";
 
-const BASE_URL = `${URL_API}/imagen`;
+const BASE_URL = "/imagen";
 
 export async function createImagen(
   formData: FormData

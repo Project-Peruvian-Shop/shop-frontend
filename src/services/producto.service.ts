@@ -1,4 +1,3 @@
-import { URL_API } from "../utils/constants";
 import type { ApiResponse, PaginatedResponse } from "./global.interfaces";
 import type {
   PaginatedProductoResponseDTO,
@@ -8,7 +7,7 @@ import type {
 } from "../models/Producto/Producto_response_dto";
 import type { ProductoRequestDTO } from "../models/Producto/Producto_request_dto";
 import api from "../utils/api";
-const BASE_URL = URL_API + "/producto";
+const BASE_URL = "/producto";
 
 export async function getPaginatedProductos(
   page: number = 0,

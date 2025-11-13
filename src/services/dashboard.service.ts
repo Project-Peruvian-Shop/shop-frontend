@@ -1,4 +1,3 @@
-import { URL_API } from "../utils/constants";
 import type { ApiResponse } from "./global.interfaces";
 import type {
   CategoriaCotizadaDTO,
@@ -8,7 +7,7 @@ import type {
 } from "../models/dashboard/DashboardResponse";
 import api from "../utils/api";
 
-const BASE_URL = URL_API + "/dashboard";
+const BASE_URL =  "/dashboard";
 
 export async function getKPIS(
   periodo: "DAY" | "WEEK" | "MONTH"
