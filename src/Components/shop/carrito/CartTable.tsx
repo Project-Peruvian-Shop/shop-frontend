@@ -133,7 +133,7 @@ export default function CartTable() {
           </table>
 
           <div className={styles.footer}>
-            <div>Total de productos: {totalProductos}</div>
+            <div>Total de unidades: {totalProductos}</div>
             <button
               className={styles.btnWhite}
               onClick={() => navigate(routes.shop)}
