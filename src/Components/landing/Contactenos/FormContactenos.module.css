@@ -56,6 +56,9 @@
   background-color: var(--primary-color);
   border-radius: 4px;
 }
+.textareaGroup .inputWrapper::placeholder {
+  font-family: "Poppins", sans-serif;
+}
 .textareaGroup .inputWrapper label {
   text-align: start;
   font-weight: 700;
@@ -186,7 +189,9 @@
   position: relative;
 }
 .termsBox {
-  justify-content: center;
+  margin-top: 20px;
+  text-align: right;
+  justify-content: space-between;
 }
 
 .termsBox label {
@@ -201,7 +206,8 @@
   font-weight: 600;
 }
 .btnPrimary {
-  margin-left: auto;
+  font-family: "Poppins", sans-serif;
+  margin-left: 20px;
   margin-bottom: 20px;
   background-color: var(--primary-color);
   border: none;

@@ -53,6 +53,7 @@ a.linkWhatsapp {
 }
 
 .footerBox {
+	font-family: "Poppins", sans-serif;
 	display: inline-flex;
 	align-items: center;
 	gap: 1rem;
@@ -68,6 +69,7 @@ a.linkWhatsapp {
 }
 
 .footerBox button {
+	font-family: "Poppins", sans-serif;
 	background: #fb2343;
 	border: none;
 	border-radius: 9999px;
