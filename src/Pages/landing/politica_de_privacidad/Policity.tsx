@@ -62,8 +62,8 @@ const Policity = () => {
                 Nos reservamos el derecho de actualizar esta Política de
                 Privacidad y cualquier cambio será publicado en esta página.
               </li>
-            </div>
-            <div className={styles.politicaDer}>
+              {/* </div> */}
+              {/* <div className={styles.politicaDer}> */}
               <li>
                 No compartimos tus datos con terceros, salvo obligación legal o
                 requerimiento de autoridad competente.
