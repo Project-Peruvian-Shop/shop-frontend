@@ -61,6 +61,11 @@
   font-weight: 700;
   font-size: 2rem;
 }
+.textareaGroup textarea::placeholder {
+font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #9ca3af;
+}
 
 .inputWrapper {
   display: flex;
@@ -214,6 +219,7 @@
   font-weight: 600;
 }
 .btnPrimary {
+  font-family: "Poppins", sans-serif;
   margin-left: auto;
   margin-bottom: 20px;
   background-color: var(--primary-color);
@@ -222,7 +228,7 @@
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  width: 180px;
+  width: 200px;
   padding: 10px;
   color: var(--white-color);
 }
