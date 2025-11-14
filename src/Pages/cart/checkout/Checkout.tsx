@@ -164,7 +164,7 @@ function Checkout() {
         title: "La cotización se ha enviado correctamente.",
         text: "Nos pondremos en contacto contigo pronto.",
         imageUrl:
-          "https://tuberiasperuanito.com/wp-content/uploads/2024/10/Logo-HD.png",
+          "https://res.cloudinary.com/dbxcev580/image/upload/v1763152355/logo-tp_flb8zp.png",
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Logo de la empresa",
