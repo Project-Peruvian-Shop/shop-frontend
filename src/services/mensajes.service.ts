@@ -11,7 +11,7 @@ const BASE_URL = "/mensaje";
 
 export async function getAllMensajes(
   page: number = 0,
-  size: number = 10
+  size: number = 8
 ): Promise<PaginatedResponse<MensajeDashboardDTO>> {
   const url = `${BASE_URL}/dashboard-paginated?page=${page}&size=${size}`;
 
@@ -25,7 +25,7 @@ export async function getAllMensajes(
 export async function getSearchMensajes(
   text: string,
   page: number = 0,
-  size: number = 10
+  size: number = 8
 ): Promise<PaginatedResponse<MensajeDashboardDTO>> {
   const url = `${BASE_URL}/dashboard-search?busqueda=${text}&page=${page}&size=${size}`;
 
