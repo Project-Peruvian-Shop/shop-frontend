@@ -31,7 +31,7 @@ const Producto = () => {
       text: `Se agregó ${cantidad} unidad(es) al carrito.`,
       showCancelButton: true,
       confirmButtonText: "Ir al carrito",
-      cancelButtonText: "Seguir comprando",
+      cancelButtonText: "Seguir cotizando",
     }).then((result) => {
       if (result.isConfirmed) {
         navigate(routes.shop_cart);
