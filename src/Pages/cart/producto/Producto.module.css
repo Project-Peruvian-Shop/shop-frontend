@@ -124,34 +124,35 @@ button.addToCartButton {
   font-size: 1rem;
 }
 /*TABLETS*/
-@media (min-width: 768px) {
-}
-/*CELULARES*/
-@media (min-width: 320px) {
+@media (max-width: 767px) {
   .banner {
     flex-wrap: wrap;
     gap: 30px;
   }
+
   .bannerLeft {
     width: 100%;
     height: 320px;
   }
+
   .productoContainer {
     padding: 0;
     margin: 0 auto;
     width: 80%;
   }
-  .cantidadContainer{
+
+  .cantidadContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px ;
-
+    gap: 10px;
   }
-  .cantidadContainer input{
+
+  .cantidadContainer input {
     width: 2.5rem;
   }
+
   button.addToCartButton {
     margin-left: 0;
   }
