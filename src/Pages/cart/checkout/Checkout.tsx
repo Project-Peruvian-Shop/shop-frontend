@@ -107,10 +107,6 @@ function Checkout() {
     if (!/^\d{9}$/.test(telefono)) {
       newErrors.telefono = "El número de teléfono debe contener 9 dígitos";
     }
-    if (comentarios.trim().length < 10) {
-      newErrors.contenido =
-        "El detalle de la reclamación debe tener al menos 10 caracteres";
-    }
     if (!acceptedTerms) {
       MySwal.fire({
         title: "Atención",
