@@ -125,7 +125,7 @@ const MensajeDetalle = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>Mensaje de: {mensaje?.nombre}</div>
+        <div className={styles.title}>Mensaje de {mensaje?.nombre}</div>
       </div>
       <div className={styles.content}>
         <div className={styles.left}>
