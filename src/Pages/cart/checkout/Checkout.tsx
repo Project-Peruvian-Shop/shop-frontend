@@ -101,24 +101,24 @@ function Checkout() {
     if (!tipoDocumento) {
       newErrors.tipoDocumento = "Selecciona un tipo de documento";
     }
-    if (!/^\d+$/.test(numeroDocumento)) {
-      newErrors.documento = "El número de documento debe ser numérico";
-    }
     if (!/^\d{9}$/.test(telefono)) {
       newErrors.telefono = "El número de teléfono debe contener 9 dígitos";
-    }
-    if (!acceptedTerms) {
-      MySwal.fire({
-        title: "Atención",
-        text: "Debe aceptar los términos y condiciones para continuar.",
-        icon: "warning",
-      });
     }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
+
+    if (!acceptedTerms) {
+      MySwal.fire({
+        title: "Atención",
+        text: "Debe aceptar los términos y condiciones para continuar.",
+        icon: "warning",
+      });
+      return;
+    }
+
     if (loading) return;
     setLoading(true);
     setTimeout(() => setLoading(false), 3000);
