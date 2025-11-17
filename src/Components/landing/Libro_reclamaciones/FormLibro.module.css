@@ -137,7 +137,6 @@
   display: flex;
   gap: 10px;
   justify-content: flex-start;
-  flex-wrap: wrap;
   text-align: left;
 }
 .radioCard {
@@ -230,7 +229,12 @@
   background-color: var(--gray-color);
   cursor: not-allowed;
 }
-@media (max-width: 425px) {
+@media (max-width:1024px) {
+  .containerFormulario form {
+    width: 70%;
+  }
+}
+@media (max-width: 768px) and (min-width: 320px) {
   .containerFormulario form {
     width: 60%;
   }
@@ -245,6 +249,9 @@
   }
   .textareaGroup::before {
     display: none;
+  }
+  .radioContainer {
+    flex-direction: column;
   }
   .inputGroup {
     padding: 0;
