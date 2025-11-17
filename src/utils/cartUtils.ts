@@ -13,16 +13,19 @@ export const addToCart = async (
     title: "Agregar Producto al Carrito",
     input: "number",
     inputLabel: "Ingresa la cantidad",
-    inputValue: 1,
+    inputValue: 10,
     showCancelButton: true,
     inputAttributes: {
-      min: "1",
+      min: "10",
+      max: "300",
       step: "1",
     },
     inputValidator: (value) => {
       if (!value) return "¡Debes ingresar una cantidad!";
       if (Number(value) < 1) return "La cantidad debe ser mayor que 0";
-    },
+      if (Number(value) > 300) return "La cantidad debe ser menor o igual a 300";
+    }
+    ,
   });
 
   if (!value) return false;
