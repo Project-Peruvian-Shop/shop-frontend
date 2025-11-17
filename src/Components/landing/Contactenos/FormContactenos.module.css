@@ -186,6 +186,11 @@
   position: relative;
 }
 .termsBox {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 10px;
   justify-content: center;
 }
 
@@ -247,6 +252,7 @@
     min-width: 0;
   }
   .termsBox {
+    display: block;
     margin-top: 20px;
     margin-bottom: 20px;
   }
