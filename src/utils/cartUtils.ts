@@ -23,7 +23,7 @@ export const addToCart = async (
     inputValidator: (value) => {
       if (!value) return "¡Debes ingresar una cantidad!";
       if (Number(value) < 1) return "La cantidad debe ser mayor que 0";
-      if (Number(value) > 300) return "La cantidad debe ser menor o igual a 300";
+      if (Number(value) > 1000) return "La cantidad debe ser menor o igual a 1000";
     }
     ,
   });

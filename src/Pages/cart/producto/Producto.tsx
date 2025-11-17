@@ -17,7 +17,7 @@ const Producto = () => {
 
   const [producto, setProducto] = useState<ProductoDTO | null>(null);
   const [loading, setLoading] = useState(true);
-  const [cantidad, setCantidad] = useState(1);
+  const [cantidad, setCantidad] = useState(10);
 
   const agregarAlCarrito = (productoId: number, cantidad: number) => {
     console.log(
@@ -94,7 +94,7 @@ const Producto = () => {
                   <button
                     type="button"
                     className={styles.restar}
-                    onClick={() => cantidad > 1 && setCantidad(cantidad - 1)}
+                    onClick={() => cantidad > 1 && setCantidad(cantidad - 10)}
                   >
                     -
                   </button>
@@ -107,15 +107,15 @@ const Producto = () => {
                     max={300}
                     step={1}
                     onChange={(e) => {
-                      const value = Number(e.target.value) || 1;
-                      setCantidad(Math.max(1, Math.min(300, value)));
+                      const value = Number(e.target.value) || 10;
+                      setCantidad(Math.max(1, Math.min(1000, value)));
                     }}
                   />
 
                   <button
                     type="button"
                     className={styles.sumar}
-                    onClick={() => setCantidad(cantidad + 1)}
+                    onClick={() => setCantidad(cantidad + 10)}
                   >
                     +
                   </button>
@@ -142,7 +142,7 @@ const Producto = () => {
 
               <div className={styles.usosContainer}>
                 <div className={styles.subtitle}>
-                  Usos:
+                  Usos
                 </div>
                 <p>{producto.categoriaUsos}</p>
               </div>
