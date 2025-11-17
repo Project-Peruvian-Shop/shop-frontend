@@ -1,13 +1,22 @@
 .navbar {
   display: flex;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 16px 0;
+  position: relative;
+  z-index: 100;
+}
+
+.container {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 40px;
-  background-color: white;
-  position: relative;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 40px;
 }
 
 .logo {

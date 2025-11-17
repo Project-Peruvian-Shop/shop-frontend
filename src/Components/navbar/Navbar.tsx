@@ -25,80 +25,93 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
-      {/* Ícono hamburguesa (solo en móviles) */}
-      <div className={styles.menuIcon} onClick={toggleMenu}>
-        {menuOpen ? "✕" : "☰"}
-      </div>
-      <Link to={routes.home}>
-        <img src={logo} alt="logo-tuberias-peruanito" className={styles.logo} />
-      </Link>
-
-      {/* Links */}
-      <div className={`${styles.links} ${menuOpen ? styles.active : ""}`}>
-        <Link to={routes.home} onClick={() => setMenuOpen(false)}>
-          Inicio
-        </Link>
-        <Link to={routes.about} onClick={() => setMenuOpen(false)}>
-          ¿Quiénes somos?
-        </Link>
-        <Link to={routes.shop} onClick={() => setMenuOpen(false)}>
-          Tienda
-        </Link>
-
-        <div className={styles.dropdown}>
-          <button className={styles.dropbtn} onClick={toggleAyudaDropdown}>
-            Ayuda ▾
-          </button>
-          {ayudaDropdownOpen && (
-            <div className={styles.dropdownContent}>
-              <Link
-                to={routes.complaints_book}
-                onClick={() => setMenuOpen(false)}
-              >
-                Libro de Reclamaciones
-              </Link>
-              <Link
-                to={routes.privacy_policy}
-                onClick={() => setMenuOpen(false)}
-              >
-                Política de Privacidad
-              </Link>
-              <Link to={routes.tyc} onClick={() => setMenuOpen(false)}>
-                Términos y Condiciones
-              </Link>
-              <Link to={routes.questions} onClick={() => setMenuOpen(false)}>
-                Preguntas Frecuentes
-              </Link>
-              <Link to={routes.contact} onClick={() => setMenuOpen(false)}>
-                Contáctenos
-              </Link>
-            </div>
-          )}
+      <div className={styles.container}>
+        {/* Ícono hamburguesa (solo en móviles) */}
+        <div className={styles.menuIcon} onClick={toggleMenu}>
+          {menuOpen ? "✕" : "☰"}
         </div>
-      </div>
 
-      {showLandingButtons && (
-        <ButtonPrimary
-          text="Contáctenos"
-          click={() => navigate(routes.contact)}
-        />
-      )}
-
-      {!showLandingButtons && usuario && (
-        <div className={styles.userSection}>
-          <DropdownProfile
-            userName={usuario.nombre}
-            userAvatar={usuario.avatar}
+        {/* Logo */}
+        <Link to={routes.home}>
+          <img
+            src={logo}
+            alt="logo-tuberias-peruanito"
+            className={styles.logo}
           />
-        </div>
-      )}
+        </Link>
 
-      {!showLandingButtons && !usuario && (
-        <ButtonPrimary
-          text="Iniciar sesión"
-          click={() => navigate(routes.login)}
-        />
-      )}
+        {/* Links */}
+        <div className={`${styles.links} ${menuOpen ? styles.active : ""}`}>
+          <Link to={routes.home} onClick={() => setMenuOpen(false)}>
+            Inicio
+          </Link>
+          <Link to={routes.about} onClick={() => setMenuOpen(false)}>
+            ¿Quiénes somos?
+          </Link>
+          <Link to={routes.shop} onClick={() => setMenuOpen(false)}>
+            Tienda
+          </Link>
+
+          {/* Dropdown Ayuda */}
+          <div className={styles.dropdown}>
+            <button className={styles.dropbtn} onClick={toggleAyudaDropdown}>
+              Ayuda ▾
+            </button>
+
+            {ayudaDropdownOpen && (
+              <div className={styles.dropdownContent}>
+                <Link
+                  to={routes.complaints_book}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Libro de Reclamaciones
+                </Link>
+                <Link
+                  to={routes.privacy_policy}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Política de Privacidad
+                </Link>
+                <Link to={routes.tyc} onClick={() => setMenuOpen(false)}>
+                  Términos y Condiciones
+                </Link>
+                <Link to={routes.questions} onClick={() => setMenuOpen(false)}>
+                  Preguntas Frecuentes
+                </Link>
+                <Link to={routes.contact} onClick={() => setMenuOpen(false)}>
+                  Contáctenos
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Botón cuando está en páginas públicas */}
+        {showLandingButtons && (
+          <ButtonPrimary
+            text="Contáctenos"
+            click={() => navigate(routes.contact)}
+          />
+        )}
+
+        {/* Dropdown usuario si está logeado */}
+        {!showLandingButtons && usuario && (
+          <div className={styles.userSection}>
+            <DropdownProfile
+              userName={usuario.nombre}
+              userAvatar={usuario.avatar}
+            />
+          </div>
+        )}
+
+        {/* Botón iniciar sesión si NO hay usuario */}
+        {!showLandingButtons && !usuario && (
+          <ButtonPrimary
+            text="Iniciar sesión"
+            click={() => navigate(routes.login)}
+          />
+        )}
+      </div>
     </nav>
   );
 };
