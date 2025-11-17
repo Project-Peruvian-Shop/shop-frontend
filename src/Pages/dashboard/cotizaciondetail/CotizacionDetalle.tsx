@@ -225,6 +225,14 @@ function CotizacionDetalle() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <ButtonHeader
+          title="Cotizaciones"
+          onClick={() => navigate(-1)}
+          icon="back"
+          size={24}
+          style="secondary-outline"
+        />
+
         <div className={styles.title}>Cotización {cotizacion?.numero}</div>
 
         {(usuario?.rol === UserRoleConst.ADMINISTRADOR ||

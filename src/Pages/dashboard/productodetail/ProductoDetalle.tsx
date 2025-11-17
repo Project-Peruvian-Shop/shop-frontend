@@ -139,6 +139,14 @@ function ProductoDetalle() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <ButtonHeader
+          title="Productos"
+          onClick={() => navigate(-1)}
+          icon="back"
+          size={24}
+          style="secondary-outline"
+        />
+
         <div className={styles.title}>Producto {producto?.nombre}</div>
 
         {(usuario?.rol === UserRoleConst.ADMINISTRADOR ||

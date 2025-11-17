@@ -21,7 +21,8 @@
 /* Header con título y acciones */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 20px;
   align-items: center;
   background: #fff;
   padding: 16px;

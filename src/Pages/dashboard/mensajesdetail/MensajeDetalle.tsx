@@ -16,6 +16,7 @@ import ButtonCard, {
 } from "../../../Components/dashboard/buttoncard/ButtonCard";
 import { Icons } from "../../../Icons/icons";
 import ModalMensajes from "../../../Components/dashboard/Modals/Mensajes/ModalMensajes";
+import ButtonHeader from "../../../Components/dashboard/buttonheader/ButtonHeader";
 
 const MensajeDetalle = () => {
   const { id } = useParams<{ id: string }>();
@@ -125,6 +126,14 @@ const MensajeDetalle = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <ButtonHeader
+          title="Mensajes"
+          onClick={() => navigate(-1)}
+          icon="back"
+          size={24}
+          style="secondary-outline"
+        />
+
         <div className={styles.title}>Mensaje de {mensaje?.nombre}</div>
       </div>
       <div className={styles.content}>

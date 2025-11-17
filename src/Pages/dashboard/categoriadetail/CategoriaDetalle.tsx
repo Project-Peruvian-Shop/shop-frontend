@@ -154,6 +154,14 @@ function CategoriaDetalle() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <ButtonHeader
+          title="Líneas"
+          onClick={() => navigate(-1)}
+          icon="back"
+          size={24}
+          style="secondary-outline"
+        />
+
         <div className={styles.title}>Línea {categoria?.norma}</div>
 
         {(usuario?.rol === UserRoleConst.ADMINISTRADOR ||
