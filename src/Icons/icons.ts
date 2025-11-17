@@ -5,6 +5,8 @@ import delete1 from "./actions/delete-1.svg";
 import view2 from "./actions/view-2.svg";
 import edit2 from "./actions/edit-2.svg";
 import delete2 from "./actions/delete-2.svg";
+import back from "./actions/back.svg";
+
 import categoria from "./dashboard/categoria.svg";
 import cotizacion from "./dashboard/cotizacion.svg";
 import dashboard from "./dashboard/dashboard.svg";
@@ -104,6 +106,7 @@ export const Icons = {
   eyeHidePassword,
   userInput,
   phoneInput,
+  back
 };
 
 export type IconName = keyof typeof Icons;
