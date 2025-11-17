@@ -6,6 +6,9 @@ import {
   type UserRole,
 } from "../../../../models/Usuario/Usuario";
 import { CustomSelect } from "../../../customSelect/CustomSelect";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+
 interface ModalUsuarioCreateProps {
   onClose: () => void;
   onSubmit: (data: {
@@ -29,8 +32,20 @@ export default function ModalUsuarioCreate({
   const [passwordd, setPasswordd] = useState("");
   const [rol, setRol] = useState<UserRole>(UserRoleConst.CLIENTE);
 
+  const MySwal = withReactContent(Swal);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (passwordd.length < 8) {
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "La contraseña debe tener al menos 8 caracteres.",
+      });
+      return;
+    }
+
     onSubmit({
       nombre,
       apellidos,
