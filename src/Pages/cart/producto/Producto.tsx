@@ -130,20 +130,22 @@ const Producto = () => {
               </div>
             </div>
 
-            <div className={styles.descripcionContainer}>
-              <div className={styles.subtitle}>Descripción</div>
-              <img
-                src={producto.categoriaEnlace}
-                alt={producto.categoriaAlt}
-                className={styles.categoriaImagen}
-              />
-            </div>
-
-            <div className={styles.usosContainer}>
-              <div className={styles.subtitle}>
-                Usos comunes de {producto.categoriaNombre}:
+            <div className={styles.infoGrid}>
+              <div className={styles.descripcionContainer}>
+                <div className={styles.subtitle}>Descripción</div>
+                <img
+                  src={producto.categoriaEnlace}
+                  alt={producto.categoriaAlt}
+                  className={styles.categoriaImagen}
+                />
               </div>
-              <p>{producto.categoriaUsos}</p>
+
+              <div className={styles.usosContainer}>
+                <div className={styles.subtitle}>
+                  Usos:
+                </div>
+                <p>{producto.categoriaUsos}</p>
+              </div>
             </div>
           </div>
         ) : (

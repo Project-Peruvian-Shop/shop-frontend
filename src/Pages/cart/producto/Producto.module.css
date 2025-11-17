@@ -114,15 +114,26 @@ button.addToCartButton {
 
 .categoriaImagen {
   width: 100%;
-  height: 200px;
+  /* height: 200px; */
   object-fit: contain;
 }
 
-.usosContainer {
-  margin: 30px 0;
-  text-align: left;
-  font-size: 1rem;
+.infoGrid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+  margin: 40px 0;
 }
+
+/* Columna izquierda y derecha */
+.descripcionContainer,
+.usosContainer {
+  width: 50%;
+  text-align: justify;
+}
+
 /*TABLETS*/
 @media (max-width: 767px) {
   .banner {
@@ -155,5 +166,15 @@ button.addToCartButton {
 
   button.addToCartButton {
     margin-left: 0;
+  }
+
+  .infoGrid {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .descripcionContainer,
+  .usosContainer {
+    width: 100%;
   }
 }
