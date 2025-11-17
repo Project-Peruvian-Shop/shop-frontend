@@ -46,7 +46,6 @@
 .lista {
   font-size: 18px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   padding: 0;
   margin: 0;
@@ -73,11 +72,23 @@
   color: var(--primary-color);
   font-size: 20px;
 }
-@media (max-width:425px) {
-    .politicaIzq{
-        padding: 0;
-    }
-    .headerPolitica{
-      flex-direction: column;
-    }
+@media (min-width: 320px) and (max-width: 768px) {
+  .lista {
+    flex-direction: column;
+    gap: 0;
+  }
+  .headerPolitica {
+    flex-direction: column;
+  }
+  .politicaIzq,
+  .politicaDer {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .containerPadre p{
+    width: 90%;
+  }
 }

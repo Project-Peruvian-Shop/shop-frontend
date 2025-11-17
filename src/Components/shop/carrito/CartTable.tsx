@@ -85,7 +85,7 @@ export default function CartTable() {
                     <button
                       className={styles.quantityButton}
                       onClick={() =>
-                        actualizarCantidadEnCart(cart, setCart, item.id, -1)
+                        actualizarCantidadEnCart(cart, setCart, item.id, -10)
                       }
                     >
                       -
@@ -111,7 +111,7 @@ export default function CartTable() {
                     <button
                       className={styles.quantityButton}
                       onClick={() =>
-                        actualizarCantidadEnCart(cart, setCart, item.id, 1)
+                        actualizarCantidadEnCart(cart, setCart, item.id, 10)
                       }
                     >
                       +

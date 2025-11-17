@@ -142,7 +142,6 @@ font-family: "Poppins", sans-serif;
   display: flex;
   gap: 10px;
   justify-content: flex-start;
-  flex-wrap: wrap;
   text-align: left;
 }
 .radioCard {
@@ -236,7 +235,12 @@ font-family: "Poppins", sans-serif;
   background-color: var(--gray-color);
   cursor: not-allowed;
 }
-@media (max-width: 425px) {
+@media (max-width:1024px) {
+  .containerFormulario form {
+    width: 70%;
+  }
+}
+@media (max-width: 768px) and (min-width: 320px) {
   .containerFormulario form {
     width: 60%;
   }
@@ -251,6 +255,9 @@ font-family: "Poppins", sans-serif;
   }
   .textareaGroup::before {
     display: none;
+  }
+  .radioContainer {
+    flex-direction: column;
   }
   .inputGroup {
     padding: 0;

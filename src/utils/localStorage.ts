@@ -113,6 +113,17 @@ export const actualizarCantidadEnCart = (
   id: number,
   delta: number
 ) => {
+  const producto = cart.find((item) => item.id === id);
+
+  if (producto && producto.cantidad + delta > 300) {
+    Swal.fire({
+      icon: "warning",
+      title: "Cantidad máxima alcanzada",
+      text: "No puedes agregar más de 300 unidades de este producto.",
+    });
+    return;
+  }
+
   const updatedCart = cart
     .map((item) =>
       item.id === id ? { ...item, cantidad: item.cantidad + delta } : item

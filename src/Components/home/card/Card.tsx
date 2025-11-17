@@ -11,7 +11,7 @@ type CardProps = {
 
 const Card = ({ img, title, alt, link }: CardProps) => {
   return (
-    <Link to={link} className={styles.card}>
+    <Link to={link} className={styles.card} target="_blank" rel="noopener noreferrer">
       <div className={styles.imgContainer}>
         <img src={img} alt={alt} className={styles.img} />
       </div>

@@ -40,7 +40,7 @@ const Home = () => {
           img={document}
           title="Asesoramiento técnico"
           alt="Document-icon"
-          link={routes.NotFound}
+          link={routes.contact}
         />
         <Card
           img={questions}
@@ -53,7 +53,6 @@ const Home = () => {
       <Banner title="NUESTROS PRODUCTOS" />
 
       <div className={styles.containerProductos}>
-        {/* Cambiar las rutas de las categorias por las correctas */}
         <Card
           img={alcantarillado}
           title="Alcantarillado"

@@ -1,11 +1,11 @@
 import FormContactenos from "../../../Components/landing/Contactenos/FormContactenos";
 import Card from "../../../Components/home/card/Card";
 import { Icons } from "../../../Icons/icons";
-import { routes } from "../../../utils/routes";
 import locationIcon from "../../../Icons/Contact/location_contact.png";
 import style from "./Contact.module.css";
 import Redes from "../../../Components/landing/Contactenos/Redes";
 import Banner from "../../../Components/banner/Banner";
+import { RRSS } from "../../../utils/links";
 
 const Contact = () => {
   return (
@@ -29,7 +29,7 @@ const Contact = () => {
             </>
           }
           alt="phone-icon"
-          link={routes.contact}
+          link={RRSS.whatsapp}
         />
         <Card
           img={Icons.email2}
@@ -37,12 +37,11 @@ const Contact = () => {
             <>
               <span>Correo</span>
               <br />
-              <span>wilmer.guevara
-                @tuberiasperuanito.com</span>
+              <span>wilmer.guevara @tuberiasperuanito.com</span>
             </>
           }
           alt="email-icon"
-          link={routes.contact}
+          link={RRSS.email}
         />
         <Card
           img={locationIcon}
@@ -54,7 +53,7 @@ const Contact = () => {
             </>
           }
           alt="ubicacion-icon"
-          link={routes.contact}
+          link={RRSS.maps}
         />
       </div>
     </main>

@@ -104,10 +104,11 @@ const Producto = () => {
                     className={styles.cantidadInput}
                     value={cantidad}
                     min={1}
+                    max={300}
                     step={1}
                     onChange={(e) => {
                       const value = Number(e.target.value) || 1;
-                      setCantidad(Math.max(1, value));
+                      setCantidad(Math.max(1, Math.min(300, value)));
                     }}
                   />
 
