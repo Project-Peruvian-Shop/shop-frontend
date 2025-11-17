@@ -48,7 +48,6 @@ function CotizacionesProfile() {
   // columnas
   const columns: Column<CotizacionDashboardDTO>[] = [
     { header: "Número", accessor: "numeroCotizacion" },
-    { header: "Cliente", accessor: "clienteNombre" },
     {
       header: "Fecha",
       accessor: "creacion",
