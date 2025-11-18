@@ -87,33 +87,32 @@ const Navbar = () => {
         </div>
 
         {/* Botón cuando está en páginas públicas */}
-        {showLandingButtons && (
-          <ButtonPrimary
-            text="Contáctenos"
-            click={() => navigate(routes.contact)}
-          />
-        )}
-
-        {/* Dropdown usuario si está logeado */}
-        {!showLandingButtons && usuario && (
-          <div className={styles.userSection}>
-            <DropdownProfile
-              userName={usuario.nombre}
-              userAvatar={usuario.avatar}
-            />
-          </div>
-        )}
-
-        {/* Botón iniciar sesión si NO hay usuario */}
-        {!showLandingButtons && !usuario && (
-          <ButtonPrimary
-            text="Iniciar sesión"
-            click={() => navigate(routes.login)}
-          />
-        )}
+        <ButtonPrimary
+          text="Contáctenos"
+          click={() => navigate(routes.contact)}
+        />
       </div>
     </nav>
   );
 };
+
+// Comentado
+// {/* Dropdown usuario si está logeado */}
+// {!showLandingButtons && usuario && (
+//   <div className={styles.userSection}>
+//     <DropdownProfile
+//       userName={usuario.nombre}
+//       userAvatar={usuario.avatar}
+//     />
+//   </div>
+// )}
+
+// {/* Botón iniciar sesión si NO hay usuario */}
+// {!showLandingButtons && !usuario && (
+//   <ButtonPrimary
+//     text="Iniciar sesión"
+//     click={() => navigate(routes.login)}
+//   />
+// )}
 
 export default Navbar;
