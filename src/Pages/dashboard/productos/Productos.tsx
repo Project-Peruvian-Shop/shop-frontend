@@ -11,6 +11,7 @@ import {
   updateProducto,
   getQuantityProductos,
   getSearchProductos,
+  deleteProducto,
 } from "../../../services/producto.service";
 import DashboardTable, {
   type Action,
@@ -29,6 +30,7 @@ import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 import { getAllCategories } from "../../../services/categoria.service";
 import { obtenerUsuario } from "../../../utils/auth";
 import { UserRoleConst } from "../../../models/Usuario/Usuario";
+import { Loader } from "../../../Components/loader/loader";
 
 export default function ProductosTable() {
   const [productos, setProductos] =
@@ -247,6 +249,37 @@ export default function ProductosTable() {
       });
     }
   };
+  const handleDeleteProduct = async (producto: ProductoDashboardDTO) => {
+    const result = await MySwal.fire({
+      title: "¿Estás seguro?",
+      text: `Esta acción eliminará el producto ${producto.nombre}.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await deleteProducto(producto.id);
+        await fetchAll();
+        await loadCantidadProductos();
+        MySwal.fire({
+          icon: "success",
+          title: "Producto eliminado",
+          text: `El producto ${producto.nombre} ha sido eliminado.`,
+        });
+      } catch (error) {
+        MySwal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error al eliminar el producto.",
+        });
+        console.log(error);
+        
+      }
+    }
+  };
 
   // Definición de columnas
   const columns: Column<ProductoDashboardDTO>[] = [
@@ -312,7 +345,7 @@ export default function ProductosTable() {
         label: "Eliminar",
         icon: <IconSVG name="delete-secondary" size={20} />,
         onClick: (row) => {
-          console.log("Eliminar producto", row);
+          handleDeleteProduct(row);
         },
       }
     );
@@ -351,7 +384,7 @@ export default function ProductosTable() {
 
       <div className={styles.tableContainer}>
         {loading ? (
-          <p>Cargando...</p>
+          <Loader message="Cargando productos..." />
         ) : (
           <DashboardTable
             columns={columns}

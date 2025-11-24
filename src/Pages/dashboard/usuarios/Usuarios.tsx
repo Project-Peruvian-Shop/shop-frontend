@@ -7,6 +7,7 @@ import type {
 import DashboardTable from "../../../Components/dashboard/table/DashboardTable";
 import { useEffect, useState } from "react";
 import {
+  deleteUser,
   getAllUsuarios,
   getQuantityUsuarios,
   getSearchUsuarios,
@@ -26,6 +27,7 @@ import ModalUsuarioCreate from "../../../Components/dashboard/Modals/Usuario/Mod
 import ModalUsuarioEdit from "../../../Components/dashboard/Modals/Usuario/ModalUsuarioEdit";
 import { UserRoleConst } from "../../../models/Usuario/Usuario";
 import { obtenerUsuario } from "../../../utils/auth";
+import { Loader } from "../../../Components/loader/loader";
 
 function Usuarios() {
   const [usuarios, setUsuarios] =
@@ -157,7 +159,7 @@ function Usuarios() {
           text: `El usuario ha sido editado correctamente.`,
         });
       }
-    }  catch (error: unknown) {
+    } catch (error: unknown) {
       let errorMessage = "Error al editar usuario";
 
       type AxiosErrorLike = {
@@ -181,6 +183,38 @@ function Usuarios() {
         title: "Error",
         text: errorMessage,
       });
+    }
+  };
+  const handleDeleteUser = async (user: UsuarioDashboardDTO) => {
+    const result = await MySwal.fire({
+      title: "¿Estás seguro?",
+      text: `Esta acción eliminará al usuario ${user.nombre} ${user.apellidos}.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await deleteUser(user.id);
+        fetchAll(page);
+        loadCantidadUsuarios();
+        MySwal.fire({
+          icon: "success",
+          title: "Usuario eliminado",
+          text: `El usuario ${user.nombre} ha sido eliminado correctamente.`,
+        });
+      } catch (error) {
+        MySwal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error al eliminar el usuario.",
+          
+        });
+        console.log(error);
+        
+      }
     }
   };
 
@@ -231,7 +265,7 @@ function Usuarios() {
         label: "Eliminar",
         icon: <IconSVG name="delete-secondary" size={20} />,
         onClick: (row) => {
-          console.log("Eliminar usuario", row);
+          handleDeleteUser(row);
         },
       }
     );
@@ -274,7 +308,7 @@ function Usuarios() {
 
       <div className={styles.tableContainer}>
         {loading ? (
-          <p>Cargando...</p>
+          <Loader message="Cargando usuarios..." />
         ) : (
           <DashboardTable
             columns={columns}

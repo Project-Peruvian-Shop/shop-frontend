@@ -4,6 +4,7 @@ import styles from "./Categorias.module.css";
 import type { PaginatedResponse } from "../../../services/global.interfaces";
 import {
   createCategoria,
+  deleteCategoria,
   getAllCategories,
   getCategoryById,
   getQuantityCategorias,
@@ -25,6 +26,7 @@ import { createImagen } from "../../../services/imagen.service";
 import SearchBar from "../../../Components/dashboard/searchbar/SearchBar";
 import { UserRoleConst } from "../../../models/Usuario/Usuario";
 import { obtenerUsuario } from "../../../utils/auth";
+import { Loader } from "../../../Components/loader/loader";
 
 function Categorias() {
   const [categorias, setCategorias] =
@@ -138,7 +140,7 @@ function Categorias() {
         await loadCantidadCategorias();
         await fetchAll();
       }
-    }  catch (error: unknown) {
+    } catch (error: unknown) {
       let errorMessage = "Error al crear la línea";
 
       type AxiosErrorLike = {
@@ -201,7 +203,7 @@ function Categorias() {
         await loadCantidadCategorias();
         await fetchAll();
       }
-    }  catch (error: unknown) {
+    } catch (error: unknown) {
       let errorMessage = "Error al editar la línea";
 
       type AxiosErrorLike = {
@@ -227,6 +229,58 @@ function Categorias() {
       });
     }
   };
+const handleDeleteCategoria = async (categoria: CategoriaDashboardDTO) => {
+  const result = await MySwal.fire({
+    title: "¿Estás seguro?",
+    text: `Esta acción eliminará la categoría ${categoria.nombre}.`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    await deleteCategoria(categoria.id);
+    await fetchAll();
+    await loadCantidadCategorias();
+
+    MySwal.fire({
+      icon: "success",
+      title: "Categoría eliminada",
+      text: `La categoría ${categoria.nombre} ha sido eliminada.`,
+    });
+
+  } catch (error: unknown) {
+  const err = error as { response?: { data?: { message?: string } } };
+
+  const backendMessage = err?.response?.data?.message || "";
+  
+  if (backendMessage.includes("productos asociados")) {
+    MySwal.fire({
+      icon: "info",
+      title: "No se puede eliminar",
+      html: `
+        La categoría <b>${categoria.nombre}</b> no puede eliminarse
+        porque tiene <b>productos asociados</b>.<br><br>
+        <strong>Debes cambiar la línea de esos productos primero.</strong>
+      `,
+    });
+    return;
+  }
+
+  MySwal.fire({
+    icon: "error",
+    title: "Error",
+    text: "Error al eliminar la categoría.",
+  });
+
+  console.error(error);
+}
+
+};
+
 
   // Definición de columnas
   const columns: Column<CategoriaDashboardDTO>[] = [
@@ -294,7 +348,7 @@ function Categorias() {
         label: "Eliminar",
         icon: <IconSVG name="delete-secondary" size={20} />,
         onClick: (row) => {
-          console.log("Eliminar categoria", row);
+          handleDeleteCategoria(row);
         },
       }
     );
@@ -337,7 +391,7 @@ function Categorias() {
 
       <div className={styles.tableContainer}>
         {loading ? (
-          <p>Cargando...</p>
+          <Loader message="Cargando líneas..." />
         ) : (
           <DashboardTable
             columns={columns}

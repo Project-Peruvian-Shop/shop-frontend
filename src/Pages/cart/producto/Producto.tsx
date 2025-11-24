@@ -9,6 +9,7 @@ import { routes } from "../../../utils/routes";
 import { getProductoById } from "../../../services/producto.service";
 import SubHeader from "../../../Components/shop/subheader/SubHeader";
 import ProductosSugeridos from "../../../Components/shop/ProductosSugeridos/ProductosSugeridos";
+import { Loader } from "../../../Components/loader/loader";
 
 const Producto = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +19,10 @@ const Producto = () => {
   const [producto, setProducto] = useState<ProductoDTO | null>(null);
   const [loading, setLoading] = useState(true);
   const [cantidad, setCantidad] = useState(10);
+
+  const handleCategoriaClick = () => {
+    navigate(`${routes.shop}?categoriaId=${producto!.categoriaId}`);
+  };
 
   const agregarAlCarrito = (productoId: number, cantidad: number) => {
     console.log(
@@ -67,7 +72,7 @@ const Producto = () => {
 
       <div className={styles.productoContainer}>
         {loading ? (
-          <p>Cargando producto...</p>
+          <Loader message="Cargando producto..." />
         ) : producto ? (
           <div className={styles.container}>
             <div className={styles.banner}>
@@ -84,7 +89,11 @@ const Producto = () => {
 
                 <div className={styles.descripcion}>{producto.descripcion}</div>
 
-                <div className={styles.categoria}>
+                <div
+                  className={styles.categoria}
+                  onClick={handleCategoriaClick}
+                  style={{ cursor: "pointer" }}
+                >
                   Categoría:{" "}
                   <span className={styles.categoriaNombre}>
                     {producto.categoriaNombre}
@@ -141,9 +150,7 @@ const Producto = () => {
               </div>
 
               <div className={styles.usosContainer}>
-                <div className={styles.subtitle}>
-                  Usos
-                </div>
+                <div className={styles.subtitle}>Usos</div>
                 <p>{producto.categoriaUsos}</p>
               </div>
             </div>

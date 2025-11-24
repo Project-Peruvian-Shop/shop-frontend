@@ -1,0 +1,159 @@
+.card {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: stretch;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 0;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--primary);
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.clientName {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.quoteId {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+/* STATUS BADGE */
+.statusBadge {
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Status colors */
+.pendiente {
+  background: rgba(245, 158, 11, 0.1);
+  color: rgb(180, 83, 9);
+}
+
+.aceptada {
+  background: rgba(16, 185, 129, 0.1);
+  color: rgb(5, 122, 85);
+}
+
+.rechazada {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--primary-color);
+}
+
+/* AMOUNT */
+.amountContainer {
+  width: 50%;
+  margin-bottom: 24px;
+}
+
+.amount {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--foreground);
+}
+
+.date {
+  font-size: 14px;
+  margin: 0px;
+  color: var(--gray);
+}
+
+/* ACTIONS */
+.actions {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* PDF BUTTONS */
+.pdfActions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.pdfButton {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  background: var(--white-color);
+  color: var(--primary-color);
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-family: "Montserrat", sans-serif;
+  transition: background 0.2s ease;
+}
+
+.pdfButton:hover {
+  background: var(--primary-color);
+  color: var(--white-color);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.pdfLabel {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* RESPONSE BUTTON */
+.responseBtn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: 1px solid var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.responseEnabled {
+  background: var(--white-color);
+  color: var(--secondary-color);
+}
+
+.responseEnabled:hover {
+  background: var(--secondary-color);
+  color: var(--white-color);
+}
+
+.responseDisabled {
+  background: var(--gray);
+  color: var(--white-color);
+  cursor: not-allowed;
+}

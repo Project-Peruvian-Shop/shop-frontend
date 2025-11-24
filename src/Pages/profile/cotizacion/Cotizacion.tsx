@@ -2,9 +2,13 @@ import styles from "./Cotizacion.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../../utils/routes";
 import { useEffect, useState } from "react";
-import type { CotizacionFullDTO } from "../../../models/Cotizacion/Cotizacion_response_dto";
+import type {
+  CotizacionFullDTO,
+  CotizacionHistorialDTO,
+} from "../../../models/Cotizacion/Cotizacion_response_dto";
 import {
   getCotizacionById,
+  getHistorialCambiosEstado,
   getProductosByCotizacionId,
 } from "../../../services/cotizacion.service";
 import InfoCard from "../../../Components/dashboard/infocard/InfoCard";
@@ -14,9 +18,15 @@ import type { PaginatedResponse } from "../../../services/global.interfaces";
 import type { ProductoCarritoDetalleDTO } from "../../../models/CotizacionDetalle/Cotizacion_detalle";
 import Banner from "../../../Components/banner/Banner";
 import ProductListCard2 from "../../../Components/dashboard/productlistcard/ProductListCard2";
-// import ProductListCard from "../../Components/dashboard/productlistcard/ProductListCard";
-// import type { ProductoResponseDTO } from "../../models/Categoria/Categoria_response";
-// import type { PaginatedResponse } from "../../services/global.interfaces";
+import ResponseCard from "../../../Components/shop/cotizacion/ResponseCard";
+
+type EstadoStatus = "enviada" | "aceptada" | "rechazada";
+
+interface estadoType {
+  estado: EstadoStatus;
+  remitente: string;
+  fechaEnvio: string;
+}
 
 function Cotizacion() {
   const { id } = useParams<{ id: string }>();
@@ -28,6 +38,8 @@ function Cotizacion() {
     useState<PaginatedResponse<ProductoCarritoDetalleDTO>>();
   const [page, setPage] = useState(0);
 
+  const [estado, setEstado] = useState<estadoType | null>(null);
+
   useEffect(() => {
     if (!id) {
       navigate(routes.shop);
@@ -36,12 +48,22 @@ function Cotizacion() {
 
     const fetchCotizacion = async (id: string) => {
       try {
-        const [data, productosData] = await Promise.all([
+        const [data, productosData, historialEstado] = await Promise.all([
           getCotizacionById(Number(id)),
           getProductosByCotizacionId(Number(id), page),
+          getHistorialCambiosEstado(Number(id)),
         ]);
         setCotizacion(data);
         setProductos(productosData);
+
+        console.log(historialEstado);
+
+        const nuevoEstado = obtenerEstadoEnvio(historialEstado);
+        console.log(nuevoEstado);
+
+        if (nuevoEstado) {
+          setEstado(nuevoEstado);
+        }
       } catch (error) {
         console.error("Error al obtener la cotización:", error);
         navigate(routes.profile_user);
@@ -50,6 +72,28 @@ function Cotizacion() {
 
     fetchCotizacion(id);
   }, [id, navigate, page]);
+
+  function obtenerEstadoEnvio(
+    historial: CotizacionHistorialDTO[]
+  ): estadoType | null {
+    for (let i = historial.length - 1; i >= 0; i--) {
+      const h = historial[i];
+
+      if (
+        h.estadoNuevo === "ENVIADA" ||
+        h.estadoNuevo === "ACEPTADA" ||
+        h.estadoNuevo === "RECHAZADA"
+      ) {
+        return {
+          estado: h.estadoNuevo.toLowerCase() as EstadoStatus,
+          remitente: h.usuarioNombre,
+          fechaEnvio: h.fechaCambio,
+        };
+      }
+    }
+
+    return null;
+  }
 
   return (
     <div className={styles.container}>
@@ -114,34 +158,24 @@ function Cotizacion() {
           />
 
           <div className={styles.card}>
-            {cotizacion?.cotizacionEnlace ? (
-              <>
-                <div className={styles.titlePDF}>PDF de la cotización</div>
-                <div className={styles.pdfContainer}>
-                  {/* Ver PDF en nueva pestaña */}
-                  <a
-                    href={cotizacion.cotizacionEnlace}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.pdfButton}
-                  >
-                    Ver PDF
-                  </a>
-
-                  {/* Descargar PDF directamente */}
-                  <a
-                    href={cotizacion.cotizacionEnlace}
-                    download={`cotizacion-${cotizacion.numero}.pdf`}
-                    className={styles.pdfButton}
-                  >
-                    Descargar PDF
-                  </a>
-                </div>
-              </>
+            {cotizacion?.cotizacionEnlace && estado ? (
+              <ResponseCard
+                data={{
+                  id: cotizacion.id,
+                  cotizacionId: cotizacion.numero.toString(),
+                  clientName: estado.remitente,
+                  date: estado.fechaEnvio,
+                  status: estado.estado,
+                  fileName: cotizacion.cotizacionEnlace,
+                }}
+              />
             ) : (
               <>
-                <div className={styles.titlePDF}>PDF de la cotización</div>
-                <p>No se ha subido ningún PDF aún.</p>
+                <div className={styles.titlePDF}>Sin respuesta aún</div>
+                <p>
+                  Tu cotización todavía está en espera. Un asesor la revisará
+                  pronto.
+                </p>
               </>
             )}
           </div>

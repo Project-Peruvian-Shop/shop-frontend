@@ -6,7 +6,7 @@
   align-items: flex-start;
   align-content: stretch;
   gap: 20px;
-  margin: 40px 0;
+  margin-top: 40px;
   padding: 16px 140px;
 }
 
@@ -19,9 +19,7 @@
 }
 
 .card {
-  height: 200px;
-  margin-bottom: 20px;
-  padding: 40px;
+  padding: 50px 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -92,29 +90,57 @@
   white-space: nowrap;
 }
 
+/* Contenedor de una sola línea */
+.pdfRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Alinea verticalmente */
+  justify-content: space-between; /* Título a la izquierda, botones a la derecha */
+  gap: 12px; /* Espacio entre botones */
+  margin-bottom: 16px;
+}
+
+/* Contenedor de los botones (para mantenerlos juntos) */
+.pdfButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px; /* espacio entre botones */
+}
+
 .titlePDF {
   margin-top: 16px;
   margin-bottom: 12px;
-  color: var(--primary-color);
+  color: var(--secondary-color);
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-style: Bold;
   font-size: 20px;
 }
 
+/* Botones */
 .pdfButton {
-  margin-right: 10px;
-  padding: 10px 20px;
+  padding: 8px 16px;
   background-color: white;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--secondary-color);
   border-radius: 8px;
-  cursor: pointer;
+  color: var(--secondary-color);
   text-decoration: none;
-  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rejectButton {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .pdfButton:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.rejectButton:hover {
   background-color: var(--primary-color);
   color: white;
 }
@@ -144,13 +170,24 @@
   justify-content: center;
   margin-bottom: 40px;
 }
-@media  (max-width:768px) {
+@media (max-width: 768px) {
   .content {
     flex-direction: column;
     padding: 16px 30px;
   }
-  .left, .right {
+  .left,
+  .right {
     width: 100%;
   }
-  
+}
+
+/* Responsivo: en pantallas pequeñas, el título y botones pueden apilarse */
+@media (max-width: 480px) {
+  .pdfRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .pdfButton {
+    width: 100%;
+  }
 }
