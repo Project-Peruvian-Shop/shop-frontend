@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { publicRoutes, routes } from "../../utils/routes";
+import { Link, useNavigate } from "react-router-dom";
+// import { publicRoutes, routes } from "../../utils/routes";
+import { routes } from "../../utils/routes";
 import logo from "../../Icons/Logo-HD.png";
 import styles from "./Navbar.module.css";
 import ButtonPrimary from "../buttons/ButtonPrimary";
-import { obtenerUsuario } from "../../utils/auth";
-import DropdownProfile from "../dropdown/DropdownProfile";
+// import { obtenerUsuario } from "../../utils/auth";
+// import DropdownProfile from "../dropdown/DropdownProfile";
 
 const Navbar = () => {
-  const usuario = obtenerUsuario();
+  // const usuario = obtenerUsuario();
   const navigate = useNavigate();
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const showLandingButtons = publicRoutes.includes(currentPath);
+  // const location = useLocation();
+  // const currentPath = location.pathname;
+  // const showLandingButtons = publicRoutes.includes(currentPath);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [ayudaDropdownOpen, setAyudaDropdownOpen] = useState(false);
@@ -87,33 +88,32 @@ const Navbar = () => {
         </div>
 
         {/* Botón cuando está en páginas públicas */}
-        {showLandingButtons && (
-          <ButtonPrimary
-            text="Contáctenos"
-            click={() => navigate(routes.contact)}
-          />
-        )}
-
-        {/* Dropdown usuario si está logeado */}
-        {!showLandingButtons && usuario && (
-          <div className={styles.userSection}>
-            <DropdownProfile
-              userName={usuario.nombre}
-              userAvatar={usuario.avatar}
-            />
-          </div>
-        )}
-
-        {/* Botón iniciar sesión si NO hay usuario */}
-        {!showLandingButtons && !usuario && (
-          <ButtonPrimary
-            text="Iniciar sesión"
-            click={() => navigate(routes.login)}
-          />
-        )}
+        <ButtonPrimary
+          text="Contáctenos"
+          click={() => navigate(routes.contact)}
+        />
       </div>
     </nav>
   );
 };
+
+// Comentado
+// {/* Dropdown usuario si está logeado */}
+// {!showLandingButtons && usuario && (
+//   <div className={styles.userSection}>
+//     <DropdownProfile
+//       userName={usuario.nombre}
+//       userAvatar={usuario.avatar}
+//     />
+//   </div>
+// )}
+
+// {/* Botón iniciar sesión si NO hay usuario */}
+// {!showLandingButtons && !usuario && (
+//   <ButtonPrimary
+//     text="Iniciar sesión"
+//     click={() => navigate(routes.login)}
+//   />
+// )}
 
 export default Navbar;
