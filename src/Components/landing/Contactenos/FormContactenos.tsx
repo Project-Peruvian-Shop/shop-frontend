@@ -5,9 +5,10 @@ import { obtenerUsuario } from "../../../utils/auth";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
-import { createContactenos } from "../../../services/mensajes.service";
+//import { createContactenos } from "../../../services/mensajes.service";
 import Error from "../../Errortxt/Error";
 import { CustomSelect } from "../../customSelect/CustomSelect";
+import emailjs from "@emailjs/browser";
 
 const FormContactenos = () => {
   const usuario = obtenerUsuario();
@@ -131,7 +132,7 @@ const FormContactenos = () => {
     setTimeout(() => setLoading(false), 3000);
 
     try {
-      const body = {
+      /*const body = {
         nombre,
         tipoDocumento,
         documento,
@@ -140,10 +141,27 @@ const FormContactenos = () => {
         contenido,
         tipo: "CONTACTENOS",
         usuario_id,
-      };
-      const response = await createContactenos(body);
+      };*/
+      // ==== EMAILJS ====
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_WEB,
+        {
+          title: "Formulario Contáctenos",
+          name: nombre,
+          document_type: tipoDocumento,
+          document_number: documento,
+          phone: telefono,
+          email: email,
+          time: new Date().toLocaleString(),
+          message_type: "CONTACTENOS",
+          message: contenido,
+        },
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
+      //const response = await createContactenos(body);
 
-      if (response) {
+      if (emailjs) {
         MySwal.fire({
           icon: "success",
           title: "¡Consulta enviada!",

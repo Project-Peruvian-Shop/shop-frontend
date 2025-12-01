@@ -3,13 +3,14 @@ import style from "./FormLibro.module.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { obtenerUsuario } from "../../../utils/auth";
-import { createLibroReclamaciones } from "../../../services/mensajes.service";
+//import { createLibroReclamaciones } from "../../../services/mensajes.service";
 import Error from "../../Errortxt/Error";
 import { CustomSelect } from "../../customSelect/CustomSelect";
+import emailjs from "@emailjs/browser";
 
 const FormLibro = () => {
   const usuario = obtenerUsuario();
-  const usuario_id = usuario ? usuario.id : null;
+ // const usuario_id = usuario ? usuario.id : null;
 
   const MySwal = withReactContent(Swal);
 
@@ -134,6 +135,7 @@ const FormLibro = () => {
     setTimeout(() => setLoading(false), 3000);
 
     try {
+      /*
       const body = {
         nombre,
         tipoDocumento,
@@ -144,9 +146,27 @@ const FormLibro = () => {
         tipo,
         usuario_id,
       };
-      const response = await createLibroReclamaciones(body);
+      const response = await createLibroReclamaciones(body);*/
+            // ==== EMAILJS ====
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_WEB,
+        {
+          title: "Formulario Libro de Reclamaciones",
+          name: nombre,
+          document_type: tipoDocumento,
+          document_number: documento,
+          phone: telefono,
+          email: email,
+          time: new Date().toLocaleString(),
+          message_type: "LIBRO DE RECLAMACIONES",
+          tipo_solicitud: "Tipo de solicitud: "+tipo,
+          message: contenido,
+        },
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
 
-      if (response) {
+      if (emailjs) {
         MySwal.fire({
           icon: "success",
           title: "¡Reclamación enviada!",
